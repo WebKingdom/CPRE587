@@ -35,3 +35,5 @@
 .venv
 */*img_data
 */*log_data
+*/*model_data
+*/*train_data
