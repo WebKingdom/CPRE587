@@ -32,16 +32,12 @@ Model buildToyModel(const fs::path modelPath) {
     // --- Conv 1: L1 ---
     // Input shape: 64x64x3
     // Output shape: 60x60x32
-
-    // You can pick how you want to implement your layers, both are allowed:
-
     // LayerParams conv1_inDataParam(sizeof(fp32), {64, 64, 3});
     // LayerParams conv1_outDataParam(sizeof(fp32), {60, 60, 32});
     // LayerParams conv1_weightParam(sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin");
     // LayerParams conv1_biasParam(sizeof(fp32), {32}, modelPath / "conv1_biases.bin");
     // auto conv1 = new ConvolutionalLayer(conv1_inDataParam, conv1_outDataParam, conv1_weightParam,
     // conv1_biasParam);
-
     auto conv1 = new ConvolutionalLayer(
         {{sizeof(fp32), {64, 64, 3}},                                     // Input Params
          {sizeof(fp32), {60, 60, 32}},                                    // Output Params
@@ -224,6 +220,26 @@ void runLayerTest(const std::size_t layerNum, const Model& model, const fs::path
     output.compareWithinPrint<Array3D_fp32>(expected);
 }
 
+void runMaxPoolLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+    // Load an image
+    logInfo("--- Running MaxPool Test ---");
+    dimVec inDims = {56, 56, 32};
+
+    // Construct a LayerData object from a LayerParams one
+    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_1_output.bin"});
+    img.loadData<Array3D_fp32>();
+
+    // Run infrence on the model
+    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+
+    // Compare the output
+    // Construct a LayerData object from a LayerParams one
+    dimVec outDims = model[layerNum]->getOutputParams().dims;
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_2_output.bin"});
+    expected.loadData<Array3D_fp32>();
+    output.compareWithinPrint<Array3D_fp32>(expected);
+}
+
 void runInfrenceTest(const Model& model, const fs::path& basePath) {
     // Load an image
     logInfo("--- Running Infrence Test ---");
@@ -266,6 +282,9 @@ int main(int argc, char** argv) {
 
     // Run a layer infrence test
     runLayerTest(0, model, basePath);
+
+    // Run 1st MaxPool layer test
+    runMaxPoolLayerTest(2, model, basePath);
 
     // Run an end-to-end infrence test
     runInfrenceTest(model, basePath);
