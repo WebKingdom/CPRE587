@@ -206,7 +206,7 @@ void runBasicTest(const Model& model, const fs::path& basePath) {
 
 void runLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Infrence Test ---");
+    logInfo("--- Running Inference Test ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one

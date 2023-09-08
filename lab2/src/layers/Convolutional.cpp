@@ -24,24 +24,28 @@ const fp64 ConvolutionalLayer::compute2DIntermediateResult(const LayerData& ifMa
     // error handling
     if (curChan >= maxChan) {
         logError("ERROR: curChan >= maxChan");
+        exit(1);
         return sum;
     }
     if (curRow >= maxRow) {
         logError("ERROR: curRow >= maxRow");
+        exit(1);
         return sum;
     }
     if (curCol >= maxCol) {
         logError("ERROR: curCol >= maxCol");
+        exit(1);
         return sum;
     }
     if (filterChans != maxChan) {
         logError("ERROR: filterChans != maxChan");
+        exit(1);
         return sum;
     }
 
     // compute 2D intermediate result
-    for (size_t rowIdx = curRow; rowIdx < filterRows; rowIdx++) {
-        for (size_t colIdx = curCol; colIdx < filterCols; colIdx++) {
+    for (size_t rowIdx = curRow; rowIdx < (curRow + filterRows); rowIdx++) {
+        for (size_t colIdx = curCol; colIdx < (curCol + filterCols); colIdx++) {
             sum +=
                 ifMap.getData<Array3D_fp32>()[rowIdx][colIdx][curChan] *
                 this->getWeightData().getData<Array4D_fp32>()[rowIdx][colIdx][curChan][curFilter];
@@ -64,23 +68,32 @@ const fp64 ConvolutionalLayer::compute3DIntermediateResult(const LayerData& ifMa
     // error handling
     if (curRow >= maxRow) {
         logError("ERROR: curRow >= maxRow");
+        exit(1);
         return sum;
     }
     if (curCol >= maxCol) {
         logError("ERROR: curCol >= maxCol");
+        exit(1);
         return sum;
     }
 
     // compute 3D intermediate result
-    for (size_t rowIdx = curRow; rowIdx < filterRows; rowIdx++) {
-        for (size_t colIdx = curCol; colIdx < filterCols; colIdx++) {
+    const size_t rowLimit = curRow + filterRows;
+    const size_t colLimit = curCol + filterCols;
+    for (size_t rowIdx = curRow; rowIdx < rowLimit; rowIdx++) {
+        for (size_t colIdx = curCol; colIdx < colLimit; colIdx++) {
             for (size_t chanIdx = 0; chanIdx < filterChans; chanIdx++) {
-                sum += ifMap.getData<Array3D_fp32>()[rowIdx][colIdx][chanIdx] *
-                       this->getWeightData()
-                           .getData<Array4D_fp32>()[rowIdx][colIdx][chanIdx][curFilter];
+                // logDebug("rowIdx: " + std::to_string(rowIdx) + ", " + std::to_string(curRow));
+                // logDebug("colIdx: " + std::to_string(colIdx) + ", " + std::to_string(curCol));
+                // logDebug("chanIdx: " + std::to_string(chanIdx));
+                const auto& ifMapData = ifMap.getData<Array3D_fp32>();
+                const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
+                sum += ifMapData[rowIdx][colIdx][chanIdx] *
+                       weightData[rowIdx - curRow][colIdx - curCol][chanIdx][curFilter];
             }
         }
     }
+    // logDebug("sum: " + std::to_string(sum) + "\n");
     return sum;
 }
 
@@ -88,6 +101,12 @@ const fp64 ConvolutionalLayer::compute3DIntermediateResult(const LayerData& ifMa
 void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     if (!dataIn.isAlloced() || !dataIn.isValid()) {
         logError("ERROR: dataIn not allocated or not valid");
+        exit(1);
+        return;
+    }
+    if (!this->isOutputBufferAlloced() || !this->getOutputData().isValid()) {
+        logError("ERROR: output buffer not allocated or not valid");
+        exit(1);
         return;
     }
     const auto numFilters = this->getWeightParams().dims.at(3);
@@ -97,13 +116,20 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     const auto maxRow = dataIn.getParams().dims.at(0) - filterRows + 1;
     const auto maxCol = dataIn.getParams().dims.at(1) - filterCols + 1;
     const auto maxChan = dataIn.getParams().dims.at(2);
+    // logDebug("numFilters: " + std::to_string(numFilters));
+    // logDebug("filterRows: " + std::to_string(filterRows));
+    // logDebug("filterCols: " + std::to_string(filterCols));
+    // logDebug("filterChans: " + std::to_string(filterChans));
+    // logDebug("maxRow: " + std::to_string(maxRow));
+    // logDebug("maxCol: " + std::to_string(maxCol));
+    // logDebug("maxChan: " + std::to_string(maxChan));
 
     // error handling
     if (filterChans != maxChan) {
         logError("ERROR: filterChans != maxChan");
+        exit(1);
         return;
     }
-    logDebug("DEBUG: computeNaive in ConvolutionalLayer");
 
     // for each filter, for each input channel, compute intermediate result (2D convolution),
     // then add then up, and then add bias
@@ -119,8 +145,8 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                     compute3DIntermediateResult(dataIn, rowIdx, colIdx, filterIdx);
                 intermediateOut += this->getBiasData().getData<Array1D_fp32>()[filterIdx];
                 intermediateOut = std::max(intermediateOut, (fp64)0);
-                this->getOutputData().getData<Array3D_fp32>()[rowIdx][colIdx][filterIdx] =
-                    intermediateOut;
+                const auto& outData = this->getOutputData().getData<Array3D_fp32>();
+                outData[rowIdx][colIdx][filterIdx] = intermediateOut;
             }
         }
     }
