@@ -7,7 +7,8 @@
 namespace ML {
 class ConvolutionalLayer : public Layer {
    public:
-    ConvolutionalLayer(const LayerParams inParams, const LayerParams outParams, const LayerParams weightParams, const LayerParams biasParams)
+    ConvolutionalLayer(const LayerParams inParams, const LayerParams outParams,
+                       const LayerParams weightParams, const LayerParams biasParams)
         : Layer(inParams, outParams, LayerType::CONVOLUTIONAL),
           weightParam(weightParams),
           weightData(weightParams),
@@ -21,14 +22,16 @@ class ConvolutionalLayer : public Layer {
     const LayerData& getBiasData() const { return biasData; }
 
     // Allocate all resources needed for the layer & Load all of the required data for the layer
-    template <typename T> void allocateLayer() {
+    template <typename T>
+    void allocateLayer() {
         Layer::allocateOutputBuffer<Array3D<T>>();
         weightData.loadData<Array4D<T>>();
         biasData.loadData<Array1D<T>>();
     }
 
     // Free all resources allocated for the layer
-    template <typename T> void freeLayer() {
+    template <typename T>
+    void freeLayer() {
         Layer::freeOutputBuffer<Array3D<T>>();
         weightData.freeData<Array4D<T>>();
         biasData.freeData<Array1D<T>>();
@@ -46,6 +49,15 @@ class ConvolutionalLayer : public Layer {
 
     LayerParams biasParam;
     LayerData biasData;
+
+    // computes the intermediate result for a single filter and input channel
+    const fp64 compute2DIntermediateResult(const LayerData& ifMap, const size_t curRow,
+                                           const size_t curCol, const size_t curChan,
+                                           const size_t curFilter) const;
+
+    // computes the intermediate result for a single filter and all input channels
+    const fp64 compute3DIntermediateResult(const LayerData& ifMap, const size_t curRow,
+                                           const size_t curCol, const size_t curFilter) const;
 };
 
 }  // namespace ML

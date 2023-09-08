@@ -9,10 +9,10 @@
 #include "Utils.h"
 #include "layers/Convolutional.h"
 #include "layers/Dense.h"
+#include "layers/Flatten.h"
 #include "layers/Layer.h"
 #include "layers/MaxPooling.h"
 #include "layers/Softmax.h"
-#include "layers/Flatten.h"
 
 #ifdef ZEDBOARD
 #include "ML.h"
@@ -39,116 +39,130 @@ Model buildToyModel(const fs::path modelPath) {
     // LayerParams conv1_outDataParam(sizeof(fp32), {60, 60, 32});
     // LayerParams conv1_weightParam(sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin");
     // LayerParams conv1_biasParam(sizeof(fp32), {32}, modelPath / "conv1_biases.bin");
-    // auto conv1 = new ConvolutionalLayer(conv1_inDataParam, conv1_outDataParam, conv1_weightParam, conv1_biasParam);
+    // auto conv1 = new ConvolutionalLayer(conv1_inDataParam, conv1_outDataParam, conv1_weightParam,
+    // conv1_biasParam);
 
-    auto conv1 = new ConvolutionalLayer({{sizeof(fp32), {64, 64, 3}},                                     // Input Data
-                                         {sizeof(fp32), {60, 60, 32}},                                    // Output Data
-                                         {sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weights
-                                         {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"}});          // Bias
+    auto conv1 = new ConvolutionalLayer(
+        {{sizeof(fp32), {64, 64, 3}},                                     // Input Params
+         {sizeof(fp32), {60, 60, 32}},                                    // Output Params
+         {sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
+         {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"}});          // Bias params
     model.addLayer(conv1);
 
     // TODO ssz implement and add layers
     // --- Conv 2: L2 ---
     // Input shape: 60x60x32
     // Output shape: 56x56x32
-    auto conv2 = new ConvolutionalLayer({{sizeof(fp32), {60, 60, 32}},                                     // Input Data
-                                         {sizeof(fp32), {56, 56, 32}},                                     // Output Data
-                                         {sizeof(fp32), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
-                                         {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"}});           // Bias
+    auto conv2 = new ConvolutionalLayer(
+        {{sizeof(fp32), {60, 60, 32}},                                     // Input Data
+         {sizeof(fp32), {56, 56, 32}},                                     // Output Data
+         {sizeof(fp32), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
+         {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"}});           // Bias
     model.addLayer(conv2);
 
     // --- MPL 1: L3 ---
     // Input shape: 56x56x32
     // Output shape: 28x28x32
-    auto maxPool1 = new MaxPoolingLayer({{sizeof(fp32), {56, 56, 32}},  // Input Data
-                                         {sizeof(fp32), {28, 28, 32}}   // Output Data
-                                         });
+    auto maxPool1 = new MaxPoolingLayer({
+        {sizeof(fp32), {56, 56, 32}},  // Input Data
+        {sizeof(fp32), {28, 28, 32}}   // Output Data
+    });
     model.addLayer(maxPool1);
 
     // --- Conv 3: L4 ---
     // Input shape: 28x28x32
     // Output shape: 26x26x64
-    auto conv3 = new ConvolutionalLayer({{sizeof(fp32), {28, 28, 32}},                                     // Input Data
-                                         {sizeof(fp32), {26, 26, 64}},                                     // Output Data
-                                         {sizeof(fp32), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
-                                         {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"}});           // Bias
+    auto conv3 = new ConvolutionalLayer(
+        {{sizeof(fp32), {28, 28, 32}},                                     // Input Data
+         {sizeof(fp32), {26, 26, 64}},                                     // Output Data
+         {sizeof(fp32), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
+         {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"}});           // Bias
     model.addLayer(conv3);
 
     // --- Conv 4: L5 ---
     // Input shape: 26x26x64
     // Output shape: 24x24x64
-    auto conv4 = new ConvolutionalLayer({{sizeof(fp32), {26, 26, 64}},                                     // Input Data
-                                         {sizeof(fp32), {24, 24, 64}},                                     // Output Data
-                                         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
-                                         {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"}});           // Bias
+    auto conv4 = new ConvolutionalLayer(
+        {{sizeof(fp32), {26, 26, 64}},                                     // Input Data
+         {sizeof(fp32), {24, 24, 64}},                                     // Output Data
+         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
+         {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"}});           // Bias
     model.addLayer(conv4);
 
     // --- MPL 2: L6 ---
     // Input shape: 24x24x64
     // Output shape: 12x12x64
-    auto maxPool2 = new MaxPoolingLayer({{sizeof(fp32), {24, 24, 64}},  // Input Data
-                                         {sizeof(fp32), {12, 12, 64}}   // Output Data
-                                         });
+    auto maxPool2 = new MaxPoolingLayer({
+        {sizeof(fp32), {24, 24, 64}},  // Input Data
+        {sizeof(fp32), {12, 12, 64}}   // Output Data
+    });
     model.addLayer(maxPool2);
 
     // --- Conv 5: L7 ---
     // Input shape: 12x12x64
     // Output shape: 10x10x64
-    auto conv5 = new ConvolutionalLayer({{sizeof(fp32), {12, 12, 64}},                                     // Input Data
-                                         {sizeof(fp32), {10, 10, 64}},                                     // Output Data
-                                         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
-                                         {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"}});           // Bias
+    auto conv5 = new ConvolutionalLayer(
+        {{sizeof(fp32), {12, 12, 64}},                                     // Input Data
+         {sizeof(fp32), {10, 10, 64}},                                     // Output Data
+         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
+         {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"}});           // Bias
     model.addLayer(conv5);
 
     // --- Conv 6: L8 ---
     // Input shape: 10x10x64
     // Output shape: 8x8x128
-    auto conv6 = new ConvolutionalLayer({{sizeof(fp32), {10, 10, 64}},                                      // Input Data
-                                         {sizeof(fp32), {8, 8, 128}},                                       // Output Data
-                                         {sizeof(fp32), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
-                                         {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"}});           // Bias
+    auto conv6 = new ConvolutionalLayer(
+        {{sizeof(fp32), {10, 10, 64}},                                      // Input Data
+         {sizeof(fp32), {8, 8, 128}},                                       // Output Data
+         {sizeof(fp32), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
+         {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"}});           // Bias
     model.addLayer(conv6);
 
     // --- MPL 3: L9 ---
     // Input shape: 8x8x128
     // Output shape: 4x4x128
-    auto maxPool3 = new MaxPoolingLayer({{sizeof(fp32), {8, 8, 128}},  // Input Data
-                                         {sizeof(fp32), {4, 4, 128}}  // Output Data
-                                         });
+    auto maxPool3 = new MaxPoolingLayer({
+        {sizeof(fp32), {8, 8, 128}},  // Input Data
+        {sizeof(fp32), {4, 4, 128}}   // Output Data
+    });
     model.addLayer(maxPool3);
 
     // --- Flatten 1: L10 ---
     // Input shape: 4x4x128
     // Output shape: 2048
-    auto flatten1 = new FlattenLayer({{sizeof(fp32), {4, 4, 128}},  // Input Data
-                                      {sizeof(fp32), {2048}}        // Output Data
-                                      });
+    auto flatten1 = new FlattenLayer({
+        {sizeof(fp32), {4, 4, 128}},  // Input Data
+        {sizeof(fp32), {2048}}        // Output Data
+    });
     model.addLayer(flatten1);
 
     // --- Dense 1: L11 ---
     // Input shape: 2048
     // Output shape: 256
-    auto dense1 = new DenseLayer({{sizeof(fp32), {2048}},                                     // Input Data
-                                  {sizeof(fp32), {256}},                                      // Output Data
-                                  {sizeof(fp32), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
-                                  {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"}});     // Bias
+    auto dense1 =
+        new DenseLayer({{sizeof(fp32), {2048}},  // Input Data
+                        {sizeof(fp32), {256}},   // Output Data
+                        {sizeof(fp32), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
+                        {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"}});       // Bias
     model.addLayer(dense1);
 
     // --- Dense 2: L12 ---
     // Input shape: 256
     // Output shape: 200
-    auto dense2 = new DenseLayer({{sizeof(fp32), {256}},                                     // Input Data
-                                  {sizeof(fp32), {200}},                                      // Output Data
-                                  {sizeof(fp32), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
-                                  {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"}});     // Bias
+    auto dense2 =
+        new DenseLayer({{sizeof(fp32), {256}},  // Input Data
+                        {sizeof(fp32), {200}},  // Output Data
+                        {sizeof(fp32), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
+                        {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"}});      // Bias
     model.addLayer(dense2);
 
     // --- Softmax 1: L13 ---
     // Input shape: 200
     // Output shape: 200
-    auto softmax1 = new SoftmaxLayer({{sizeof(fp32), {200}},  // Input Data
-                                      {sizeof(fp32), {200}}   // Output Data
-                                      });
+    auto softmax1 = new SoftmaxLayer({
+        {sizeof(fp32), {200}},  // Input Data
+        {sizeof(fp32), {200}}   // Output Data
+    });
     model.addLayer(softmax1);
 
     return model;
@@ -163,8 +177,10 @@ void runBasicTest(const Model& model, const fs::path& basePath) {
     Array3D_fp32 img = loadArray<Array3D_fp32>(imgPath, dims);
 
     // Compare images
-    std::cout << "Comparing image 0 to itself (max error): " << compareArray<Array3D_fp32>(img, img, dims) << std::endl
-              << "Comparing image 0 to itself (T/F within epsilon " << ML::Config::EPSILON << "): " << std::boolalpha
+    std::cout << "Comparing image 0 to itself (max error): "
+              << compareArray<Array3D_fp32>(img, img, dims) << std::endl
+              << "Comparing image 0 to itself (T/F within epsilon " << ML::Config::EPSILON
+              << "): " << std::boolalpha
               << compareArrayWithin<Array3D_fp32>(img, img, dims, ML::Config::EPSILON) << std::endl;
 
     // Test again with a modified copy
