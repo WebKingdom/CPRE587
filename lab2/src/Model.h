@@ -3,6 +3,7 @@
 
 #include "layers/Convolutional.h"
 #include "layers/Dense.h"
+#include "layers/Flatten.h"
 #include "layers/Layer.h"
 #include "layers/MaxPooling.h"
 #include "layers/Softmax.h"
@@ -14,8 +15,10 @@ class Model {
     Model() : layers() {}  //, checkFinal(true), checkEachLayer(false) {}
 
     // Functions
-    const LayerData& infrence(const LayerData& inData, const Layer::InfType infType = Layer::InfType::NAIVE) const;
-    const LayerData& infrenceLayer(const LayerData& inData, const int layerNum, const Layer::InfType infType = Layer::InfType::NAIVE) const;
+    const LayerData& infrence(const LayerData& inData,
+                              const Layer::InfType infType = Layer::InfType::NAIVE) const;
+    const LayerData& infrenceLayer(const LayerData& inData, const int layerNum,
+                                   const Layer::InfType infType = Layer::InfType::NAIVE) const;
 
     // Internal memory management
     // Allocate the internal output buffers for each layer in the model
@@ -51,8 +54,10 @@ class Model {
     const Layer* operator[](const std::size_t idx) const { return layers[idx]; }
 
     // Call operators (run infrence)
-    const LayerData& operator()(const LayerData& inData, const Layer::InfType infType = Layer::InfType::NAIVE) const;
-    const LayerData& operator()(const LayerData& inData, const int layerNum, const Layer::InfType infType = Layer::InfType::NAIVE) const;
+    const LayerData& operator()(const LayerData& inData,
+                                const Layer::InfType infType = Layer::InfType::NAIVE) const;
+    const LayerData& operator()(const LayerData& inData, const int layerNum,
+                                const Layer::InfType infType = Layer::InfType::NAIVE) const;
 
    private:
     std::vector<Layer*> layers;
@@ -68,21 +73,17 @@ void Model::allocLayers() {
                 ((ConvolutionalLayer*)layers[i])->allocateLayer<T>();
                 break;
             case Layer::LayerType::DENSE:
-                assert(false && "Cannot allocate unimplemented layer");
-            //     ((DenseLayer*) layers[i])->allocateLayer<T>();
-            //     break;
+                ((DenseLayer*)layers[i])->allocateLayer<T>();
+                break;
             case Layer::LayerType::SOFTMAX:
-                assert(false && "Cannot allocate unimplemented layer");
-            //     ((SoftmaxLayer*) layers[i])->allocateLayer<T>();
-            //     break;
+                ((SoftmaxLayer*)layers[i])->allocateLayer<T>();
+                break;
             case Layer::LayerType::MAX_POOLING:
-                assert(false && "Cannot allocate unimplemented layer");
-            //     ((MaxPoolingLayer*) layers[i])->allocateLayer<T>();
-            //     break;
+                ((MaxPoolingLayer*)layers[i])->allocateLayer<T>();
+                break;
             case Layer::LayerType::FLATTEN:
-                assert(false && "Cannot allocate unimplemented layer");
-            //     ((FlattenLayer*) layers[i])->allocateLayer<T>();
-            //     break;
+                ((FlattenLayer*)layers[i])->allocateLayer<T>();
+                break;
             case Layer::LayerType::NONE:
                 [[fallthrough]];
             default:
@@ -104,17 +105,17 @@ void Model::freeLayers() {
                 ((ConvolutionalLayer*)layers[i])->freeLayer<T>();
                 break;
             case Layer::LayerType::DENSE:
-            //     ((DenseLayer*) layers[i])->freeLayer<T>();
-            //     break;
+                ((DenseLayer*)layers[i])->freeLayer<T>();
+                break;
             case Layer::LayerType::SOFTMAX:
-            //     ((SoftmaxLayer*) layers[i])->freeLayer<T>();
-            //     break;
+                ((SoftmaxLayer*)layers[i])->freeLayer<T>();
+                break;
             case Layer::LayerType::MAX_POOLING:
-            //     ((MaxPoolingLayer*) layers[i])->freeLayer<T>();
-            //     break;
+                ((MaxPoolingLayer*)layers[i])->freeLayer<T>();
+                break;
             case Layer::LayerType::FLATTEN:
-            //     ((FlattenLayer*) layers[i])->freeLayer<T>();
-            //     break;
+                ((FlattenLayer*)layers[i])->freeLayer<T>();
+                break;
             case Layer::LayerType::NONE:
                 [[fallthrough]];
             default:

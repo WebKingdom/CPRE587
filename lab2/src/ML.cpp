@@ -12,6 +12,7 @@
 #include "layers/Layer.h"
 #include "layers/MaxPooling.h"
 #include "layers/Softmax.h"
+#include "layers/Flatten.h"
 
 #ifdef ZEDBOARD
 #include "ML.h"

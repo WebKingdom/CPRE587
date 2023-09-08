@@ -23,4 +23,4 @@ void FlattenLayer::computeSIMD(const LayerData& dataIn) const {
     // TODO 
 }
 
-};  // namespace ML
+}  // namespace ML
