@@ -11,8 +11,10 @@ namespace ML {
 // Layer Parameter structure
 class LayerParams {
    public:
-    LayerParams(const std::size_t elementSize, const std::vector<std::size_t> dims) : LayerParams(elementSize, dims, "") {}
-    LayerParams(const std::size_t elementSize, const std::vector<std::size_t> dims, const std::filesystem::path filePath)
+    LayerParams(const std::size_t elementSize, const std::vector<std::size_t> dims)
+        : LayerParams(elementSize, dims, "") {}
+    LayerParams(const std::size_t elementSize, const std::vector<std::size_t> dims,
+                const std::filesystem::path filePath)
         : elementSize(elementSize), dims(dims), filePath(filePath) {}
 
     bool isCompatible(const LayerParams& params) const;
@@ -35,7 +37,9 @@ class LayerData {
 
     // Get the data pointer and cast it
     template <typename T>
-    T getData() const { return reinterpret_cast<T>(data); }
+    T getData() const {
+        return reinterpret_cast<T>(data);
+    }
 
     // Allocate data values
     template <typename T>
@@ -71,18 +75,10 @@ class LayerData {
 class Layer {
    public:
     // Inference Type
-    enum class InfType { NAIVE,
-                         THREADED,
-                         TILED,
-                         SIMD };
+    enum class InfType { NAIVE, THREADED, TILED, SIMD };
 
     // Layer Type
-    enum class LayerType { NONE,
-                           CONVOLUTIONAL,
-                           DENSE,
-                           SOFTMAX,
-                           MAX_POOLING,
-                           FLATTEN };
+    enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING, FLATTEN };
 
    public:
     // Constructors
@@ -167,14 +163,17 @@ float LayerData::compare(const LayerData& other) const {
 
     // Warn if we are not comparing the same data type
     if (aParams.elementSize != bParams.elementSize) {
-        std::cerr << "Comparison between two LayerData arrays with different element size (and possibly data types) is not advised (" << aParams.elementSize
-                  << " and " << bParams.elementSize << ")\n";
+        std::cerr << "Comparison between two LayerData arrays with different element size (and "
+                     "possibly data types) is not advised ("
+                  << aParams.elementSize << " and " << bParams.elementSize << ")\n";
     }
-    assert(aParams.dims.size() == bParams.dims.size() && "LayerData arrays must have the same number of dimentions");
+    assert(aParams.dims.size() == bParams.dims.size() &&
+           "LayerData arrays must have the same number of dimentions");
 
     // Ensure each dimention size matches
     for (std::size_t i = 0; i < aParams.dims.size(); i++) {
-        assert(aParams.dims[i] == bParams.dims[i] && "LayerData arrays must have the same size dimentions to be compared");
+        assert(aParams.dims[i] == bParams.dims[i] &&
+               "LayerData arrays must have the same size dimentions to be compared");
     }
 
     return compareArray<T>(getData<T>(), other.getData<T>(), aParams.dims);
@@ -193,9 +192,13 @@ bool LayerData::compareWithinPrint(const LayerData& other, const T_EP epsilon) c
 
 // Allocate the layer output buffer
 template <typename T>
-void Layer::allocateOutputBuffer() { outData.allocData<T>(); }
+void Layer::allocateOutputBuffer() {
+    outData.allocData<T>();
+}
 
 // Deallocate the layer output buffer
 template <typename T>
-void Layer::freeOutputBuffer() { outData.freeData<T>(); }
+void Layer::freeOutputBuffer() {
+    outData.freeData<T>();
+}
 }  // namespace ML
