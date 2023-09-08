@@ -51,13 +51,13 @@ class ConvolutionalLayer : public Layer {
     LayerData biasData;
 
     // computes the intermediate result for a single filter and input channel
-    const fp64 compute2DIntermediateResult(const LayerData& ifMap, const size_t curRow,
-                                           const size_t curCol, const size_t curChan,
-                                           const size_t curFilter) const;
+    const fp64 compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
+                                           const size curCol, const size curChan,
+                                           const size curFilter) const;
 
     // computes the intermediate result for a single filter and all input channels
-    const fp64 compute3DIntermediateResult(const LayerData& ifMap, const size_t curRow,
-                                           const size_t curCol, const size_t curFilter) const;
+    const fp64 compute3DIntermediateResult(const LayerData& ifMap, const size curRow,
+                                           const size curCol, const size curFilter) const;
 };
 
 }  // namespace ML
