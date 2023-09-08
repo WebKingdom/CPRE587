@@ -32,7 +32,8 @@
 *.app
 
 # custom ignores
-.venv
+*.venv
+*.vscode
 # */*img_data
 # */*log_data
 # */*model_data

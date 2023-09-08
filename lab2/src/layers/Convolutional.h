@@ -27,7 +27,7 @@ class ConvolutionalLayer : public Layer {
         biasData.loadData<Array1D<T>>();
     }
 
-    // Fre all resources allocated for the layer
+    // Free all resources allocated for the layer
     template <typename T> void freeLayer() {
         Layer::freeOutputBuffer<Array3D<T>>();
         weightData.freeData<Array4D<T>>();

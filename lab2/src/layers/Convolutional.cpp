@@ -9,7 +9,7 @@
 namespace ML {
 // --- Begin Student Code ---
 
-// Compute the convultion for the layer data
+// Compute the convolution for the layer data
 void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     // TODO: Your Code Here...
 }

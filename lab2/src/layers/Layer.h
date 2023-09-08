@@ -23,7 +23,7 @@ class LayerParams {
     const std::filesystem::path filePath;
 };
 
-// Output data container of a layer infrence
+// Output data container of a layer inference
 class LayerData {
    public:
     LayerData(const LayerParams& params) : params(params), alloced(false), data(nullptr) {}
@@ -34,25 +34,32 @@ class LayerData {
     const LayerParams& getParams() const { return params; }
 
     // Get the data pointer and cast it
-    template <typename T> T getData() const { return reinterpret_cast<T>(data); }
+    template <typename T>
+    T getData() const { return reinterpret_cast<T>(data); }
 
     // Allocate data values
-    template <typename T> inline void allocData();
+    template <typename T>
+    inline void allocData();
 
     // Load data values
-    template <typename T> inline void loadData();
+    template <typename T>
+    inline void loadData();
 
     // Clean up data values
-    template <typename T> inline void freeData();
+    template <typename T>
+    inline void freeData();
 
     // Get the max difference between two Layer Data arrays
-    template <typename T> float compare(const LayerData& other) const;
+    template <typename T>
+    float compare(const LayerData& other) const;
 
     // Compare within an Epsilon to ensure layer datas are similar within reason
-    template <typename T, typename T_EP = float> bool compareWithin(const LayerData& other, const T_EP epsilon = Config::EPSILON) const;
+    template <typename T, typename T_EP = float>
+    bool compareWithin(const LayerData& other, const T_EP epsilon = Config::EPSILON) const;
 
     // Compare within an Epsilon to ensure layer datas are similar within reason
-    template <typename T, typename T_EP = float> bool compareWithinPrint(const LayerData& other, const T_EP epsilon = Config::EPSILON) const;
+    template <typename T, typename T_EP = float>
+    bool compareWithinPrint(const LayerData& other, const T_EP epsilon = Config::EPSILON) const;
 
    private:
     LayerParams params;
@@ -63,14 +70,22 @@ class LayerData {
 // Base class all layers extend from
 class Layer {
    public:
-    // Infrence Type
-    enum class InfType { NAIVE, THREADED, TILED, SIMD };
+    // Inference Type
+    enum class InfType { NAIVE,
+                         THREADED,
+                         TILED,
+                         SIMD };
 
     // Layer Type
-    enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING };
+    enum class LayerType { NONE,
+                           CONVOLUTIONAL,
+                           DENSE,
+                           SOFTMAX,
+                           MAX_POOLING,
+                           FLATTEN };
 
    public:
-    // Contructors
+    // Constructors
     Layer(const LayerParams inParams, const LayerParams outParams, LayerType lType)
         : inParams(inParams), outParams(outParams), outData(outParams), lType(lType) {}
     virtual ~Layer() {}
@@ -90,9 +105,11 @@ class Layer {
     virtual void computeSIMD(const LayerData& dataIn) const = 0;
 
    protected:
-    template <typename T> void allocateOutputBuffer();
+    template <typename T>
+    void allocateOutputBuffer();
 
-    template <typename T> void freeOutputBuffer();
+    template <typename T>
+    void freeOutputBuffer();
 
    private:
     LayerParams inParams;
@@ -104,7 +121,8 @@ class Layer {
 };
 
 // Allocate data values
-template <typename T> void LayerData::allocData() {
+template <typename T>
+void LayerData::allocData() {
     if (!alloced) {
         data = reinterpret_cast<void*>(allocArray<T>(params.dims));
         alloced = true;
@@ -114,7 +132,8 @@ template <typename T> void LayerData::allocData() {
 }
 
 // Load data values
-template <typename T> inline void LayerData::loadData() {
+template <typename T>
+inline void LayerData::loadData() {
     // Ensure a file path to load data from has been given
     assert(!params.filePath.empty() && "No file path given for required layer data to load from");
 
@@ -129,7 +148,8 @@ template <typename T> inline void LayerData::loadData() {
 }
 
 // Clean up data values
-template <typename T> void LayerData::freeData() {
+template <typename T>
+void LayerData::freeData() {
     if (alloced) {
         freeArray<T>(reinterpret_cast<T>(data), params.dims);
         data = nullptr;
@@ -140,7 +160,8 @@ template <typename T> void LayerData::freeData() {
 }
 
 // Get the max difference between two Layer Data arrays
-template <typename T> float LayerData::compare(const LayerData& other) const {
+template <typename T>
+float LayerData::compare(const LayerData& other) const {
     LayerParams aParams = getParams();
     LayerParams bParams = other.getParams();
 
@@ -160,17 +181,21 @@ template <typename T> float LayerData::compare(const LayerData& other) const {
 }
 
 // Compare within an Epsilon to ensure layer datas are similar within reason
-template <typename T, typename T_EP = float> bool LayerData::compareWithin(const LayerData& other, const T_EP epsilon) const {
+template <typename T, typename T_EP = float>
+bool LayerData::compareWithin(const LayerData& other, const T_EP epsilon) const {
     return epsilon > compare<T>(other);
 }
 
-template <typename T, typename T_EP = float> bool LayerData::compareWithinPrint(const LayerData& other, const T_EP epsilon) const {
+template <typename T, typename T_EP = float>
+bool LayerData::compareWithinPrint(const LayerData& other, const T_EP epsilon) const {
     return compareArrayWithinPrint(getData<T>(), other.getData<T>(), params.dims, epsilon);
 }
 
 // Allocate the layer output buffer
-template <typename T> void Layer::allocateOutputBuffer() { outData.allocData<T>(); }
+template <typename T>
+void Layer::allocateOutputBuffer() { outData.allocData<T>(); }
 
 // Deallocate the layer output buffer
-template <typename T> void Layer::freeOutputBuffer() { outData.freeData<T>(); }
+template <typename T>
+void Layer::freeOutputBuffer() { outData.freeData<T>(); }
 }  // namespace ML

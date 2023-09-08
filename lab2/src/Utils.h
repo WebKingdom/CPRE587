@@ -15,23 +15,23 @@
 
 // Check for string formatting support
 #if __has_include(<format>)
-#    include <format>
-#    include <string_view>
+#include <format>
+#include <string_view>
 using std::format;
 using std::make_format_args;
 #elif __has_include(<fmt/core.h>)
-//#define FMT_HEADER_ONLY
-#    include <fmt/core.h>
+// #define FMT_HEADER_ONLY
+#include <fmt/core.h>
 using fmt::make_format_args;
 using fmt::vformat;
 #else
-#    define STR_FORMAT_NONE
+#define STR_FORMAT_NONE
 #endif
 
 #ifdef ZEDBOARD
-#    include "xilsd.h"
+#include "xilsd.h"
 #else
-#    include <argp.h>
+#include <argp.h>
 #endif
 
 namespace ML {
@@ -80,10 +80,12 @@ class LogMod {
 // TODO: Use fmt lib formatting for colors and other styles instead if available
 // Log a non-decorated message
 #ifndef STR_FORMAT_NONE
-template <typename... Args> inline void log(const std::string_view& fmt_str, Args&&... args) {
+template <typename... Args>
+inline void log(const std::string_view& fmt_str, Args&&... args) {
     std::string msg = vformat(fmt_str, make_format_args(args...));
 #else
-template <typename... Args> inline void log(const std::string& msg, Args&&... args) {
+template <typename... Args>
+inline void log(const std::string& msg, Args&&... args) {
 #endif
     if (Config::FANCY_LOGGING)
         std::cout << msg << std::endl;
@@ -93,10 +95,12 @@ template <typename... Args> inline void log(const std::string& msg, Args&&... ar
 
 // Log a info Message
 #ifndef STR_FORMAT_NONE
-template <typename... Args> inline void logInfo(const std::string_view& fmt_str, Args&&... args) {
+template <typename... Args>
+inline void logInfo(const std::string_view& fmt_str, Args&&... args) {
     std::string msg = vformat(fmt_str, make_format_args(args...));
 #else
-template <typename... Args> inline void logInfo(const std::string& msg, Args&&... args) {
+template <typename... Args>
+inline void logInfo(const std::string& msg, Args&&... args) {
 #endif
     if (Config::FANCY_LOGGING)
         std::cout << "[" << LogMod(CCode::FG_CYAN) << "Info" << LogMod(CCode::FG_DEFAULT) << "]: " << msg << std::endl;
@@ -106,10 +110,12 @@ template <typename... Args> inline void logInfo(const std::string& msg, Args&&..
 
 // Log a debug Message
 #ifndef STR_FORMAT_NONE
-template <typename... Args> inline void logDebug(const std::string_view& fmt_str, Args&&... args) {
+template <typename... Args>
+inline void logDebug(const std::string_view& fmt_str, Args&&... args) {
     std::string msg = vformat(fmt_str, make_format_args(args...));
 #else
-template <typename... Args> inline void logDebug(const std::string& msg, Args&&... args) {
+template <typename... Args>
+inline void logDebug(const std::string& msg, Args&&... args) {
 #endif
     if (Config::FANCY_LOGGING)
         std::cout << "[" << LogMod(CCode::FG_GREEN) << "Debug" << LogMod(CCode::FG_DEFAULT) << "]: " << msg << std::endl;
@@ -119,10 +125,12 @@ template <typename... Args> inline void logDebug(const std::string& msg, Args&&.
 
 // Log a warning Message
 #ifndef STR_FORMAT_NONE
-template <typename... Args> inline void logWarn(const std::string_view& fmt_str, Args&&... args) {
+template <typename... Args>
+inline void logWarn(const std::string_view& fmt_str, Args&&... args) {
     std::string msg = vformat(fmt_str, make_format_args(args...));
 #else
-template <typename... Args> inline void logWarn(const std::string& msg, Args&&... args) {
+template <typename... Args>
+inline void logWarn(const std::string& msg, Args&&... args) {
 #endif
     if (Config::FANCY_LOGGING)
         std::cout << "[" << LogMod(CCode::FG_YELLOW) << "Warning" << LogMod(CCode::FG_DEFAULT) << "]: " << msg << std::endl;
@@ -132,10 +140,12 @@ template <typename... Args> inline void logWarn(const std::string& msg, Args&&..
 
 // Log an error Message
 #ifndef STR_FORMAT_NONE
-template <typename... Args> inline void logError(const std::string_view& fmt_str, Args&&... args) {
+template <typename... Args>
+inline void logError(const std::string_view& fmt_str, Args&&... args) {
     std::string msg = vformat(fmt_str, make_format_args(args...));
 #else
-template <typename... Args> inline void logError(const std::string& msg, Args&&... args) {
+template <typename... Args>
+inline void logError(const std::string& msg, Args&&... args) {
 #endif
     if (Config::FANCY_LOGGING)
         std::cerr << "[" << LogMod(CCode::FG_RED) << "Error" << LogMod(CCode::FG_DEFAULT) << "]: " << msg << std::endl;
@@ -199,9 +209,9 @@ class FuncTimer {
 
 #ifndef DISABLE_TIMING
 static constexpr inline void dummy_fn() {}
-#    define START_FUNC_TIMER(...) dummy_fn()
+#define START_FUNC_TIMER(...) dummy_fn()
 #else
-#    define START_FUNC_TIMER(title) FuncTimer timer(__FUNCTION__, title)
+#define START_FUNC_TIMER(title) FuncTimer timer(__FUNCTION__, title)
 #endif
 
 #define START_TIMER() \
@@ -211,7 +221,8 @@ static constexpr inline void dummy_fn() {}
     {               \
         const std::chrono::time_point<std::chrono::steady_clock> __timerStart;
 
-template <typename T_FUNC, typename... Args> typename std::result_of<T_FUNC && (Args && ...)>::type timeFunc(T_FUNC&& fn, Args&&... args) {
+template <typename T_FUNC, typename... Args>
+typename std::result_of<T_FUNC && (Args && ...)>::type timeFunc(T_FUNC&& fn, Args&&... args) {
     START_FUNC_TIMER("Timer:");
     return fn(std::forward<Args>(args)...);
 }
@@ -262,18 +273,26 @@ class Args {
 #endif
 
 // Metaprogramming type helpers
-template <typename T> struct remove_all_pointers { typedef T type; };
+template <typename T>
+struct remove_all_pointers {
+    typedef T type;
+};
 
-template <typename T> struct remove_all_pointers<T*> { typedef typename remove_all_pointers<T>::type type; };
+template <typename T>
+struct remove_all_pointers<T*> {
+    typedef typename remove_all_pointers<T>::type type;
+};
 
 // --- Implmentation ---
 
 // --- Data Helper Functions ---
 // Type cast helpers
-template <typename T> inline T castData(const void* data) { return (T)data; }
+template <typename T>
+inline T castData(const void* data) { return (T)data; }
 
 // Recursive allocator, takes a raw array of dimentsions and the base type for allocation
-template <typename T_BASE> T_BASE* allocArray(const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0) {
+template <typename T_BASE>
+T_BASE* allocArray(const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0) {
     static_assert(!std::is_pointer<T_BASE>(), "Cannot allocate pointer type values (arrays)");
 
     // Recursively allocate multidimentional arrays
@@ -296,7 +315,8 @@ template <typename T_BASE> T_BASE* allocArray(const std::size_t* dims, const std
 }
 
 // Take a vector of dims, takes the final array type as a template
-template <typename T> inline T allocArray(const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
+template <typename T>
+inline T allocArray(const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
     static_assert(std::is_pointer<T>(), "Cannot allocate non-pointer values (arrays)");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
@@ -305,7 +325,8 @@ template <typename T> inline T allocArray(const std::vector<std::size_t>& dims, 
 }
 
 // --- Data array deallocation helpers ---
-template <typename T_BASE> void freeArray(T_BASE* data, const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0) {
+template <typename T_BASE>
+void freeArray(T_BASE* data, const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0) {
     static_assert(!std::is_pointer<T_BASE>(), "Cannot deallocate non-pointer values (arrays)");
 
     // Recursively free the multidimentional array as needed
@@ -326,7 +347,8 @@ template <typename T_BASE> void freeArray(T_BASE* data, const std::size_t* dims,
 }
 
 // Take a vector of dims
-template <typename T> inline void freeArray(T data, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
+template <typename T>
+inline void freeArray(T data, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
     static_assert(std::is_pointer<T>(), "Cannot deallocate non-pointer values (arrays)");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
@@ -336,7 +358,8 @@ template <typename T> inline void freeArray(T data, const std::vector<std::size_
 
 // --- Compare Functions ---
 // Compare value within EPSILON
-template <typename T_BASE, typename T_EP = float> constexpr inline bool compareWithin(const T_BASE value, const T_EP epsilon = Config::EPSILON) {
+template <typename T_BASE, typename T_EP = float>
+constexpr inline bool compareWithin(const T_BASE value, const T_EP epsilon = Config::EPSILON) {
     return std::abs(value) <= epsilon;
 }
 
@@ -369,7 +392,8 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
 }
 
 // Compares two LayerData arrays of size N and returns the maximum difference
-template <typename T> inline float compareArray(const T data1, const T data2, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
+template <typename T>
+inline float compareArray(const T data1, const T data2, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
     typedef typename remove_all_pointers<T>::type T_BASE;
@@ -454,7 +478,8 @@ void loadArrayData(std::ifstream& file, T_BASE* values, const std::size_t* dims,
 }
 
 // Entry point to loading data from a binary file into an array
-template <typename T> T loadArray(const std::filesystem::path& filepath, const std::vector<std::size_t>& dims) {
+template <typename T>
+T loadArray(const std::filesystem::path& filepath, const std::vector<std::size_t>& dims) {
     static_assert(std::is_pointer<T>(), "Cannot load non-pointer values (arrays)");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
@@ -507,7 +532,8 @@ void copyArray(const T_BASE* array, T_BASE* newArray, const std::size_t* dims, c
 
 // Create a copy of an array, allocate a new array and recurse all values
 // Entry point
-template <typename T> inline void copyArray(const T array, T newArray, const std::vector<std::size_t>& dims) {
+template <typename T>
+inline void copyArray(const T array, T newArray, const std::vector<std::size_t>& dims) {
     static_assert(std::is_pointer<T>(), "Cannot copy non-pointer type values (arrays)");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
@@ -516,7 +542,7 @@ template <typename T> inline void copyArray(const T array, T newArray, const std
 }
 
 // Deep copy an array by allocating a new one of the same size and recursively copying values
-// Creates a flat desitnation array in memory
+// Creates a flat destination array in memory
 template <typename T_BASE>
 void copyArrayFlat(const T_BASE* array, T_BASE* newArray, const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0,
                    std::size_t& index = 0) {
@@ -535,9 +561,10 @@ void copyArrayFlat(const T_BASE* array, T_BASE* newArray, const std::size_t* dim
 }
 
 // Create a copy of an array, allocate a new array and recurse all values
-// Creates a flat desitnation array in memory
+// Creates a flat destination array in memory
 // Entry point
-template <typename T> inline void copyArrayFlat(const T array, typename remove_all_pointers<T>::type* newArray, const std::vector<std::size_t>& dims) {
+template <typename T>
+inline void copyArrayFlat(const T array, typename remove_all_pointers<T>::type* newArray, const std::vector<std::size_t>& dims) {
     static_assert(std::is_pointer<T>(), "Cannot copy non-pointer type values (arrays)");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
