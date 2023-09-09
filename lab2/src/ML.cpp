@@ -240,6 +240,26 @@ void runMaxPoolLayerTest(const std::size_t layerNum, const Model& model, const f
     output.compareWithinPrint<Array3D_fp32>(expected);
 }
 
+void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+    // Load an image
+    logInfo("--- Running Flatten Test ---");
+    dimVec inDims = {4, 4, 128};
+
+    // Construct a LayerData object from a LayerParams one
+    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_8_output.bin"});
+    img.loadData<Array3D_fp32>();
+
+    // Run infrence on the model
+    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+
+    // Compare the output
+    // Construct a LayerData object from a LayerParams one
+    dimVec outDims = model[layerNum]->getOutputParams().dims;
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_9_output.bin"});
+    expected.loadData<Array1D_fp32>();
+    output.compareWithinPrint<Array1D_fp32>(expected);
+}
+
 void runInfrenceTest(const Model& model, const fs::path& basePath) {
     // Load an image
     logInfo("--- Running Infrence Test ---");
@@ -285,6 +305,9 @@ int main(int argc, char** argv) {
 
     // Run 1st MaxPool layer test
     runMaxPoolLayerTest(2, model, basePath);
+
+    // Run Flatten layer test
+    runFlattenLayerTest(9, model, basePath);
 
     // Run an end-to-end infrence test
     runInfrenceTest(model, basePath);

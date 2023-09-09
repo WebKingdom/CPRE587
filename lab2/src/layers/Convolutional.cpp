@@ -40,11 +40,12 @@ const fp64 ConvolutionalLayer::compute2DIntermediateResult(const LayerData& ifMa
     }
 
     // compute 2D intermediate result
+    const auto& ifMapData = ifMap.getData<Array3D_fp32>();
+    const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
     for (size rowIdx = curRow; rowIdx < (curRow + filterRows); rowIdx++) {
         for (size colIdx = curCol; colIdx < (curCol + filterCols); colIdx++) {
-            sum +=
-                ifMap.getData<Array3D_fp32>()[rowIdx][colIdx][curChan] *
-                this->getWeightData().getData<Array4D_fp32>()[rowIdx][colIdx][curChan][curFilter];
+            sum += ifMapData[rowIdx][colIdx][curChan] *
+                   weightData[rowIdx][colIdx][curChan][curFilter];
         }
     }
     return sum;
@@ -72,6 +73,8 @@ const fp64 ConvolutionalLayer::compute3DIntermediateResult(const LayerData& ifMa
     }
 
     // compute 3D intermediate result
+    const auto& ifMapData = ifMap.getData<Array3D_fp32>();
+    const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
     const size rowLimit = curRow + filterRows;
     const size colLimit = curCol + filterCols;
     for (size rowIdx = curRow; rowIdx < rowLimit; rowIdx++) {
@@ -80,8 +83,6 @@ const fp64 ConvolutionalLayer::compute3DIntermediateResult(const LayerData& ifMa
                 // logDebug("rowIdx: " + std::to_string(rowIdx) + ", " + std::to_string(curRow));
                 // logDebug("colIdx: " + std::to_string(colIdx) + ", " + std::to_string(curCol));
                 // logDebug("chanIdx: " + std::to_string(chanIdx));
-                const auto& ifMapData = ifMap.getData<Array3D_fp32>();
-                const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
                 sum += ifMapData[rowIdx][colIdx][chanIdx] *
                        weightData[rowIdx - curRow][colIdx - curCol][chanIdx][curFilter];
             }
@@ -125,7 +126,8 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     // for each filter, for each input channel, compute intermediate result (2D convolution),
     // then add then up, and then add bias
     // Lastly, perform ReLu and write result to output feature map (outData in Layer)
-
+    const auto& outData = this->getOutputData().getData<Array3D_fp32>();
+    const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
     for (size filterIdx = 0; filterIdx < numFilters; filterIdx++) {
         for (size rowIdx = 0; rowIdx < maxRow; rowIdx++) {
             for (size colIdx = 0; colIdx < maxCol; colIdx++) {
@@ -134,9 +136,8 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                 // perform ReLu and write result to output feature map
                 fp64 intermediateOut =
                     compute3DIntermediateResult(dataIn, rowIdx, colIdx, filterIdx);
-                intermediateOut += this->getBiasData().getData<Array1D_fp32>()[filterIdx];
+                intermediateOut += biasData[filterIdx];
                 intermediateOut = std::max(intermediateOut, (fp64)0);
-                const auto& outData = this->getOutputData().getData<Array3D_fp32>();
                 outData[rowIdx][colIdx][filterIdx] = intermediateOut;
             }
         }
