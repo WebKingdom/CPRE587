@@ -10,11 +10,12 @@ namespace ML {
 const fp32 MaxPoolingLayer::compute3DIntermediateResult(const LayerData& ifMap, const size curRow,
                                                         const size curCol,
                                                         const size curChan) const {
-    fp32 max = ifMap.getData<Array3D_fp32>()[curRow][curCol][curChan];
+    const auto& ifMapData = ifMap.getData<Array3D_fp32>();
+    fp32 max = ifMapData[curRow][curCol][curChan];
     for (size rowIdx = curRow; rowIdx < (curRow + POOL_SIZE); rowIdx++) {
         for (size colIdx = curCol; colIdx < (curCol + POOL_SIZE); colIdx++) {
-            if (ifMap.getData<Array3D_fp32>()[rowIdx][colIdx][curChan] > max) {
-                max = ifMap.getData<Array3D_fp32>()[rowIdx][colIdx][curChan];
+            if (ifMapData[rowIdx][colIdx][curChan] > max) {
+                max = ifMapData[rowIdx][colIdx][curChan];
             }
         }
     }
@@ -44,10 +45,10 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
         exit(1);
     }
 
+    const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     for (size chanIdx = 0; chanIdx < maxChan; chanIdx++) {
         for (size rowIdx = 0; rowIdx < maxRowOut; rowIdx++) {
             for (size colIdx = 0; colIdx < maxColOut; colIdx++) {
-                const auto& outData = this->getOutputData().getData<Array3D_fp32>();
                 outData[rowIdx][colIdx][chanIdx] = compute3DIntermediateResult(
                     dataIn, rowIdx * POOL_STRIDE, colIdx * POOL_STRIDE, chanIdx);
             }

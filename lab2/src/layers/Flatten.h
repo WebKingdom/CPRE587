@@ -7,15 +7,20 @@
 namespace ML {
 class FlattenLayer : public Layer {
    public:
-    FlattenLayer(const LayerParams inParams, const LayerParams outParams) : Layer(inParams, outParams, LayerType::FLATTEN) {}
+    FlattenLayer(const LayerParams inParams, const LayerParams outParams)
+        : Layer(inParams, outParams, LayerType::FLATTEN) {}
 
     // Allocate all resources needed for the layer & Load all of the required data for the layer
     template <typename T>
-    void allocateLayer() { Layer::allocateOutputBuffer<Array1D<T>>(); }
+    void allocateLayer() {
+        Layer::allocateOutputBuffer<Array1D<T>>();
+    }
 
     // Free all resources allocated for the layer
     template <typename T>
-    void freeLayer() { Layer::freeOutputBuffer<Array1D<T>>(); }
+    void freeLayer() {
+        Layer::freeOutputBuffer<Array1D<T>>();
+    }
 
     // Virtual functions
     virtual void computeNaive(const LayerData& dataIn) const override;

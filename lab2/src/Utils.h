@@ -379,6 +379,7 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
             curr_diff = compareArray<T_BASE>(dataCast1[i], dataCast2[i], dims, dimsLen, dimIndex + 1);
         } else {
             // Check the values and get their absolute difference
+            // logDebug("data1: " + std::to_string(data1[i]) + ", data2: " + std::to_string(data2[i]));
             curr_diff = (float)fabs(data1[i] - data2[i]);
         }
 
