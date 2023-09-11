@@ -8,7 +8,7 @@ namespace ML {
 class FlattenLayer : public Layer {
    public:
     FlattenLayer(const LayerParams inParams, const LayerParams outParams)
-        : Layer(inParams, outParams, LayerType::FLATTEN) {}
+        : Layer(inParams, outParams, LayerType::FLATTEN, ActivationType::NONE) {}
 
     // Allocate all resources needed for the layer & Load all of the required data for the layer
     template <typename T>

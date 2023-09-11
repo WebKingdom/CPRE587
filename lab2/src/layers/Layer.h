@@ -80,10 +80,13 @@ class Layer {
     // Layer Type
     enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING, FLATTEN };
 
+    // Activation function type
+    enum class ActivationType { NONE, RELU, SIGMOID, TANH, SOFTMAX };
+
    public:
     // Constructors
-    Layer(const LayerParams inParams, const LayerParams outParams, LayerType lType)
-        : inParams(inParams), outParams(outParams), outData(outParams), lType(lType) {}
+    Layer(const LayerParams inParams, const LayerParams outParams, LayerType lType, ActivationType aType)
+        : inParams(inParams), outParams(outParams), outData(outParams), lType(lType), aType(aType) {}
     virtual ~Layer() {}
 
     // Getter Functions
@@ -91,6 +94,7 @@ class Layer {
     const LayerParams& getOutputParams() const { return outParams; }
     const LayerData& getOutputData() const { return outData; }
     LayerType getLType() const { return lType; }
+    ActivationType getAType() const { return aType; }
     bool isOutputBufferAlloced() const { return outData.isAlloced(); }
     bool checkDataInputCompatibility(const LayerData& data) const;
 
@@ -114,6 +118,7 @@ class Layer {
     LayerData outData;
 
     LayerType lType;
+    ActivationType aType;
 };
 
 // Allocate data values

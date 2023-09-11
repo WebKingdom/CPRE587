@@ -8,7 +8,7 @@ namespace ML {
 class MaxPoolingLayer : public Layer {
    public:
     MaxPoolingLayer(const LayerParams inParams, const LayerParams outParams)
-        : Layer(inParams, outParams, LayerType::MAX_POOLING) {}
+        : Layer(inParams, outParams, LayerType::MAX_POOLING, ActivationType::NONE) {}
 
     // Allocate all resources needed for the layer & Load all of the required data for the layer
     template <typename T>

@@ -25,14 +25,32 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
     // logDebug("maxRowIn: " + std::to_string(maxRowIn));
     // logDebug("maxRowOut: " + std::to_string(maxRowOut));
 
-    // compute dense layer output data
+    // compute dense layer intermediate result
     // outData[rowOut] = ReLU(sum(inData[0:rowIn] * weightData[0:rowIn][rowOut]) + biasData[rowOut])
     for (size rowOut = 0; rowOut < maxRowOut; rowOut++) {
         fp32 sum = 0;
         for (size rowIn = 0; rowIn < maxRowIn; rowIn++) {
             sum += inData[rowIn] * weightData[rowIn][rowOut];
         }
-        outData[rowOut] = std::max((fp32)0, sum + biasData[rowOut]);
+        outData[rowOut] = sum + biasData[rowOut];
+    }
+
+    // perform activation function
+    if (this->getAType() == ActivationType::RELU) {
+        for (size i = 0; i < maxRowOut; i++) {
+            outData[i] = std::max((fp32)0, outData[i]);
+        }
+    } else if (this->getAType() == ActivationType::SOFTMAX) {
+        fp32 sum = 0;
+        for (size i = 0; i < maxRowOut; i++) {
+            sum += std::exp(outData[i]);
+        }
+        for (size i = 0; i < maxRowOut; i++) {
+            outData[i] = std::exp(outData[i]) / sum;
+        }
+    } else {
+        logError("ERROR: invalid activation type for dense layer");
+        exit(1);
     }
 }
 

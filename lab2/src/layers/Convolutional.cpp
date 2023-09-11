@@ -44,8 +44,8 @@ const fp64 ConvolutionalLayer::compute2DIntermediateResult(const LayerData& ifMa
     const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
     for (size rowIdx = curRow; rowIdx < (curRow + filterRows); rowIdx++) {
         for (size colIdx = curCol; colIdx < (curCol + filterCols); colIdx++) {
-            sum += ifMapData[rowIdx][colIdx][curChan] *
-                   weightData[rowIdx][colIdx][curChan][curFilter];
+            sum +=
+                ifMapData[rowIdx][colIdx][curChan] * weightData[rowIdx][colIdx][curChan][curFilter];
         }
     }
     return sum;
@@ -135,9 +135,14 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                 // add bias
                 // perform ReLu and write result to output feature map
                 fp64 intermediateOut =
-                    compute3DIntermediateResult(dataIn, rowIdx, colIdx, filterIdx);
-                intermediateOut += biasData[filterIdx];
-                intermediateOut = std::max(intermediateOut, (fp64)0);
+                    compute3DIntermediateResult(dataIn, rowIdx, colIdx, filterIdx) +
+                    biasData[filterIdx];
+                if (this->getAType() == ActivationType::RELU) {
+                    intermediateOut = std::max((fp64)0, intermediateOut);
+                } else {
+                    logError("ERROR: invalid activation type for convolutional layer");
+                    exit(1);
+                }
                 outData[rowIdx][colIdx][filterIdx] = intermediateOut;
             }
         }
