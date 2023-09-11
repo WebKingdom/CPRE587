@@ -42,10 +42,10 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {64, 64, 3}},                                     // Input Params
          {sizeof(fp32), {60, 60, 32}},                                    // Output Params
          {sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
-         {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"}});          // Bias params
+         {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"},            // Bias params
+         Layer::ActivationType::RELU});                                   // Activation
     model.addLayer(conv1);
 
-    // TODO ssz implement and add layers
     // --- Conv 2: L2 ---
     // Input shape: 60x60x32
     // Output shape: 56x56x32
@@ -53,7 +53,8 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {60, 60, 32}},                                     // Input Data
          {sizeof(fp32), {56, 56, 32}},                                     // Output Data
          {sizeof(fp32), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
-         {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"}});           // Bias
+         {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"},             // Bias
+         Layer::ActivationType::RELU});                                    // Activation
     model.addLayer(conv2);
 
     // --- MPL 1: L3 ---
@@ -72,7 +73,8 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {28, 28, 32}},                                     // Input Data
          {sizeof(fp32), {26, 26, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"}});           // Bias
+         {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"},             // Bias
+         Layer::ActivationType::RELU});                                    // Activation
     model.addLayer(conv3);
 
     // --- Conv 4: L5 ---
@@ -82,7 +84,8 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {26, 26, 64}},                                     // Input Data
          {sizeof(fp32), {24, 24, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"}});           // Bias
+         {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"},             // Bias
+         Layer::ActivationType::RELU});                                    // Activation
     model.addLayer(conv4);
 
     // --- MPL 2: L6 ---
@@ -101,7 +104,8 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {12, 12, 64}},                                     // Input Data
          {sizeof(fp32), {10, 10, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"}});           // Bias
+         {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"},             // Bias
+         Layer::ActivationType::RELU});                                    // Activation
     model.addLayer(conv5);
 
     // --- Conv 6: L8 ---
@@ -111,7 +115,8 @@ Model buildToyModel(const fs::path modelPath) {
         {{sizeof(fp32), {10, 10, 64}},                                      // Input Data
          {sizeof(fp32), {8, 8, 128}},                                       // Output Data
          {sizeof(fp32), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
-         {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"}});           // Bias
+         {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"},             // Bias
+         Layer::ActivationType::RELU});                                     // Activation
     model.addLayer(conv6);
 
     // --- MPL 3: L9 ---
@@ -135,31 +140,28 @@ Model buildToyModel(const fs::path modelPath) {
     // --- Dense 1: L11 ---
     // Input shape: 2048
     // Output shape: 256
+    // ReLU Activation
     auto dense1 =
         new DenseLayer({{sizeof(fp32), {2048}},  // Input Data
                         {sizeof(fp32), {256}},   // Output Data
                         {sizeof(fp32), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
-                        {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"}});       // Bias
+                        {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"},         // Bias
+                        Layer::ActivationType::RELU}  // Activation
+        );
     model.addLayer(dense1);
 
     // --- Dense 2: L12 ---
     // Input shape: 256
     // Output shape: 200
+    // Softmax Activation
     auto dense2 =
         new DenseLayer({{sizeof(fp32), {256}},  // Input Data
                         {sizeof(fp32), {200}},  // Output Data
                         {sizeof(fp32), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
-                        {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"}});      // Bias
+                        {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"},        // Bias
+                        Layer::ActivationType::SOFTMAX}  // Activation
+        );
     model.addLayer(dense2);
-
-    // --- Softmax 1: L13 ---
-    // Input shape: 200
-    // Output shape: 200
-    auto softmax1 = new SoftmaxLayer({
-        {sizeof(fp32), {200}},  // Input Data
-        {sizeof(fp32), {200}}   // Output Data
-    });
-    model.addLayer(softmax1);
 
     return model;
 }
@@ -262,7 +264,7 @@ void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const f
 
 void runDenseLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Dense Test ---");
+    logInfo("--- Running Dense ReLU Test ---");
     dimVec inDims = {2048};
 
     // Construct a LayerData object from a LayerParams one
@@ -276,6 +278,26 @@ void runDenseLayerTest(const std::size_t layerNum, const Model& model, const fs:
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
     LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_10_output.bin"});
+    expected.loadData<Array1D_fp32>();
+    output.compareWithinPrint<Array1D_fp32>(expected);
+}
+
+void runSoftmaxLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+    // Load an image
+    logInfo("--- Running Dense Softmax Test ---");
+    dimVec inDims = {256};
+
+    // Construct a LayerData object from a LayerParams one
+    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_10_output.bin"});
+    img.loadData<Array1D_fp32>();
+
+    // Run infrence on the model
+    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+
+    // Compare the output
+    // Construct a LayerData object from a LayerParams one
+    dimVec outDims = model[layerNum]->getOutputParams().dims;
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
     expected.loadData<Array1D_fp32>();
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
@@ -295,9 +317,9 @@ void runInfrenceTest(const Model& model, const fs::path& basePath) {
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_0_output.bin"});
-    expected.loadData<Array3D_fp32>();
-    output.compareWithinPrint<Array3D_fp32>(expected);
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D_fp32>();
+    output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
 // clang-format off
@@ -331,6 +353,9 @@ int main(int argc, char** argv) {
 
     // Run Dense layer test
     runDenseLayerTest(10, model, basePath);
+
+    // Run Softmax layer test
+    runSoftmaxLayerTest(11, model, basePath);
 
     // Run an end-to-end infrence test
     runInfrenceTest(model, basePath);

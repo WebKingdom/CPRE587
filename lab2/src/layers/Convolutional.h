@@ -8,8 +8,8 @@ namespace ML {
 class ConvolutionalLayer : public Layer {
    public:
     ConvolutionalLayer(const LayerParams inParams, const LayerParams outParams,
-                       const LayerParams weightParams, const LayerParams biasParams)
-        : Layer(inParams, outParams, LayerType::CONVOLUTIONAL),
+                       const LayerParams weightParams, const LayerParams biasParams, const ActivationType aType)
+        : Layer(inParams, outParams, LayerType::CONVOLUTIONAL, aType),
           weightParam(weightParams),
           weightData(weightParams),
           biasParam(biasParams),
