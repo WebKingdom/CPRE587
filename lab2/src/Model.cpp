@@ -19,27 +19,29 @@ const LayerData& Model::infrence(const LayerData& inData, const Layer::InfType i
 
 // Run infrence on a single layer of the model using the inData and outputting the outData
 // infType can be used to determine the infrence function to call
-const LayerData& Model::infrenceLayer(const LayerData& inData, const int layerNum, const Layer::InfType infType) const {
+const LayerData& Model::infrenceLayer(const LayerData& inData, const int layerNum,
+                                      const Layer::InfType infType) const {
     Layer& layer = *layers[layerNum];
 
-    assert(layer.getInputParams().isCompatible(inData.getParams()) && "Input data is not compatible with layer");
+    assert(layer.getInputParams().isCompatible(inData.getParams()) &&
+           "Input data is not compatible with layer");
     assert(layer.isOutputBufferAlloced() && "Output buffer must be allocated prior to infrence");
 
     switch (infType) {
-    case Layer::InfType::NAIVE:
-        layer.computeNaive(inData);
-        break;
-    case Layer::InfType::THREADED:
-        layer.computeThreaded(inData);
-        break;
-    case Layer::InfType::TILED:
-        layer.computeTiled(inData);
-        break;
-    case Layer::InfType::SIMD:
-        layer.computeSIMD(inData);
-        break;
-    default:
-        assert(false && "Infrence Type not implemented");
+        case Layer::InfType::NAIVE:
+            layer.computeNaive(inData);
+            break;
+        case Layer::InfType::THREADED:
+            layer.computeThreaded(inData);
+            break;
+        case Layer::InfType::TILED:
+            layer.computeTiled(inData);
+            break;
+        case Layer::InfType::SIMD:
+            layer.computeSIMD(inData);
+            break;
+        default:
+            assert(false && "Infrence Type not implemented");
     }
 
     return layer.getOutputData();
