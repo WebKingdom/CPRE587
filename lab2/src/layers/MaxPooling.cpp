@@ -7,7 +7,7 @@
 #include "Layer.h"
 
 namespace ML {
-const fp32 MaxPoolingLayer::compute3DIntermediateResult(const LayerData& ifMap, const size curRow,
+const fp32 MaxPoolingLayer::compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
                                                         const size curCol,
                                                         const size curChan) const {
     const auto& ifMapData = ifMap.getData<Array3D_fp32>();
@@ -49,7 +49,7 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
     for (size chanIdx = 0; chanIdx < maxChan; chanIdx++) {
         for (size rowIdx = 0; rowIdx < maxRowOut; rowIdx++) {
             for (size colIdx = 0; colIdx < maxColOut; colIdx++) {
-                outData[rowIdx][colIdx][chanIdx] = compute3DIntermediateResult(
+                outData[rowIdx][colIdx][chanIdx] = compute2DIntermediateResult(
                     dataIn, rowIdx * POOL_STRIDE, colIdx * POOL_STRIDE, chanIdx);
             }
         }

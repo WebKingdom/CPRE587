@@ -32,8 +32,8 @@ class MaxPoolingLayer : public Layer {
     static const ui8 POOL_SIZE = 2;
     static const ui8 POOL_STRIDE = 2;
 
-    // computes the intermediate result for all input channels
-    const fp32 compute3DIntermediateResult(const LayerData& ifMap, const size curRow,
+    // computes the intermediate result for 1 input channel
+    const fp32 compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
                                            const size curCol, const size curChan) const;
 };
 

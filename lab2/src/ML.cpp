@@ -159,7 +159,7 @@ Model buildToyModel(const fs::path modelPath) {
                         {sizeof(fp32), {200}},  // Output Data
                         {sizeof(fp32), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
                         {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"},        // Bias
-                        Layer::ActivationType::SOFTMAX}  // Activation
+                        Layer::ActivationType::SOFTMAX}                                // Activation
         );
     model.addLayer(dense2);
 
@@ -167,7 +167,7 @@ Model buildToyModel(const fs::path modelPath) {
 }
 
 void runBasicTest(const Model& model, const fs::path& basePath) {
-    logInfo("--- Running Basic Test ---");
+    logInfo("--- Running Basic Framework Test ---");
 
     // Load an image
     fs::path imgPath("./data/image_0.bin");
@@ -202,9 +202,10 @@ void runBasicTest(const Model& model, const fs::path& basePath) {
     freeArray<Array3D_fp32>(imgCopy, dims);
 }
 
-void runLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+void runConvolutionalLayerTest(const std::size_t layerNum, const Model& model,
+                               const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Inference Test ---");
+    logInfo("--- Running Convolutional Layer Test ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
@@ -262,7 +263,8 @@ void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const f
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-void runDenseLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+void runDenseLayerReLUTest(const std::size_t layerNum, const Model& model,
+                           const fs::path& basePath) {
     // Load an image
     logInfo("--- Running Dense ReLU Test ---");
     dimVec inDims = {2048};
@@ -282,7 +284,8 @@ void runDenseLayerTest(const std::size_t layerNum, const Model& model, const fs:
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-void runSoftmaxLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+void runDenseLayerSoftmaxTest(const std::size_t layerNum, const Model& model,
+                              const fs::path& basePath) {
     // Load an image
     logInfo("--- Running Dense Softmax Test ---");
     dimVec inDims = {256};
@@ -302,9 +305,9 @@ void runSoftmaxLayerTest(const std::size_t layerNum, const Model& model, const f
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-void runInfrenceTest(const Model& model, const fs::path& basePath) {
+void runInfrenceTest0(const Model& model, const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Infrence Test ---");
+    logInfo("--- Running Full Inference Test 0 ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
@@ -318,6 +321,46 @@ void runInfrenceTest(const Model& model, const fs::path& basePath) {
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
     LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D_fp32>();
+    output.compareWithinPrint<Array1D_fp32>(expected);
+}
+
+void runInfrenceTest1(const Model& model, const fs::path& basePath) {
+    // Load an image
+    logInfo("--- Running Full Inference Test 1 ---");
+    dimVec inDims = {64, 64, 3};
+
+    // Construct a LayerData object from a LayerParams one
+    LayerData img({sizeof(fp32), inDims, basePath / "image_1.bin"});
+    img.loadData<Array3D_fp32>();
+
+    // Run infrence on the model
+    const LayerData output = model.infrence(img, Layer::InfType::NAIVE);
+
+    // Compare the output
+    // Construct a LayerData object from a LayerParams one
+    dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_1_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D_fp32>();
+    output.compareWithinPrint<Array1D_fp32>(expected);
+}
+
+void runInfrenceTest2(const Model& model, const fs::path& basePath) {
+    // Load an image
+    logInfo("--- Running Full Inference Test 2 ---");
+    dimVec inDims = {64, 64, 3};
+
+    // Construct a LayerData object from a LayerParams one
+    LayerData img({sizeof(fp32), inDims, basePath / "image_2.bin"});
+    img.loadData<Array3D_fp32>();
+
+    // Run infrence on the model
+    const LayerData output = model.infrence(img, Layer::InfType::NAIVE);
+
+    // Compare the output
+    // Construct a LayerData object from a LayerParams one
+    dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
+    LayerData expected({sizeof(fp32), outDims, basePath / "image_2_data" / "layer_11_output.bin"});
     expected.loadData<Array1D_fp32>();
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
@@ -342,8 +385,8 @@ int main(int argc, char** argv) {
     // Run some framework tests as an example of loading data
     runBasicTest(model, basePath);
 
-    // Run a layer infrence test
-    runLayerTest(0, model, basePath);
+    // Run a Convolutional layer test
+    runConvolutionalLayerTest(0, model, basePath);
 
     // Run 1st MaxPool layer test
     runMaxPoolLayerTest(2, model, basePath);
@@ -351,14 +394,20 @@ int main(int argc, char** argv) {
     // Run Flatten layer test
     runFlattenLayerTest(9, model, basePath);
 
-    // Run Dense layer test
-    runDenseLayerTest(10, model, basePath);
+    // Run Dense layer ReLU test
+    runDenseLayerReLUTest(10, model, basePath);
 
-    // Run Softmax layer test
-    runSoftmaxLayerTest(11, model, basePath);
+    // Run Dense layer Softmax test
+    runDenseLayerSoftmaxTest(11, model, basePath);
 
-    // Run an end-to-end infrence test
-    runInfrenceTest(model, basePath);
+    // Run an end-to-end infrence test on image 0
+    runInfrenceTest0(model, basePath);
+
+    // Run an end-to-end infrence test on image 1
+    runInfrenceTest1(model, basePath);
+
+    // Run an end-to-end infrence test on image 2
+    runInfrenceTest2(model, basePath);
 
     // Clean up
     model.freeLayers<fp32>();
