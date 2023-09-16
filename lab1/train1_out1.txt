@@ -1,0 +1,90 @@
+Epoch 1/32
+3125/3125 [==============================] - 16s 5ms/step - loss: 5.0357 - accuracy: 0.0238 - val_loss: 4.9411 - val_accuracy: 0.0328
+Epoch 2/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 4.8358 - accuracy: 0.0463 - val_loss: 4.7036 - val_accuracy: 0.0605
+Epoch 3/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 4.5698 - accuracy: 0.0756 - val_loss: 4.4853 - val_accuracy: 0.0853
+Epoch 4/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 4.3608 - accuracy: 0.1029 - val_loss: 4.3508 - val_accuracy: 0.0989
+Epoch 5/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 4.1772 - accuracy: 0.1288 - val_loss: 4.1372 - val_accuracy: 0.1301
+Epoch 6/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.9983 - accuracy: 0.1550 - val_loss: 3.9853 - val_accuracy: 0.1497
+Epoch 7/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.8126 - accuracy: 0.1807 - val_loss: 3.9454 - val_accuracy: 0.1571
+Epoch 8/32
+3125/3125 [==============================] - 16s 5ms/step - loss: 3.6495 - accuracy: 0.2059 - val_loss: 3.7649 - val_accuracy: 0.1794
+Epoch 9/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.5017 - accuracy: 0.2297 - val_loss: 3.7573 - val_accuracy: 0.1900
+Epoch 10/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.3665 - accuracy: 0.2511 - val_loss: 3.7143 - val_accuracy: 0.1996
+Epoch 11/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.2401 - accuracy: 0.2710 - val_loss: 3.6718 - val_accuracy: 0.2082
+Epoch 12/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 3.1176 - accuracy: 0.2949 - val_loss: 3.6413 - val_accuracy: 0.2201
+Epoch 13/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 2.9986 - accuracy: 0.3127 - val_loss: 3.6654 - val_accuracy: 0.2213
+Epoch 14/32
+3125/3125 [==============================] - 15s 5ms/step - loss: 2.8824 - accuracy: 0.3338 - val_loss: 3.6426 - val_accuracy: 0.2200
+Epoch 00014: early stopping
+Top-1 Accuracy: 0.2038, total images: 10000
+Top-5 Accuracy: 0.3314, total images: 10000
+Epoch 1/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 5.0471 - accuracy: 0.0239 - val_loss: 4.9899 - val_accuracy: 0.0294
+Epoch 2/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.9426 - accuracy: 0.0349 - val_loss: 4.9357 - val_accuracy: 0.0375
+Epoch 3/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.7964 - accuracy: 0.0524 - val_loss: 4.7441 - val_accuracy: 0.0577
+Epoch 4/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.6187 - accuracy: 0.0724 - val_loss: 4.7134 - val_accuracy: 0.0611
+Epoch 5/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.4691 - accuracy: 0.0905 - val_loss: 4.4457 - val_accuracy: 0.0916
+Epoch 6/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.3366 - accuracy: 0.1075 - val_loss: 4.3528 - val_accuracy: 0.0991
+Epoch 7/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.2136 - accuracy: 0.1241 - val_loss: 4.3209 - val_accuracy: 0.1143
+Epoch 8/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 4.0932 - accuracy: 0.1413 - val_loss: 4.1461 - val_accuracy: 0.1318
+Epoch 9/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.9733 - accuracy: 0.1591 - val_loss: 4.1685 - val_accuracy: 0.1285
+Epoch 10/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.8592 - accuracy: 0.1763 - val_loss: 4.1132 - val_accuracy: 0.1411
+Epoch 11/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.7502 - accuracy: 0.1927 - val_loss: 3.9846 - val_accuracy: 0.1553
+Epoch 12/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.6469 - accuracy: 0.2087 - val_loss: 3.8427 - val_accuracy: 0.1764
+Epoch 13/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.5471 - accuracy: 0.2238 - val_loss: 3.9924 - val_accuracy: 0.1625
+Epoch 14/32
+1563/1563 [==============================] - 11s 7ms/step - loss: 3.4507 - accuracy: 0.2393 - val_loss: 3.9128 - val_accuracy: 0.1726
+Epoch 00014: early stopping
+Top-1 Accuracy: 0.2595, total images: 10000
+Top-5 Accuracy: 0.4153, total images: 10000
+Epoch 1/32
+782/782 [==============================] - 9s 11ms/step - loss: 5.0532 - accuracy: 0.0236 - val_loss: 5.0222 - val_accuracy: 0.0231
+Epoch 2/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.9932 - accuracy: 0.0299 - val_loss: 4.9802 - val_accuracy: 0.0307
+Epoch 3/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.9269 - accuracy: 0.0377 - val_loss: 4.9185 - val_accuracy: 0.0388
+Epoch 4/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.8459 - accuracy: 0.0462 - val_loss: 4.8192 - val_accuracy: 0.0492
+Epoch 5/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.7344 - accuracy: 0.0590 - val_loss: 4.8600 - val_accuracy: 0.0463
+Epoch 6/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.6271 - accuracy: 0.0718 - val_loss: 4.7339 - val_accuracy: 0.0599
+Epoch 7/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.5363 - accuracy: 0.0829 - val_loss: 4.5474 - val_accuracy: 0.0761
+Epoch 8/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.4446 - accuracy: 0.0950 - val_loss: 4.6503 - val_accuracy: 0.0703
+Epoch 9/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.3598 - accuracy: 0.1062 - val_loss: 4.5154 - val_accuracy: 0.0831
+Epoch 10/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.2742 - accuracy: 0.1174 - val_loss: 4.3427 - val_accuracy: 0.1056
+Epoch 11/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.2007 - accuracy: 0.1276 - val_loss: 4.3358 - val_accuracy: 0.1122
+Epoch 12/32
+782/782 [==============================] - 9s 11ms/step - loss: 4.1233 - accuracy: 0.1386 - val_loss: 4.5142 - val_accuracy: 0.0938
+Epoch 00012: early stopping
+Top-1 Accuracy: 0.3412, total images: 10000
+Top-5 Accuracy: 0.5446, total images: 10000
+Done!
