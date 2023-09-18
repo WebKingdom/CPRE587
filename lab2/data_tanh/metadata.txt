@@ -1,0 +1,4 @@
+Number		Dims		Class Data
+0		(64, 64, 3)		b'picket fence, paling' (class index: 127 - id: b'n03930313')
+1		(64, 64, 3)		b'baboon' (class index: 32 - id: b'n02486410')
+2		(64, 64, 3)		b'golden retriever' (class index: 78 - id: b'n02099601')

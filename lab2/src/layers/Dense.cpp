@@ -43,16 +43,21 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
     } else if (this->getAType() == ActivationType::ELU) {
         for (size i = 0; i < maxRowOut; i++) {
             if (outData[i] < 0.0) {
-                outData[i] = ALPHA * (std::exp(outData[i]) - 1.0);
+                outData[i] = ALPHA * (std::exp((fp64)outData[i]) - 1.0);
             }
         }
     } else if (this->getAType() == ActivationType::SOFTMAX) {
-        fp32 sum = 0;
+        fp64 sum = 0;
         for (size i = 0; i < maxRowOut; i++) {
-            sum += std::exp(outData[i]);
+            sum += std::exp((fp64)outData[i]);
         }
         for (size i = 0; i < maxRowOut; i++) {
-            outData[i] = std::exp(outData[i]) / sum;
+            outData[i] = std::exp((fp64)outData[i]) / sum;
+        }
+    } else if (this->getAType() == ActivationType::TANH) {
+        for (size i = 0; i < maxRowOut; i++) {
+            outData[i] = (std::exp((fp64)outData[i]) - std::exp(-(fp64)outData[i])) /
+                         (std::exp((fp64)outData[i]) + std::exp(-(fp64)outData[i]));
         }
     } else {
         logError("ERROR: invalid activation type for dense layer");
