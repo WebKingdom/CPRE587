@@ -1,4 +1,4 @@
 Number		Dims		Class Data
-0		(64, 64, 3)		b'walking stick, walkingstick, stick insect' (class index: 181 - id: b'n02231487')
-1		(64, 64, 3)		b'dumbbell' (class index: 154 - id: b'n03255030')
-2		(64, 64, 3)		b'magnetic compass' (class index: 191 - id: b'n03706229')
+0		(64, 64, 3)		b'ice cream, icecream' (class index: 28 - id: b'n07614500')
+1		(64, 64, 3)		b'bathtub, bathing tub, bath, tub' (class index: 179 - id: b'n02808440')
+2		(64, 64, 3)		b'hog, pig, grunter, squealer, Sus scrofa' (class index: 101 - id: b'n02395406')
