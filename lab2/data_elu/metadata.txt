@@ -1,0 +1,4 @@
+Number		Dims		Class Data
+0		(64, 64, 3)		b'iPod' (class index: 91 - id: b'n03584254')
+1		(64, 64, 3)		b'neck brace' (class index: 81 - id: b'n03814639')
+2		(64, 64, 3)		b'rocking chair, rocker' (class index: 3 - id: b'n04099969')
