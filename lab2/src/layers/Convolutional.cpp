@@ -145,10 +145,9 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                     intermediateOut =
                         (std::exp(2 * intermediateOut) - 1) / (std::exp(2 * intermediateOut) + 1);
                 } else if (this->getAType() == ActivationType::ELU) {
-                    if (intermediateOut > 0)
-                        intermediateOut = intermediateOut;
-                    else
-                        intermediateOut = (ALPHA * std::exp(intermediateOut) - 1);
+                    if (intermediateOut < 0.0) {
+                        intermediateOut = ALPHA * (std::exp(intermediateOut) - 1.0);
+                    }
                 } else {
                     logError("ERROR: invalid activation type for convolutional layer");
                     exit(1);

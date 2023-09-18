@@ -1,4 +1,4 @@
 Number		Dims		Class Data
-0		(64, 64, 3)		b'chimpanzee, chimp, Pan troglodytes' (class index: 57 - id: b'n02481823')
-1		(64, 64, 3)		b'volleyball' (class index: 2 - id: b'n04540053')
-2		(64, 64, 3)		b'remote control, remote' (class index: 54 - id: b'n04074963')
+0		(64, 64, 3)		b'coral reef' (class index: 34 - id: b'n09256479')
+1		(64, 64, 3)		b'ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle' (class index: 76 - id: b'n02165456')
+2		(64, 64, 3)		b'seashore, coast, seacoast, sea-coast' (class index: 25 - id: b'n09428293')

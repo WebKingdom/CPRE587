@@ -42,10 +42,9 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
         }
     } else if (this->getAType() == ActivationType::ELU) {
         for (size i = 0; i < maxRowOut; i++) {
-            if (outData[i] > 0)
-                outData[i] = outData[i];
-            else
-                outData[i] = (ALPHA * std::exp(outData[i]) - 1);
+            if (outData[i] < 0.0) {
+                outData[i] = ALPHA * (std::exp(outData[i]) - 1.0);
+            }
         }
     } else if (this->getAType() == ActivationType::SOFTMAX) {
         fp32 sum = 0;

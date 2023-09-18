@@ -263,10 +263,10 @@ void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const f
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-void runDenseLayerReLUTest(const std::size_t layerNum, const Model& model,
+void runDenseLayer1Test(const std::size_t layerNum, const Model& model,
                            const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Dense ReLU Test ---");
+    logInfo("--- Running Dense 1 Test ---");
     dimVec inDims = {2048};
 
     // Construct a LayerData object from a LayerParams one
@@ -284,10 +284,10 @@ void runDenseLayerReLUTest(const std::size_t layerNum, const Model& model,
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-void runDenseLayerSoftmaxTest(const std::size_t layerNum, const Model& model,
+void runDenseLayer2Test(const std::size_t layerNum, const Model& model,
                               const fs::path& basePath) {
     // Load an image
-    logInfo("--- Running Dense Softmax Test ---");
+    logInfo("--- Running Dense 2 Test ---");
     dimVec inDims = {256};
 
     // Construct a LayerData object from a LayerParams one
@@ -389,11 +389,11 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) 
     // Run Flatten layer test
     runFlattenLayerTest(9, model, basePath);
 
-    // Run Dense layer ReLU test
-    runDenseLayerReLUTest(10, model, basePath);
+    // Run Dense layer 1 test
+    runDenseLayer1Test(10, model, basePath);
 
-    // Run Dense layer Softmax test
-    runDenseLayerSoftmaxTest(11, model, basePath);
+    // Run Dense layer 2 test
+    runDenseLayer2Test(11, model, basePath);
 
     // Run an end-to-end infrence test on image 0
     runInfrenceTest0(model, basePath);
