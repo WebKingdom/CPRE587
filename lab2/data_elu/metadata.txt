@@ -1,4 +1,4 @@
 Number		Dims		Class Data
-0		(64, 64, 3)		b'coral reef' (class index: 34 - id: b'n09256479')
-1		(64, 64, 3)		b'ladybug, ladybeetle, lady beetle, ladybird, ladybird beetle' (class index: 76 - id: b'n02165456')
-2		(64, 64, 3)		b'seashore, coast, seacoast, sea-coast' (class index: 25 - id: b'n09428293')
+0		(64, 64, 3)		b'turnstile' (class index: 122 - id: b'n04501370')
+1		(64, 64, 3)		b'swimming trunks, bathing trunks' (class index: 136 - id: b'n04371430')
+2		(64, 64, 3)		b'beach wagon, station wagon, wagon, estate car, beach waggon, station waggon, waggon' (class index: 147 - id: b'n02814533')

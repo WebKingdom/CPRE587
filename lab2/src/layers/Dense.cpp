@@ -28,7 +28,7 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
     // compute dense layer intermediate result
     // outData[rowOut] = ReLU(sum(inData[0:rowIn] * weightData[0:rowIn][rowOut]) + biasData[rowOut])
     for (size rowOut = 0; rowOut < maxRowOut; rowOut++) {
-        fp32 sum = 0;
+        fp64 sum = 0.0;
         for (size rowIn = 0; rowIn < maxRowIn; rowIn++) {
             sum += inData[rowIn] * weightData[rowIn][rowOut];
         }
