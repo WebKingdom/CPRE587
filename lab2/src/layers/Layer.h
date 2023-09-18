@@ -81,12 +81,17 @@ class Layer {
     enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING, FLATTEN };
 
     // Activation function type
-    enum class ActivationType { NONE, RELU, SIGMOID, TANH, SOFTMAX, ELU};
+    enum class ActivationType { NONE, RELU, SIGMOID, TANH, SOFTMAX, ELU };
 
    public:
     // Constructors
-    Layer(const LayerParams inParams, const LayerParams outParams, LayerType lType, ActivationType aType)
-        : inParams(inParams), outParams(outParams), outData(outParams), lType(lType), aType(aType) {}
+    Layer(const LayerParams inParams, const LayerParams outParams, LayerType lType,
+          ActivationType aType)
+        : inParams(inParams),
+          outParams(outParams),
+          outData(outParams),
+          lType(lType),
+          aType(aType) {}
     virtual ~Layer() {}
 
     // Getter Functions
