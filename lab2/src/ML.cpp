@@ -25,7 +25,8 @@ using namespace ML;
 namespace fs = std::filesystem;
 
 // Build our ML toy model
-Model buildToyModel(const fs::path modelPath) {
+Model buildToyModel(const fs::path modelPath,
+const ML::Layer::ActivationType af) {
     Model model;
     logInfo("--- Building Toy Model ---");
 
@@ -43,7 +44,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {60, 60, 32}},                                    // Output Params
          {sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
          {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"},            // Bias params
-         Layer::ActivationType::RELU});                                   // Activation
+         af});                                   // Activation
     model.addLayer(conv1);
 
     // --- Conv 2: L2 ---
@@ -54,7 +55,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {56, 56, 32}},                                     // Output Data
          {sizeof(fp32), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
          {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"},             // Bias
-         Layer::ActivationType::RELU});                                    // Activation
+         af});                                    // Activation
     model.addLayer(conv2);
 
     // --- MPL 1: L3 ---
@@ -74,7 +75,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {26, 26, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
          {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"},             // Bias
-         Layer::ActivationType::RELU});                                    // Activation
+         af});                                    // Activation
     model.addLayer(conv3);
 
     // --- Conv 4: L5 ---
@@ -85,7 +86,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {24, 24, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
          {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"},             // Bias
-         Layer::ActivationType::RELU});                                    // Activation
+         af});                                    // Activation
     model.addLayer(conv4);
 
     // --- MPL 2: L6 ---
@@ -105,7 +106,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {10, 10, 64}},                                     // Output Data
          {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
          {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"},             // Bias
-         Layer::ActivationType::RELU});                                    // Activation
+         af});                                    // Activation
     model.addLayer(conv5);
 
     // --- Conv 6: L8 ---
@@ -116,7 +117,7 @@ Model buildToyModel(const fs::path modelPath) {
          {sizeof(fp32), {8, 8, 128}},                                       // Output Data
          {sizeof(fp32), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
          {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"},             // Bias
-         Layer::ActivationType::RELU});                                     // Activation
+         af});                                     // Activation
     model.addLayer(conv6);
 
     // --- MPL 3: L9 ---
@@ -146,7 +147,7 @@ Model buildToyModel(const fs::path modelPath) {
                         {sizeof(fp32), {256}},   // Output Data
                         {sizeof(fp32), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
                         {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"},         // Bias
-                        Layer::ActivationType::RELU}  // Activation
+                        af}  // Activation
         );
     model.addLayer(dense1);
 
@@ -365,21 +366,12 @@ void runInfrenceTest2(const Model& model, const fs::path& basePath) {
     output.compareWithinPrint<Array1D_fp32>(expected);
 }
 
-// clang-format off
-#ifdef ZEDBOARD
-int runModelTest(){
-#else
-int main(int argc, char** argv) {
-    // Hanlde command line arguments
-    Args& args = Args::getInst();
-    args.parseArgs(argc, argv);
-#endif
-
+void run_all_RELU(){
     // Base input data path (determined from current directory of where you are running the command)
     fs::path basePath("data");  // May need to be altered for zedboards loading from SD Cards
 
     // Build the model and allocate the buffers
-    Model model = buildToyModel(basePath / "model");
+    Model model = buildToyModel(basePath / "model",ML::Layer::ActivationType::RELU);
     model.allocLayers<fp32>();
 
     // Run some framework tests as an example of loading data
@@ -411,6 +403,58 @@ int main(int argc, char** argv) {
 
     // Clean up
     model.freeLayers<fp32>();
+}
+
+void run_all_ELU(){
+    // Base input data path (determined from current directory of where you are running the command)
+    fs::path basePath("data_elu");  // May need to be altered for zedboards loading from SD Cards
+
+    // Build the model and allocate the buffers
+    Model model = buildToyModel(basePath / "model",ML::Layer::ActivationType::ELU);
+    model.allocLayers<fp32>();
+
+    // Run some framework tests as an example of loading data
+    runBasicTest(model, basePath);
+
+    // Run a Convolutional layer test
+    runConvolutionalLayerTest(0, model, basePath);
+
+    // Run 1st MaxPool layer test
+    runMaxPoolLayerTest(2, model, basePath);
+
+    // Run Flatten layer test
+    runFlattenLayerTest(9, model, basePath);
+
+    // Run Dense layer ReLU test
+    runDenseLayerReLUTest(10, model, basePath);
+
+    // Run Dense layer Softmax test
+    runDenseLayerSoftmaxTest(11, model, basePath);
+
+    // Run an end-to-end infrence test on image 0
+    runInfrenceTest0(model, basePath);
+
+    // Run an end-to-end infrence test on image 1
+    runInfrenceTest1(model, basePath);
+
+    // Run an end-to-end infrence test on image 2
+    runInfrenceTest2(model, basePath);
+
+    // Clean up
+    model.freeLayers<fp32>();
+}
+
+// clang-format off
+#ifdef ZEDBOARD
+int runModelTest(){
+#else
+int main(int argc, char** argv) {
+    // Hanlde command line arguments
+    Args& args = Args::getInst();
+    args.parseArgs(argc, argv);
+#endif
+    run_all_RELU();
+    run_all_ELU();
 
     return 0;
 }

@@ -49,6 +49,9 @@ class DenseLayer : public Layer {
 
     LayerParams biasParam;
     LayerData biasData;
+
+    static constexpr fp32 ALPHA = 1.0;
+
 };
 
 }  // namespace ML

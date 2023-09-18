@@ -50,6 +50,8 @@ class ConvolutionalLayer : public Layer {
     LayerParams biasParam;
     LayerData biasData;
 
+    static constexpr fp32 ALPHA = 1.0;
+
     // computes the intermediate result for a single filter and input channel
     const fp64 compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
                                            const size curCol, const size curChan,

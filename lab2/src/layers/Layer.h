@@ -81,7 +81,7 @@ class Layer {
     enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING, FLATTEN };
 
     // Activation function type
-    enum class ActivationType { NONE, RELU, SIGMOID, TANH, SOFTMAX };
+    enum class ActivationType { NONE, RELU, SIGMOID, TANH, SOFTMAX, ELU};
 
    public:
     // Constructors
