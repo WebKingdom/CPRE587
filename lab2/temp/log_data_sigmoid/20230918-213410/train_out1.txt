@@ -1,0 +1,12 @@
+Epoch 1/16
+1563/1563 [==============================] - 13s 8ms/step - loss: 5.3040 - accuracy: 0.0045 - val_loss: 5.2988 - val_accuracy: 0.0050
+Epoch 2/16
+1563/1563 [==============================] - 12s 8ms/step - loss: 5.3027 - accuracy: 0.0049 - val_loss: 5.3004 - val_accuracy: 0.0050
+Epoch 3/16
+1563/1563 [==============================] - 12s 8ms/step - loss: 5.3019 - accuracy: 0.0050 - val_loss: 5.3000 - val_accuracy: 0.0050
+Epoch 4/16
+1563/1563 [==============================] - 12s 8ms/step - loss: 5.3018 - accuracy: 0.0050 - val_loss: 5.3000 - val_accuracy: 0.0050
+Epoch 00004: early stopping
+Top-1 Accuracy: 0.005, total images: 10000
+Top-5 Accuracy: 0.025, total images: 10000
+Done!

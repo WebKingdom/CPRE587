@@ -427,6 +427,10 @@ int main(int argc, char** argv) {
 
     logInfo("Running TANH tests:");
     run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
+    printf("\n\n");
+
+    logInfo("Running SIGMOID tests:");
+    run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
 
     return 0;
 }
