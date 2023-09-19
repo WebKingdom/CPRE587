@@ -141,18 +141,18 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                     intermediateOut = std::max((fp64)0, intermediateOut);
                 } else if (this->getAType() == ActivationType::ELU) {
                     if (intermediateOut < 0.0) {
-                        intermediateOut = ALPHA * (std::exp((fp64)intermediateOut) - 1.0);
+                        intermediateOut = ALPHA * (std::exp(intermediateOut) - 1.0);
                     }
                 } else if (this->getAType() == ActivationType::TANH) {
-                    intermediateOut = (std::exp((fp64)intermediateOut) - std::exp(-(fp64)intermediateOut)) /
-                                      (std::exp((fp64)intermediateOut) + std::exp(-(fp64)intermediateOut));
+                    intermediateOut = (std::exp(intermediateOut) - std::exp(-intermediateOut)) /
+                                      (std::exp(intermediateOut) + std::exp(-intermediateOut));
                 } else if (this->getAType() == ActivationType::SIGMOID) {
-                    intermediateOut = 1 / (1 + std::exp(-(fp64)intermediateOut));
+                    intermediateOut = 1.0 / (1.0 + std::exp(-intermediateOut));
                 } else {
                     logError("ERROR: invalid activation type for convolutional layer");
                     exit(1);
                 }
-                outData[rowIdx][colIdx][filterIdx] = (fp32)intermediateOut;
+                outData[rowIdx][colIdx][filterIdx] = intermediateOut;
             }
         }
     }
