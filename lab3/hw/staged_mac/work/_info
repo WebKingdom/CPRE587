@@ -1,0 +1,50 @@
+m255
+K4
+z2
+!s12c _opt
+Z0 !s99 nomlopt
+!s11f vlog 2023.2_2 2023.06, Jun  9 2023
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+d/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl
+T_opt
+!s110 1695673245
+V3^S^34[Y7Im_bRiQficgc2
+04 10 4 work staged_mac fast 0
+=1-0050569bfc3a-6511eb9d-6e670-7eea
+R0
+!s12b OEM100
+!s124 OEM100
+o-quiet -auto_acc_if_foreign -work work
+Z1 tCvgOpt 0
+n@_opt
+OL;O;2023.2_2;77
+vstaged_mac
+2/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv
+DXx6 sv_std 3 std 0 22 9oUSJO;AeEaW`l:M@^WG92
+!s110 1695673169
+!i10b 1
+!s100 K<AB=HFMceL2V`KHA1M;>3
+IWcz7@iMUK6K6BBmdEf>iH2
+S1
+d/home/sszabo/github/CPRE587/lab3/hw/staged_mac
+w1695672402
+8/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv
+F/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv
+!i122 0
+L0 4 159
+VDg1SIo80bB@j0V0VzS_@n1
+OL;L;2023.2_2;77
+r1
+!s85 0
+31
+!s108 1695673168.000000
+!s107 /home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv|
+!s90 -reportprogress|300|-work|work|-vopt|-sv|-stats=none|/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv|
+!i113 0
+o-work work -sv -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+R1

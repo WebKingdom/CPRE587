@@ -1,8 +1,9 @@
 // a staged multiply and accumulate module
 
+`timescale 1ps/1fs
 module staged_mac #(
-    parameter DATA_WIDTH = 32;
-    parameter ACCUM_BITS = 8;
+    parameter DATA_WIDTH = 32,
+    parameter ACCUM_BITS = 8
   ) (
     input ACLK,
     input ARESETN,
@@ -20,7 +21,7 @@ module staged_mac #(
     output [DATA_WIDTH-1:0] MO_AXIS_TDATA,
     output MO_AXIS_TLAST,
     input MO_AXIS_TREADY,
-    output [7:0] MO_AXIS_TID,
+    output [7:0] MO_AXIS_TID
   );
 
   // define indexing constants
@@ -58,7 +59,7 @@ module staged_mac #(
   assign weight = SD_AXIS_TDATA[DW2_HI:DATA_WIDTH];
   assign activation = SD_AXIS_TDATA[DW_HI:0];
 
-  assign debug <= 0;
+  assign debug = 0;
 
   // AXIS slave output
   assign SD_AXIS_TREADY = state == INIT_ACCUM || state == GET_DATA;
@@ -157,6 +158,5 @@ module staged_mac #(
       end
     endcase
   end
-
 
 endmodule
