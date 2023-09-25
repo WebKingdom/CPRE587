@@ -71,7 +71,7 @@ module staged_mac #(
   assign MO_AXIS_TID = tid_reg;
 
   // state machine (sequential logic)
-  always_ff @(posedge ACLK)
+  always_ff @(posedge ACLK, negedge ARESETN)
   begin
     if (!ARESETN)
     begin
