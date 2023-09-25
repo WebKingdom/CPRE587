@@ -1,6 +1,6 @@
 // test bench for staged MAC
 
-`timescale 1ps/1fs
+`timescale 1ns/1ps
 module tb_stage_mac;
 
   // parameters
@@ -52,16 +52,16 @@ module tb_stage_mac;
   // Clock generation
   always #5 clk = ~clk;
 
+  // TODO create functions for reset, setting data, and caluclating expected outputs
+
   // Stimulus
   initial
   begin
-    // Reset
+    // reset
     itr = 0;
     itr_max = 2;
+    clk = 0;
     arstn = 0;
-    repeat (1) @(posedge clk);
-    arstn = 1;
-    repeat (1) @(posedge clk);
 
     // set ready signal for output
     mo_axis_tready = 0;
@@ -71,12 +71,17 @@ module tb_stage_mac;
     sd_axis_tlast = 0;
     sd_axis_tuser = 0;
     sd_axis_tvalid = 1;
-    sd_axis_tid = 3;
+    sd_axis_tid = 0;
+
+    repeat (1) @(posedge clk);
+    arstn = 1;
+    repeat (1) @(posedge clk);
 
     // send data itr_max times and end. (Wait for MAC to be ready and accept data)
     while (itr < itr_max)
     begin
       @(posedge sd_axis_tready);
+      sd_axis_tid += 1;
       repeat (1) @(posedge clk);
       // data should be accepted, send same data multiple times
       if (itr == itr_max - 1)
@@ -84,6 +89,9 @@ module tb_stage_mac;
         // signal last data
         sd_axis_tlast = 1;
       end
+      $display("Input data: %h", sd_axis_tdata);
+      $display("Input last: %h", sd_axis_tlast);
+      $display("Input id: %h", sd_axis_tid);
       itr++;
     end
 
@@ -96,11 +104,16 @@ module tb_stage_mac;
       $display("Output id: %h", mo_axis_tid);
     end
 
-    // check done write out
+    // check done write out and stop sending new data
+    sd_axis_tvalid = 0;
     repeat (1) begin
         mo_axis_tready = 1;
         repeat (2) @(posedge clk);
     end
+
+
+    // * reset and test with accumulator initialization
+
 
     // End simulation
     repeat (4) @(posedge clk);

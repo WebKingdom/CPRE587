@@ -1,6 +1,6 @@
 // a staged multiply and accumulate module
 
-`timescale 1ps/1fs
+`timescale 1ns/1ps
 module staged_mac #(
     parameter DATA_WIDTH = 32,
     parameter ACCUM_BITS = 8
@@ -52,7 +52,7 @@ module staged_mac #(
   logic [DW_HI:0] activation_reg;
 
   // helper for multiplying and accumulating
-  logic [DW2_HI:0] mult_reg;
+  logic [DW2_HI:0] mult_val;
   logic [ACCUM_HI:0] accum_reg;
 
   // assign data
@@ -70,8 +70,11 @@ module staged_mac #(
   assign MO_AXIS_TLAST = tlast_reg;
   assign MO_AXIS_TID = tid_reg;
 
+  // assign multiplication value
+  assign mult_val = weight_reg * activation_reg;
+
   // state machine (sequential logic)
-  always_ff @(posedge ACLK, negedge ARESETN)
+  always_ff @(posedge ACLK)
   begin
     if (!ARESETN)
     begin
@@ -130,14 +133,13 @@ module staged_mac #(
       // multiply
       MULT:
       begin
-        mult_reg = weight_reg * activation_reg;
         state_next = ACCUM;
       end
 
       // accumulate
       ACCUM:
       begin
-        accum_reg = accum_reg + {{AB_2{mult_reg[DW2_HI]}}, mult_reg, {AB_2{1'b0}}};
+        accum_reg = accum_reg + {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
         if (tlast_reg)
         begin
           state_next = WR_OUT;

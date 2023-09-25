@@ -34,6 +34,11 @@
 # custom ignores
 *.venv
 *.vscode
+*/*.jou
+*/*.log
+*/*.pb
+*/*.dcp
+*/*.vds
 # */*img_data
 # */*log_data
 # */*model_data

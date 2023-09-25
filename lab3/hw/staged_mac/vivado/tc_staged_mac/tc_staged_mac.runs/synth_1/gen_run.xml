@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1695670819">
+<GenRun Id="synth_1" LaunchPart="xc7z020clg484-1" LaunchTime="1695683887">
   <File Type="VDS-TIMING-PB" Name="staged_mac_timing_summary_synth.pb"/>
   <File Type="VDS-TIMINGSUMMARY" Name="staged_mac_timing_summary_synth.rpt"/>
   <File Type="RDS-DCP" Name="staged_mac.dcp"/>
@@ -11,10 +11,8 @@
   <File Type="PA-TCL" Name="staged_mac.tcl"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
-    <File Path="$PSRCDIR/sources_1/imports/hdl/staged_mac.sv">
+    <File Path="$PPRDIR/../../hdl/staged_mac.sv">
       <FileInfo>
-        <Attr Name="ImportPath" Val="$PPRDIR/../../hdl/staged_mac.sv"/>
-        <Attr Name="ImportTime" Val="1695670765"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
         <Attr Name="UsedIn" Val="simulation"/>
