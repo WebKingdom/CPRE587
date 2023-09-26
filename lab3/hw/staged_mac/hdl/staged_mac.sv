@@ -52,7 +52,9 @@ module staged_mac #(
   logic [DW_HI:0] activation_reg;
 
   // helper for multiplying and accumulating
-  logic [DW2_HI:0] mult_val;
+  // logic [DW2_HI:0] mult_val;
+  logic [DW2_HI:0] mult_reg;
+  // logic [ACCUM_HI:0] accum_val;
   logic [ACCUM_HI:0] accum_reg;
 
   // assign data
@@ -71,15 +73,16 @@ module staged_mac #(
   assign MO_AXIS_TID = tid_reg;
 
   // assign multiplication value
-  assign mult_val = weight_reg * activation_reg;
+  // assign mult_val = weight_reg * activation_reg;
+  // assign accum_val = accum_reg + {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
 
   // state machine (sequential logic)
   always_ff @(posedge ACLK) begin
-    if (!ARESETN) begin
-      state <= INIT_ACCUM;
+    if (ARESETN == 1'b0) begin
+      state = INIT_ACCUM;
     end
     else begin
-      state <= state_next;
+      state = state_next;
     end
   end
 
@@ -91,17 +94,18 @@ module staged_mac #(
       INIT_ACCUM: begin
         tlast_reg = 0;
         tid_reg = 0;
-        if (SD_AXIS_TVALID && SD_AXIS_TUSER) begin
+        weight_reg = 0;
+        activation_reg = 0;
+        mult_reg = 0;
+        accum_reg = 0;
+        if (SD_AXIS_TVALID == 1'b1 && SD_AXIS_TUSER == 1'b1) begin
           // accumulator must be initialized to data if TUSER is asserted
           // use MSB of activation as sign bit
           accum_reg = {{AB_2{activation[DW_HI]}}, {DW_2{activation[DW_HI]}}, activation, {DW_2{1'b0}}, {AB_2{1'b0}}};
-          weight_reg = 0;
-          activation_reg = 0;
           state_next = GET_DATA;
         end
-        else if (SD_AXIS_TVALID) begin
-          // reset accumulator to 0 and get data
-          accum_reg = 0;
+        else if (SD_AXIS_TVALID == 1'b1) begin
+          // get data
           weight_reg = weight;
           activation_reg = activation;
           tlast_reg = SD_AXIS_TLAST;
@@ -112,7 +116,7 @@ module staged_mac #(
 
       // get data
       GET_DATA: begin
-        if (SD_AXIS_TVALID) begin
+        if (SD_AXIS_TVALID == 1'b1) begin
           weight_reg = weight;
           activation_reg = activation;
           tlast_reg = SD_AXIS_TLAST;
@@ -123,13 +127,14 @@ module staged_mac #(
 
       // multiply
       MULT: begin
+        mult_reg = weight_reg * activation_reg;
         state_next = ACCUM;
       end
 
       // accumulate
       ACCUM: begin
-        accum_reg += {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
-        if (tlast_reg) begin
+        accum_reg = accum_reg + {{AB_2{mult_reg[DW2_HI]}}, mult_reg, {AB_2{1'b0}}};
+        if (tlast_reg == 1'b1) begin
           state_next = WR_OUT;
         end
         else begin
@@ -139,7 +144,7 @@ module staged_mac #(
 
       // write out
       WR_OUT: begin
-        if (MO_AXIS_TREADY) begin
+        if (MO_AXIS_TREADY == 1'b1) begin
           state_next = INIT_ACCUM;
         end
       end

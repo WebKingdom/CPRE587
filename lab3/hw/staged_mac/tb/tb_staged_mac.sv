@@ -14,6 +14,10 @@ module tb_stage_mac ();
 
   int itr    ;
   int itr_max;
+  
+  // input data
+  logic [DW_HI:0] weight;
+  logic [DW_HI:0] activation;
 
   // expected outputs for test
   logic [DW2_HI:0] scb_mult;
@@ -62,20 +66,28 @@ module tb_stage_mac ();
   // Clock generation
   always #5 clk = ~clk;
 
-  // TODO create functions for reset, setting data, and caluclating expected outputs
   function automatic void init_itrs();
     itr = 0;
     itr_max = 10;
   endfunction
 
-  task automatic void reset();
+  task automatic reset();
+    // input data reset
     init_itrs();
+    weight = 0;
+    activation = 0;
+    scb_mult = 0;
+    scb_accum = 0;
+    scb_output = 0;
+
+    // clear MAC AXIS master input ready
+    mo_axis_tready = 0;
+
+    // UUT reset
     clk = 0;
     arstn = 0;
     repeat (2) @(posedge clk);
     arstn = 1;
-    // clear MAC AXIS master input ready
-    mo_axis_tready = 0;
   endtask
 
   function automatic void set_input();
@@ -113,13 +125,13 @@ module tb_stage_mac ();
   endfunction
 
   function automatic void update_scoreboard();
-    if (sd_axis_tvalid == 1 && sd_axis_tready == 1) begin
+    if (sd_axis_tvalid == 1'b1 && sd_axis_tready == 1'b1) begin
       disp_input_data();
-      if (itr == 0 && sd_axis_tuser == 1) begin
+      if (itr == 1'b0 && sd_axis_tuser == 1'b1) begin
         // start accumulator as initialized by activation
         scb_accum = {{AB_2{activation[DW_HI]}}, {DW_2{activation[DW_HI]}}, activation, {DW_2{1'b0}}, {AB_2{1'b0}}};
       end
-      else if (itr == 0) begin
+      else if (itr == 1'b0) begin
         // start accumulator as 0
         scb_accum = 0;
       end begin
@@ -133,7 +145,7 @@ module tb_stage_mac ();
 
   function automatic void check_output();
     // checks the final MAC output
-    if (mo_axis_tvalid == 1 && mo_axis_tready == 1) begin
+    if (mo_axis_tvalid == 1'b1 && mo_axis_tready == 1'b1) begin
       disp_output_data();
       scb_output = scb_accum[ACCUM_HI-AB_2-DW_2:DW_2+AB_2]; // 51:20
       $display("Expected: %h", scb_output);
@@ -150,21 +162,31 @@ module tb_stage_mac ();
     reset();
 
     while (itr < itr_max) begin
+      @(posedge clk);
       set_rand_input();
 
       // signal last data
-      if (itr == itr_max - 1) begin
+      if (itr == (itr_max - 1)) begin
         sd_axis_tlast = 1;
       end
 
-      @(posedge clk);
       // itr updated in update_scoreboard()
+      // wait a little
+      #1;
       update_scoreboard();
     end
 
-    while (mo_axis_tready == 0) begin
-      mo_axis_tready = $urandom;
+    // wait for TVALID high on MAC master output
+    while (mo_axis_tvalid == 1'b0) begin
       @(posedge clk);
+    end
+
+    // randomize TREADY on MAC master input
+    while (mo_axis_tready == 1'b0) begin
+      @(posedge clk);
+      mo_axis_tready = $urandom;
+      // wait a little
+      #1;
       check_output();
     end
   endtask
@@ -173,46 +195,6 @@ module tb_stage_mac ();
   initial begin
     run_test1();
     reset();
-
-    // ! TODO outdated code below
-    // Send input data without initializing accum
-    // sd_axis_tdata = 64'h00012000_00024000;
-    // sd_axis_tlast = 0;
-    // sd_axis_tuser = 0;
-    // sd_axis_tvalid = 1;
-    // sd_axis_tid = 0;
-
-    // repeat (1) @(posedge clk);
-    // arstn = 1;
-    // repeat (1) @(posedge clk);
-
-    // // send data itr_max times and end. (Wait for MAC to be ready and accept data)
-    // while (itr < itr_max) begin
-    //   @(posedge sd_axis_tready);
-    //   sd_axis_tid += 1;
-    //   repeat (1) @(posedge clk);
-    //   // data should be accepted, send same data multiple times
-    //   if (itr == itr_max - 1) begin
-    //     // signal last data
-    //     sd_axis_tlast = 1;
-    //   end
-    //   disp_input_data();
-    //   itr++;
-    // end
-
-    // // check output data
-    // repeat (1) begin
-    //   @(posedge mo_axis_tvalid);
-    //   disp_output_data();
-    // end
-
-    // // check done write out and stop sending new data
-    // sd_axis_tvalid = 0;
-    // repeat (1) begin
-    //   mo_axis_tready = 1;
-    //   repeat (2) @(posedge clk);
-    // end
-
 
     // End simulation
     repeat (2) @(posedge clk);
