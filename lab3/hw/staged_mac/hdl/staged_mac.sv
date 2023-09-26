@@ -74,30 +74,24 @@ module staged_mac #(
   assign mult_val = weight_reg * activation_reg;
 
   // state machine (sequential logic)
-  always_ff @(posedge ACLK)
-  begin
-    if (!ARESETN)
-    begin
+  always_ff @(posedge ACLK) begin
+    if (!ARESETN) begin
       state <= INIT_ACCUM;
     end
-    else
-    begin
+    else begin
       state <= state_next;
     end
   end
 
   // state machine (combinational logic)
-  always_comb
-  begin
+  always_comb begin
     state_next = state;
     case (state)
       // initialize accumulator
-      INIT_ACCUM:
-      begin
+      INIT_ACCUM: begin
         tlast_reg = 0;
         tid_reg = 0;
-        if (SD_AXIS_TVALID && SD_AXIS_TUSER)
-        begin
+        if (SD_AXIS_TVALID && SD_AXIS_TUSER) begin
           // accumulator must be initialized to data if TUSER is asserted
           // use MSB of activation as sign bit
           accum_reg = {{AB_2{activation[DW_HI]}}, {DW_2{activation[DW_HI]}}, activation, {DW_2{1'b0}}, {AB_2{1'b0}}};
@@ -105,8 +99,7 @@ module staged_mac #(
           activation_reg = 0;
           state_next = GET_DATA;
         end
-        else if (SD_AXIS_TVALID)
-        begin
+        else if (SD_AXIS_TVALID) begin
           // reset accumulator to 0 and get data
           accum_reg = 0;
           weight_reg = weight;
@@ -118,10 +111,8 @@ module staged_mac #(
       end
 
       // get data
-      GET_DATA:
-      begin
-        if (SD_AXIS_TVALID)
-        begin
+      GET_DATA: begin
+        if (SD_AXIS_TVALID) begin
           weight_reg = weight;
           activation_reg = activation;
           tlast_reg = SD_AXIS_TLAST;
@@ -131,30 +122,24 @@ module staged_mac #(
       end
 
       // multiply
-      MULT:
-      begin
+      MULT: begin
         state_next = ACCUM;
       end
 
       // accumulate
-      ACCUM:
-      begin
-        accum_reg = accum_reg + {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
-        if (tlast_reg)
-        begin
+      ACCUM: begin
+        accum_reg += {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
+        if (tlast_reg) begin
           state_next = WR_OUT;
         end
-        else
-        begin
+        else begin
           state_next = GET_DATA;
         end
       end
 
       // write out
-      WR_OUT:
-      begin
-        if (MO_AXIS_TREADY)
-        begin
+      WR_OUT: begin
+        if (MO_AXIS_TREADY) begin
           state_next = INIT_ACCUM;
         end
       end
