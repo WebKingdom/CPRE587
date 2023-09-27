@@ -4,17 +4,18 @@
 module tb_stage_mac ();
 
   // define constants
-  localparam DATA_WIDTH = 32;
-  localparam ACCUM_BITS = 8 ;
+  localparam DEBUG = 0;
+  localparam DATA_WIDTH = 8;
+  localparam ACCUM_BITS = 20;
   localparam AB_2 = ACCUM_BITS / 2;
   localparam DW_2 = DATA_WIDTH / 2;
   localparam DW_HI = DATA_WIDTH - 1;
   localparam DW2_HI = DATA_WIDTH * 2 - 1;
   localparam ACCUM_HI = DATA_WIDTH * 2 + ACCUM_BITS - 1;
 
-  int itr    ;
-  int itr_max;
-  
+  const int ITR_MAX = 524288;
+  int itr;
+
   // input data
   logic [DW_HI:0] weight;
   logic [DW_HI:0] activation;
@@ -66,14 +67,9 @@ module tb_stage_mac ();
   // Clock generation
   always #5 clk = ~clk;
 
-  function automatic void init_itrs();
-    itr = 0;
-    itr_max = 10;
-  endfunction
-
   task automatic reset();
     // input data reset
-    init_itrs();
+    itr = 0;
     weight = 0;
     activation = 0;
     scb_mult = 0;
@@ -113,15 +109,19 @@ module tb_stage_mac ();
   endfunction
 
   function automatic void disp_input_data();
-    $display("Input data: %h", sd_axis_tdata);
-    $display("Input last: %h", sd_axis_tlast);
-    $display("Input id: %h", sd_axis_tid);
+    if (DEBUG) begin
+      $display("Input data: %h", sd_axis_tdata);
+      $display("Input last: %h", sd_axis_tlast);
+      $display("Input id: %h", sd_axis_tid);
+    end
   endfunction
 
   function automatic void disp_output_data();
-    $display("Output data: %h", mo_axis_tdata);
-    $display("Output last: %h", mo_axis_tlast);
-    $display("Output id: %h", mo_axis_tid);
+    if (DEBUG) begin
+      $display("Output data: %h", mo_axis_tdata);
+      $display("Output last: %h", mo_axis_tlast);
+      $display("Output id: %h", mo_axis_tid);
+    end
   endfunction
 
   function automatic void update_scoreboard();
@@ -139,6 +139,7 @@ module tb_stage_mac ();
         scb_mult = weight * activation;
         scb_accum += {{AB_2{scb_mult[DW2_HI]}}, scb_mult, {AB_2{1'b0}}};
       end
+      scb_output = {scb_accum[ACCUM_HI:ACCUM_HI-DW_2+1], scb_accum[DW_HI+AB_2:DW_HI+AB_2-DW_2+1]}; // 71:56, 35:20
       itr++;
     end
   endfunction
@@ -147,26 +148,33 @@ module tb_stage_mac ();
     // checks the final MAC output
     if (mo_axis_tvalid == 1'b1 && mo_axis_tready == 1'b1) begin
       disp_output_data();
-      scb_output = scb_accum[ACCUM_HI-AB_2-DW_2:DW_2+AB_2]; // 51:20
       $display("Expected: %h", scb_output);
       $display("Actual: %h", mo_axis_tdata);
       if (mo_axis_tdata != scb_output) begin
         $display("ERROR: Output data does not match expected output");
         $finish;
       end
+      else if (mo_axis_tlast != 1'b1) begin
+        $display("ERROR: TLAST not high");
+        $finish;
+      end
+      else if ((itr <= 32'h000000ff) && (mo_axis_tid != (itr - 1))) begin
+        $display("ERROR: TID != itr");
+        $finish;
+      end
     end
   endfunction
 
-  // Test 1. Send and accept random input data itr_max times and check output
+  // Test 1. Send and accept random input data ITR_MAX times and check output
   task automatic run_test1();
     reset();
 
-    while (itr < itr_max) begin
+    while (itr < ITR_MAX) begin
       @(posedge clk);
       set_rand_input();
 
       // signal last data
-      if (itr == (itr_max - 1)) begin
+      if (itr == (ITR_MAX - 1)) begin
         sd_axis_tlast = 1;
       end
 
@@ -194,6 +202,7 @@ module tb_stage_mac ();
   // Stimulus
   initial begin
     run_test1();
+    repeat (1) @(posedge clk);
     reset();
 
     // End simulation

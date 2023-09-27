@@ -68,11 +68,11 @@ module staged_mac #(
 
   // AXIS master output
   assign MO_AXIS_TVALID = state == WR_OUT;
-  assign MO_AXIS_TDATA = accum_reg[ACCUM_HI-AB_2-DW_2:DW_2+AB_2]; // 51:20
+  assign MO_AXIS_TDATA = {accum_reg[ACCUM_HI:ACCUM_HI-DW_2+1], accum_reg[DW_HI+AB_2:DW_HI+AB_2-DW_2+1]}; // 71:56, 35:20
   assign MO_AXIS_TLAST = tlast_reg;
   assign MO_AXIS_TID = tid_reg;
 
-  // assign multiplication value
+  // assign multiplication and accumulation values
   // assign mult_val = weight_reg * activation_reg;
   // assign accum_val = accum_reg + {{AB_2{mult_val[DW2_HI]}}, mult_val, {AB_2{1'b0}}};
 
@@ -148,6 +148,9 @@ module staged_mac #(
           state_next = INIT_ACCUM;
         end
       end
+
+      default:
+        state_next = INIT_ACCUM;
     endcase
   end
 
