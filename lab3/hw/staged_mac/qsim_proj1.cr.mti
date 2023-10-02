@@ -1,0 +1,8 @@
+/home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv {1 {vlog -work work -vopt -sv -stats=none /home/sszabo/github/CPRE587/lab3/hw/staged_mac/hdl/staged_mac.sv
+QuestaSim-64 vlog 2023.2_2 Compiler 2023.06 Jun  9 2023
+-- Compiling module staged_mac
+
+Top level modules:
+	staged_mac
+
+} {} {}}
