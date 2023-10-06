@@ -27,8 +27,15 @@ class ConvolutionalLayer : public Layer {
     void allocateLayer() {
         Layer::allocateOutputBuffer<Array3D<T>>();
         weightData.loadData<Array4D<T>>();
-        // TODO ssz check if T is of type i8
         biasData.loadData<Array1D<T>>();
+    }
+
+    // Allocate all resources needed for the layer & Load all of the required data for the layer
+    template <typename TW, typename TI, typename TB>
+    void allocateLayer() {
+        Layer::allocateOutputBuffer<Array3D<TI>>();
+        weightData.loadData<Array4D<TW>>();
+        biasData.loadData<Array1D<TB>>();
     }
 
     // Free all resources allocated for the layer
@@ -37,6 +44,14 @@ class ConvolutionalLayer : public Layer {
         Layer::freeOutputBuffer<Array3D<T>>();
         weightData.freeData<Array4D<T>>();
         biasData.freeData<Array1D<T>>();
+    }
+
+    // Free all resources allocated for the layer
+    template <typename TW, typename TI, typename TB>
+    void freeLayer() {
+        Layer::freeOutputBuffer<Array3D<TI>>();
+        weightData.freeData<Array4D<TW>>();
+        biasData.freeData<Array1D<TB>>();
     }
 
     // Virtual functions

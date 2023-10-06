@@ -12,6 +12,7 @@ namespace ML {
 
 #ifdef ZEDBOARD
 
+template <typename TW, typename TI, typename TB>
 Model buildToyModel(const std::filesystem::path modelPath);
 void runTests();
 int runModelTest();

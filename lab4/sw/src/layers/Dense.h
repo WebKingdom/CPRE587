@@ -30,12 +30,28 @@ class DenseLayer : public Layer {
         biasData.loadData<Array1D<T>>();
     }
 
+    // Allocate all resources needed for the layer & Load all of the required data for the layer
+    template <typename TW, typename TI, typename TB>
+    void allocateLayer() {
+        Layer::allocateOutputBuffer<Array3D<TI>>();
+        weightData.loadData<Array4D<TW>>();
+        biasData.loadData<Array1D<TB>>();
+    }
+
     // Free all resources allocated for the layer
     template <typename T>
     void freeLayer() {
         Layer::freeOutputBuffer<Array1D<T>>();
         weightData.freeData<Array2D<T>>();
         biasData.freeData<Array1D<T>>();
+    }
+
+    // Free all resources allocated for the layer
+    template <typename TW, typename TI, typename TB>
+    void freeLayer() {
+        Layer::freeOutputBuffer<Array3D<TI>>();
+        weightData.freeData<Array4D<TW>>();
+        biasData.freeData<Array1D<TB>>();
     }
 
     // Virtual functions

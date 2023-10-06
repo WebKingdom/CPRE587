@@ -25,6 +25,7 @@ using namespace ML;
 namespace fs = std::filesystem;
 
 // Build our ML toy model
+template <typename TW, typename TI, typename TB>
 Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af) {
     Model model;
     logInfo("--- Building Toy Model ---");
@@ -32,17 +33,17 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // --- Conv 1: L1 ---
     // Input shape: 64x64x3
     // Output shape: 60x60x32
-    // LayerParams conv1_inDataParam(sizeof(fp32), {64, 64, 3});
-    // LayerParams conv1_outDataParam(sizeof(fp32), {60, 60, 32});
-    // LayerParams conv1_weightParam(sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin");
-    // LayerParams conv1_biasParam(sizeof(fp32), {32}, modelPath / "conv1_biases.bin");
+    // LayerParams conv1_inDataParam(sizeof(TI), {64, 64, 3});
+    // LayerParams conv1_outDataParam(sizeof(TI), {60, 60, 32});
+    // LayerParams conv1_weightParam(sizeof(TW), {5, 5, 3, 32}, modelPath / "conv1_weights.bin");
+    // LayerParams conv1_biasParam(sizeof(TB), {32}, modelPath / "conv1_biases.bin");
     // auto conv1 = new ConvolutionalLayer(conv1_inDataParam, conv1_outDataParam, conv1_weightParam,
     // conv1_biasParam);
     auto conv1 = new ConvolutionalLayer(
-        {{sizeof(fp32), {64, 64, 3}},                                     // Input Params
-         {sizeof(fp32), {60, 60, 32}},                                    // Output Params
-         {sizeof(fp32), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
-         {sizeof(fp32), {32}, modelPath / "conv1_biases.bin"},            // Bias params
+        {{sizeof(TI), {64, 64, 3}},                                     // Input Params
+         {sizeof(TI), {60, 60, 32}},                                    // Output Params
+         {sizeof(TW), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
+         {sizeof(TB), {32}, modelPath / "conv1_biases.bin"},            // Bias params
          af});                                                            // Activation
     model.addLayer(conv1);
 
@@ -50,10 +51,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 60x60x32
     // Output shape: 56x56x32
     auto conv2 = new ConvolutionalLayer(
-        {{sizeof(fp32), {60, 60, 32}},                                     // Input Data
-         {sizeof(fp32), {56, 56, 32}},                                     // Output Data
-         {sizeof(fp32), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
-         {sizeof(fp32), {32}, modelPath / "conv2_biases.bin"},             // Bias
+        {{sizeof(TI), {60, 60, 32}},                                     // Input Data
+         {sizeof(TI), {56, 56, 32}},                                     // Output Data
+         {sizeof(TW), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
+         {sizeof(TB), {32}, modelPath / "conv2_biases.bin"},             // Bias
          af});                                                             // Activation
     model.addLayer(conv2);
 
@@ -61,8 +62,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 56x56x32
     // Output shape: 28x28x32
     auto maxPool1 = new MaxPoolingLayer({
-        {sizeof(fp32), {56, 56, 32}},  // Input Data
-        {sizeof(fp32), {28, 28, 32}}   // Output Data
+        {sizeof(TI), {56, 56, 32}},  // Input Data
+        {sizeof(TI), {28, 28, 32}}   // Output Data
     });
     model.addLayer(maxPool1);
 
@@ -70,10 +71,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 28x28x32
     // Output shape: 26x26x64
     auto conv3 = new ConvolutionalLayer(
-        {{sizeof(fp32), {28, 28, 32}},                                     // Input Data
-         {sizeof(fp32), {26, 26, 64}},                                     // Output Data
-         {sizeof(fp32), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv3_biases.bin"},             // Bias
+        {{sizeof(TI), {28, 28, 32}},                                     // Input Data
+         {sizeof(TI), {26, 26, 64}},                                     // Output Data
+         {sizeof(TW), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
+         {sizeof(TB), {64}, modelPath / "conv3_biases.bin"},             // Bias
          af});                                                             // Activation
     model.addLayer(conv3);
 
@@ -81,10 +82,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 26x26x64
     // Output shape: 24x24x64
     auto conv4 = new ConvolutionalLayer(
-        {{sizeof(fp32), {26, 26, 64}},                                     // Input Data
-         {sizeof(fp32), {24, 24, 64}},                                     // Output Data
-         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv4_biases.bin"},             // Bias
+        {{sizeof(TI), {26, 26, 64}},                                     // Input Data
+         {sizeof(TI), {24, 24, 64}},                                     // Output Data
+         {sizeof(TW), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
+         {sizeof(TB), {64}, modelPath / "conv4_biases.bin"},             // Bias
          af});                                                             // Activation
     model.addLayer(conv4);
 
@@ -92,8 +93,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 24x24x64
     // Output shape: 12x12x64
     auto maxPool2 = new MaxPoolingLayer({
-        {sizeof(fp32), {24, 24, 64}},  // Input Data
-        {sizeof(fp32), {12, 12, 64}}   // Output Data
+        {sizeof(TI), {24, 24, 64}},  // Input Data
+        {sizeof(TI), {12, 12, 64}}   // Output Data
     });
     model.addLayer(maxPool2);
 
@@ -101,10 +102,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 12x12x64
     // Output shape: 10x10x64
     auto conv5 = new ConvolutionalLayer(
-        {{sizeof(fp32), {12, 12, 64}},                                     // Input Data
-         {sizeof(fp32), {10, 10, 64}},                                     // Output Data
-         {sizeof(fp32), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
-         {sizeof(fp32), {64}, modelPath / "conv5_biases.bin"},             // Bias
+        {{sizeof(TI), {12, 12, 64}},                                     // Input Data
+         {sizeof(TI), {10, 10, 64}},                                     // Output Data
+         {sizeof(TW), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
+         {sizeof(TB), {64}, modelPath / "conv5_biases.bin"},             // Bias
          af});                                                             // Activation
     model.addLayer(conv5);
 
@@ -112,10 +113,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 10x10x64
     // Output shape: 8x8x128
     auto conv6 = new ConvolutionalLayer(
-        {{sizeof(fp32), {10, 10, 64}},                                      // Input Data
-         {sizeof(fp32), {8, 8, 128}},                                       // Output Data
-         {sizeof(fp32), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
-         {sizeof(fp32), {128}, modelPath / "conv6_biases.bin"},             // Bias
+        {{sizeof(TI), {10, 10, 64}},                                      // Input Data
+         {sizeof(TI), {8, 8, 128}},                                       // Output Data
+         {sizeof(TW), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
+         {sizeof(TB), {128}, modelPath / "conv6_biases.bin"},             // Bias
          af});                                                              // Activation
     model.addLayer(conv6);
 
@@ -123,8 +124,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 8x8x128
     // Output shape: 4x4x128
     auto maxPool3 = new MaxPoolingLayer({
-        {sizeof(fp32), {8, 8, 128}},  // Input Data
-        {sizeof(fp32), {4, 4, 128}}   // Output Data
+        {sizeof(TI), {8, 8, 128}},  // Input Data
+        {sizeof(TI), {4, 4, 128}}   // Output Data
     });
     model.addLayer(maxPool3);
 
@@ -132,8 +133,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Input shape: 4x4x128
     // Output shape: 2048
     auto flatten1 = new FlattenLayer({
-        {sizeof(fp32), {4, 4, 128}},  // Input Data
-        {sizeof(fp32), {2048}}        // Output Data
+        {sizeof(TI), {4, 4, 128}},  // Input Data
+        {sizeof(TI), {2048}}        // Output Data
     });
     model.addLayer(flatten1);
 
@@ -142,10 +143,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Output shape: 256
     // ReLU Activation
     auto dense1 =
-        new DenseLayer({{sizeof(fp32), {2048}},  // Input Data
-                        {sizeof(fp32), {256}},   // Output Data
-                        {sizeof(fp32), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
-                        {sizeof(fp32), {256}, modelPath / "dense1_biases.bin"},         // Bias
+        new DenseLayer({{sizeof(TI), {2048}},  // Input Data
+                        {sizeof(TI), {256}},   // Output Data
+                        {sizeof(TW), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
+                        {sizeof(TB), {256}, modelPath / "dense1_biases.bin"},         // Bias
                         af}  // Activation
         );
     model.addLayer(dense1);
@@ -155,10 +156,10 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Output shape: 200
     // Softmax Activation
     auto dense2 =
-        new DenseLayer({{sizeof(fp32), {256}},  // Input Data
-                        {sizeof(fp32), {200}},  // Output Data
-                        {sizeof(fp32), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
-                        {sizeof(fp32), {200}, modelPath / "dense2_biases.bin"},        // Bias
+        new DenseLayer({{sizeof(TI), {256}},  // Input Data
+                        {sizeof(TI), {200}},  // Output Data
+                        {sizeof(TW), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
+                        {sizeof(TB), {200}, modelPath / "dense2_biases.bin"},        // Bias
                         Layer::ActivationType::SOFTMAX}                                // Activation
         );
     model.addLayer(dense2);
@@ -374,7 +375,7 @@ void runInfrenceTest2(const Model& model, const fs::path& basePath) {
  */
 void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) {
     // Build the model and allocate the buffers
-    Model model = buildToyModel(basePath / "model", af);
+    Model model = buildToyModel<fp32, fp32, fp32>(basePath / "model", af);
     model.allocLayers<fp32>();
 
     // Run some framework tests as an example of loading data
@@ -410,9 +411,9 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) 
 
 void run_all_quant_tests(const fs::path basePath, const ML::Layer::ActivationType af) {
     // Build the model and allocate the buffers
-    Model model = buildToyModel(basePath / "model", af);
+    Model model = buildToyModel<i8, ui8, i32>(basePath / "model", af);
     // TODO ssz what type to allocate for layers?
-    model.allocLayers<i8>();
+    model.allocLayers<i8, ui8, i32>();
 
     // Run some framework tests as an example of loading data
     runBasicTest(model, basePath);
@@ -442,7 +443,7 @@ void run_all_quant_tests(const fs::path basePath, const ML::Layer::ActivationTyp
     runInfrenceTest2(model, basePath);
 
     // Clean up
-    model.freeLayers<fp32>();
+    model.freeLayers<i8, ui8, i32>();
 }
 
 // clang-format off
@@ -470,8 +471,8 @@ int main(int argc, char** argv) {
     run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
 
     // TODO ssz enable
-    // logInfo("Running Quantized RELU tests:");
-    // run_all_quant_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
+    logInfo("Running Quantized RELU tests:");
+    run_all_quant_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
 
     return 0;
 }

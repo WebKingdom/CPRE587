@@ -25,8 +25,17 @@ class Model {
     template <typename T>
     void allocLayers();
 
+    // Internal memory management
+    // Allocate the internal output buffers for each layer in the model
+    template <typename TW, typename TI, typename TB>
+    void allocLayers();
+
     // Free all layers
     template <typename T>
+    void freeLayers();
+
+    // Free all layers
+    template <typename TW, typename TI, typename TB>
     void freeLayers();
 
     // Getter Functions
@@ -93,6 +102,36 @@ void Model::allocLayers() {
     }
 }
 
+// Allocate the internal output buffers for each layer in the model
+template <typename TW, typename TI, typename TB>
+void Model::allocLayers() {
+    for (std::size_t i = 0; i < layers.size(); i++) {
+        // Virtual templated functions are not allowed, so we have this
+        switch (layers[i]->getLType()) {
+            case Layer::LayerType::CONVOLUTIONAL:
+                ((ConvolutionalLayer*)layers[i])->allocateLayer<TW, TI, TB>();
+                break;
+            case Layer::LayerType::DENSE:
+                ((DenseLayer*)layers[i])->allocateLayer<TW, TI, TB>();
+                break;
+            case Layer::LayerType::SOFTMAX:
+                ((SoftmaxLayer*)layers[i])->allocateLayer<TI>();
+                break;
+            case Layer::LayerType::MAX_POOLING:
+                ((MaxPoolingLayer*)layers[i])->allocateLayer<TI>();
+                break;
+            case Layer::LayerType::FLATTEN:
+                ((FlattenLayer*)layers[i])->allocateLayer<TI>();
+                break;
+            case Layer::LayerType::NONE:
+                [[fallthrough]];
+            default:
+                assert(false && "Cannot allocate layer of type none");
+                break;
+        }
+    }
+}
+
 // Free all layers in the model
 template <typename T>
 void Model::freeLayers() {
@@ -115,6 +154,46 @@ void Model::freeLayers() {
                 break;
             case Layer::LayerType::FLATTEN:
                 ((FlattenLayer*)layers[i])->freeLayer<T>();
+                break;
+            case Layer::LayerType::NONE:
+                [[fallthrough]];
+            default:
+                assert(false && "Cannot clear layer of type none");
+                break;
+        }
+    }
+
+    // Free layer pointers
+    for (std::size_t i = 0; i < layers.size(); i++) {
+        delete layers[i];
+    }
+
+    // Remove the dangeling pointers from the array
+    layers.clear();
+}
+
+// Free all layers in the model
+template <typename TW, typename TI, typename TB>
+void Model::freeLayers() {
+    // Free all of the layer buffers first
+    // Free the internal output buffers for each layer in the model
+    for (std::size_t i = 0; i < layers.size(); i++) {
+        // Virtual templated functions are not allowed, so we have this
+        switch (layers[i]->getLType()) {
+            case Layer::LayerType::CONVOLUTIONAL:
+                ((ConvolutionalLayer*)layers[i])->freeLayer<TW, TI, TB>();
+                break;
+            case Layer::LayerType::DENSE:
+                ((DenseLayer*)layers[i])->freeLayer<TW, TI, TB>();
+                break;
+            case Layer::LayerType::SOFTMAX:
+                ((SoftmaxLayer*)layers[i])->freeLayer<TI>();
+                break;
+            case Layer::LayerType::MAX_POOLING:
+                ((MaxPoolingLayer*)layers[i])->freeLayer<TI>();
+                break;
+            case Layer::LayerType::FLATTEN:
+                ((FlattenLayer*)layers[i])->freeLayer<TI>();
                 break;
             case Layer::LayerType::NONE:
                 [[fallthrough]];
