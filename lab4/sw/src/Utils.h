@@ -365,7 +365,8 @@ constexpr inline bool compareWithin(const T_BASE value, const T_EP epsilon = Con
 
 // Primary base compare function. Calls itself recursively as it decends structure
 template <typename T_BASE>
-float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* dims, const std::size_t dimsLen, const std::size_t dimIndex = 0) {
+float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* dims, const std::size_t dimsLen,
+                   const std::size_t dimIndex = 0, std::ofstream* f1 = nullptr, std::ofstream* f2 = nullptr) {
     static_assert(!std::is_pointer<T_BASE>(), "Cannot compare pointer type values (arrays)");
     float curr_diff = 0.0;
     float max_diff = 0.0;
@@ -376,11 +377,14 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
     for (std::size_t i = 0; i < dims[dimIndex]; i++) {
         if (dimIndex < dimsLen - 1) {
             // Recurse to compare another dimention down
-            curr_diff = compareArray<T_BASE>(dataCast1[i], dataCast2[i], dims, dimsLen, dimIndex + 1);
+            curr_diff = compareArray<T_BASE>(dataCast1[i], dataCast2[i], dims, dimsLen, dimIndex + 1, f1, f2);
         } else {
             // Check the values and get their absolute difference
             // TODO ssz comment out
             // logDebug("data1: " + std::to_string(data1[i]) + ", data2: " + std::to_string(data2[i]));
+            // write data to 2 separate files
+            *f1 << std::to_string(data1[i]) << std::endl;
+            *f2 << std::to_string(data2[i]) << std::endl;
             curr_diff = (float)fabs(data1[i] - data2[i]);
         }
 
@@ -395,36 +399,47 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
 
 // Compares two LayerData arrays of size N and returns the maximum difference
 template <typename T>
-inline float compareArray(const T data1, const T data2, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0) {
+inline float compareArray(const T data1, const T data2, const std::vector<std::size_t>& dims, const std::size_t dimIndex = 0,
+                          std::ofstream* f1 = nullptr, std::ofstream* f2 = nullptr) {
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
     typedef typename remove_all_pointers<T>::type T_BASE;
-    return compareArray<T_BASE>(reinterpret_cast<T_BASE*>(data1), reinterpret_cast<T_BASE*>(data2), dims.data(), dims.size(), dimIndex);
+    return compareArray<T_BASE>(reinterpret_cast<T_BASE*>(data1), reinterpret_cast<T_BASE*>(data2), dims.data(), dims.size(), dimIndex, f1, f2);
 }
 
 // Performs a compare operation and checks if the max difference is within the provided epsilon
 template <typename T, typename EP_T = float>
-inline bool compareArrayWithin(const T data1, const T data2, const std::size_t* dims, const std::size_t dimsLen, EP_T epsilon, const std::size_t dimIndex = 0) {
+inline bool compareArrayWithin(const T data1, const T data2, std::size_t* dims, const std::size_t dimsLen, EP_T epsilon,
+                               const std::size_t dimIndex = 0, std::ofstream* f1 = nullptr, std::ofstream* f2 = nullptr) {
     static_assert(!std::is_pointer<EP_T>(), "Cannot compare with pointer type (arrays) epsilon values");
     // assert(std::rank<T>() == dimsLen && "Array type does not have the same rank as the dims provided");
 
     typedef typename remove_all_pointers<T>::type T_BASE;
-    return compareWithin(compareArray<T_BASE>(reinterpret_cast<T_BASE*>(data1), reinterpret_cast<T_BASE*>(data2), dims, dimsLen, dimIndex));
+    return compareWithin(compareArray<T_BASE>(reinterpret_cast<T_BASE*>(data1), reinterpret_cast<T_BASE*>(data2), dims, dimsLen, dimIndex, f1, f2));
 }
 
 // Performs a compare operation and checks if the max difference is within the provided epsilon
 template <typename T, typename EP_T = float>
-inline bool compareArrayWithin(const T data1, const T data2, const std::vector<std::size_t>& dims, EP_T epsilon, const std::size_t dimIndex = 0) {
+inline bool compareArrayWithin(const T data1, const T data2, std::vector<std::size_t>& dims, EP_T epsilon, const std::size_t dimIndex = 0,
+                               std::ofstream* f1 = nullptr, std::ofstream* f2 = nullptr) {
     static_assert(!std::is_pointer<EP_T>(), "Cannot compare with pointer type (arrays) epsilon values");
     // assert(std::rank<T>() == dims.size() && "Array type does not have the same rank as the dims provided");
 
-    return compareArrayWithin<T, EP_T>(data1, data2, dims.data(), dims.size(), epsilon, dimIndex);
+    return compareArrayWithin<T, EP_T>(data1, data2, dims.data(), dims.size(), epsilon, dimIndex, f1, f2);
 }
 
 template <typename T_ARRAY, typename T_EP = float>
 bool compareArrayWithinPrint(const T_ARRAY& array0, const T_ARRAY& array1, const std::vector<std::size_t>& dims, const T_EP epsilon = Config::EPSILON) {
-    T_EP max_error = compareArray<T_ARRAY>(array0, array1, dims);
+    std::ofstream* file1 = new std::ofstream("data1.txt");
+    std::ofstream* file2 = new std::ofstream("data2.txt");
+
+    T_EP max_error = compareArray<T_ARRAY>(array0, array1, dims, 0, file1, file2);
     bool result = compareWithin(max_error, epsilon);
+
+    file1->close();
+    file2->close();
+    delete file1;
+    delete file2;
 
     std::string msg = "Comparing images (max error): ";
     msg += result ? "True" : "False";

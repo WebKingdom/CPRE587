@@ -16,6 +16,13 @@ class ConvolutionalLayer : public Layer {
           biasParam(biasParams),
           biasData(biasParams) {}
 
+    // Setters
+    void setScales(fp32 weight, fp32 input, fp32 bias) {
+        s_weight = weight;
+        s_input = input;
+        s_bias = bias;
+    }
+
     // Getters
     const LayerParams& getWeightParams() const { return weightParam; }
     const LayerParams& getBiasParams() const { return biasParam; }
@@ -56,6 +63,7 @@ class ConvolutionalLayer : public Layer {
 
     // Virtual functions
     virtual void computeNaive(const LayerData& dataIn) const override;
+    virtual void computeQuant1(const LayerData& dataIn) const override;
     virtual void computeThreaded(const LayerData& dataIn) const override;
     virtual void computeTiled(const LayerData& dataIn) const override;
     virtual void computeSIMD(const LayerData& dataIn) const override;
@@ -68,6 +76,9 @@ class ConvolutionalLayer : public Layer {
     LayerData biasData;
 
     static constexpr fp32 ALPHA = 1.0;
+    fp32 s_weight;
+    fp32 s_input;
+    fp32 s_bias;
 
     // computes the intermediate result for a single filter and input channel
     const fp64 compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
@@ -77,6 +88,9 @@ class ConvolutionalLayer : public Layer {
     // computes the intermediate result for a single filter and all input channels
     const fp64 compute3DIntermediateResult(const LayerData& ifMap, const size curRow,
                                            const size curCol, const size curFilter) const;
+
+    const i32 compute3DIntermediateResultQuant1(const LayerData& ifMap, const size curRow,
+                                                 const size curCol, const size curFilter) const;
 };
 
 }  // namespace ML

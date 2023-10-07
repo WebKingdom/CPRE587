@@ -75,7 +75,7 @@ class LayerData {
 class Layer {
    public:
     // Inference Type
-    enum class InfType { NAIVE, THREADED, TILED, SIMD };
+    enum class InfType { NAIVE, QUANT1, THREADED, TILED, SIMD };
 
     // Layer Type
     enum class LayerType { NONE, CONVOLUTIONAL, DENSE, SOFTMAX, MAX_POOLING, FLATTEN };
@@ -105,6 +105,7 @@ class Layer {
 
     // Abstract/Virtual Functions
     virtual void computeNaive(const LayerData& dataIn) const = 0;
+    virtual void computeQuant1(const LayerData& dataIn) const = 0;
     virtual void computeThreaded(const LayerData& dataIn) const = 0;
     virtual void computeTiled(const LayerData& dataIn) const = 0;
     virtual void computeSIMD(const LayerData& dataIn) const = 0;

@@ -24,6 +24,7 @@ class MaxPoolingLayer : public Layer {
 
     // Virtual functions
     virtual void computeNaive(const LayerData& dataIn) const override;
+    virtual void computeQuant1(const LayerData& dataIn) const override;
     virtual void computeThreaded(const LayerData& dataIn) const override;
     virtual void computeTiled(const LayerData& dataIn) const override;
     virtual void computeSIMD(const LayerData& dataIn) const override;
@@ -34,6 +35,9 @@ class MaxPoolingLayer : public Layer {
 
     // computes the intermediate result for 1 input channel
     const fp32 compute2DIntermediateResult(const LayerData& ifMap, const size curRow,
+                                           const size curCol, const size curChan) const;
+
+    const ui8 compute2DIntermediateResultQuant1(const LayerData& ifMap, const size curRow,
                                            const size curCol, const size curChan) const;
 };
 

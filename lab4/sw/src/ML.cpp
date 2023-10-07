@@ -44,7 +44,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {60, 60, 32}},                                    // Output Params
          {sizeof(TW), {5, 5, 3, 32}, modelPath / "conv1_weights.bin"},  // Weight params
          {sizeof(TB), {32}, modelPath / "conv1_biases.bin"},            // Bias params
-         af});                                                            // Activation
+         af});                                                          // Activation
+    conv1->setScales(419.3088582098988, 0.5980304553341924, 250.7594674009261);
     model.addLayer(conv1);
 
     // --- Conv 2: L2 ---
@@ -55,7 +56,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {56, 56, 32}},                                     // Output Data
          {sizeof(TW), {5, 5, 32, 32}, modelPath / "conv2_weights.bin"},  // Weights
          {sizeof(TB), {32}, modelPath / "conv2_biases.bin"},             // Bias
-         af});                                                             // Activation
+         af});                                                           // Activation
+    conv2->setScales(260.8992077660963, 0.24888639375534582, 64.93426295453042);
     model.addLayer(conv2);
 
     // --- MPL 1: L3 ---
@@ -75,7 +77,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {26, 26, 64}},                                     // Output Data
          {sizeof(TW), {3, 3, 32, 64}, modelPath / "conv3_weights.bin"},  // Weights
          {sizeof(TB), {64}, modelPath / "conv3_biases.bin"},             // Bias
-         af});                                                             // Activation
+         af});                                                           // Activation
+    conv3->setScales(183.42577326208328, 0.28959079302678636, 53.1184151405182);
     model.addLayer(conv3);
 
     // --- Conv 4: L5 ---
@@ -86,7 +89,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {24, 24, 64}},                                     // Output Data
          {sizeof(TW), {3, 3, 64, 64}, modelPath / "conv4_weights.bin"},  // Weights
          {sizeof(TB), {64}, modelPath / "conv4_biases.bin"},             // Bias
-         af});                                                             // Activation
+         af});                                                           // Activation
+    conv4->setScales(234.51324444962967, 0.29300490347274266, 68.71353055304344);
     model.addLayer(conv4);
 
     // --- MPL 2: L6 ---
@@ -106,7 +110,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {10, 10, 64}},                                     // Output Data
          {sizeof(TW), {3, 3, 64, 64}, modelPath / "conv5_weights.bin"},  // Weights
          {sizeof(TB), {64}, modelPath / "conv5_biases.bin"},             // Bias
-         af});                                                             // Activation
+         af});                                                           // Activation
+    conv5->setScales(236.64045885476003, 0.16692843795061652, 39.50202215254223);
     model.addLayer(conv5);
 
     // --- Conv 6: L8 ---
@@ -117,7 +122,8 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
          {sizeof(TI), {8, 8, 128}},                                       // Output Data
          {sizeof(TW), {3, 3, 64, 128}, modelPath / "conv6_weights.bin"},  // Weights
          {sizeof(TB), {128}, modelPath / "conv6_biases.bin"},             // Bias
-         af});                                                              // Activation
+         af});                                                            // Activation
+    conv6->setScales(248.70011854276902, 0.12900969054867656, 32.08472533262181);
     model.addLayer(conv6);
 
     // --- MPL 3: L9 ---
@@ -143,12 +149,13 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Output shape: 256
     // ReLU Activation
     auto dense1 =
-        new DenseLayer({{sizeof(TI), {2048}},  // Input Data
-                        {sizeof(TI), {256}},   // Output Data
+        new DenseLayer({{sizeof(TI), {2048}},                                         // Input Data
+                        {sizeof(TI), {256}},                                          // Output Data
                         {sizeof(TW), {2048, 256}, modelPath / "dense1_weights.bin"},  // Weights
                         {sizeof(TB), {256}, modelPath / "dense1_biases.bin"},         // Bias
-                        af}  // Activation
+                        af}                                                           // Activation
         );
+    dense1->setScales(227.76791452790815, 0.0849367674520954, 19.345870389305677);
     model.addLayer(dense1);
 
     // --- Dense 2: L12 ---
@@ -156,214 +163,226 @@ Model buildToyModel(const fs::path modelPath, const ML::Layer::ActivationType af
     // Output shape: 200
     // Softmax Activation
     auto dense2 =
-        new DenseLayer({{sizeof(TI), {256}},  // Input Data
-                        {sizeof(TI), {200}},  // Output Data
+        new DenseLayer({{sizeof(TI), {256}},                                         // Input Data
+                        {sizeof(TI), {200}},                                         // Output Data
                         {sizeof(TW), {256, 200}, modelPath / "dense2_weights.bin"},  // Weights
                         {sizeof(TB), {200}, modelPath / "dense2_biases.bin"},        // Bias
-                        Layer::ActivationType::SOFTMAX}                                // Activation
+                        Layer::ActivationType::SOFTMAX}                              // Activation
         );
+    dense2->setScales(95.91284026290671, 255.0, 24457.77426704121);
     model.addLayer(dense2);
 
     return model;
 }
 
+template <typename TI>
 void runBasicTest(const Model& model, const fs::path& basePath) {
     logInfo("--- Running Basic Framework Test ---");
 
     // Load an image
     fs::path imgPath("./data/image_0.bin");
     dimVec dims = {64, 64, 3};
-    Array3D_fp32 img = loadArray<Array3D_fp32>(imgPath, dims);
+    Array3D<TI> img = loadArray<Array3D<TI>>(imgPath, dims);
 
     // Compare images
     std::cout << "Comparing image 0 to itself (max error): "
-              << compareArray<Array3D_fp32>(img, img, dims) << std::endl
+              << compareArray<Array3D<TI>>(img, img, dims) << std::endl
               << "Comparing image 0 to itself (T/F within epsilon " << ML::Config::EPSILON
               << "): " << std::boolalpha
-              << compareArrayWithin<Array3D_fp32>(img, img, dims, ML::Config::EPSILON) << std::endl;
+              << compareArrayWithin<Array3D<TI>>(img, img, dims, ML::Config::EPSILON) << std::endl;
 
     // Test again with a modified copy
-    std::cout << "\nChange a value by 0.1 and compare again" << std::endl;
-    Array3D_fp32 imgCopy = allocArray<Array3D_fp32>(dims);
-    copyArray<Array3D_fp32>(img, imgCopy, dims);
-    imgCopy[0][0][0] += 0.1;
+    std::cout << "\nChange a value by 1 and compare again" << std::endl;
+    Array3D<TI> imgCopy = allocArray<Array3D<TI>>(dims);
+    copyArray<Array3D<TI>>(img, imgCopy, dims);
+    imgCopy[0][0][0] += 1;
 
     // Compare images
     compareArrayWithinPrint(img, imgCopy, dims);
 
     // Test again with a modified copy
-    log("Change a value by 0.1 and compare again...");
-    imgCopy[0][0][0] += 0.1;
+    log("Change a value by 1 and compare again...");
+    imgCopy[0][0][0] += 1;
 
     // Compare Images
     compareArrayWithinPrint(img, imgCopy, dims);
 
     // Clean up after ourselves
-    freeArray<Array3D_fp32>(img, dims);
-    freeArray<Array3D_fp32>(imgCopy, dims);
+    freeArray<Array3D<TI>>(img, dims);
+    freeArray<Array3D<TI>>(imgCopy, dims);
 }
 
+template <typename TI>
 void runConvolutionalLayerTest(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath) {
+                               const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+    const LayerData output = model.infrenceLayer(img, layerNum, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_0_output.bin"});
-    expected.loadData<Array3D_fp32>();
-    output.compareWithinPrint<Array3D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_0_output.bin"});
+    expected.loadData<Array3D<TI>>();
+    output.compareWithinPrint<Array3D<TI>>(expected);
 }
 
-void runMaxPoolLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+template <typename TI>
+void runMaxPoolLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath,
+                         const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running MaxPool Test ---");
     dimVec inDims = {56, 56, 32};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_1_output.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0_data" / "layer_1_output.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+    const LayerData output = model.infrenceLayer(img, layerNum, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_2_output.bin"});
-    expected.loadData<Array3D_fp32>();
-    output.compareWithinPrint<Array3D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_2_output.bin"});
+    expected.loadData<Array3D<TI>>();
+    output.compareWithinPrint<Array3D<TI>>(expected);
 }
 
-void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath) {
+template <typename TI>
+void runFlattenLayerTest(const std::size_t layerNum, const Model& model, const fs::path& basePath,
+                         const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Flatten Test ---");
     dimVec inDims = {4, 4, 128};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_8_output.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0_data" / "layer_8_output.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+    const LayerData output = model.infrenceLayer(img, layerNum, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_9_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_9_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
-void runDenseLayer1Test(const std::size_t layerNum, const Model& model,
-                           const fs::path& basePath) {
+template <typename TI>
+void runDenseLayer1Test(const std::size_t layerNum, const Model& model, const fs::path& basePath,
+                        const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Dense 1 Test ---");
     dimVec inDims = {2048};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_9_output.bin"});
-    img.loadData<Array1D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0_data" / "layer_9_output.bin"});
+    img.loadData<Array1D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+    const LayerData output = model.infrenceLayer(img, layerNum, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_10_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_10_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
-void runDenseLayer2Test(const std::size_t layerNum, const Model& model,
-                              const fs::path& basePath) {
+template <typename TI>
+void runDenseLayer2Test(const std::size_t layerNum, const Model& model, const fs::path& basePath,
+                        const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Dense 2 Test ---");
     dimVec inDims = {256};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0_data" / "layer_10_output.bin"});
-    img.loadData<Array1D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0_data" / "layer_10_output.bin"});
+    img.loadData<Array1D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrenceLayer(img, layerNum, Layer::InfType::NAIVE);
+    const LayerData output = model.infrenceLayer(img, layerNum, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model[layerNum]->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
-void runInfrenceTest0(const Model& model, const fs::path& basePath) {
+template <typename TI>
+void runInfrenceTest0(const Model& model, const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Full Inference Test 0 ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_0.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_0.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrence(img, Layer::InfType::NAIVE);
+    const LayerData output = model.infrence(img, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_0_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
-void runInfrenceTest1(const Model& model, const fs::path& basePath) {
+template <typename TI>
+void runInfrenceTest1(const Model& model, const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Full Inference Test 1 ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_1.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_1.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrence(img, Layer::InfType::NAIVE);
+    const LayerData output = model.infrence(img, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_1_data" / "layer_11_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_1_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
-void runInfrenceTest2(const Model& model, const fs::path& basePath) {
+template <typename TI>
+void runInfrenceTest2(const Model& model, const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Full Inference Test 2 ---");
     dimVec inDims = {64, 64, 3};
 
     // Construct a LayerData object from a LayerParams one
-    LayerData img({sizeof(fp32), inDims, basePath / "image_2.bin"});
-    img.loadData<Array3D_fp32>();
+    LayerData img({sizeof(TI), inDims, basePath / "image_2.bin"});
+    img.loadData<Array3D<TI>>();
 
     // Run infrence on the model
-    const LayerData output = model.infrence(img, Layer::InfType::NAIVE);
+    const LayerData output = model.infrence(img, infType);
 
     // Compare the output
     // Construct a LayerData object from a LayerParams one
     dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
-    LayerData expected({sizeof(fp32), outDims, basePath / "image_2_data" / "layer_11_output.bin"});
-    expected.loadData<Array1D_fp32>();
-    output.compareWithinPrint<Array1D_fp32>(expected);
+    LayerData expected({sizeof(TI), outDims, basePath / "image_2_data" / "layer_11_output.bin"});
+    expected.loadData<Array1D<TI>>();
+    output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
 /**
@@ -379,31 +398,31 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) 
     model.allocLayers<fp32>();
 
     // Run some framework tests as an example of loading data
-    runBasicTest(model, basePath);
+    runBasicTest<fp32>(model, basePath);
 
     // Run a Convolutional layer test
-    runConvolutionalLayerTest(0, model, basePath);
+    runConvolutionalLayerTest<fp32>(0, model, basePath, Layer::InfType::NAIVE);
 
     // Run 1st MaxPool layer test
-    runMaxPoolLayerTest(2, model, basePath);
+    runMaxPoolLayerTest<fp32>(2, model, basePath, Layer::InfType::NAIVE);
 
     // Run Flatten layer test
-    runFlattenLayerTest(9, model, basePath);
+    runFlattenLayerTest<fp32>(9, model, basePath, Layer::InfType::NAIVE);
 
     // Run Dense layer 1 test
-    runDenseLayer1Test(10, model, basePath);
+    runDenseLayer1Test<fp32>(10, model, basePath, Layer::InfType::NAIVE);
 
     // Run Dense layer 2 test
-    runDenseLayer2Test(11, model, basePath);
+    runDenseLayer2Test<fp32>(11, model, basePath, Layer::InfType::NAIVE);
 
     // Run an end-to-end infrence test on image 0
-    runInfrenceTest0(model, basePath);
+    runInfrenceTest0<fp32>(model, basePath, Layer::InfType::NAIVE);
 
     // Run an end-to-end infrence test on image 1
-    runInfrenceTest1(model, basePath);
+    runInfrenceTest1<fp32>(model, basePath, Layer::InfType::NAIVE);
 
     // Run an end-to-end infrence test on image 2
-    runInfrenceTest2(model, basePath);
+    runInfrenceTest2<fp32>(model, basePath, Layer::InfType::NAIVE);
 
     // Clean up
     model.freeLayers<fp32>();
@@ -412,35 +431,34 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) 
 void run_all_quant_tests(const fs::path basePath, const ML::Layer::ActivationType af) {
     // Build the model and allocate the buffers
     Model model = buildToyModel<i8, ui8, i32>(basePath / "model", af);
-    // TODO ssz what type to allocate for layers?
     model.allocLayers<i8, ui8, i32>();
 
     // Run some framework tests as an example of loading data
-    runBasicTest(model, basePath);
+    // runBasicTest<ui8>(model, basePath);
 
     // Run a Convolutional layer test
-    runConvolutionalLayerTest(0, model, basePath);
+    // runConvolutionalLayerTest<ui8>(0, model, basePath, Layer::InfType::QUANT1);
 
     // Run 1st MaxPool layer test
-    runMaxPoolLayerTest(2, model, basePath);
+    runMaxPoolLayerTest<ui8>(2, model, basePath, Layer::InfType::QUANT1);
 
-    // Run Flatten layer test
-    runFlattenLayerTest(9, model, basePath);
+    // // Run Flatten layer test
+    // runFlattenLayerTest<ui8>(9, model, basePath, Layer::InfType::QUANT1);
 
-    // Run Dense layer 1 test
-    runDenseLayer1Test(10, model, basePath);
+    // // Run Dense layer 1 test
+    // runDenseLayer1Test<ui8>(10, model, basePath, Layer::InfType::QUANT1);
 
-    // Run Dense layer 2 test
-    runDenseLayer2Test(11, model, basePath);
+    // // Run Dense layer 2 test
+    // runDenseLayer2Test<ui8>(11, model, basePath, Layer::InfType::QUANT1);
 
-    // Run an end-to-end infrence test on image 0
-    runInfrenceTest0(model, basePath);
+    // // Run an end-to-end infrence test on image 0
+    // runInfrenceTest0<ui8>(model, basePath, Layer::InfType::QUANT1);
 
-    // Run an end-to-end infrence test on image 1
-    runInfrenceTest1(model, basePath);
+    // // Run an end-to-end infrence test on image 1
+    // runInfrenceTest1<ui8>(model, basePath, Layer::InfType::QUANT1);
 
-    // Run an end-to-end infrence test on image 2
-    runInfrenceTest2(model, basePath);
+    // // Run an end-to-end infrence test on image 2
+    // runInfrenceTest2<ui8>(model, basePath, Layer::InfType::QUANT1);
 
     // Clean up
     model.freeLayers<i8, ui8, i32>();
@@ -455,22 +473,23 @@ int main(int argc, char** argv) {
     Args& args = Args::getInst();
     args.parseArgs(argc, argv);
 #endif
-    logInfo("Running RELU tests:");
-    run_all_tests(fs::path("data"), Layer::ActivationType::RELU);
-    printf("\n\n");
+    // logInfo("Running RELU tests:");
+    // run_all_tests(fs::path("data"), Layer::ActivationType::RELU);
+    // printf("\n\n");
 
-    logInfo("Running ELU tests:");
-    run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU);
-    printf("\n\n");
+    // TODO ssz uncomment these tests
+    // logInfo("Running ELU tests:");
+    // run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU);
+    // printf("\n\n");
 
-    logInfo("Running TANH tests:");
-    run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
-    printf("\n\n");
+    // logInfo("Running TANH tests:");
+    // run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
+    // printf("\n\n");
 
-    logInfo("Running SIGMOID tests:");
-    run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
+    // logInfo("Running SIGMOID tests:");
+    // run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
+    // printf("\n\n");
 
-    // TODO ssz enable
     logInfo("Running Quantized RELU tests:");
     run_all_quant_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
 
