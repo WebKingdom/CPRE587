@@ -34,6 +34,9 @@ const LayerData& Model::infrenceLayer(const LayerData& inData, const int layerNu
         case Layer::InfType::QUANT1:
             layer.computeQuant1(inData);
             break;
+        case Layer::InfType::QUANT2:
+            layer.computeQuant2(inData);
+            break;
         case Layer::InfType::THREADED:
             layer.computeThreaded(inData);
             break;

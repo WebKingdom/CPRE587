@@ -64,6 +64,7 @@ class ConvolutionalLayer : public Layer {
     // Virtual functions
     virtual void computeNaive(const LayerData& dataIn) const override;
     virtual void computeQuant1(const LayerData& dataIn) const override;
+    virtual void computeQuant2(const LayerData& dataIn) const override;
     virtual void computeThreaded(const LayerData& dataIn) const override;
     virtual void computeTiled(const LayerData& dataIn) const override;
     virtual void computeSIMD(const LayerData& dataIn) const override;
@@ -90,6 +91,9 @@ class ConvolutionalLayer : public Layer {
                                            const size curCol, const size curFilter) const;
 
     const i32 compute3DIntermediateResultQuant1(const LayerData& ifMap, const size curRow,
+                                                 const size curCol, const size curFilter) const;
+
+    const i32 compute3DIntermediateResultQuant2(const LayerData& ifMap, const size curRow,
                                                  const size curCol, const size curFilter) const;
 };
 

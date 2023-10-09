@@ -71,7 +71,6 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
     }
 }
 
-// TODO ssz implement
 void MaxPoolingLayer::computeQuant1(const LayerData& dataIn) const {
     if (!dataIn.isAlloced() || !dataIn.isValid()) {
         logError("ERROR: dataIn not allocated or not valid");
@@ -104,6 +103,10 @@ void MaxPoolingLayer::computeQuant1(const LayerData& dataIn) const {
             }
         }
     }
+}
+
+void MaxPoolingLayer::computeQuant2(const LayerData& dataIn) const {
+    computeNaive(dataIn);
 }
 
 void MaxPoolingLayer::computeThreaded(const LayerData& dataIn) const {

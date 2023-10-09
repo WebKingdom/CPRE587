@@ -36,7 +36,6 @@ void FlattenLayer::computeNaive(const LayerData& dataIn) const {
     }
 }
 
-// TODO ssz implement
 void FlattenLayer::computeQuant1(const LayerData& dataIn) const {
     const auto& inData = dataIn.getData<Array3D_ui8>();
     const auto& outData = this->getOutputData().getData<Array1D_ui8>();
@@ -64,6 +63,10 @@ void FlattenLayer::computeQuant1(const LayerData& dataIn) const {
             }
         }
     }
+}
+
+void FlattenLayer::computeQuant2(const LayerData& dataIn) const {
+    computeNaive(dataIn);
 }
 
 void FlattenLayer::computeThreaded(const LayerData& dataIn) const {
