@@ -668,10 +668,10 @@ void run_all_quant2_tests(const fs::path basePath, const ML::Layer::ActivationTy
     // runDenseLayer1Test<fp32>(10, model, basePath, Layer::InfType::QUANT2);
 
     // // Run Dense layer 2 test
-    // runDenseLayer2Test<fp32>(11, model, basePath, Layer::InfType::QUANT2);
+    runDenseLayer2Test<fp32>(11, model, basePath, Layer::InfType::QUANT2);
 
     // // Run an end-to-end infrence test on image 0
-    runInfrenceTest0<fp32>(model, basePath, Layer::InfType::QUANT2);
+    // runInfrenceTest0<fp32>(model, basePath, Layer::InfType::QUANT2);
 
     // // Run an end-to-end infrence test on image 1
     // runInfrenceTest1<fp32>(model, basePath, Layer::InfType::QUANT2);
@@ -711,6 +711,7 @@ int main(int argc, char** argv) {
 
     logInfo("Running Quantized 1 RELU tests:");
     run_all_quant1_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
+    // printf("\n\n");
 
     // logInfo("Running Quantized 2 RELU tests:");
     // run_all_quant2_tests(fs::path("data_quant2_relu"), Layer::ActivationType::RELU);

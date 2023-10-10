@@ -172,8 +172,8 @@ const i32 ConvolutionalLayer::compute3DIntermediateResultQuant2(const LayerData&
                 // logDebug("rowIdx: " + std::to_string(rowIdx) + ", " + std::to_string(curRow));
                 // logDebug("colIdx: " + std::to_string(colIdx) + ", " + std::to_string(curCol));
                 // logDebug("chanIdx: " + std::to_string(chanIdx));
-                i8 w = weightData[rowIdx - curRow][colIdx - curCol][chanIdx][curFilter];
-                ui8 in = static_cast<ui8>(
+                const i8 w = weightData[rowIdx - curRow][colIdx - curCol][chanIdx][curFilter];
+                const ui8 in = static_cast<ui8>(
                     std::round(this->s_input * ifMapData[rowIdx][colIdx][chanIdx]));
                 if (w < 0) {
                     sum -= static_cast<i32>(in * static_cast<ui8>(-w));
@@ -288,6 +288,7 @@ void ConvolutionalLayer::computeQuant1(const LayerData& dataIn) const {
     // Lastly, perform ReLu and write result to output feature map (outData in Layer)
     const auto& outData = this->getOutputData().getData<Array3D_ui8>();
     const auto& biasData = this->getBiasData().getData<Array1D_i32>();
+    const fp32 dScale = 1 / (this->s_input * this->s_weight);
     for (size filterIdx = 0; filterIdx < numFilters; filterIdx++) {
         for (size rowIdx = 0; rowIdx < maxRow; rowIdx++) {
             for (size colIdx = 0; colIdx < maxCol; colIdx++) {
@@ -303,18 +304,18 @@ void ConvolutionalLayer::computeQuant1(const LayerData& dataIn) const {
                 fp32 dequantized;
                 if (this->getAType() == ActivationType::RELU) {
                     intermediateOut = std::max((i32)0, intermediateOut);
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                 } else if (this->getAType() == ActivationType::ELU) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     if (dequantized < 0) {
                         dequantized = ALPHA * (std::exp(dequantized) - 1);
                     }
                 } else if (this->getAType() == ActivationType::TANH) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     dequantized = (std::exp(dequantized) - std::exp(-dequantized)) /
                                   (std::exp(dequantized) + std::exp(-dequantized));
                 } else if (this->getAType() == ActivationType::SIGMOID) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     dequantized = 1.0 / (1.0 + std::exp(-dequantized));
                 } else {
                     logError("ERROR: invalid activation type for convolutional layer");
@@ -362,6 +363,7 @@ void ConvolutionalLayer::computeQuant2(const LayerData& dataIn) const {
     // Lastly, perform ReLu and write result to output feature map (outData in Layer)
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_i32>();
+    const fp32 dScale = 1 / (this->s_input * this->s_weight);
     for (size filterIdx = 0; filterIdx < numFilters; filterIdx++) {
         for (size rowIdx = 0; rowIdx < maxRow; rowIdx++) {
             for (size colIdx = 0; colIdx < maxCol; colIdx++) {
@@ -377,18 +379,18 @@ void ConvolutionalLayer::computeQuant2(const LayerData& dataIn) const {
                 fp32 dequantized;
                 if (this->getAType() == ActivationType::RELU) {
                     intermediateOut = std::max((i32)0, intermediateOut);
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                 } else if (this->getAType() == ActivationType::ELU) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     if (dequantized < 0) {
                         dequantized = ALPHA * (std::exp(dequantized) - 1);
                     }
                 } else if (this->getAType() == ActivationType::TANH) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     dequantized = (std::exp(dequantized) - std::exp(-dequantized)) /
                                   (std::exp(dequantized) + std::exp(-dequantized));
                 } else if (this->getAType() == ActivationType::SIGMOID) {
-                    dequantized = intermediateOut / (this->s_input * this->s_weight);
+                    dequantized = intermediateOut * dScale;
                     dequantized = 1.0 / (1.0 + std::exp(-dequantized));
                 } else {
                     logError("ERROR: invalid activation type for convolutional layer");
