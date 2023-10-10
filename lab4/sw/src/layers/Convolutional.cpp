@@ -247,7 +247,7 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
                     logError("ERROR: invalid activation type for convolutional layer");
                     exit(1);
                 }
-                outData[rowIdx][colIdx][filterIdx] = intermediateOut;
+                outData[rowIdx][colIdx][filterIdx] = static_cast<fp32>(intermediateOut);
             }
         }
     }

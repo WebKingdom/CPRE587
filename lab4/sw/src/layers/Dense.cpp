@@ -39,14 +39,14 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
     // perform activation function
     if (this->getAType() == ActivationType::RELU) {
         for (size i = 0; i < maxRowOut; i++) {
-            outData[i] = std::max((fp64)0, outData_fp64[i]);
+            outData[i] = static_cast<fp32>(std::max((fp64)0, outData_fp64[i]));
         }
     } else if (this->getAType() == ActivationType::ELU) {
         for (size i = 0; i < maxRowOut; i++) {
             if (outData_fp64[i] < 0.0) {
-                outData[i] = ALPHA * (std::exp(outData_fp64[i]) - 1.0);
+                outData[i] = static_cast<fp32>(ALPHA * (std::exp(outData_fp64[i]) - 1.0));
             } else {
-                outData[i] = outData_fp64[i];
+                outData[i] = static_cast<fp32>(outData_fp64[i]);
             }
         }
     } else if (this->getAType() == ActivationType::SOFTMAX) {
@@ -55,16 +55,17 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
             sum += std::exp(outData_fp64[i]);
         }
         for (size i = 0; i < maxRowOut; i++) {
-            outData[i] = std::exp(outData_fp64[i]) / sum;
+            outData[i] = static_cast<fp32>(std::exp(outData_fp64[i]) / sum);
         }
     } else if (this->getAType() == ActivationType::TANH) {
         for (size i = 0; i < maxRowOut; i++) {
-            outData[i] = (std::exp(outData_fp64[i]) - std::exp(-outData_fp64[i])) /
-                         (std::exp(outData_fp64[i]) + std::exp(-outData_fp64[i]));
+            outData[i] =
+                static_cast<fp32>((std::exp(outData_fp64[i]) - std::exp(-outData_fp64[i])) /
+                                  (std::exp(outData_fp64[i]) + std::exp(-outData_fp64[i])));
         }
     } else if (this->getAType() == ActivationType::SIGMOID) {
         for (size i = 0; i < maxRowOut; i++) {
-            outData[i] = 1.0 / (1.0 + std::exp(-outData_fp64[i]));
+            outData[i] = static_cast<fp32>(1.0 / (1.0 + std::exp(-outData_fp64[i])));
         }
     } else {
         logError("ERROR: invalid activation type for dense layer");
