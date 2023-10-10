@@ -222,7 +222,7 @@ void runBasicTest(const Model& model, const fs::path& basePath) {
 
 template <typename TI>
 void runConvolutionalLayerTest1(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 1 ---");
     dimVec inDims = {64, 64, 3};
@@ -244,7 +244,7 @@ void runConvolutionalLayerTest1(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runConvolutionalLayerTest2(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 2 ---");
     dimVec inDims = {60, 60, 32};
@@ -266,7 +266,7 @@ void runConvolutionalLayerTest2(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runConvolutionalLayerTest3(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 3 ---");
     dimVec inDims = {28, 28, 32};
@@ -288,7 +288,7 @@ void runConvolutionalLayerTest3(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runConvolutionalLayerTest4(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 4 ---");
     dimVec inDims = {26, 26, 64};
@@ -310,7 +310,7 @@ void runConvolutionalLayerTest4(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runConvolutionalLayerTest5(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 5 ---");
     dimVec inDims = {12, 12, 64};
@@ -332,7 +332,7 @@ void runConvolutionalLayerTest5(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runConvolutionalLayerTest6(const std::size_t layerNum, const Model& model,
-                               const fs::path& basePath, const Layer::InfType infType) {
+                                const fs::path& basePath, const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running Convolutional Layer Test 6 ---");
     dimVec inDims = {10, 10, 64};
@@ -354,7 +354,7 @@ void runConvolutionalLayerTest6(const std::size_t layerNum, const Model& model,
 
 template <typename TI>
 void runMaxPoolLayerTest1(const std::size_t layerNum, const Model& model, const fs::path& basePath,
-                         const Layer::InfType infType) {
+                          const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running MaxPool Test 1 ---");
     dimVec inDims = {56, 56, 32};
@@ -376,7 +376,7 @@ void runMaxPoolLayerTest1(const std::size_t layerNum, const Model& model, const 
 
 template <typename TI>
 void runMaxPoolLayerTest2(const std::size_t layerNum, const Model& model, const fs::path& basePath,
-                         const Layer::InfType infType) {
+                          const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running MaxPool Test 2 ---");
     dimVec inDims = {24, 24, 64};
@@ -398,7 +398,7 @@ void runMaxPoolLayerTest2(const std::size_t layerNum, const Model& model, const 
 
 template <typename TI>
 void runMaxPoolLayerTest3(const std::size_t layerNum, const Model& model, const fs::path& basePath,
-                         const Layer::InfType infType) {
+                          const Layer::InfType infType) {
     // Load an image
     logInfo("--- Running MaxPool Test 3 ---");
     dimVec inDims = {8, 8, 128};
@@ -547,6 +547,32 @@ void runInfrenceTest2(const Model& model, const fs::path& basePath, const Layer:
     output.compareWithinPrint<Array1D<TI>>(expected);
 }
 
+template <typename TI>
+void runInfrenceMultiple(const Model& model, const fs::path& basePath, const Layer::InfType infType,
+                        const int maxImgs) {
+    logInfo("--- Running Full Inference on Multiple Images ---");
+    dimVec inDims = {64, 64, 3};
+    int imgIdx = 0;
+
+    for (imgIdx = 0; imgIdx < maxImgs; imgIdx++) {
+        // Construct a LayerData object from a LayerParams one
+        std::string imgBin = "image_" + std::to_string(imgIdx) + ".bin";
+        LayerData img({sizeof(TI), inDims, basePath / imgBin});
+        img.loadData<Array3D<TI>>();
+
+        // Run infrence on the model
+        const LayerData output = model.infrence(img, infType);
+
+        // Compare the output
+        // Construct a LayerData object from a LayerParams one
+        dimVec outDims = model.getOutputLayer()->getOutputParams().dims;
+        std::string imgFolder = "image_" + std::to_string(imgIdx) + "_data";
+        LayerData expected({sizeof(TI), outDims, basePath / imgFolder / "layer_11_output.bin"});
+        expected.loadData<Array1D<TI>>();
+        output.compareWithinPrint<Array1D<TI>>(expected);
+    }
+}
+
 /**
  * @brief Run all tests for the specified model path and activation function
  *
@@ -605,36 +631,36 @@ void run_all_quant1_tests(const fs::path basePath, const ML::Layer::ActivationTy
     // Run some framework tests as an example of loading data
     // runBasicTest<ui8>(model, basePath);
 
-    // // Run a Convolutional layer test
-    // runConvolutionalLayerTest1<ui8>(0, model, basePath, Layer::InfType::QUANT1);
-    // runConvolutionalLayerTest2<ui8>(1, model, basePath, Layer::InfType::QUANT1);
-    // runConvolutionalLayerTest3<ui8>(3, model, basePath, Layer::InfType::QUANT1);
-    // runConvolutionalLayerTest4<ui8>(4, model, basePath, Layer::InfType::QUANT1);
-    // runConvolutionalLayerTest5<ui8>(6, model, basePath, Layer::InfType::QUANT1);
-    // runConvolutionalLayerTest6<ui8>(7, model, basePath, Layer::InfType::QUANT1);
+    // Run a Convolutional layer test
+    runConvolutionalLayerTest1<ui8>(0, model, basePath, Layer::InfType::QUANT1);
+    runConvolutionalLayerTest2<ui8>(1, model, basePath, Layer::InfType::QUANT1);
+    runConvolutionalLayerTest3<ui8>(3, model, basePath, Layer::InfType::QUANT1);
+    runConvolutionalLayerTest4<ui8>(4, model, basePath, Layer::InfType::QUANT1);
+    runConvolutionalLayerTest5<ui8>(6, model, basePath, Layer::InfType::QUANT1);
+    runConvolutionalLayerTest6<ui8>(7, model, basePath, Layer::InfType::QUANT1);
 
-    // // Run 1st MaxPool layer test
-    // runMaxPoolLayerTest1<ui8>(2, model, basePath, Layer::InfType::QUANT1);
-    // runMaxPoolLayerTest2<ui8>(5, model, basePath, Layer::InfType::QUANT1);
-    // runMaxPoolLayerTest3<ui8>(8, model, basePath, Layer::InfType::QUANT1);
+    // Run 1st MaxPool layer test
+    runMaxPoolLayerTest1<ui8>(2, model, basePath, Layer::InfType::QUANT1);
+    runMaxPoolLayerTest2<ui8>(5, model, basePath, Layer::InfType::QUANT1);
+    runMaxPoolLayerTest3<ui8>(8, model, basePath, Layer::InfType::QUANT1);
 
-    // // Run Flatten layer test
-    // runFlattenLayerTest<ui8>(9, model, basePath, Layer::InfType::QUANT1);
+    // Run Flatten layer test
+    runFlattenLayerTest<ui8>(9, model, basePath, Layer::InfType::QUANT1);
 
-    // // Run Dense layer 1 test
-    // runDenseLayer1Test<ui8>(10, model, basePath, Layer::InfType::QUANT1);
+    // Run Dense layer 1 test
+    runDenseLayer1Test<ui8>(10, model, basePath, Layer::InfType::QUANT1);
 
-    // // Run Dense layer 2 test
-    // runDenseLayer2Test<ui8>(11, model, basePath, Layer::InfType::QUANT1);
+    // Run Dense layer 2 test
+    runDenseLayer2Test<ui8>(11, model, basePath, Layer::InfType::QUANT1);
 
     // Run an end-to-end infrence test on image 0
     runInfrenceTest0<ui8>(model, basePath, Layer::InfType::QUANT1);
 
     // Run an end-to-end infrence test on image 1
-    // runInfrenceTest1<ui8>(model, basePath, Layer::InfType::QUANT1);
+    runInfrenceTest1<ui8>(model, basePath, Layer::InfType::QUANT1);
 
-    // // Run an end-to-end infrence test on image 2
-    // runInfrenceTest2<ui8>(model, basePath, Layer::InfType::QUANT1);
+    // Run an end-to-end infrence test on image 2
+    runInfrenceTest2<ui8>(model, basePath, Layer::InfType::QUANT1);
 
     // Clean up
     model.freeLayers<i8, ui8, i32>();
@@ -649,38 +675,60 @@ void run_all_quant2_tests(const fs::path basePath, const ML::Layer::ActivationTy
     // runBasicTest<fp32>(model, basePath);
 
     // Run a Convolutional layer test
-    // runConvolutionalLayerTest1<fp32>(0, model, basePath, Layer::InfType::QUANT2);
-    // runConvolutionalLayerTest2<fp32>(1, model, basePath, Layer::InfType::QUANT2);
-    // runConvolutionalLayerTest3<fp32>(3, model, basePath, Layer::InfType::QUANT2);
-    // runConvolutionalLayerTest4<fp32>(4, model, basePath, Layer::InfType::QUANT2);
-    // runConvolutionalLayerTest5<fp32>(6, model, basePath, Layer::InfType::QUANT2);
-    // runConvolutionalLayerTest6<fp32>(7, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest1<fp32>(0, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest2<fp32>(1, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest3<fp32>(3, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest4<fp32>(4, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest5<fp32>(6, model, basePath, Layer::InfType::QUANT2);
+    runConvolutionalLayerTest6<fp32>(7, model, basePath, Layer::InfType::QUANT2);
 
     // Run 1st MaxPool layer test
-    // runMaxPoolLayerTest1<fp32>(2, model, basePath, Layer::InfType::QUANT2);
-    // runMaxPoolLayerTest2<fp32>(5, model, basePath, Layer::InfType::QUANT2);
-    // runMaxPoolLayerTest3<fp32>(8, model, basePath, Layer::InfType::QUANT2);
+    runMaxPoolLayerTest1<fp32>(2, model, basePath, Layer::InfType::QUANT2);
+    runMaxPoolLayerTest2<fp32>(5, model, basePath, Layer::InfType::QUANT2);
+    runMaxPoolLayerTest3<fp32>(8, model, basePath, Layer::InfType::QUANT2);
 
-    // // Run Flatten layer test
-    // runFlattenLayerTest<fp32>(9, model, basePath, Layer::InfType::QUANT2);
+    // Run Flatten layer test
+    runFlattenLayerTest<fp32>(9, model, basePath, Layer::InfType::QUANT2);
 
-    // // Run Dense layer 1 test
-    // runDenseLayer1Test<fp32>(10, model, basePath, Layer::InfType::QUANT2);
+    // Run Dense layer 1 test
+    runDenseLayer1Test<fp32>(10, model, basePath, Layer::InfType::QUANT2);
 
-    // // Run Dense layer 2 test
+    // Run Dense layer 2 test
     runDenseLayer2Test<fp32>(11, model, basePath, Layer::InfType::QUANT2);
 
-    // // Run an end-to-end infrence test on image 0
-    // runInfrenceTest0<fp32>(model, basePath, Layer::InfType::QUANT2);
+    // Run an end-to-end infrence test on image 0
+    runInfrenceTest0<fp32>(model, basePath, Layer::InfType::QUANT2);
 
-    // // Run an end-to-end infrence test on image 1
-    // runInfrenceTest1<fp32>(model, basePath, Layer::InfType::QUANT2);
+    // Run an end-to-end infrence test on image 1
+    runInfrenceTest1<fp32>(model, basePath, Layer::InfType::QUANT2);
 
-    // // Run an end-to-end infrence test on image 2
-    // runInfrenceTest2<fp32>(model, basePath, Layer::InfType::QUANT2);
+    // Run an end-to-end infrence test on image 2
+    runInfrenceTest2<fp32>(model, basePath, Layer::InfType::QUANT2);
 
     // Clean up
     model.freeLayers<i8, fp32, i32>();
+}
+
+void run_1000_inferences_fp32(const fs::path basePath, const ML::Layer::ActivationType af) {
+    // Build the model and allocate the buffers
+    Model model = buildToyModel<fp32, fp32, fp32>(basePath / "model", af);
+    model.allocLayers<fp32>();
+
+    runInfrenceMultiple<fp32>(model, basePath, Layer::InfType::NAIVE, 1000);
+
+    // Clean up
+    model.freeLayers<fp32>();
+}
+
+void run_1000_inferences_uint8(const fs::path basePath, const ML::Layer::ActivationType af) {
+    // Build the model and allocate the buffers
+    Model model = buildToyModel<i8, ui8, i32>(basePath / "model", af);
+    model.allocLayers<i8, ui8, i32>();
+
+    runInfrenceMultiple<ui8>(model, basePath, Layer::InfType::QUANT1, 1000);
+
+    // Clean up
+    model.freeLayers<i8, ui8, i32>();
 }
 
 // clang-format off
@@ -709,12 +757,22 @@ int main(int argc, char** argv) {
     // run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
     // printf("\n\n");
 
-    logInfo("Running Quantized 1 RELU tests:");
-    run_all_quant1_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
+    // logInfo("Running Quantized 1 RELU tests:");
+    // run_all_quant1_tests(fs::path("data_quant_relu"), Layer::ActivationType::RELU);
     // printf("\n\n");
 
     // logInfo("Running Quantized 2 RELU tests:");
     // run_all_quant2_tests(fs::path("data_quant2_relu"), Layer::ActivationType::RELU);
+    // printf("\n\n");
+
+
+    // * 1000 Inference Tests
+    // logInfo("Running 1000 Inference Tests for fp32:");
+    // run_1000_inferences_fp32(fs::path("data_val1000_fp32_relu"), Layer::ActivationType::RELU);
+    // printf("\n\n");
+
+    logInfo("Running 1000 Inference Tests for uint8:");
+    run_1000_inferences_uint8(fs::path("data_val1000_uint8_relu"), Layer::ActivationType::RELU);
 
     return 0;
 }

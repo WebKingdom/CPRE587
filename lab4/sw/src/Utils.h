@@ -383,8 +383,8 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
             // TODO ssz comment out
             // logDebug("data1: " + std::to_string(data1[i]) + ", data2: " + std::to_string(data2[i]));
             // write data to 2 separate files
-            *f1 << std::to_string(data1[i]) << std::endl;
-            *f2 << std::to_string(data2[i]) << std::endl;
+            *f1 << std::to_string(data1[i]) << ", " << std::to_string(data2[i]) << std::endl;
+            // *f2 << std::to_string(data2[i]) << std::endl;
             curr_diff = (float)fabs(data1[i] - data2[i]);
         }
 
@@ -393,6 +393,7 @@ float compareArray(const T_BASE* data1, const T_BASE* data2, const std::size_t* 
             max_diff = curr_diff;
         }
     }
+    *f1 << std::to_string(max_diff) << std::endl;
 
     return max_diff;
 }
@@ -431,18 +432,24 @@ inline bool compareArrayWithin(const T data1, const T data2, std::vector<std::si
 template <typename T_ARRAY, typename T_EP = float>
 bool compareArrayWithinPrint(const T_ARRAY& array0, const T_ARRAY& array1, const std::vector<std::size_t>& dims, const T_EP epsilon = Config::EPSILON) {
     // TODO ssz comment out
-    std::ofstream* file1 = new std::ofstream("data1.txt");
-    std::ofstream* file2 = new std::ofstream("data2.txt");
+    static int layerNum = 0;
+    std::string f1Name = "compare_layer_" + std::to_string(layerNum) + ".txt";
+    // layerNum++;
+    // std::string f2Name = "compare_layer_" + std::to_string(layerNum) + ".txt";
+    std::ofstream* file1 = new std::ofstream(f1Name);
+    *file1 << "actual, expected" << std::endl;
+    // std::ofstream* file2 = new std::ofstream(f2Name);
     // std::ofstream* file1 = nullptr;
-    // std::ofstream* file2 = nullptr;
+    std::ofstream* file2 = nullptr;
 
     T_EP max_error = compareArray<T_ARRAY>(array0, array1, dims, 0, file1, file2);
     bool result = compareWithin(max_error, epsilon);
 
     file1->close();
-    file2->close();
+    // file2->close();
     delete file1;
     delete file2;
+    layerNum++;
 
     std::string msg = "Comparing images (max error): ";
     msg += result ? "True" : "False";
