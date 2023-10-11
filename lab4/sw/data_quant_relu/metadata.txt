@@ -1,0 +1,4 @@
+Number		Dims		Class Data
+0		(64, 64, 3)		b'water tower' (class index: 109 - id: b'n04562935')
+1		(64, 64, 3)		b'candle, taper, wax light' (class index: 84 - id: b'n02948072')
+2		(64, 64, 3)		b'grasshopper, hopper' (class index: 180 - id: b'n02226429')
