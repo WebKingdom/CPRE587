@@ -41,11 +41,6 @@ module tb_temporal_vp_mac();
   // int scb_accum_quant [0:MAX_OUTPUTS-1];
   logic [AXIS_DW-1:0] scb_output;
 
-  // helper logic
-  logic axis_handshake;
-  assign axis_handshake = sd_axis_tvalid & sd_axis_tready;
-  assign sd_axis_tlast = (num_macs >= (MAX_NUM_MACS - 1)) ? 1 : 0;
-
   // TODO inputs for DUT
   logic                    clk           ;
   logic                    arstn         ;
@@ -62,6 +57,11 @@ module tb_temporal_vp_mac();
   logic [AXIS_DW-1:0]    mo_axis_tdata ;
   logic                  mo_axis_tlast ;
   logic [           7:0] mo_axis_tid   ;
+  
+  // helper logic
+  logic axis_handshake;
+  assign axis_handshake = sd_axis_tvalid & sd_axis_tready;
+  assign sd_axis_tlast = (num_macs >= (MAX_NUM_MACS - 1)) ? 1 : 0;
 
   // TODO instantiate DUT
 
@@ -81,11 +81,14 @@ module tb_temporal_vp_mac();
     weight = 0;
     activation = 0;
     scb_precision_level = 0;
-    for (int i = 0; i < MAX_OUTPUTS; i++) {
+    for (int i = 0; i < MAX_OUTPUTS; i++) begin
+      // for (int j = 0; j < 3; j++) begin
+      //   scb_mult[i][j] = 0;
+      // end
       scb_mult[i] = 0;
       scb_accum[i] = 0;
       scb_accum_quant[i] = 0;
-    }
+    end
 
     // DUT reset
     clk = 0;
@@ -127,7 +130,7 @@ module tb_temporal_vp_mac();
     if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
       weight = $random;
       activation = $random;
-      sd_axis_tdata = {32'(signed'(weight)), 32'(unsigned(activation))};
+      sd_axis_tdata = {32'(signed'(weight)), 32'(unsigned'(activation))};
       sd_axis_tuser = 0;
       sd_axis_tvalid = $urandom;
       sd_axis_tid = num_macs;
@@ -195,7 +198,7 @@ module tb_temporal_vp_mac();
   function automatic void update_scoreboard();
     if (axis_handshake == 1'b1) begin
       disp_input_data();
-      if (itr == 1'b0 && sd_axis_tuser == 1'b1) begin
+      if (num_macs == 1'b0 && sd_axis_tuser == 1'b1) begin
         // data is used to set precision level, no change
       end
       else begin
@@ -203,13 +206,77 @@ module tb_temporal_vp_mac();
         const uint num_outputs = get_num_outputs();
         const uint a_bits = get_activation_bits();
         const uint w_bits = get_weight_bits();
+        const uint w_lo = 0 * w_bits;
+        const uint w_hi = (0 + 1) * w_bits - 1;
+        const uint a_lo = 0 * a_bits;
+        const uint a_hi = (0 + 1) * a_bits - 1;
+
+        if (num_outputs == 1) begin
+          // 1 output with 8b activation and 8b weight
+          scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight));
+        end
+        else if (num_outputs == 2) begin
+          if (a_bits == 8 && w_bits == 4) begin
+            // 2 outputs with 8b activation and 4b weight
+            scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight[3:0]));
+            scb_mult[1] = 8'(signed'(activation)) * 8'(signed'(weight[7:4]));
+          end
+          else if (a_bits == 4 && w_bits == 4) begin
+            // 2 outputs with 4b activation and 4b weight
+            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[3:0]));
+            scb_mult[1] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[7:4]));
+          end
+          else begin
+            // 2 outputs with 4b activation and 8b weight
+            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight));
+            scb_mult[1] = 8'(signed'(activation[7:4])) * 8'(signed'(weight));
+          end
+        end
+        else if (num_outputs == 4) begin
+          if (a_bits == 8 && w_bits == 2) begin
+            // 4 outputs with 8b activation and 2b weight
+            scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight[1:0]));
+            scb_mult[1] = 8'(signed'(activation)) * 8'(signed'(weight[3:2]));
+            scb_mult[2] = 8'(signed'(activation)) * 8'(signed'(weight[5:4]));
+            scb_mult[3] = 8'(signed'(activation)) * 8'(signed'(weight[7:6]));
+          end
+          else if (a_bits == 4 && w_bits == 2) begin
+            // 4 outputs with 4b activation and 2b weight
+            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[1:0]));
+            scb_mult[1] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[3:2]));
+            scb_mult[2] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[5:4]));
+            scb_mult[3] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[7:6]));
+          end
+          else if (a_bits == 2 && w_bits == 2) begin
+            // 4 outputs with 2b activation and 2b weight
+            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight[1:0]));
+            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight[3:2]));
+            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight[5:4]));
+            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight[7:6]));
+          end
+          else if (a_bits == 2 && w_bits == 4) begin
+            // 4 outputs with 2b activation and 4b weight
+            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight[3:0]));
+            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight[3:0]));
+            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight[7:4]));
+            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight[7:4]));
+          end
+          else if (a_bits == 2 && w_bits == 8) begin
+            // 4 outputs with 2b activation and 8b weight
+            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight));
+            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight));
+            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight));
+            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight));
+          end
+        end
+        
         for (int i = 0; i < num_outputs; i++) begin
-          uint w_lo = i * w_bits;
-          uint w_hi = (i + 1) * w_bits - 1;
-          uint a_lo = i * a_bits;
-          uint a_hi = (i + 1) * a_bits - 1;
-          scb_mult[i] = 8'signed(weight[w_hi:w_lo]) * 9'signed({1'b0, activation[a_hi:a_lo]});
-          scb_accum[i] += 32'signed(scb_mult[i]);
+//          const uint w_lo = i * w_bits;
+//          const uint w_hi = (i + 1) * w_bits - 1;
+//          const uint a_lo = i * a_bits;
+//          const uint a_hi = (i + 1) * a_bits - 1;
+//          scb_mult[i] = 8'(signed'(weight[w_hi:w_lo])) * 8'(signed'(activation[a_hi:a_lo]));
+          scb_accum[i] += 32'(signed'(scb_mult[i]));
           // dequantize accumulator to fp32
           scb_accum_quant[i] = (scb_accum[i] << 16) * SCALE_1_SW_Q1616;
         end
@@ -233,8 +300,8 @@ module tb_temporal_vp_mac();
         $display("ERROR: TLAST not high");
         $finish;
       end
-      else if ((itr <= 32'h000000ff) && (mo_axis_tid != (itr - 1))) begin
-        $display("ERROR: TID != itr");
+      else if ((num_macs <= 32'h000000ff) && (mo_axis_tid != (num_macs - 1))) begin
+        $display("ERROR: TID != num_macs");
         $finish;
       end
     end
