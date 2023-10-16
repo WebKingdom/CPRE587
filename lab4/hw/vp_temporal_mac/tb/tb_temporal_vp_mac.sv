@@ -108,7 +108,7 @@ module tb_temporal_vp_mac();
     // set random precision level between [0, 8] inclusive
     if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
       scb_precision_level = $urandom_range(8, 0); // (max, min)
-      sd_axis_tdata = scb_precision_level;
+      sd_axis_tdata = AXIS_DW'(unsigned'(scb_precision_level));
       sd_axis_tuser = 1;
       sd_axis_tvalid = $urandom;
       sd_axis_tid = num_macs;
@@ -128,9 +128,9 @@ module tb_temporal_vp_mac();
   function automatic void set_rand_input();
     // Send randomized input data if TVALID is low or if an AXIS handshake happened
     if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
-      weight = $random;
       activation = $random;
-      sd_axis_tdata = {32'(signed'(weight)), 32'(unsigned'(activation))};
+      weight = $random;
+      sd_axis_tdata = {8'(unsinged'(activation)), 8'(signed'(weight))};
       sd_axis_tuser = 0;
       sd_axis_tvalid = $urandom;
       sd_axis_tid = num_macs;
