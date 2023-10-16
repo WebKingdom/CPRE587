@@ -2,7 +2,6 @@
 
 `timescale 1ns/1ps
 module tb_temporal_vp_mac();
-
   // define constants
   localparam DEBUG = 0;
   localparam AXIS_DW = 32;
@@ -32,18 +31,19 @@ module tb_temporal_vp_mac();
   // expected outputs for test
   // depending on the set precision level, the output will be different
   // will have at most 4 different MAC outputs and each will be compared
-  uint scb_precision_level;
-  logic [WEIGHT_DW+ACTIVATION_DW:0] scb_mult [0:MAX_OUTPUTS-1];
+  int scb_precision_level;
+  logic [WEIGHT_DW+ACTIVATION_DW-1:0] scb_mult [0:MAX_OUTPUTS-1];
   logic [31:0] scb_accum [0:MAX_OUTPUTS-1];
+  logic [63:0] scb_mult_dequant;
   logic [7:0] scb_accum_quant [0:MAX_OUTPUTS-1];
   // int scb_mult [0:MAX_OUTPUTS-1];
   // int scb_accum [0:MAX_OUTPUTS-1];
   // int scb_accum_quant [0:MAX_OUTPUTS-1];
   logic [AXIS_DW-1:0] scb_output;
 
-  // TODO inputs for DUT
+  // inputs for DUT
   logic                    clk           ;
-  logic                    arstn         ;
+  logic                    rstn          ;
   logic [AXIS_DW-1:0]      sd_axis_tdata ;
   logic                    sd_axis_tlast ;
   logic                    sd_axis_tuser ;
@@ -51,7 +51,7 @@ module tb_temporal_vp_mac();
   logic [             7:0] sd_axis_tid   ;
   logic                    mo_axis_tready;
 
-  // TODO ouptuts for DUT
+  // ouptuts for DUT
   logic                  sd_axis_tready;
   logic                  mo_axis_tvalid;
   logic [AXIS_DW-1:0]    mo_axis_tdata ;
@@ -59,13 +59,29 @@ module tb_temporal_vp_mac();
   logic [           7:0] mo_axis_tid   ;
   
   // helper logic
-  logic axis_handshake;
+  wire axis_handshake;
   assign axis_handshake = sd_axis_tvalid & sd_axis_tready;
   assign sd_axis_tlast = (num_macs >= (MAX_NUM_MACS - 1)) ? 1 : 0;
 
-  // TODO instantiate DUT
-
-
+  // instantiate DUT
+  vp_temporal_mac #(.AXIS_DW(AXIS_DW))
+  dut (
+    .CLK           (clk           ),
+    .RESETN        (rstn          ),
+    // inputs
+    .SD_AXIS_TDATA (sd_axis_tdata ),
+    .SD_AXIS_TLAST (sd_axis_tlast ),
+    .SD_AXIS_TUSER (sd_axis_tuser ),
+    .SD_AXIS_TVALID(sd_axis_tvalid),
+    .SD_AXIS_TID   (sd_axis_tid   ),
+    .MO_AXIS_TREADY(mo_axis_tready),
+    // outputs
+    .SD_AXIS_TREADY(sd_axis_tready),
+    .MO_AXIS_TVALID(mo_axis_tvalid),
+    .MO_AXIS_TDATA (mo_axis_tdata ),
+    .MO_AXIS_TLAST (mo_axis_tlast ),
+    .MO_AXIS_TID   (mo_axis_tid   )
+  );
 
   // clock generator
   always begin
@@ -81,6 +97,8 @@ module tb_temporal_vp_mac();
     weight = 0;
     activation = 0;
     scb_precision_level = 0;
+    scb_mult_dequant = 0;
+    scb_output = 0;
     for (int i = 0; i < MAX_OUTPUTS; i++) begin
       // for (int j = 0; j < 3; j++) begin
       //   scb_mult[i][j] = 0;
@@ -92,7 +110,7 @@ module tb_temporal_vp_mac();
 
     // DUT reset
     clk = 0;
-    arstn = 0;
+    rstn = 0;
     sd_axis_tdata = 0;
     sd_axis_tuser = 0;
     sd_axis_tvalid = 0;
@@ -101,12 +119,13 @@ module tb_temporal_vp_mac();
     mo_axis_tready = 0;
 
     repeat (2) @(posedge clk);
-    arstn = 1;
+    #1;
+    rstn = 1;
   endtask
 
   function automatic void set_rand_precision();
     // set random precision level between [0, 8] inclusive
-    if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
+    if (sd_axis_tvalid == 1'b0) begin
       scb_precision_level = $urandom_range(8, 0); // (max, min)
       sd_axis_tdata = AXIS_DW'(unsigned'(scb_precision_level));
       sd_axis_tuser = 1;
@@ -117,9 +136,9 @@ module tb_temporal_vp_mac();
 
   function automatic void set_scale_dequant();
     // sets the scale factor for dequantization
-    if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
+    if (sd_axis_tvalid == 1'b0) begin
       sd_axis_tdata = SCALE_1_SW_Q1616;
-      sd_axis_tuser = 1;
+      sd_axis_tuser = 0;
       sd_axis_tvalid = $urandom;
       sd_axis_tid = num_macs;
     end
@@ -127,10 +146,10 @@ module tb_temporal_vp_mac();
 
   function automatic void set_rand_input();
     // Send randomized input data if TVALID is low or if an AXIS handshake happened
-    if (sd_axis_tvalid == 1'b0 | axis_handshake == 1'b1) begin
+    if (sd_axis_tvalid == 1'b0) begin
       activation = $random;
       weight = $random;
-      sd_axis_tdata = {8'(unsinged'(activation)), 8'(signed'(weight))};
+      sd_axis_tdata = {16'h0000, activation, weight};
       sd_axis_tuser = 0;
       sd_axis_tvalid = $urandom;
       sd_axis_tid = num_macs;
@@ -154,7 +173,7 @@ module tb_temporal_vp_mac();
   endfunction
 
   // returns the bit widths of activations based on precision level
-  function automatic uint get_activation_bits();
+  function automatic int get_activation_bits();
     if (scb_precision_level <= 2) begin
       return 8;
     end
@@ -167,7 +186,7 @@ module tb_temporal_vp_mac();
   endfunction
 
   // returns the bit widths of weights based on precision level
-  function automatic uint get_weight_bits();
+  function automatic int get_weight_bits();
     if (scb_precision_level == 0 || scb_precision_level == 3 || scb_precision_level == 6) begin
       return 8;
     end
@@ -180,10 +199,10 @@ module tb_temporal_vp_mac();
   endfunction
 
   // returns the number of unique (activation) outputs based on precision level
-  function automatic uint get_num_outputs();
-    uint a_bits = get_activation_bits();
-    uint w_bits = get_weight_bits();
-    uint min_bits = a_bits < w_bits ? a_bits : w_bits;
+  function automatic int get_num_outputs();
+    int a_bits = get_activation_bits();
+    int w_bits = get_weight_bits();
+    int min_bits = a_bits < w_bits ? a_bits : w_bits;
     if (min_bits == 8) begin
       return 1;
     end
@@ -203,13 +222,13 @@ module tb_temporal_vp_mac();
       end
       else begin
         // start accumulator as 0 and update MAC accumulator
-        const uint num_outputs = get_num_outputs();
-        const uint a_bits = get_activation_bits();
-        const uint w_bits = get_weight_bits();
-        const uint w_lo = 0 * w_bits;
-        const uint w_hi = (0 + 1) * w_bits - 1;
-        const uint a_lo = 0 * a_bits;
-        const uint a_hi = (0 + 1) * a_bits - 1;
+        const int num_outputs = get_num_outputs();
+        const int a_bits = get_activation_bits();
+        const int w_bits = get_weight_bits();
+        const int w_lo = 0 * w_bits;
+        const int w_hi = (0 + 1) * w_bits - 1;
+        const int a_lo = 0 * a_bits;
+        const int a_hi = (0 + 1) * a_bits - 1;
 
         if (num_outputs == 1) begin
           // 1 output with 8b activation and 8b weight
@@ -271,14 +290,15 @@ module tb_temporal_vp_mac();
         end
         
         for (int i = 0; i < num_outputs; i++) begin
-//          const uint w_lo = i * w_bits;
-//          const uint w_hi = (i + 1) * w_bits - 1;
-//          const uint a_lo = i * a_bits;
-//          const uint a_hi = (i + 1) * a_bits - 1;
+//          const int w_lo = i * w_bits;
+//          const int w_hi = (i + 1) * w_bits - 1;
+//          const int a_lo = i * a_bits;
+//          const int a_hi = (i + 1) * a_bits - 1;
 //          scb_mult[i] = 8'(signed'(weight[w_hi:w_lo])) * 8'(signed'(activation[a_hi:a_lo]));
           scb_accum[i] += 32'(signed'(scb_mult[i]));
           // dequantize accumulator to fp32
-          scb_accum_quant[i] = (scb_accum[i] << 16) * SCALE_1_SW_Q1616;
+          scb_mult_dequant = {scb_accum[i][15:0], 16'h0000} * SCALE_1_SW_Q1616;
+          scb_accum_quant[i] = scb_mult_dequant[35:28];
         end
         scb_output = {scb_accum_quant[3], scb_accum_quant[2], scb_accum_quant[1], scb_accum_quant[0]};
         num_macs++;
@@ -311,17 +331,32 @@ module tb_temporal_vp_mac();
   task automatic run_test1();
     reset();
     // initialize precision level and scale factor
-    set_rand_precision();
-    @(posedge clk);
+    while (axis_handshake == 1'b0) begin
+      #1;
+      set_rand_precision();
+      @(posedge clk);
+    end
+    
+    #1;
+    sd_axis_tvalid = 0;
     set_scale_dequant();
-    @(posedge clk);
+    @(posedge(clk));
+    while (axis_handshake == 1'b0) begin
+      #1;
+      set_scale_dequant();
+      @(posedge clk);
+    end
+    #1;
+    sd_axis_tvalid = 0;
 
     while (num_macs < MAX_NUM_MACS) begin
-      @(posedge clk);
+      if (axis_handshake == 1'b1) begin
+        #1;
+        sd_axis_tvalid = 0;
+      end
       set_rand_input();
+      @(posedge clk);
 
-      // wait a little
-      #1;
       // num_macs updated in update_scoreboard()
       update_scoreboard();
     end
@@ -333,22 +368,76 @@ module tb_temporal_vp_mac();
 
     // randomize TREADY on MAC master input
     while (mo_axis_tready == 1'b0) begin
-      @(posedge clk);
-      mo_axis_tready = $urandom;
-      // wait a little
       #1;
+      mo_axis_tready = $urandom;
+      @(posedge clk);
       check_output();
     end
+    
+    // reset tvalid to low
+    #1;
+    sd_axis_tvalid = 0;
+  endtask
+  
+  // same as test 1 but without reset
+  task automatic run_test2();
+    // initialize precision level and scale factor
+    while (axis_handshake == 1'b0) begin
+      #1;
+      set_rand_precision();
+      @(posedge clk);
+    end
+    
+    #1;
+    sd_axis_tvalid = 0;
+    set_scale_dequant();
+    @(posedge(clk));
+    while (axis_handshake == 1'b0) begin
+      #1;
+      set_scale_dequant();
+      @(posedge clk);
+    end
+    #1;
+    sd_axis_tvalid = 0;
+
+    while (num_macs < MAX_NUM_MACS) begin
+      if (axis_handshake == 1'b1) begin
+        #1;
+        sd_axis_tvalid = 0;
+      end
+      set_rand_input();
+      @(posedge clk);
+
+      // num_macs updated in update_scoreboard()
+      update_scoreboard();
+    end
+
+    // wait for TVALID high on MAC master output
+    while (mo_axis_tvalid == 1'b0) begin
+      @(posedge clk);
+    end
+
+    // randomize TREADY on MAC master input
+    while (mo_axis_tready == 1'b0) begin
+      #1;
+      mo_axis_tready = $urandom;
+      @(posedge clk);
+      check_output();
+    end
+    
+    // reset tvalid to low
+    #1;
+    sd_axis_tvalid = 0;
   endtask
 
   // Stimulus
   initial begin
     run_test1();
-    repeat (1) @(posedge clk);
+    repeat (2) @(posedge clk);
     reset();
 
     // End simulation
-    repeat (2) @(posedge clk);
+    repeat (1) @(posedge clk);
     $finish;
   end
 

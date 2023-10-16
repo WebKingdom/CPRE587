@@ -37,7 +37,7 @@ module vp_temporal_mac#(
   // select signal for the activation and weight register
   wire sel_input;
   // precision level register
-  logic [3:0] reg_precision_level;
+  logic unsigned [3:0] reg_precision_level;
   // 32-bit register holding the dequantization scale factor
   logic [31:0] reg_dequant_scale;
 
@@ -60,6 +60,8 @@ module vp_temporal_mac#(
   logic [15:0] reg_muls_4x16b [0:3];
   // 4 32-bit registers holding the accumulated values
   logic [31:0] reg_accum_4x32b [0:3];
+  // 4 64-bit wires holding dequantized values
+  wire [63:0] wire_dequant_4x64b [0:3];
 
   // state machine with 7 states
   typedef enum logic [2:0] {
@@ -73,6 +75,7 @@ module vp_temporal_mac#(
   } state_type;
   state_type state, next_state;
   logic reg_dequant_done;
+  logic unsigned [2:0] reg_pipline_stage;
 
   assign debug = 0;
   // AXIS slave output
@@ -82,52 +85,57 @@ module vp_temporal_mac#(
 
   // AXIS master output
   assign MO_AXIS_TVALID = state == WR_OUT;
-  // assign MO_AXIS_TDATA = // TODO 
+  assign MO_AXIS_TDATA = reg_accum_4x32b[0];
   assign MO_AXIS_TLAST = reg_tlast;
   assign MO_AXIS_TID = reg_tid;
 
   // assign selector based on precision level (only change if (activation is 2b and weight is 4b or 8b) OR (activation is 4b and weight is 8b))
   assign sel_input = reg_precision_level == 4'h3 || reg_precision_level == 4'h6 || reg_precision_level == 4'h7;
+  // activation (1) and weight (0)
   assign wire_input_8b[0] = sel_input == 1'b1 ? reg_input_8b[1] : reg_input_8b[0];
   assign wire_input_8b[1] = sel_input == 1'b1 ? reg_input_8b[0] : reg_input_8b[1];
+
+  // assign dequantized values
+  assign wire_dequant_4x64b[0] = {reg_accum_4x32b[0][15:0], 16'h0000} * reg_dequant_scale;
+  assign wire_dequant_4x64b[1] = {reg_accum_4x32b[1][15:0], 16'h0000} * reg_dequant_scale;
+  assign wire_dequant_4x64b[2] = {reg_accum_4x32b[2][15:0], 16'h0000} * reg_dequant_scale;
+  assign wire_dequant_4x64b[3] = {reg_accum_4x32b[3][15:0], 16'h0000} * reg_dequant_scale;
 
   // generate 4 8x2 multipliers, 4 4x2 multipliers, and 4 2x2 multipliers
   genvar i;
   generate
     for (i = 0; i < 4; i = i + 1) begin
       // 8x2 multipliers
-      mul_Nx2 #(.N(8)) mul8x2_i(.a(wire_input_8b[0]), .b(wire_input_8b[1][((i+1)*2)-1:i*2]), .axb(wire_mul_8x2_out[i]));
+      mul_Nx2 #(.N(8)) mul8x2_i(.a(wire_input_8b[1]), .b(wire_input_8b[0][((i+1)*2)-1:i*2]), .axb(wire_mul_8x2_out[i]));
       // 4x2 multipliers
       if (i < 2) begin
-        mul_Nx2 #(.N(4)) mul4x2_i(.a(wire_input_8b[0][3:0]), .b(wire_input_8b[1][((i+1)*2)-1:i*2]), .axb(wire_mul_4x2_out[i]));
+        mul_Nx2 #(.N(4)) mul4x2_i(.a(wire_input_8b[1][3:0]), .b(wire_input_8b[0][((i+1)*2)-1:i*2]), .axb(wire_mul_4x2_out[i]));
       end
       else begin
-        mul_Nx2 #(.N(4)) mul4x2_i(.a(wire_input_8b[0][7:4]), .b(wire_input_8b[1][((i+1)*2)-1:i*2]), .axb(wire_mul_4x2_out[i]));
+        mul_Nx2 #(.N(4)) mul4x2_i(.a(wire_input_8b[1][7:4]), .b(wire_input_8b[0][((i+1)*2)-1:i*2]), .axb(wire_mul_4x2_out[i]));
       end
       // 2x2 multipliers
-      mul_Nx2 #(.N(2)) mul2x2_i(.a(wire_input_8b[0][((i+1)*2)-1:i*2]), .b(wire_input_8b[1][((i+1)*2)-1:i*2]), .axb(wire_mul_2x2_out[i]));
+      mul_Nx2 #(.N(2)) mul2x2_i(.a(wire_input_8b[1][((i+1)*2)-1:i*2]), .b(wire_input_8b[0][((i+1)*2)-1:i*2]), .axb(wire_mul_2x2_out[i]));
     end
   endgenerate
 
   // route the outputs wires from the multipliers to the shift and adders
   // 8b activation, 8b weight
   shift_add_4to1 shift_add_4to1_i0 (
-    .in4x10b(wire_mul_8x2_out),
+    .in_4x10b(wire_mul_8x2_out),
     .result(wire_shift_add_16b)
   );
 
   // 8b activation, 4b weight OR 4b activation, 8b weight
-  shift_add_4to2 shift_add_4to2_i0
-    #(.IN_WIDTH(10), .OUT_WIDTH(12)) (
-    .in4x(wire_mul_8x2_out),
-    .result2x(wire_shift_add_2x12b)
+  shift_add_4to2#(.IN_WIDTH(10), .OUT_WIDTH(12)) shift_add_4to2_i0 (
+    .in_4x(wire_mul_8x2_out),
+    .result_2x(wire_shift_add_2x12b)
   );
 
   // 4b activation, 4b weight
-  shift_add_4to2 shift_add_4to2_i1
-    #(.IN_WIDTH(6), .OUT_WIDTH(8)) (
-    .in4x(wire_mul_4x2_out),
-    .result2x(wire_shift_add_2x8b)
+  shift_add_4to2#(.IN_WIDTH(6), .OUT_WIDTH(8)) shift_add_4to2_i1 (
+    .in_4x(wire_mul_4x2_out),
+    .result_2x(wire_shift_add_2x8b)
   );
   // rest of activation, weight combinations go directly to 4x16b register
 
@@ -164,16 +172,13 @@ module vp_temporal_mac#(
         end
       end
       GET_DATA: begin
-        if (sd_axis_handshake == 1'b1) begin
+        if (sd_axis_handshake == 1'b1 && reg_tlast == 1'b1) begin
           next_state = COMPUTE;
         end
       end
       COMPUTE: begin
-        if (reg_tlast == 1'b1) begin
+        if (reg_pipline_stage[0] == 1'b0) begin
           next_state = DEQUANT;
-        end
-        else if (reg_tlast == 1'b0) begin
-          next_state = GET_DATA;
         end
       end
       DEQUANT: begin
@@ -201,9 +206,10 @@ module vp_temporal_mac#(
       reg_input_8b[1] <= 8'h0;
       reg_precision_level <= 4'h0;
       reg_dequant_scale <= 32'h0;
+      reg_pipline_stage <= 3'h0;
     end
     else begin
-      case (next_state)
+      case (state)
         IDLE: begin
           reg_tlast <= 1'b0;
           reg_tid <= 8'h0;
@@ -211,34 +217,45 @@ module vp_temporal_mac#(
           reg_input_8b[1] <= 8'h0;
           reg_precision_level <= 4'h0;
           reg_dequant_scale <= 32'h0;
+          reg_pipline_stage <= 3'h0;
         end
         SET_PRECISION: begin
-          // TODO set precision register
-          reg_tid <= SD_AXIS_TID;
-          reg_tlast <= SD_AXIS_TLAST;
-          reg_precision_level <= SD_AXIS_TDATA[3:0];
+          if (sd_axis_handshake == 1'b1) begin
+            reg_tid <= SD_AXIS_TID;
+            reg_tlast <= SD_AXIS_TLAST;
+            reg_precision_level <= SD_AXIS_TDATA[3:0];
+          end
         end
         SET_DEQUANT: begin
-          // TODO set dequantization register
-          reg_tid <= SD_AXIS_TID;
-          reg_tlast <= SD_AXIS_TLAST;
-          reg_dequant_scale <= SD_AXIS_TDATA;
+          if (sd_axis_handshake == 1'b1) begin
+            reg_tid <= SD_AXIS_TID;
+            reg_tlast <= SD_AXIS_TLAST;
+            reg_dequant_scale <= SD_AXIS_TDATA;
+          end
         end
         GET_DATA: begin
-          reg_tlast <= SD_AXIS_TLAST;
-          reg_tid <= SD_AXIS_TID;
-          // 0 is weight, 1 is activation
-          reg_input_8b[0] <= SD_AXIS_TDATA[7:0];
-          reg_input_8b[1] <= SD_AXIS_TDATA[15:8];
+          if (sd_axis_handshake == 1'b1) begin
+            reg_tlast <= SD_AXIS_TLAST;
+            reg_tid <= SD_AXIS_TID;
+            // 0 is weight, 1 is activation
+            reg_input_8b[0] <= SD_AXIS_TDATA[7:0];
+            reg_input_8b[1] <= SD_AXIS_TDATA[15:8];
+            reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b1};
+          end
+          else if (sd_axis_handshake == 1'b0) begin
+            // set to 0 so it does not affect pipeline
+            reg_input_8b[0] <= 0;
+            reg_input_8b[1] <= 0;
+          end
         end
         COMPUTE: begin
-          // TODO compute logic?
+          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
         end
         DEQUANT: begin
-          // TODO dequantization logic?
+          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
         end
         WR_OUT: begin
-          // TODO write out logic?
+          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
         end
       endcase
     end
@@ -253,42 +270,47 @@ module vp_temporal_mac#(
       reg_muls_4x16b[3] <= 16'h0;
     end
     else begin
-      // only update the registers in 3 states
-      if (next_state == GET_DATA || next_state == COMPUTE || next_state == DEQUANT) begin
+      if (state == IDLE || reg_pipline_stage[0] != 1'b1) begin
+        reg_muls_4x16b[0] <= 16'h0;
+        reg_muls_4x16b[1] <= 16'h0;
+        reg_muls_4x16b[2] <= 16'h0;
+        reg_muls_4x16b[3] <= 16'h0;
+      end
+      else if (reg_pipline_stage[0] == 1'b1) begin
         if (reg_precision_level == 4'h0) begin
           // 8b activation, 8b weight
           reg_muls_4x16b[0] <= wire_shift_add_16b;
         end
         else if (reg_precision_level == 4'h1 || reg_precision_level == 4'h3) begin
           // (8b activation, 4b weight) OR (4b activation, 8b weight)
-          reg_muls_4x16b[0] <= wire_shift_add_2x12b[0];
-          reg_muls_4x16b[1] <= wire_shift_add_2x12b[1];
+          reg_muls_4x16b[0] <= 16'(signed'(wire_shift_add_2x12b[0]));
+          reg_muls_4x16b[1] <= 16'(signed'(wire_shift_add_2x12b[1]));
         end
         else if (reg_precision_level == 4'h2 || reg_precision_level == 4'h6) begin
           // (8b activation, 2b weight) OR (2b activation, 8b weight)
-          reg_muls_4x16b[0] <= wire_mul_8x2_out[0];
-          reg_muls_4x16b[1] <= wire_mul_8x2_out[1];
-          reg_muls_4x16b[2] <= wire_mul_8x2_out[2];
-          reg_muls_4x16b[3] <= wire_mul_8x2_out[3];
+          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_8x2_out[0]));
+          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_8x2_out[1]));
+          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_8x2_out[2]));
+          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_8x2_out[3]));
         end
         else if (reg_precision_level == 4'h4) begin
           // 4b activation, 4b weight
-          reg_muls_4x16b[0] <= wire_shift_add_2x8b[0];
-          reg_muls_4x16b[1] <= wire_shift_add_2x8b[1];
+          reg_muls_4x16b[0] <= 16'(signed'(wire_shift_add_2x8b[0]));
+          reg_muls_4x16b[1] <= 16'(signed'(wire_shift_add_2x8b[1]));
         end
         else if (reg_precision_level == 4'h5 || reg_precision_level == 4'h7) begin
           // (4b activation, 2b weight) OR (2b activation, 4b weight)
-          reg_muls_4x16b[0] <= wire_mul_4x2_out[0];
-          reg_muls_4x16b[1] <= wire_mul_4x2_out[1];
-          reg_muls_4x16b[2] <= wire_mul_4x2_out[2];
-          reg_muls_4x16b[3] <= wire_mul_4x2_out[3];
+          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_4x2_out[0]));
+          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_4x2_out[1]));
+          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_4x2_out[2]));
+          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_4x2_out[3]));
         end
         else if (reg_precision_level == 4'h8) begin
           // 2b activation, 2b weight
-          reg_muls_4x16b[0] <= wire_mul_2x2_out[0];
-          reg_muls_4x16b[1] <= wire_mul_2x2_out[1];
-          reg_muls_4x16b[2] <= wire_mul_2x2_out[2];
-          reg_muls_4x16b[3] <= wire_mul_2x2_out[3];
+          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_2x2_out[0]));
+          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_2x2_out[1]));
+          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_2x2_out[2]));
+          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_2x2_out[3]));
         end
       end
     end
@@ -304,19 +326,28 @@ module vp_temporal_mac#(
       reg_dequant_done <= 1'b0;
     end
     else begin
-      if (next_state == GET_DATA || next_state == COMPUTE || next_state == DEQUANT) begin
-        for (int i = 0; i < 4; i++) begin
-          reg_accum_4x32b[i] <= reg_accum_4x32b[i] + reg_muls_4x16b[i];
-        end
+      if (state == IDLE) begin
+        reg_accum_4x32b[0] <= 32'h0;
+        reg_accum_4x32b[1] <= 32'h0;
+        reg_accum_4x32b[2] <= 32'h0;
+        reg_accum_4x32b[3] <= 32'h0;
+        reg_dequant_done <= 1'b0;
       end
-      else if (reg_dequant_done == 1'b0) begin
+      else if (state == DEQUANT && reg_dequant_done == 1'b0) begin
         // TODO dequantization and requantization logic
+        reg_accum_4x32b[0] <= {wire_dequant_4x64b[3][35:28], wire_dequant_4x64b[2][35:28], wire_dequant_4x64b[1][35:28], wire_dequant_4x64b[0][35:28]};
+        reg_accum_4x32b[1] <= 32'h0;
+        reg_accum_4x32b[2] <= 32'h0;
+        reg_accum_4x32b[3] <= 32'h0;
         reg_dequant_done <= 1'b1;
+      end
+      else if (reg_pipline_stage[1] == 1'b1 && reg_dequant_done == 1'b0) begin
+        for (int i = 0; i < 4; i++) begin
+          reg_accum_4x32b[i] <= reg_accum_4x32b[i] + 32'(signed'(reg_muls_4x16b[i]));
+        end
       end
     end
   end
-
-  
 
 
 endmodule

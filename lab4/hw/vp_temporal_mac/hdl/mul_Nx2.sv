@@ -5,7 +5,7 @@ module mul_Nx2 #(
   ) (
     input [N-1:0] a,
     input [1:0] b,
-    output [N+2:0] axb
+    output [N+1:0] axb
   );
 
   assign axb = N'(signed'(a)) * signed'(b);
