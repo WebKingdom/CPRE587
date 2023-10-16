@@ -74,7 +74,7 @@ module vp_temporal_mac#(
     WR_OUT
   } state_type;
   state_type state, next_state;
-  logic reg_dequant_done;
+  logic [1:0] reg_dequant_done;
   logic unsigned [2:0] reg_pipeline_stage;
 
   assign debug = 0;
@@ -95,7 +95,7 @@ module vp_temporal_mac#(
   assign wire_input_8b[0] = sel_input == 1'b1 ? reg_input_8b[1] : reg_input_8b[0];
   assign wire_input_8b[1] = sel_input == 1'b1 ? reg_input_8b[0] : reg_input_8b[1];
 
-  // assign dequantized values
+  // TODO handle overflow assign dequantized values
   assign wire_dequant_4x64b[0] = {reg_accum_4x32b[0][15:0], 16'h0000} * reg_dequant_scale;
   assign wire_dequant_4x64b[1] = {reg_accum_4x32b[1][15:0], 16'h0000} * reg_dequant_scale;
   assign wire_dequant_4x64b[2] = {reg_accum_4x32b[2][15:0], 16'h0000} * reg_dequant_scale;
@@ -182,7 +182,7 @@ module vp_temporal_mac#(
         end
       end
       DEQUANT: begin
-        if (reg_dequant_done == 1'b1) begin
+        if (reg_dequant_done == 2'b11) begin
           next_state = WR_OUT;
         end
       end
@@ -324,7 +324,7 @@ module vp_temporal_mac#(
       reg_accum_4x32b[1] <= 32'h0;
       reg_accum_4x32b[2] <= 32'h0;
       reg_accum_4x32b[3] <= 32'h0;
-      reg_dequant_done <= 1'b0;
+      reg_dequant_done <= 2'b00;
     end
     else begin
       if (state == IDLE) begin
@@ -332,17 +332,19 @@ module vp_temporal_mac#(
         reg_accum_4x32b[1] <= 32'h0;
         reg_accum_4x32b[2] <= 32'h0;
         reg_accum_4x32b[3] <= 32'h0;
-        reg_dequant_done <= 1'b0;
+        reg_dequant_done <= 2'b00;
       end
-      else if (state == DEQUANT && reg_dequant_done == 1'b0) begin
-        // TODO dequantization and requantization logic
-        reg_accum_4x32b[0] <= {wire_dequant_4x64b[3][35:28], wire_dequant_4x64b[2][35:28], wire_dequant_4x64b[1][35:28], wire_dequant_4x64b[0][35:28]};
-        reg_accum_4x32b[1] <= 32'h0;
-        reg_accum_4x32b[2] <= 32'h0;
-        reg_accum_4x32b[3] <= 32'h0;
-        reg_dequant_done <= 1'b1;
+      else if (state == DEQUANT && reg_dequant_done < 2'b11) begin
+        // dequantization and requantization logic takes 2 cycles to avoid timing issue
+        if (reg_dequant_done == 2'b01) begin
+          reg_accum_4x32b[0] <= {wire_dequant_4x64b[3][35:28], wire_dequant_4x64b[2][35:28], wire_dequant_4x64b[1][35:28], wire_dequant_4x64b[0][35:28]};
+          reg_accum_4x32b[1] <= 32'h0;
+          reg_accum_4x32b[2] <= 32'h0;
+          reg_accum_4x32b[3] <= 32'h0;
+        end
+        reg_dequant_done <= {reg_dequant_done[0], 1'b1};
       end
-      else if (reg_pipeline_stage[1] == 1'b1 && reg_dequant_done == 1'b0) begin
+      else if (reg_pipeline_stage[1] == 1'b1 && reg_dequant_done < 2'b01) begin
         for (int i = 0; i < 4; i++) begin
           reg_accum_4x32b[i] <= reg_accum_4x32b[i] + 32'(signed'(reg_muls_4x16b[i]));
         end

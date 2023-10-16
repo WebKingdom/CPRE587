@@ -21,7 +21,7 @@ module tb_temporal_vp_mac();
   localparam SCALE_1_SWSA = 0.00398788532438997685176056405212;
 
 
-  const int MAX_NUM_MACS = 10;
+  const int MAX_NUM_MACS = 100;
   int num_macs;
 
   // input data
