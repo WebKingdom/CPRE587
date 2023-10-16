@@ -75,7 +75,7 @@ module vp_temporal_mac#(
   } state_type;
   state_type state, next_state;
   logic reg_dequant_done;
-  logic unsigned [2:0] reg_pipline_stage;
+  logic unsigned [2:0] reg_pipeline_stage;
 
   assign debug = 0;
   // AXIS slave output
@@ -177,7 +177,7 @@ module vp_temporal_mac#(
         end
       end
       COMPUTE: begin
-        if (reg_pipline_stage[0] == 1'b0) begin
+        if (reg_pipeline_stage[0] == 1'b0) begin
           next_state = DEQUANT;
         end
       end
@@ -206,7 +206,7 @@ module vp_temporal_mac#(
       reg_input_8b[1] <= 8'h0;
       reg_precision_level <= 4'h0;
       reg_dequant_scale <= 32'h0;
-      reg_pipline_stage <= 3'h0;
+      reg_pipeline_stage <= 3'h0;
     end
     else begin
       case (state)
@@ -217,7 +217,7 @@ module vp_temporal_mac#(
           reg_input_8b[1] <= 8'h0;
           reg_precision_level <= 4'h0;
           reg_dequant_scale <= 32'h0;
-          reg_pipline_stage <= 3'h0;
+          reg_pipeline_stage <= 3'h0;
         end
         SET_PRECISION: begin
           if (sd_axis_handshake == 1'b1) begin
@@ -234,28 +234,29 @@ module vp_temporal_mac#(
           end
         end
         GET_DATA: begin
-          if (sd_axis_handshake == 1'b1) begin
+          if (sd_axis_handshake == 1'b1 && reg_tlast == 1'b0) begin
             reg_tlast <= SD_AXIS_TLAST;
             reg_tid <= SD_AXIS_TID;
             // 0 is weight, 1 is activation
             reg_input_8b[0] <= SD_AXIS_TDATA[7:0];
             reg_input_8b[1] <= SD_AXIS_TDATA[15:8];
-            reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b1};
+            reg_pipeline_stage <= {reg_pipeline_stage[1:0], 1'b1};
           end
-          else if (sd_axis_handshake == 1'b0) begin
+          else if (sd_axis_handshake == 1'b0 || reg_tlast == 1'b1) begin
             // set to 0 so it does not affect pipeline
             reg_input_8b[0] <= 0;
             reg_input_8b[1] <= 0;
+            reg_pipeline_stage <= {reg_pipeline_stage[1:0], 1'b0};
           end
         end
         COMPUTE: begin
-          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
+          reg_pipeline_stage <= {reg_pipeline_stage[1:0], 1'b0};
         end
         DEQUANT: begin
-          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
+          reg_pipeline_stage <= {reg_pipeline_stage[1:0], 1'b0};
         end
         WR_OUT: begin
-          reg_pipline_stage <= {reg_pipline_stage[1:0], 1'b0};
+          reg_pipeline_stage <= {reg_pipeline_stage[1:0], 1'b0};
         end
       endcase
     end
@@ -270,47 +271,47 @@ module vp_temporal_mac#(
       reg_muls_4x16b[3] <= 16'h0;
     end
     else begin
-      if (state == IDLE || reg_pipline_stage[0] != 1'b1) begin
+      if (state == IDLE || reg_pipeline_stage[0] != 1'b1) begin
         reg_muls_4x16b[0] <= 16'h0;
         reg_muls_4x16b[1] <= 16'h0;
         reg_muls_4x16b[2] <= 16'h0;
         reg_muls_4x16b[3] <= 16'h0;
       end
-      else if (reg_pipline_stage[0] == 1'b1) begin
+      else if (reg_pipeline_stage[0] == 1'b1) begin
         if (reg_precision_level == 4'h0) begin
           // 8b activation, 8b weight
           reg_muls_4x16b[0] <= wire_shift_add_16b;
         end
         else if (reg_precision_level == 4'h1 || reg_precision_level == 4'h3) begin
           // (8b activation, 4b weight) OR (4b activation, 8b weight)
-          reg_muls_4x16b[0] <= 16'(signed'(wire_shift_add_2x12b[0]));
-          reg_muls_4x16b[1] <= 16'(signed'(wire_shift_add_2x12b[1]));
+          reg_muls_4x16b[0] <= wire_shift_add_2x12b[0];
+          reg_muls_4x16b[1] <= wire_shift_add_2x12b[1];
         end
         else if (reg_precision_level == 4'h2 || reg_precision_level == 4'h6) begin
           // (8b activation, 2b weight) OR (2b activation, 8b weight)
-          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_8x2_out[0]));
-          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_8x2_out[1]));
-          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_8x2_out[2]));
-          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_8x2_out[3]));
+          reg_muls_4x16b[0] <= wire_mul_8x2_out[0];
+          reg_muls_4x16b[1] <= wire_mul_8x2_out[1];
+          reg_muls_4x16b[2] <= wire_mul_8x2_out[2];
+          reg_muls_4x16b[3] <= wire_mul_8x2_out[3];
         end
         else if (reg_precision_level == 4'h4) begin
           // 4b activation, 4b weight
-          reg_muls_4x16b[0] <= 16'(signed'(wire_shift_add_2x8b[0]));
-          reg_muls_4x16b[1] <= 16'(signed'(wire_shift_add_2x8b[1]));
+          reg_muls_4x16b[0] <= wire_shift_add_2x8b[0];
+          reg_muls_4x16b[1] <= wire_shift_add_2x8b[1];
         end
         else if (reg_precision_level == 4'h5 || reg_precision_level == 4'h7) begin
           // (4b activation, 2b weight) OR (2b activation, 4b weight)
-          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_4x2_out[0]));
-          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_4x2_out[1]));
-          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_4x2_out[2]));
-          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_4x2_out[3]));
+          reg_muls_4x16b[0] <= wire_mul_4x2_out[0];
+          reg_muls_4x16b[1] <= wire_mul_4x2_out[1];
+          reg_muls_4x16b[2] <= wire_mul_4x2_out[2];
+          reg_muls_4x16b[3] <= wire_mul_4x2_out[3];
         end
         else if (reg_precision_level == 4'h8) begin
           // 2b activation, 2b weight
-          reg_muls_4x16b[0] <= 16'(signed'(wire_mul_2x2_out[0]));
-          reg_muls_4x16b[1] <= 16'(signed'(wire_mul_2x2_out[1]));
-          reg_muls_4x16b[2] <= 16'(signed'(wire_mul_2x2_out[2]));
-          reg_muls_4x16b[3] <= 16'(signed'(wire_mul_2x2_out[3]));
+          reg_muls_4x16b[0] <= wire_mul_2x2_out[0];
+          reg_muls_4x16b[1] <= wire_mul_2x2_out[1];
+          reg_muls_4x16b[2] <= wire_mul_2x2_out[2];
+          reg_muls_4x16b[3] <= wire_mul_2x2_out[3];
         end
       end
     end
@@ -341,7 +342,7 @@ module vp_temporal_mac#(
         reg_accum_4x32b[3] <= 32'h0;
         reg_dequant_done <= 1'b1;
       end
-      else if (reg_pipline_stage[1] == 1'b1 && reg_dequant_done == 1'b0) begin
+      else if (reg_pipeline_stage[1] == 1'b1 && reg_dequant_done == 1'b0) begin
         for (int i = 0; i < 4; i++) begin
           reg_accum_4x32b[i] <= reg_accum_4x32b[i] + 32'(signed'(reg_muls_4x16b[i]));
         end

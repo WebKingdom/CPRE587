@@ -91,7 +91,7 @@ module tb_temporal_vp_mac();
     end
   end
 
-  task automatic reset();
+  function automatic void reset_tb();
     // input data and TB reset
     num_macs = 0;
     weight = 0;
@@ -107,6 +107,10 @@ module tb_temporal_vp_mac();
       scb_accum[i] = 0;
       scb_accum_quant[i] = 0;
     end
+  endfunction
+
+  task automatic reset_all();
+    reset_tb();
 
     // DUT reset
     clk = 0;
@@ -127,6 +131,17 @@ module tb_temporal_vp_mac();
     // set random precision level between [0, 8] inclusive
     if (sd_axis_tvalid == 1'b0) begin
       scb_precision_level = $urandom_range(8, 0); // (max, min)
+      sd_axis_tdata = AXIS_DW'(unsigned'(scb_precision_level));
+      sd_axis_tuser = 1;
+      sd_axis_tvalid = $urandom;
+      sd_axis_tid = num_macs;
+    end
+  endfunction
+
+  function automatic void set_precision(int precision);
+    // set precision level specified by argument
+    if (sd_axis_tvalid == 1'b0) begin
+      scb_precision_level = precision;
       sd_axis_tdata = AXIS_DW'(unsigned'(scb_precision_level));
       sd_axis_tuser = 1;
       sd_axis_tvalid = $urandom;
@@ -232,60 +247,60 @@ module tb_temporal_vp_mac();
 
         if (num_outputs == 1) begin
           // 1 output with 8b activation and 8b weight
-          scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight));
+          scb_mult[0] = activation * weight;
         end
         else if (num_outputs == 2) begin
           if (a_bits == 8 && w_bits == 4) begin
             // 2 outputs with 8b activation and 4b weight
-            scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight[3:0]));
-            scb_mult[1] = 8'(signed'(activation)) * 8'(signed'(weight[7:4]));
+            scb_mult[0] = activation * weight[3:0];
+            scb_mult[1] = activation * weight[7:4];
           end
           else if (a_bits == 4 && w_bits == 4) begin
             // 2 outputs with 4b activation and 4b weight
-            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[3:0]));
-            scb_mult[1] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[7:4]));
+            scb_mult[0] = activation[3:0] * weight[3:0];
+            scb_mult[1] = activation[7:4] * weight[7:4];
           end
           else begin
             // 2 outputs with 4b activation and 8b weight
-            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight));
-            scb_mult[1] = 8'(signed'(activation[7:4])) * 8'(signed'(weight));
+            scb_mult[0] = activation[3:0] * weight;
+            scb_mult[1] = activation[7:4] * weight;
           end
         end
         else if (num_outputs == 4) begin
           if (a_bits == 8 && w_bits == 2) begin
             // 4 outputs with 8b activation and 2b weight
-            scb_mult[0] = 8'(signed'(activation)) * 8'(signed'(weight[1:0]));
-            scb_mult[1] = 8'(signed'(activation)) * 8'(signed'(weight[3:2]));
-            scb_mult[2] = 8'(signed'(activation)) * 8'(signed'(weight[5:4]));
-            scb_mult[3] = 8'(signed'(activation)) * 8'(signed'(weight[7:6]));
+            scb_mult[0] = activation * weight[1:0];
+            scb_mult[1] = activation * weight[3:2];
+            scb_mult[2] = activation * weight[5:4];
+            scb_mult[3] = activation * weight[7:6];
           end
           else if (a_bits == 4 && w_bits == 2) begin
             // 4 outputs with 4b activation and 2b weight
-            scb_mult[0] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[1:0]));
-            scb_mult[1] = 8'(signed'(activation[3:0])) * 8'(signed'(weight[3:2]));
-            scb_mult[2] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[5:4]));
-            scb_mult[3] = 8'(signed'(activation[7:4])) * 8'(signed'(weight[7:6]));
+            scb_mult[0] = activation[3:0] * weight[1:0];
+            scb_mult[1] = activation[3:0] * weight[3:2];
+            scb_mult[2] = activation[7:4] * weight[5:4];
+            scb_mult[3] = activation[7:4] * weight[7:6];
           end
           else if (a_bits == 2 && w_bits == 2) begin
             // 4 outputs with 2b activation and 2b weight
-            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight[1:0]));
-            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight[3:2]));
-            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight[5:4]));
-            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight[7:6]));
+            scb_mult[0] = activation[1:0] * weight[1:0];
+            scb_mult[1] = activation[3:2] * weight[3:2];
+            scb_mult[2] = activation[5:4] * weight[5:4];
+            scb_mult[3] = activation[7:6] * weight[7:6];
           end
           else if (a_bits == 2 && w_bits == 4) begin
             // 4 outputs with 2b activation and 4b weight
-            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight[3:0]));
-            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight[3:0]));
-            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight[7:4]));
-            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight[7:4]));
+            scb_mult[0] = activation[1:0] * weight[3:0];
+            scb_mult[1] = activation[3:2] * weight[3:0];
+            scb_mult[2] = activation[5:4] * weight[7:4];
+            scb_mult[3] = activation[7:6] * weight[7:4];
           end
           else if (a_bits == 2 && w_bits == 8) begin
             // 4 outputs with 2b activation and 8b weight
-            scb_mult[0] = 8'(signed'(activation[1:0])) * 8'(signed'(weight));
-            scb_mult[1] = 8'(signed'(activation[3:2])) * 8'(signed'(weight));
-            scb_mult[2] = 8'(signed'(activation[5:4])) * 8'(signed'(weight));
-            scb_mult[3] = 8'(signed'(activation[7:6])) * 8'(signed'(weight));
+            scb_mult[0] = activation[1:0] * weight;
+            scb_mult[1] = activation[3:2] * weight;
+            scb_mult[2] = activation[5:4] * weight;
+            scb_mult[3] = activation[7:6] * weight;
           end
         end
         
@@ -327,9 +342,31 @@ module tb_temporal_vp_mac();
     end
   endfunction
 
-  // Test 1. Send and accept random input data MAX_NUM_MACS times and check output
-  task automatic run_test1();
-    reset();
+  function automatic void check_output_precision(int precision);
+    // checks the final MAC output
+    if (mo_axis_tvalid == 1'b1 && mo_axis_tready == 1'b1) begin
+      disp_output_data();
+      $display("Expected: %h", scb_output);
+      $display("Actual: %h", mo_axis_tdata);
+      $display("Precision: %d", precision);
+      if (mo_axis_tdata != scb_output) begin
+        $display("ERROR: Output data does not match expected output");
+        $finish;
+      end
+      else if (mo_axis_tlast != 1'b1) begin
+        $display("ERROR: TLAST not high");
+        $finish;
+      end
+      else if ((num_macs <= 32'h000000ff) && (mo_axis_tid != (num_macs - 1))) begin
+        $display("ERROR: TID != num_macs");
+        $finish;
+      end
+    end
+  endfunction
+
+  // Fully random test
+  task automatic run_rand_test();
+    reset_all();
     // initialize precision level and scale factor
     while (axis_handshake == 1'b0) begin
       #1;
@@ -379,12 +416,13 @@ module tb_temporal_vp_mac();
     sd_axis_tvalid = 0;
   endtask
   
-  // same as test 1 but without reset
-  task automatic run_test2();
+  // Fully random test with specified precision level
+  task automatic run_precision_test(int precision);
+    reset_all();
     // initialize precision level and scale factor
     while (axis_handshake == 1'b0) begin
       #1;
-      set_rand_precision();
+      set_precision(precision);
       @(posedge clk);
     end
     
@@ -422,7 +460,7 @@ module tb_temporal_vp_mac();
       #1;
       mo_axis_tready = $urandom;
       @(posedge clk);
-      check_output();
+      check_output_precision(precision);
     end
     
     // reset tvalid to low
@@ -432,9 +470,15 @@ module tb_temporal_vp_mac();
 
   // Stimulus
   initial begin
-    run_test1();
+    // test all precision levels
+    for (int i = 0; i < 9; i++) begin
+      run_precision_test(i);
+    end
+
+
+    // run_test1();
     repeat (2) @(posedge clk);
-    reset();
+    reset_all();
 
     // End simulation
     repeat (1) @(posedge clk);

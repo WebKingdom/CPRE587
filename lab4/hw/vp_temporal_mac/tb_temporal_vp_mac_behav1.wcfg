@@ -11,13 +11,13 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="78634fs"></ZoomStartTime>
-      <ZoomEndTime time="152280fs"></ZoomEndTime>
-      <Cursor1Time time="95000fs"></Cursor1Time>
+      <ZoomStartTime time="118638fs"></ZoomStartTime>
+      <ZoomEndTime time="189154fs"></ZoomEndTime>
+      <Cursor1Time time="135000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="265"></NameColumnWidth>
-      <ValueColumnWidth column_width="140"></ValueColumnWidth>
+      <ValueColumnWidth column_width="132"></ValueColumnWidth>
    </column_width_setting>
    <WVObjectSize size="75" />
    <wvobject type="logic" fp_name="/tb_temporal_vp_mac/clk">
@@ -49,12 +49,14 @@
       <obj_property name="ObjectShortName">scb_precision_level[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/scb_mult">
-      <obj_property name="ElementShortName">scb_mult[0:3][16:0]</obj_property>
-      <obj_property name="ObjectShortName">scb_mult[0:3][16:0]</obj_property>
+      <obj_property name="ElementShortName">scb_mult[0:3][15:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_mult[0:3][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/scb_accum">
       <obj_property name="ElementShortName">scb_accum[0:3][31:0]</obj_property>
       <obj_property name="ObjectShortName">scb_accum[0:3][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/scb_mult_dequant">
       <obj_property name="ElementShortName">scb_mult_dequant[63:0]</obj_property>
@@ -247,10 +249,12 @@
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/reg_input_8b">
       <obj_property name="ElementShortName">reg_input_8b[0:1][7:0]</obj_property>
       <obj_property name="ObjectShortName">reg_input_8b[0:1][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/wire_input_8b">
       <obj_property name="ElementShortName">wire_input_8b[0:1][7:0]</obj_property>
       <obj_property name="ObjectShortName">wire_input_8b[0:1][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_temporal_vp_mac/dut/sel_input">
       <obj_property name="ElementShortName">sel_input</obj_property>
@@ -267,6 +271,7 @@
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/wire_mul_8x2_out">
       <obj_property name="ElementShortName">wire_mul_8x2_out[0:3][9:0]</obj_property>
       <obj_property name="ObjectShortName">wire_mul_8x2_out[0:3][9:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/wire_mul_4x2_out">
       <obj_property name="ElementShortName">wire_mul_4x2_out[0:3][5:0]</obj_property>
@@ -291,10 +296,12 @@
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/reg_muls_4x16b">
       <obj_property name="ElementShortName">reg_muls_4x16b[0:3][15:0]</obj_property>
       <obj_property name="ObjectShortName">reg_muls_4x16b[0:3][15:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/reg_accum_4x32b">
       <obj_property name="ElementShortName">reg_accum_4x32b[0:3][31:0]</obj_property>
       <obj_property name="ObjectShortName">reg_accum_4x32b[0:3][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/wire_dequant_4x64b">
       <obj_property name="ElementShortName">wire_dequant_4x64b[0:3][63:0]</obj_property>
@@ -313,8 +320,8 @@
       <obj_property name="ObjectShortName">reg_dequant_done</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/reg_pipline_stage">
-      <obj_property name="ElementShortName">reg_pipline_stage[3:0]</obj_property>
-      <obj_property name="ObjectShortName">reg_pipline_stage[3:0]</obj_property>
+      <obj_property name="ElementShortName">reg_pipline_stage[2:0]</obj_property>
+      <obj_property name="ObjectShortName">reg_pipline_stage[2:0]</obj_property>
       <obj_property name="Radix">BINARYRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_temporal_vp_mac/dut/AXIS_DW">

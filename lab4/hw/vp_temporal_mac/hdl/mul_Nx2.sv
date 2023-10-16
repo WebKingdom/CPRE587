@@ -8,6 +8,6 @@ module mul_Nx2 #(
     output [N+1:0] axb
   );
 
-  assign axb = N'(signed'(a)) * signed'(b);
+  assign axb = a * b;
 
 endmodule

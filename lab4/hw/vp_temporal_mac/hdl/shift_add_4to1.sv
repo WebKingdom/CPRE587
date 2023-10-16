@@ -8,8 +8,8 @@ module shift_add_4to1(
   );
   logic [11:0] add_0, add_1;
 
-  assign add_0 = 12'(signed'(in_4x10b[1] << 2)) + 12'(signed'(in_4x10b[0]));
-  assign add_1 = 12'(signed'(in_4x10b[3] << 2)) + 12'(signed'(in_4x10b[2]));
-  assign result = 16'(signed'(add_1 << 4)) + 16'(signed'(add_0));
+  assign add_0 = {in_4x10b[1], 2'b00} + in_4x10b[0];
+  assign add_1 = {in_4x10b[3], 2'b00} + in_4x10b[2];
+  assign result = {add_1, 4'h0} + add_0;
 
 endmodule
