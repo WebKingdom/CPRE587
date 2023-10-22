@@ -202,14 +202,14 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     const auto S = this->getWeightParams().dims.at(1);
     // const auto C = this->getWeightParams().dims.at(2);
     const auto M = this->getWeightParams().dims.at(3);
-    const auto H_R = dataIn.getParams().dims.at(0) - R + 1;
-    const auto W_S = dataIn.getParams().dims.at(1) - S + 1;
+    const auto P = dataIn.getParams().dims.at(0) - R + 1;
+    const auto Q = dataIn.getParams().dims.at(1) - S + 1;
     // logDebug("R (filter rows): " + std::to_string(R));
     // logDebug("S (filter cols): " + std::to_string(S));
     // logDebug("C (filter chans): " + std::to_string(C));
     // logDebug("M (num filters): " + std::to_string(M));
-    // logDebug("H_R (max row): " + std::to_string(H_R));
-    // logDebug("W_S (max col): " + std::to_string(W_S));
+    // logDebug("P (max ofMap row): " + std::to_string(P));
+    // logDebug("Q (max ofMap col): " + std::to_string(Q));
 
     // for each filter, for each input channel, compute intermediate result (2D convolution),
     // then add then up, and then add bias
@@ -217,8 +217,8 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
     for (size filterIdx = 0; filterIdx < M; filterIdx++) {
-        for (size rowIdx = 0; rowIdx < H_R; rowIdx++) {
-            for (size colIdx = 0; colIdx < W_S; colIdx++) {
+        for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+            for (size colIdx = 0; colIdx < Q; colIdx++) {
                 // compute intermediate result
                 // add bias
                 // perform ReLu and write result to output feature map
@@ -259,14 +259,14 @@ void ConvolutionalLayer::computeQuant1(const LayerData& dataIn) const {
     const auto R = this->getWeightParams().dims.at(0);
     const auto S = this->getWeightParams().dims.at(1);
     // const auto C = this->getWeightParams().dims.at(2);
-    const auto H = dataIn.getParams().dims.at(0) - R + 1;
-    const auto W = dataIn.getParams().dims.at(1) - S + 1;
+    const auto P = dataIn.getParams().dims.at(0) - R + 1;
+    const auto Q = dataIn.getParams().dims.at(1) - S + 1;
     // logDebug("M (num filters): " + std::to_string(M));
     // logDebug("R (filter rows): " + std::to_string(R));
     // logDebug("S (filter cols): " + std::to_string(S));
     // logDebug("C (filter chans): " + std::to_string(C));
-    // logDebug("H (max row): " + std::to_string(H));
-    // logDebug("W (max col): " + std::to_string(W));
+    // logDebug("P (max ofMap row): " + std::to_string(P));
+    // logDebug("Q (max ofMap col): " + std::to_string(Q));
 
     // for each filter, for each input channel, compute intermediate result (2D convolution),
     // then add then up, and then add bias
@@ -275,8 +275,8 @@ void ConvolutionalLayer::computeQuant1(const LayerData& dataIn) const {
     const auto& biasData = this->getBiasData().getData<Array1D_i32>();
     const fp32 dScale = 1 / (this->s_input * this->s_weight);
     for (size filterIdx = 0; filterIdx < M; filterIdx++) {
-        for (size rowIdx = 0; rowIdx < H; rowIdx++) {
-            for (size colIdx = 0; colIdx < W; colIdx++) {
+        for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+            for (size colIdx = 0; colIdx < Q; colIdx++) {
                 // compute intermediate result
                 // add bias
                 // perform ReLu and write result to output feature map
@@ -326,14 +326,14 @@ void ConvolutionalLayer::computeQuant2(const LayerData& dataIn) const {
     const auto R = this->getWeightParams().dims.at(0);
     const auto S = this->getWeightParams().dims.at(1);
     // const auto C = this->getWeightParams().dims.at(2);
-    const auto H = dataIn.getParams().dims.at(0) - R + 1;
-    const auto W = dataIn.getParams().dims.at(1) - S + 1;
+    const auto P = dataIn.getParams().dims.at(0) - R + 1;
+    const auto Q = dataIn.getParams().dims.at(1) - S + 1;
     // logDebug("M (num filters): " + std::to_string(M));
     // logDebug("R (filter rows): " + std::to_string(R));
     // logDebug("S (filter cols): " + std::to_string(S));
     // logDebug("C (filter chans): " + std::to_string(C));
-    // logDebug("H (max row): " + std::to_string(H));
-    // logDebug("W (max col): " + std::to_string(W));
+    // logDebug("P (max ofMap row): " + std::to_string(P));
+    // logDebug("Q (max ofMap col): " + std::to_string(Q));
 
     // for each filter, for each input channel, compute intermediate result (2D convolution),
     // then add then up, and then add bias
@@ -342,8 +342,8 @@ void ConvolutionalLayer::computeQuant2(const LayerData& dataIn) const {
     const auto& biasData = this->getBiasData().getData<Array1D_i32>();
     const fp32 dScale = 1 / (this->s_input * this->s_weight);
     for (size filterIdx = 0; filterIdx < M; filterIdx++) {
-        for (size rowIdx = 0; rowIdx < H; rowIdx++) {
-            for (size colIdx = 0; colIdx < W; colIdx++) {
+        for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+            for (size colIdx = 0; colIdx < Q; colIdx++) {
                 // compute intermediate result
                 // add bias
                 // perform ReLu and write result to output feature map
