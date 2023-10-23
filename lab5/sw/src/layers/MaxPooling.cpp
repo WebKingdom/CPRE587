@@ -46,24 +46,25 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
         logError("ERROR: output buffer not allocated or not valid");
         exit(1);
     }
-    const auto maxRowOut = this->getOutputParams().dims.at(0);
-    const auto maxColOut = this->getOutputParams().dims.at(1);
-    const auto maxChan = dataIn.getParams().dims.at(2);
+    const auto P = this->getOutputParams().dims.at(0);
+    const auto Q = this->getOutputParams().dims.at(1);
+    const auto M = this->getOutputParams().dims.at(2);
 
     // error handling
-    if (maxRowOut != dataIn.getParams().dims.at(0) / POOL_STRIDE) {
-        logError("ERROR: maxRowOut != dataIn.getParams().dims.at(0) / POOL_STRIDE");
+    if (P != dataIn.getParams().dims.at(0) / POOL_STRIDE) {
+        logError("ERROR: P != dataIn.getParams().dims.at(0) / POOL_STRIDE");
         exit(1);
     }
-    if (maxColOut != dataIn.getParams().dims.at(1) / POOL_STRIDE) {
-        logError("ERROR: maxColOut != dataIn.getParams().dims.at(1) / POOL_STRIDE");
+    if (Q != dataIn.getParams().dims.at(1) / POOL_STRIDE) {
+        logError("ERROR: Q != dataIn.getParams().dims.at(1) / POOL_STRIDE");
         exit(1);
     }
 
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
-    for (size chanIdx = 0; chanIdx < maxChan; chanIdx++) {
-        for (size rowIdx = 0; rowIdx < maxRowOut; rowIdx++) {
-            for (size colIdx = 0; colIdx < maxColOut; colIdx++) {
+    // TODO ssz optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
+    for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+        for (size colIdx = 0; colIdx < Q; colIdx++) {
+            for (size chanIdx = 0; chanIdx < M; chanIdx++) {
                 outData[rowIdx][colIdx][chanIdx] = compute2DIntermediateResult(
                     dataIn, rowIdx * POOL_STRIDE, colIdx * POOL_STRIDE, chanIdx);
             }
@@ -80,24 +81,24 @@ void MaxPoolingLayer::computeQuant1(const LayerData& dataIn) const {
         logError("ERROR: output buffer not allocated or not valid");
         exit(1);
     }
-    const auto maxRowOut = this->getOutputParams().dims.at(0);
-    const auto maxColOut = this->getOutputParams().dims.at(1);
-    const auto maxChan = dataIn.getParams().dims.at(2);
+    const auto P = this->getOutputParams().dims.at(0);
+    const auto Q = this->getOutputParams().dims.at(1);
+    const auto M = dataIn.getParams().dims.at(2);
 
     // error handling
-    if (maxRowOut != dataIn.getParams().dims.at(0) / POOL_STRIDE) {
-        logError("ERROR: maxRowOut != dataIn.getParams().dims.at(0) / POOL_STRIDE");
+    if (P != dataIn.getParams().dims.at(0) / POOL_STRIDE) {
+        logError("ERROR: P != dataIn.getParams().dims.at(0) / POOL_STRIDE");
         exit(1);
     }
-    if (maxColOut != dataIn.getParams().dims.at(1) / POOL_STRIDE) {
-        logError("ERROR: maxColOut != dataIn.getParams().dims.at(1) / POOL_STRIDE");
+    if (Q != dataIn.getParams().dims.at(1) / POOL_STRIDE) {
+        logError("ERROR: Q != dataIn.getParams().dims.at(1) / POOL_STRIDE");
         exit(1);
     }
 
     const auto& outData = this->getOutputData().getData<Array3D_ui8>();
-    for (size chanIdx = 0; chanIdx < maxChan; chanIdx++) {
-        for (size rowIdx = 0; rowIdx < maxRowOut; rowIdx++) {
-            for (size colIdx = 0; colIdx < maxColOut; colIdx++) {
+    for (size chanIdx = 0; chanIdx < M; chanIdx++) {
+        for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+            for (size colIdx = 0; colIdx < Q; colIdx++) {
                 outData[rowIdx][colIdx][chanIdx] = compute2DIntermediateResultQuant1(
                     dataIn, rowIdx * POOL_STRIDE, colIdx * POOL_STRIDE, chanIdx);
             }

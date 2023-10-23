@@ -77,7 +77,6 @@ const fp64 ConvolutionalLayer::compute3DIntermediateResult(const LayerData& ifMa
     const auto& weightData = this->getWeightData().getData<Array4D_fp32>();
     const size rowLimit = ifMapRow + R;
     const size colLimit = ifMapCol + S;
-    // TODO ssz reorganize loop above order to improve cache locality (chan, row, col)
     for (size rowIdx = ifMapRow; rowIdx < rowLimit; rowIdx++) {
         for (size colIdx = ifMapCol; colIdx < colLimit; colIdx++) {
             for (size chanIdx = 0; chanIdx < C; chanIdx++) {
@@ -216,9 +215,10 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     // Lastly, perform ReLu and write result to output feature map (outData in Layer)
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
-    for (size filterIdx = 0; filterIdx < M; filterIdx++) {
-        for (size rowIdx = 0; rowIdx < P; rowIdx++) {
-            for (size colIdx = 0; colIdx < Q; colIdx++) {
+    // TODO ssz optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
+    for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+        for (size colIdx = 0; colIdx < Q; colIdx++) {
+            for (size filterIdx = 0; filterIdx < M; filterIdx++) {
                 // compute intermediate result
                 // add bias
                 // perform ReLu and write result to output feature map

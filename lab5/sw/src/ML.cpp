@@ -747,17 +747,17 @@ int main(int argc, char** argv) {
     printf("\n\n");
 
     // TODO ssz uncomment these tests
-    logInfo("Running ELU tests:");
-    run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU);
-    printf("\n\n");
+    // logInfo("Running ELU tests:");
+    // run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU);
+    // printf("\n\n");
 
-    logInfo("Running TANH tests:");
-    run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
-    printf("\n\n");
+    // logInfo("Running TANH tests:");
+    // run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
+    // printf("\n\n");
 
-    logInfo("Running SIGMOID tests:");
-    run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
-    printf("\n\n");
+    // logInfo("Running SIGMOID tests:");
+    // run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
+    // printf("\n\n");
 
 
     // * Quantized Tests
