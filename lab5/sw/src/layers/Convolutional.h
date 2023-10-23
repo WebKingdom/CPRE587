@@ -95,6 +95,12 @@ class ConvolutionalLayer : public Layer {
 
     const i32 compute3DIntermediateResultQuant2(const LayerData& ifMap, const size ifMapRow,
                                                  const size ifMapCol, const size filterIdx) const;
+
+    const Array2D_fp32 get2DInData(const LayerData& dataIn) const;
+
+    const Array2D_fp32 get2DWeightData() const;
+
+    const Array2D_fp32 get2DOutData() const;
 };
 
 }  // namespace ML

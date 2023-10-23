@@ -187,6 +187,45 @@ const i32 ConvolutionalLayer::compute3DIntermediateResultQuant2(const LayerData&
     return sum;
 }
 
+const Array2D_fp32 ConvolutionalLayer::get2DInData(const LayerData& dataIn) const {
+    // const auto& ifMapData = dataIn.getData<Array3D_fp32>();
+    // const auto H = dataIn.getParams().dims.at(0);
+    // const auto W = dataIn.getParams().dims.at(1);
+
+    const auto R = this->getWeightParams().dims.at(0);
+    const auto S = this->getWeightParams().dims.at(1);
+    const auto C = this->getWeightParams().dims.at(2);
+
+    const auto P = this->getOutputParams().dims.at(0);
+    const auto Q = this->getOutputParams().dims.at(1);
+
+    const auto maxRow = C * R * S;
+    const auto maxCol = P * Q;
+
+    Array2D_fp32 ifMap2D = new fp32*[maxRow];
+    for (size i = 0; i <maxRow; i++) {
+        ifMap2D[i] = new fp32[maxCol];
+    }
+
+    // put dataIn in 2D array so that is has redundant data with dimensions (C*R*S, P*Q)
+    for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+        for (size colIdx = 0; colIdx < Q; colIdx++) {
+            // TODO ssz
+        }
+    }
+    
+
+    return ifMap2D;
+}
+
+const Array2D_fp32 ConvolutionalLayer::get2DWeightData() const {
+    return nullptr;
+}
+
+const Array2D_fp32 ConvolutionalLayer::get2DOutData() const {
+    return nullptr;
+}
+
 // Compute the convolution for the layer data
 void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     if (!dataIn.isAlloced() || !dataIn.isValid()) {
@@ -215,7 +254,7 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     // Lastly, perform ReLu and write result to output feature map (outData in Layer)
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
-    // TODO ssz optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
+    // * Optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size filterIdx = 0; filterIdx < M; filterIdx++) {
@@ -387,6 +426,33 @@ void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
 // Compute the convolution using a tiled approach
 void ConvolutionalLayer::computeTiled(const LayerData& dataIn) const {
     // TODO
+    if (!dataIn.isAlloced() || !dataIn.isValid()) {
+        logError("ERROR: dataIn not allocated or not valid");
+        exit(1);
+    }
+    if (!this->isOutputBufferAlloced() || !this->getOutputData().isValid()) {
+        logError("ERROR: output buffer not allocated or not valid");
+        exit(1);
+    }
+    // const auto R = this->getWeightParams().dims.at(0);
+    // const auto S = this->getWeightParams().dims.at(1);
+    // const auto C = this->getWeightParams().dims.at(2);
+    // const auto M = this->getWeightParams().dims.at(3);
+    // const auto P = dataIn.getParams().dims.at(0) - R + 1;
+    // const auto Q = dataIn.getParams().dims.at(1) - S + 1;
+    // logDebug("R (filter rows): " + std::to_string(R));
+    // logDebug("S (filter cols): " + std::to_string(S));
+    // logDebug("C (filter chans): " + std::to_string(C));
+    // logDebug("M (num filters): " + std::to_string(M));
+    // logDebug("P (max ofMap row): " + std::to_string(P));
+    // logDebug("Q (max ofMap col): " + std::to_string(Q));
+
+    // for each filter, for each input channel, compute intermediate result (2D convolution),
+    // then add then up, and then add bias
+    // Lastly, perform ReLu and write result to output feature map (outData in Layer)
+    // const auto& outData = this->getOutputData().getData<Array3D_fp32>();
+    // const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
+    
 }
 
 // Compute the convolution using SIMD

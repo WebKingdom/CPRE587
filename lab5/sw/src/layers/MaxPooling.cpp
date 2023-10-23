@@ -61,7 +61,7 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
     }
 
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
-    // TODO ssz optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
+    // * Optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size chanIdx = 0; chanIdx < M; chanIdx++) {
