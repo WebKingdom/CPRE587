@@ -28,8 +28,10 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
 
     // compute dense layer intermediate result
     // outData[rowOut] = ReLU(sum(inData[0:rowIn] * weightData[0:rowIn][rowOut]) + biasData[rowOut])
+    // #pragma omp parallel for schedule(static)
     for (size rowOut = 0; rowOut < maxRowOut; rowOut++) {
         fp64 sum = 0.0;
+        // #pragma omp simd reduction(+ : sum)
         for (size rowIn = 0; rowIn < maxRowIn; rowIn++) {
             sum += inData[rowIn] * weightData[rowIn][rowOut];
         }
@@ -38,10 +40,12 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
 
     // perform activation function
     if (this->getAType() == ActivationType::RELU) {
+        // #pragma omp parallel for schedule(static)
         for (size i = 0; i < maxRowOut; i++) {
             outData[i] = static_cast<fp32>(std::max((fp64)0, outData_fp64[i]));
         }
     } else if (this->getAType() == ActivationType::ELU) {
+        // #pragma omp parallel for schedule(static)
         for (size i = 0; i < maxRowOut; i++) {
             if (outData_fp64[i] < 0.0) {
                 outData[i] = static_cast<fp32>(ALPHA * (std::exp(outData_fp64[i]) - 1.0));
@@ -51,19 +55,23 @@ void DenseLayer::computeNaive(const LayerData& dataIn) const {
         }
     } else if (this->getAType() == ActivationType::SOFTMAX) {
         fp64 sum = 0;
+        // #pragma omp parallel for reduction(+ : sum)
         for (size i = 0; i < maxRowOut; i++) {
             sum += std::exp(outData_fp64[i]);
         }
+        // #pragma omp parallel for schedule(static)
         for (size i = 0; i < maxRowOut; i++) {
             outData[i] = static_cast<fp32>(std::exp(outData_fp64[i]) / sum);
         }
     } else if (this->getAType() == ActivationType::TANH) {
+        // #pragma omp parallel for schedule(static)
         for (size i = 0; i < maxRowOut; i++) {
             outData[i] =
                 static_cast<fp32>((std::exp(outData_fp64[i]) - std::exp(-outData_fp64[i])) /
                                   (std::exp(outData_fp64[i]) + std::exp(-outData_fp64[i])));
         }
     } else if (this->getAType() == ActivationType::SIGMOID) {
+        // #pragma omp parallel for schedule(static)
         for (size i = 0; i < maxRowOut; i++) {
             outData[i] = static_cast<fp32>(1.0 / (1.0 + std::exp(-outData_fp64[i])));
         }

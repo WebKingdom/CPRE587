@@ -77,7 +77,7 @@ class ConvolutionalLayer : public Layer {
     LayerData biasData;
 
     static constexpr fp32 ALPHA = 1.0;
-    static constexpr size TILE_SIZE = 32;  // fits in L2 cache
+    static constexpr size TILE_SIZE = 32;  // fits in L1 cache
     fp32 s_weight;
     fp32 s_input;
     fp32 s_bias;

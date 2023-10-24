@@ -12,6 +12,7 @@ const fp32 MaxPoolingLayer::compute2DIntermediateResult(const LayerData& ifMap, 
                                                         const size curChan) const {
     const auto& ifMapData = ifMap.getData<Array3D_fp32>();
     fp32 max = ifMapData[curRow][curCol][curChan];
+    // #pragma omp parallel for collapse(2) reduction(max : max)
     for (size rowIdx = curRow; rowIdx < (curRow + POOL_SIZE); rowIdx++) {
         for (size colIdx = curCol; colIdx < (curCol + POOL_SIZE); colIdx++) {
             if (ifMapData[rowIdx][colIdx][curChan] > max) {
@@ -62,6 +63,7 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
 
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     // * Optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
+    // #pragma omp parallel for schedule(static)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size chanIdx = 0; chanIdx < M; chanIdx++) {

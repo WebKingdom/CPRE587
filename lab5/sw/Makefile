@@ -6,7 +6,7 @@
 rwildcard=$(foreach d,$(wildcard $(1:=/*)),$(call rwildcard,$d,$2) $(filter $(subst *,%,$2),$d))
 GCCVERSIONLTQ9 := $(shell expr `gcc -dumpversion | cut -f1 -d.` \< 9)
 
-DEBUG ?= true
+DEBUG ?= false
 SIMD ?= false
 BDIR = build
 BIN = $(BDIR)
