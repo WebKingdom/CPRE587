@@ -271,6 +271,7 @@ void DenseLayer::computeQuant2(const LayerData& dataIn) const {
 
 void DenseLayer::computeThreaded(const LayerData& dataIn) const {
     // TODO
+    computeNaive(dataIn);
 }
 
 void DenseLayer::computeTiled(const LayerData& dataIn) const {

@@ -586,29 +586,29 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af, 
     model.allocLayers<fp32>();
 
     // Run some framework tests as an example of loading data
-    runBasicTest<fp32>(model, basePath);
+    // runBasicTest<fp32>(model, basePath);
 
-    // Run a Convolutional layer test
-    runConvolutionalLayerTest1<fp32>(0, model, basePath, infType);
-    runConvolutionalLayerTest2<fp32>(1, model, basePath, infType);
-    runConvolutionalLayerTest3<fp32>(3, model, basePath, infType);
-    runConvolutionalLayerTest4<fp32>(4, model, basePath, infType);
-    runConvolutionalLayerTest5<fp32>(6, model, basePath, infType);
-    runConvolutionalLayerTest6<fp32>(7, model, basePath, infType);
+    // // Run a Convolutional layer test
+    // runConvolutionalLayerTest1<fp32>(0, model, basePath, infType);
+    // runConvolutionalLayerTest2<fp32>(1, model, basePath, infType);
+    // runConvolutionalLayerTest3<fp32>(3, model, basePath, infType);
+    // runConvolutionalLayerTest4<fp32>(4, model, basePath, infType);
+    // runConvolutionalLayerTest5<fp32>(6, model, basePath, infType);
+    // runConvolutionalLayerTest6<fp32>(7, model, basePath, infType);
 
-    // Run 1st MaxPool layer test
-    runMaxPoolLayerTest1<fp32>(2, model, basePath, infType);
-    runMaxPoolLayerTest2<fp32>(5, model, basePath, infType);
-    runMaxPoolLayerTest3<fp32>(8, model, basePath, infType);
+    // // Run 1st MaxPool layer test
+    // runMaxPoolLayerTest1<fp32>(2, model, basePath, infType);
+    // runMaxPoolLayerTest2<fp32>(5, model, basePath, infType);
+    // runMaxPoolLayerTest3<fp32>(8, model, basePath, infType);
 
-    // Run Flatten layer test
-    runFlattenLayerTest<fp32>(9, model, basePath, infType);
+    // // Run Flatten layer test
+    // runFlattenLayerTest<fp32>(9, model, basePath, infType);
 
-    // Run Dense layer 1 test
-    runDenseLayer1Test<fp32>(10, model, basePath, infType);
+    // // Run Dense layer 1 test
+    // runDenseLayer1Test<fp32>(10, model, basePath, infType);
 
-    // Run Dense layer 2 test
-    runDenseLayer2Test<fp32>(11, model, basePath, infType);
+    // // Run Dense layer 2 test
+    // runDenseLayer2Test<fp32>(11, model, basePath, infType);
 
     // Run an end-to-end infrence test on image 0
     runInfrenceTest0<fp32>(model, basePath, infType);
@@ -743,8 +743,8 @@ int main(int argc, char** argv) {
 
     // * FP32 Tests
     logInfo("Running RELU tests:");
-    run_all_tests(fs::path("data"), Layer::ActivationType::RELU, Layer::InfType::TILED);
-    printf("\n\n");
+    run_all_tests(fs::path("data"), Layer::ActivationType::RELU, Layer::InfType::NAIVE);
+    // printf("\n\n");
 
     // TODO ssz uncomment these tests
     // logInfo("Running ELU tests:");

@@ -71,6 +71,7 @@ void FlattenLayer::computeQuant2(const LayerData& dataIn) const {
 
 void FlattenLayer::computeThreaded(const LayerData& dataIn) const {
     // TODO
+    computeNaive(dataIn);
 }
 
 void FlattenLayer::computeTiled(const LayerData& dataIn) const {

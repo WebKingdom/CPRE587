@@ -112,6 +112,7 @@ void MaxPoolingLayer::computeQuant2(const LayerData& dataIn) const {
 
 void MaxPoolingLayer::computeThreaded(const LayerData& dataIn) const {
     // TODO
+    computeNaive(dataIn);
 }
 
 void MaxPoolingLayer::computeTiled(const LayerData& dataIn) const {
