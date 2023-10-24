@@ -100,7 +100,9 @@ class ConvolutionalLayer : public Layer {
 
     const Array2D_fp32 get2DWeightData() const;
 
-    const Array2D_fp32 get2DOutData() const;
+    const Array2D_fp32 alloc2DOutData() const;
+
+    const void set3DOutData(const Array2D_fp32& ofMap2D) const;
 };
 
 }  // namespace ML

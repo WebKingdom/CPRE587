@@ -75,6 +75,7 @@ void FlattenLayer::computeThreaded(const LayerData& dataIn) const {
 
 void FlattenLayer::computeTiled(const LayerData& dataIn) const {
     // TODO
+    computeNaive(dataIn);
 }
 
 void FlattenLayer::computeSIMD(const LayerData& dataIn) const {

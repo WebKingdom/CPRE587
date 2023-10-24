@@ -580,7 +580,7 @@ void runInfrenceMultiple(const Model& model, const fs::path& basePath, const Lay
  * Cards)
  * @param af activation function to use
  */
-void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) {
+void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af, const Layer::InfType infType) {
     // Build the model and allocate the buffers
     Model model = buildToyModel<fp32, fp32, fp32>(basePath / "model", af);
     model.allocLayers<fp32>();
@@ -589,35 +589,35 @@ void run_all_tests(const fs::path basePath, const ML::Layer::ActivationType af) 
     runBasicTest<fp32>(model, basePath);
 
     // Run a Convolutional layer test
-    runConvolutionalLayerTest1<fp32>(0, model, basePath, Layer::InfType::NAIVE);
-    runConvolutionalLayerTest2<fp32>(1, model, basePath, Layer::InfType::NAIVE);
-    runConvolutionalLayerTest3<fp32>(3, model, basePath, Layer::InfType::NAIVE);
-    runConvolutionalLayerTest4<fp32>(4, model, basePath, Layer::InfType::NAIVE);
-    runConvolutionalLayerTest5<fp32>(6, model, basePath, Layer::InfType::NAIVE);
-    runConvolutionalLayerTest6<fp32>(7, model, basePath, Layer::InfType::NAIVE);
+    runConvolutionalLayerTest1<fp32>(0, model, basePath, infType);
+    runConvolutionalLayerTest2<fp32>(1, model, basePath, infType);
+    runConvolutionalLayerTest3<fp32>(3, model, basePath, infType);
+    runConvolutionalLayerTest4<fp32>(4, model, basePath, infType);
+    runConvolutionalLayerTest5<fp32>(6, model, basePath, infType);
+    runConvolutionalLayerTest6<fp32>(7, model, basePath, infType);
 
     // Run 1st MaxPool layer test
-    runMaxPoolLayerTest1<fp32>(2, model, basePath, Layer::InfType::NAIVE);
-    runMaxPoolLayerTest2<fp32>(5, model, basePath, Layer::InfType::NAIVE);
-    runMaxPoolLayerTest3<fp32>(8, model, basePath, Layer::InfType::NAIVE);
+    runMaxPoolLayerTest1<fp32>(2, model, basePath, infType);
+    runMaxPoolLayerTest2<fp32>(5, model, basePath, infType);
+    runMaxPoolLayerTest3<fp32>(8, model, basePath, infType);
 
     // Run Flatten layer test
-    runFlattenLayerTest<fp32>(9, model, basePath, Layer::InfType::NAIVE);
+    runFlattenLayerTest<fp32>(9, model, basePath, infType);
 
     // Run Dense layer 1 test
-    runDenseLayer1Test<fp32>(10, model, basePath, Layer::InfType::NAIVE);
+    runDenseLayer1Test<fp32>(10, model, basePath, infType);
 
     // Run Dense layer 2 test
-    runDenseLayer2Test<fp32>(11, model, basePath, Layer::InfType::NAIVE);
+    runDenseLayer2Test<fp32>(11, model, basePath, infType);
 
     // Run an end-to-end infrence test on image 0
-    runInfrenceTest0<fp32>(model, basePath, Layer::InfType::NAIVE);
+    runInfrenceTest0<fp32>(model, basePath, infType);
 
     // Run an end-to-end infrence test on image 1
-    runInfrenceTest1<fp32>(model, basePath, Layer::InfType::NAIVE);
+    runInfrenceTest1<fp32>(model, basePath, infType);
 
     // Run an end-to-end infrence test on image 2
-    runInfrenceTest2<fp32>(model, basePath, Layer::InfType::NAIVE);
+    runInfrenceTest2<fp32>(model, basePath, infType);
 
     // Clean up
     model.freeLayers<fp32>();
@@ -709,23 +709,23 @@ void run_all_quant2_tests(const fs::path basePath, const ML::Layer::ActivationTy
     model.freeLayers<i8, fp32, i32>();
 }
 
-void run_1000_inferences_fp32(const fs::path basePath, const ML::Layer::ActivationType af) {
+void run_1000_inferences_fp32(const fs::path basePath, const ML::Layer::ActivationType af, const Layer::InfType infType) {
     // Build the model and allocate the buffers
     Model model = buildToyModel<fp32, fp32, fp32>(basePath / "model", af);
     model.allocLayers<fp32>();
 
-    runInfrenceMultiple<fp32>(model, basePath, Layer::InfType::NAIVE, 1000);
+    runInfrenceMultiple<fp32>(model, basePath, infType, 1000);
 
     // Clean up
     model.freeLayers<fp32>();
 }
 
-void run_1000_inferences_uint8(const fs::path basePath, const ML::Layer::ActivationType af) {
+void run_1000_inferences_uint8(const fs::path basePath, const ML::Layer::ActivationType af, const Layer::InfType infType) {
     // Build the model and allocate the buffers
     Model model = buildToyModel<i8, ui8, i32>(basePath / "model", af);
     model.allocLayers<i8, ui8, i32>();
 
-    runInfrenceMultiple<ui8>(model, basePath, Layer::InfType::QUANT1, 1000);
+    runInfrenceMultiple<ui8>(model, basePath, infType, 1000);
 
     // Clean up
     model.freeLayers<i8, ui8, i32>();
@@ -743,20 +743,20 @@ int main(int argc, char** argv) {
 
     // * FP32 Tests
     logInfo("Running RELU tests:");
-    run_all_tests(fs::path("data"), Layer::ActivationType::RELU);
+    run_all_tests(fs::path("data"), Layer::ActivationType::RELU, Layer::InfType::TILED);
     printf("\n\n");
 
     // TODO ssz uncomment these tests
     // logInfo("Running ELU tests:");
-    // run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU);
+    // run_all_tests(fs::path("data_elu"), Layer::ActivationType::ELU, Layer::InfType::NAIVE);
     // printf("\n\n");
 
     // logInfo("Running TANH tests:");
-    // run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH);
+    // run_all_tests(fs::path("data_tanh"), Layer::ActivationType::TANH, Layer::InfType::NAIVE);
     // printf("\n\n");
 
     // logInfo("Running SIGMOID tests:");
-    // run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID);
+    // run_all_tests(fs::path("data_sigmoid"), Layer::ActivationType::SIGMOID, Layer::InfType::NAIVE);
     // printf("\n\n");
 
 
@@ -772,11 +772,11 @@ int main(int argc, char** argv) {
 
     // * 1000 Inference Tests
     // logInfo("Running 1000 Inference Tests for fp32:");
-    // run_1000_inferences_fp32(fs::path("data_val1000_fp32_relu"), Layer::ActivationType::RELU);
+    // run_1000_inferences_fp32(fs::path("data_val1000_fp32_relu"), Layer::ActivationType::RELU, Layer::InfType::NAIVE);
     // printf("\n\n");
 
     // logInfo("Running 1000 Inference Tests for uint8:");
-    // run_1000_inferences_uint8(fs::path("data_val1000_uint8_relu"), Layer::ActivationType::RELU);
+    // run_1000_inferences_uint8(fs::path("data_val1000_uint8_relu"), Layer::ActivationType::RELU, Layer::InfType::QUANT1);
 
     return 0;
 }
