@@ -77,6 +77,7 @@ class ConvolutionalLayer : public Layer {
     LayerData biasData;
 
     static constexpr fp32 ALPHA = 1.0;
+    static constexpr size TILE_SIZE = 32;  // fits in L2 cache
     fp32 s_weight;
     fp32 s_input;
     fp32 s_bias;
@@ -100,7 +101,9 @@ class ConvolutionalLayer : public Layer {
 
     const Array2D_fp32 get2DWeightData() const;
 
-    const Array2D_fp32 get2DOutData() const;
+    const Array2D_fp32 alloc2DOutData() const;
+
+    const void set3DOutData(const Array2D_fp32& ofMap2D) const;
 };
 
 }  // namespace ML

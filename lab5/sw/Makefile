@@ -24,7 +24,7 @@ EXE_DEBUG = $(BIN)/ml_debug
 	CC_WIN = x86_64-w64-mingw32-g++ -static-libgcc -static-libstdc++ -fstack-protector
 	CC_ALL = -lstdc++ -Wall -Werror -pedantic -std=c++2a
 	CC_DEBUG = -g -Og
-	CC_OPT_FLAGS = -O3 -fno-tree-pre
+	CC_OPT_FLAGS = -O3 -fno-tree-pre -fopenmp -lpthread
 	CC_SIMD_FLAGS = -march=native
 	CC_FLAGS = $(CC_ALL) $(CC_OPT_FLAGS) $(if $(filter $(SIMD), true), $(CC_SIMD_FLAGS),)
 	CC_DEBUG_FLAGS = $(CC_ALL) $(CC_DEBUG) $(if $(filter $(SIMD), true), $(CC_SIMD_FLAGS),)
