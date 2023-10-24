@@ -21,6 +21,7 @@ void FlattenLayer::computeNaive(const LayerData& dataIn) const {
     // logDebug("maxLen: " + std::to_string(maxLen));
 
     size idx = 0;
+    // #pragma omp parallel for collapse(3) schedule(static)
     for (size r = 0; r < maxRow; r++) {
         for (size c = 0; c < maxCol; c++) {
             for (size chan = 0; chan < maxChan; chan++) {

@@ -8,6 +8,8 @@
 
 namespace ML {
 
+#define NUM_THREADS 8
+
 const fp64 ConvolutionalLayer::compute2DIntermediateResult(const LayerData& ifMap,
                                                            const size ifMapRow, const size ifMapCol,
                                                            const size curChan,
@@ -251,7 +253,7 @@ const Array2D_fp32 ConvolutionalLayer::get2DWeightData() const {
     }
 
     // put weightData in 2D array so it has dimensions (M, CRS)
-    #pragma omp parallel for
+    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
     for (size filterIdx = 0; filterIdx < M; filterIdx++) {
         size weightCol = 0;
         for (size chanIdx = 0; chanIdx < C; chanIdx++) {
@@ -336,7 +338,7 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
     // * Optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
-    #pragma omp parallel for collapse(3) schedule(static)
+    // #pragma omp parallel for collapse(3) schedule(static) num_threads(NUM_THREADS)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size filterIdx = 0; filterIdx < M; filterIdx++) {
@@ -537,7 +539,7 @@ void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
     const auto pq = P * Q;
 
     // * Original (non tiled) version
-    #pragma omp parallel for
+    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
     for (size wRow = 0; wRow < M; wRow++) {
         for (size ifCol = 0; ifCol < pq; ifCol++) {
             fp64 sum = 0;
@@ -570,19 +572,19 @@ void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
     set3DOutData(ofMap2D);
 
     // free 2D arrays
-    // #pragma omp parallel for schedule(static)
+    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
     for (size i = 0; i < C * R * S; i++) {
         delete[] ifMap2D[i];
     }
     delete[] ifMap2D;
 
-    // #pragma omp parallel for schedule(static)
+    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
     for (size i = 0; i < M; i++) {
         delete[] weight2D[i];
     }
     delete[] weight2D;
 
-    // #pragma omp parallel for schedule(static)
+    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
     for (size i = 0; i < M; i++) {
         delete[] ofMap2D[i];
     }
@@ -659,7 +661,7 @@ void ConvolutionalLayer::computeTiled(const LayerData& dataIn) const {
     const size wColTLimit = (size)(crs / TILE_SIZE) + 1;
 
     // #pragma block_loop factor(2) level(1)
-    #pragma omp parallel for
+    // #pragma omp parallel for num_threads(NUM_THREADS)
     for (size wRowT = 0; wRowT < wRowTLimit; wRowT++) {
         // #pragma omp parallel for
         for (size ifColT = 0; ifColT < ifColTLimit; ifColT++) {
@@ -677,7 +679,7 @@ void ConvolutionalLayer::computeTiled(const LayerData& dataIn) const {
                 //              ", wColLimit: " + std::to_string(wColLimit));
                 // }
 
-                #pragma omp parallel for
+                // #pragma omp parallel for num_threads(NUM_THREADS)
                 for (size wRow = wRowT * TILE_SIZE; wRow < wRowLimit; wRow++) {
                     for (size ifCol = ifColT * TILE_SIZE; ifCol < ifColLimit; ifCol++) {
                         fp32 sum = 0;
@@ -699,9 +701,9 @@ void ConvolutionalLayer::computeTiled(const LayerData& dataIn) const {
 
     // * add bias and apply activation function using tiles
     // #pragma block_loop factor(2)
-    #pragma omp parallel for
+    // #pragma omp parallel for num_threads(NUM_THREADS)
     for (size wRowT = 0; wRowT < wRowTLimit; wRowT++) {
-        #pragma omp parallel for
+        // #pragma omp parallel for num_threads(NUM_THREADS)
         for (size ifColT = 0; ifColT < ifColTLimit; ifColT++) {
             // compute inner part of tile
             const size wRowLimit = std::min((wRowT + 1) * TILE_SIZE, M);
