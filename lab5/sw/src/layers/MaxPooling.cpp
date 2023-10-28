@@ -63,7 +63,6 @@ void MaxPoolingLayer::computeNaive(const LayerData& dataIn) const {
 
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     // * Optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
-    // #pragma omp parallel for schedule(static)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size chanIdx = 0; chanIdx < M; chanIdx++) {
@@ -113,8 +112,40 @@ void MaxPoolingLayer::computeQuant2(const LayerData& dataIn) const {
 }
 
 void MaxPoolingLayer::computeThreaded(const LayerData& dataIn) const {
-    // TODO
-    computeNaive(dataIn);
+    // same as naive but with OpenMP
+    if (!dataIn.isAlloced() || !dataIn.isValid()) {
+        logError("ERROR: dataIn not allocated or not valid");
+        exit(1);
+    }
+    if (!this->isOutputBufferAlloced() || !this->getOutputData().isValid()) {
+        logError("ERROR: output buffer not allocated or not valid");
+        exit(1);
+    }
+    const auto P = this->getOutputParams().dims.at(0);
+    const auto Q = this->getOutputParams().dims.at(1);
+    const auto M = this->getOutputParams().dims.at(2);
+
+    // error handling
+    if (P != dataIn.getParams().dims.at(0) / POOL_STRIDE) {
+        logError("ERROR: P != dataIn.getParams().dims.at(0) / POOL_STRIDE");
+        exit(1);
+    }
+    if (Q != dataIn.getParams().dims.at(1) / POOL_STRIDE) {
+        logError("ERROR: Q != dataIn.getParams().dims.at(1) / POOL_STRIDE");
+        exit(1);
+    }
+
+    const auto& outData = this->getOutputData().getData<Array3D_fp32>();
+    // * Optimized loop order for cache locality (row, col, chan ORIGINAL WAS: chan, row, col)
+    #pragma omp parallel for schedule(static)
+    for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+        for (size colIdx = 0; colIdx < Q; colIdx++) {
+            for (size chanIdx = 0; chanIdx < M; chanIdx++) {
+                outData[rowIdx][colIdx][chanIdx] = compute2DIntermediateResult(
+                    dataIn, rowIdx * POOL_STRIDE, colIdx * POOL_STRIDE, chanIdx);
+            }
+        }
+    }
 }
 
 void MaxPoolingLayer::computeTiled(const LayerData& dataIn) const {

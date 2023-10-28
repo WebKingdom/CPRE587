@@ -772,7 +772,7 @@ int main(int argc, char** argv) {
 
     // * 1000 Inference Tests
     // logInfo("Running 1000 Inference Tests for fp32:");
-    // run_1000_inferences_fp32(fs::path("data_val1000_fp32_relu"), Layer::ActivationType::RELU, Layer::InfType::NAIVE);
+    // run_1000_inferences_fp32(fs::path("data_val1000_fp32_relu"), Layer::ActivationType::RELU, Layer::InfType::THREADED);
     // printf("\n\n");
 
     // logInfo("Running 1000 Inference Tests for uint8:");

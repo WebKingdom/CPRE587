@@ -338,7 +338,6 @@ void ConvolutionalLayer::computeNaive(const LayerData& dataIn) const {
     const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
     // * Optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
-    // #pragma omp parallel for collapse(3) schedule(static) num_threads(NUM_THREADS)
     for (size rowIdx = 0; rowIdx < P; rowIdx++) {
         for (size colIdx = 0; colIdx < Q; colIdx++) {
             for (size filterIdx = 0; filterIdx < M; filterIdx++) {
@@ -504,7 +503,7 @@ void ConvolutionalLayer::computeQuant2(const LayerData& dataIn) const {
 
 // Compute the convolution using threads
 void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
-    // logWarn("ConvolutionalLayer threaded not done yet");
+    // same as naive but with OpenMP
     if (!dataIn.isAlloced() || !dataIn.isValid()) {
         logError("ERROR: dataIn not allocated or not valid");
         exit(1);
@@ -515,11 +514,10 @@ void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
     }
     const auto R = this->getWeightParams().dims.at(0);
     const auto S = this->getWeightParams().dims.at(1);
-    const auto C = this->getWeightParams().dims.at(2);
+    // const auto C = this->getWeightParams().dims.at(2);
     const auto M = this->getWeightParams().dims.at(3);
-
-    const auto P = this->getOutputParams().dims.at(0);
-    const auto Q = this->getOutputParams().dims.at(1);
+    const auto P = dataIn.getParams().dims.at(0) - R + 1;
+    const auto Q = dataIn.getParams().dims.at(1) - S + 1;
     // logDebug("R (filter rows): " + std::to_string(R));
     // logDebug("S (filter cols): " + std::to_string(S));
     // logDebug("C (filter chans): " + std::to_string(C));
@@ -527,68 +525,41 @@ void ConvolutionalLayer::computeThreaded(const LayerData& dataIn) const {
     // logDebug("P (max ofMap row): " + std::to_string(P));
     // logDebug("Q (max ofMap col): " + std::to_string(Q));
 
-    auto ifMap2D = this->get2DInData(dataIn);
-    // logDebug("Done getting 2D input data");
-    auto weight2D = this->get2DWeightData();
-    // logDebug("Done getting 2D weight data");
-    auto ofMap2D = this->alloc2DOutData();
-    // logDebug("Done allocating 2D output data");
+    // for each filter, for each input channel, compute intermediate result (2D convolution),
+    // then add then up, and then add bias
+    // Lastly, perform ReLu and write result to output feature map (outData in Layer)
+    const auto& outData = this->getOutputData().getData<Array3D_fp32>();
     const auto& biasData = this->getBiasData().getData<Array1D_fp32>();
-
-    const auto crs = C * R * S;
-    const auto pq = P * Q;
-
-    // * Original (non tiled) version
-    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
-    for (size wRow = 0; wRow < M; wRow++) {
-        for (size ifCol = 0; ifCol < pq; ifCol++) {
-            fp64 sum = 0;
-            // #pragma omp parallel for reduction(+ : sum)
-            for (size wCol = 0; wCol < crs; wCol++) {
-                // multiply and accumulate columns of weights with rows of ifMap
-                sum += ifMap2D[wCol][ifCol] * weight2D[wRow][wCol];
-            }
-            sum += biasData[wRow];
-
-            // apply activation function
-            if (this->getAType() == ActivationType::RELU) {
-                sum = std::max((fp64)0, sum);
-            } else if (this->getAType() == ActivationType::ELU) {
-                if (sum < 0.0) {
-                    sum = ALPHA * (std::exp(sum) - 1.0);
+    // * Optimized loop order for cache locality (row, col, filter ORIGINAL WAS: filter, row, col)
+    #pragma omp parallel for collapse(3) schedule(static)
+    for (size rowIdx = 0; rowIdx < P; rowIdx++) {
+        for (size colIdx = 0; colIdx < Q; colIdx++) {
+            for (size filterIdx = 0; filterIdx < M; filterIdx++) {
+                // compute intermediate result
+                // add bias
+                // perform ReLu and write result to output feature map
+                fp64 intermediateOut =
+                    compute3DIntermediateResult(dataIn, rowIdx, colIdx, filterIdx) +
+                    biasData[filterIdx];
+                if (this->getAType() == ActivationType::RELU) {
+                    intermediateOut = std::max((fp64)0, intermediateOut);
+                } else if (this->getAType() == ActivationType::ELU) {
+                    if (intermediateOut < 0.0) {
+                        intermediateOut = ALPHA * (std::exp(intermediateOut) - 1.0);
+                    }
+                } else if (this->getAType() == ActivationType::TANH) {
+                    intermediateOut = (std::exp(intermediateOut) - std::exp(-intermediateOut)) /
+                                      (std::exp(intermediateOut) + std::exp(-intermediateOut));
+                } else if (this->getAType() == ActivationType::SIGMOID) {
+                    intermediateOut = 1.0 / (1.0 + std::exp(-intermediateOut));
+                } else {
+                    logError("ERROR: invalid activation type for convolutional layer");
+                    exit(1);
                 }
-            } else if (this->getAType() == ActivationType::TANH) {
-                sum = (std::exp(sum) - std::exp(-sum)) / (std::exp(sum) + std::exp(-sum));
-            } else if (this->getAType() == ActivationType::SIGMOID) {
-                sum = 1.0 / (1.0 + std::exp(-sum));
-            } else {
-                logError("ERROR: invalid activation type for convolutional layer");
-                exit(1);
+                outData[rowIdx][colIdx][filterIdx] = static_cast<fp32>(intermediateOut);
             }
-            ofMap2D[wRow][ifCol] = static_cast<fp32>(sum);
         }
     }
-
-    set3DOutData(ofMap2D);
-
-    // free 2D arrays
-    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
-    for (size i = 0; i < C * R * S; i++) {
-        delete[] ifMap2D[i];
-    }
-    delete[] ifMap2D;
-
-    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
-    for (size i = 0; i < M; i++) {
-        delete[] weight2D[i];
-    }
-    delete[] weight2D;
-
-    // #pragma omp parallel for schedule(static) num_threads(NUM_THREADS)
-    for (size i = 0; i < M; i++) {
-        delete[] ofMap2D[i];
-    }
-    delete[] ofMap2D;
 }
 
 // Compute the convolution using a tiled approach
