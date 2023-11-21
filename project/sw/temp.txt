@@ -1,0 +1,1054 @@
+!! NEW DEBUG
+Layer <keras.engine.input_layer.InputLayer object at 0x7f52fc2a17f0> export is not supported
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e015c88>, idx=1, conv_idx=0, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e015c88> => <keras.layers.convolutional.Conv2D object at 0x7f52fc3773c8>, idx=1, conv_idx=1, dense_idx=0, in_seq=False, True, in_res=False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52fc3773c8>, idx=1, conv_idx=1, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=1, conv_idx=1, dense_idx=0, in_seq=True, in_res=False
+
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e015c88> => <keras.layers.pooling.MaxPooling2D object at 0x7f52fc377240>, idx=1, conv_idx=1, dense_idx=0, in_seq=False, True, in_res=False
+Layer <keras.layers.pooling.MaxPooling2D object at 0x7f52fc377240> export is not supported
+Layer <keras.layers.pooling.MaxPooling2D object at 0x7f52fc377240>, idx=1 is the last layer, returning
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e015c88> => <keras.layers.advanced_activations.ReLU object at 0x7f541df6a278>, idx=1, conv_idx=1, dense_idx=0, in_seq=False, False, in_res=False
+Layer <keras.layers.advanced_activations.ReLU object at 0x7f541df6a278> export is not supported
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52fc365a90>, idx=2, conv_idx=1, dense_idx=0, in_seq=False, False, in_res=False, False
+
+
+!!! 1st Sequential, 1st ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52fc365a90> => <__main__.ResNetBlock object at 0x7f52fc37da58>, idx=2, conv_idx=1, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc37da58> => <keras.engine.sequential.Sequential object at 0x7f52fc37dc50>, idx=2, conv_idx=1, dense_idx=0, in_seq=True, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f52fc37dc50> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc37da58> => <keras.layers.convolutional.Conv2D object at 0x7f52fc37dda0>, idx=2, conv_idx=2, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52fc37dda0>, idx=2, conv_idx=2, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=2, conv_idx=2, dense_idx=0, in_seq=True, in_res=True
+
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc37da58> => <keras.layers.convolutional.Conv2D object at 0x7f52fc37dc18>, idx=2, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52fc37dc18>, idx=2, conv_idx=3, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=2, conv_idx=3, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=2, conv_idx=3, dense_idx=0, in_seq=True, in_res=False
+
+
+!! 1nd Sequential, 2nd ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52fc365a90> => <__main__.ResNetBlock object at 0x7f52e869a9b0>, idx=2, conv_idx=1, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869a9b0> => <keras.engine.sequential.Sequential object at 0x7f52e869aa20>, idx=2, conv_idx=1, dense_idx=0, in_seq=False, in_res=False, True
+!!! shortcut empty
+Layer <keras.engine.sequential.Sequential object at 0x7f52e869aa20> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869a9b0> => <keras.layers.convolutional.Conv2D object at 0x7f52e869aa58>, idx=2, conv_idx=2, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e869aa58>, idx=2, conv_idx=2, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=2, conv_idx=2, dense_idx=0, in_seq=False, in_res=True
+
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869a9b0> => <keras.layers.convolutional.Conv2D object at 0x7f52e869ae80>, idx=2, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e869ae80>, idx=2, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=2, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+
+
+!!! 2nd Sequential, 1st ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0> => <__main__.ResNetBlock object at 0x7f52fc1c8278>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.engine.sequential.Sequential object at 0x7f52e86b41d0>, idx=3, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e86b41d0> => <keras.layers.convolutional.Conv2D object at 0x7f52e86b4d30>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+!!! shortcut with downsampling
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e86b4d30>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+
+!!! need 2 more conv2D layers now
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.layers.convolutional.Conv2D object at 0x7f52e86b4860>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e86b4860>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.layers.convolutional.Conv2D object at 0x7f52e869c748>, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e869c748>, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+
+
+!!! 2nd Sequential, 2nd ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0> => <__main__.ResNetBlock object at 0x7f52e869c240>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.engine.sequential.Sequential object at 0x7f541df7c518>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+!!! shortcut empty
+Layer <keras.engine.sequential.Sequential object at 0x7f541df7c518> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.layers.convolutional.Conv2D object at 0x7f541df7ca58>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541df7ca58>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.layers.convolutional.Conv2D object at 0x7f541df7c898>, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541df7c898>, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+
+
+!!! 3rd Sequential, 1st ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+!!! shortcut with downsampling
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+
+!!! need 2 more conv2D layers now
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+
+
+!!! 3rd Sequential, 2nd ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+!!! shortcut empty
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+
+
+!!! 4th Sequential, 1st ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+!!! shortcut with downsampling
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+
+!!! need 2 more conv2D layers now
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+
+
+!!! 4th Sequential, 2nd ResNetBlock
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+!!! shortcut empty
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+
+!!! Go to GlobalAveragePooling2D
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+
+!!! Go to Dense
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+
+
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=3, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=3, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=3, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=3, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=2, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0> => <__main__.ResNetBlock object at 0x7f52fc1c8278>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.engine.sequential.Sequential object at 0x7f52e86b41d0>, idx=3, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e86b41d0> => <keras.layers.convolutional.Conv2D object at 0x7f52e86b4d30>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e86b4d30>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.layers.convolutional.Conv2D object at 0x7f52e86b4860>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e86b4860>, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52fc1c8278> => <keras.layers.convolutional.Conv2D object at 0x7f52e869c748>, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e869c748>, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd81be0> => <__main__.ResNetBlock object at 0x7f52e869c240>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.engine.sequential.Sequential object at 0x7f541df7c518>, idx=3, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541df7c518> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.layers.convolutional.Conv2D object at 0x7f541df7ca58>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541df7ca58>, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=3, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f52e869c240> => <keras.layers.convolutional.Conv2D object at 0x7f541df7c898>, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541df7c898>, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=8, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=9, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=9, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=9, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=3, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541dd81668>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.engine.sequential.Sequential object at 0x7f541dd98fd0>, idx=4, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541dd98fd0> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98e48>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dd98048>, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541dd81668> => <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e016898>, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e518> => <__main__.ResNetBlock object at 0x7f541e016390>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.engine.sequential.Sequential object at 0x7f541e016c88>, idx=4, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541e016c88> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e0161d0>, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=4, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e016390> => <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541e05ec88>, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=6, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=7, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=7, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=7, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=4, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541e05ebe0>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, True, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.engine.sequential.Sequential object at 0x7f541e05e7f0>, idx=5, conv_idx=3, dense_idx=0, in_seq=True, in_res=False, True
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f541e05e7f0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, False, in_res=True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412940>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f52e8412390>, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=True, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541e05ebe0> => <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541de3f2b0>, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=True, in_res=False
+Recursing into Layer <keras.engine.sequential.Sequential object at 0x7f52e867e128> => <__main__.ResNetBlock object at 0x7f541de3fe48>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.engine.sequential.Sequential object at 0x7f541dfe1748>, idx=5, conv_idx=3, dense_idx=0, in_seq=False, in_res=False, True
+Layer <keras.engine.sequential.Sequential object at 0x7f541dfe1748> is empty, returning
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=False, True
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1080>, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Checking if we can go to next layer, idx=5, conv_idx=4, dense_idx=0, in_seq=False, in_res=True
+Recursing into Model Layer <__main__.ResNetBlock object at 0x7f541de3fe48> => <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False, False
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f541dfe1668>, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=5, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=5, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=7, conv_idx=5, dense_idx=1, in_seq=False, in_res=False
+Checking if we can go to next layer, idx=5, conv_idx=3, dense_idx=0, in_seq=False, in_res=False
+Recursing into Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8>, idx=6, conv_idx=3, dense_idx=0, in_seq=False, False, in_res=False, False
+Layer <keras.layers.pooling.GlobalAveragePooling2D object at 0x7f52e867e0b8> export is not supported
+Recursing into Layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=3, dense_idx=1, in_seq=False, False, in_res=False, False
+Exporting layer <keras.layers.core.Dense object at 0x7f52e867e3c8>, idx=7, conv_idx=3, dense_idx=1, in_seq=False, in_res=False
+
