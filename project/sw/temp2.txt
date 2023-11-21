@@ -1,0 +1,220 @@
+Layer <keras.engine.input_layer.InputLayer object at 0x7f2d50461b70> export is not supported
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2d504c9c50>, idx=1, conv_idx=0, dense_idx=0
+Appended 4 layers, idx=1, conv_idx=0, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d504c9048>, idx=1, conv_idx=0, dense_idx=0
+Layer <keras.layers.pooling.MaxPooling2D object at 0x7f2d504c9550> export is not supported
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2d504c9780> export is not supported
+Layer <keras.layers.advanced_activations.ReLU object at 0x7f2d504c9b38> export is not supported
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2d50528cc0>, idx=2, conv_idx=1, dense_idx=0
+Appended 2 layers, idx=2, conv_idx=1, dense_idx=0
+Appended 3 layers, idx=2, conv_idx=1, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d5051b160> is empty
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d5051b390>, idx=2, conv_idx=1, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d5051b898>, idx=2, conv_idx=2, dense_idx=0
+Appended 3 layers, idx=2, conv_idx=3, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d50528080> is empty
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d505282b0>, idx=2, conv_idx=3, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d505287b8>, idx=2, conv_idx=4, dense_idx=0
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2d50403588>, idx=3, conv_idx=5, dense_idx=0
+Appended 2 layers, idx=3, conv_idx=5, dense_idx=0
+Appended 3 layers, idx=3, conv_idx=5, dense_idx=0
+Appended 2 layers, idx=3, conv_idx=5, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d503f2908>, idx=3, conv_idx=5, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2d503f2e10> export is not supported
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d503f2400>, idx=3, conv_idx=6, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d503fb160>, idx=3, conv_idx=7, dense_idx=0
+Appended 3 layers, idx=3, conv_idx=8, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d503fb908> is empty
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d503fbb38>, idx=3, conv_idx=8, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50403080>, idx=3, conv_idx=9, dense_idx=0
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2d50412e10>, idx=4, conv_idx=10, dense_idx=0
+Appended 2 layers, idx=4, conv_idx=10, dense_idx=0
+Appended 3 layers, idx=4, conv_idx=10, dense_idx=0
+Appended 2 layers, idx=4, conv_idx=10, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d5040c1d0>, idx=4, conv_idx=10, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2d5040c6d8> export is not supported
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50403c88>, idx=4, conv_idx=11, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d5040c9e8>, idx=4, conv_idx=12, dense_idx=0
+Appended 3 layers, idx=4, conv_idx=13, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d504121d0> is empty
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50412400>, idx=4, conv_idx=13, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50412908>, idx=4, conv_idx=14, dense_idx=0
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2d5042b6d8>, idx=5, conv_idx=15, dense_idx=0
+Appended 2 layers, idx=5, conv_idx=15, dense_idx=0
+Appended 3 layers, idx=5, conv_idx=15, dense_idx=0
+Appended 2 layers, idx=5, conv_idx=15, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50419a58>, idx=5, conv_idx=15, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2d50419f60> export is not supported
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50419550>, idx=5, conv_idx=16, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d504252b0>, idx=5, conv_idx=17, dense_idx=0
+Appended 3 layers, idx=5, conv_idx=18, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d50425a58> is empty
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d50425c88>, idx=5, conv_idx=18, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2d5042b1d0>, idx=5, conv_idx=19, dense_idx=0
+Going into Layer <keras.layers.pooling.AveragePooling2D object at 0x7f2d5042b978>, idx=6, conv_idx=20, dense_idx=0
+Layer <keras.layers.pooling.AveragePooling2D object at 0x7f2d5042b978> export is not supported
+Going into Layer <keras.layers.core.Dense object at 0x7f2d5042bb38>, idx=7, conv_idx=20, dense_idx=0
+Exporting layer <keras.layers.core.Dense object at 0x7f2d5042bb38>, idx=7, conv_idx=20, dense_idx=0
+Exported model weights to /home/sszabo/github/CPRE587/project/sw/model_weights/resnet18
+!!! Above is good, correctly exported
+
+
+!!! Below needs checking, repetitions = [3, 4, 6, 3]
+!!! shorcut has 2 layers or none
+!!! ResNetBottleneckBlock has shorcut + 3 conv2D layers
+Layer <keras.engine.input_layer.InputLayer object at 0x7f2d50469eb8> export is not supported
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2cece23518>, idx=1, conv_idx=0, dense_idx=0
+Appended 4 layers, idx=1, conv_idx=0, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd4cf98>, idx=1, conv_idx=0, dense_idx=0
+Layer <keras.layers.pooling.MaxPooling2D object at 0x7f2cecd4cda0> export is not supported
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2cecd4cb70> export is not supported
+Layer <keras.layers.advanced_activations.ReLU object at 0x7f2cece23ef0> export is not supported
+
+
+!!! 3 ResNetBottleneckBlock, 4 layers inside
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2cece1f6a0>, idx=2, conv_idx=1, dense_idx=0
+Appended 3 layers, idx=2, conv_idx=1, dense_idx=0
+
+!!! 1st ResNetBottleneckBlock
+Appended 4 layers, idx=2, conv_idx=1, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd482e8>, idx=2, conv_idx=1, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd48a90>, idx=2, conv_idx=2, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd37630>, idx=2, conv_idx=3, dense_idx=0
+Appended 2 layers, idx=2, conv_idx=4, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2ceccb9898>, idx=2, conv_idx=4, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2ceccb9dd8> export is not supported
+
+!!! 2nd ResNetBottleneckBlock
+Appended 4 layers, idx=2, conv_idx=5, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd37ac8>, idx=2, conv_idx=5, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd376d8>, idx=2, conv_idx=6, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd5d5c0>, idx=2, conv_idx=7, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cece01b00> is empty
+
+!!! 3rd ResNetBottleneckBlock
+Appended 4 layers, idx=2, conv_idx=8, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd4c278>, idx=2, conv_idx=8, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd2fb70>, idx=2, conv_idx=9, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd2f4e0>, idx=2, conv_idx=10, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecde77b8> is empty
+
+
+!!! 4 ResNetBottleneckBlock, 4 layers inside
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2cecd78a90>, idx=3, conv_idx=11, dense_idx=0
+Appended 4 layers, idx=3, conv_idx=11, dense_idx=0
+
+!!! 1st ResNetBottleneckBlock
+Appended 4 layers, idx=3, conv_idx=11, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd8d128>, idx=3, conv_idx=11, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd8d9e8>, idx=3, conv_idx=12, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd8d3c8>, idx=3, conv_idx=13, dense_idx=0
+Appended 2 layers, idx=3, conv_idx=14, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecde7390>, idx=3, conv_idx=14, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2cecde7588> export is not supported
+
+!!! 2nd ResNetBottleneckBlock
+Appended 4 layers, idx=3, conv_idx=15, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece13e10>, idx=3, conv_idx=15, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece13a20>, idx=3, conv_idx=16, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece13128>, idx=3, conv_idx=17, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d505f0da0> is empty
+
+!!! 3rd ResNetBottleneckBlock
+Appended 4 layers, idx=3, conv_idx=18, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece6e550>, idx=3, conv_idx=18, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd8fcc0>, idx=3, conv_idx=19, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd8f320>, idx=3, conv_idx=20, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecd06e10> is empty
+
+!!! 4th ResNetBottleneckBlock
+Appended 4 layers, idx=3, conv_idx=21, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecdffb38>, idx=3, conv_idx=21, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecdffbe0>, idx=3, conv_idx=22, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecdff8d0>, idx=3, conv_idx=23, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecced588> is empty
+
+
+!!! 6 ResNetBottleneckBlock, 4 layers inside
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2cecd3dba8>, idx=4, conv_idx=24, dense_idx=0
+Appended 6 layers, idx=4, conv_idx=24, dense_idx=0
+
+!!! 1st ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=24, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd78278>, idx=4, conv_idx=24, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece03ba8>, idx=4, conv_idx=25, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece038d0>, idx=4, conv_idx=26, dense_idx=0
+Appended 2 layers, idx=4, conv_idx=27, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecc71be0>, idx=4, conv_idx=27, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2cecc71908> export is not supported
+
+!!! 2nd ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=28, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd7de80>, idx=4, conv_idx=28, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd7d8d0>, idx=4, conv_idx=29, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece15438>, idx=4, conv_idx=30, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecc38668> is empty
+
+!!! 3rd ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=31, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece15cf8>, idx=4, conv_idx=31, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cece15a58>, idx=4, conv_idx=32, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecdf6b38>, idx=4, conv_idx=33, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecc75780> is empty
+
+!!! 4th ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=34, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecdf6630>, idx=4, conv_idx=34, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd7cac8>, idx=4, conv_idx=35, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd7c240>, idx=4, conv_idx=36, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2ceccbf320> is empty
+
+!!! 5th ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=37, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecea4748>, idx=4, conv_idx=37, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd55c88>, idx=4, conv_idx=38, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd55828>, idx=4, conv_idx=39, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d506059e8> is empty
+
+!!! 6th ResNetBottleneckBlock
+Appended 4 layers, idx=4, conv_idx=40, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd51d68>, idx=4, conv_idx=40, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd40518>, idx=4, conv_idx=41, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd40ba8>, idx=4, conv_idx=42, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2d60099828> is empty
+
+
+!!! 3 ResNetBottleneckBlock, 4 layers inside
+Going into Layer <keras.engine.sequential.Sequential object at 0x7f2cecd973c8>, idx=5, conv_idx=43, dense_idx=0
+Appended 3 layers, idx=5, conv_idx=43, dense_idx=0
+
+!!! 1st ResNetBottleneckBlock
+Appended 4 layers, idx=5, conv_idx=43, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd3dcf8>, idx=5, conv_idx=43, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd3d5c0>, idx=5, conv_idx=44, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd87438>, idx=5, conv_idx=45, dense_idx=0
+Appended 2 layers, idx=5, conv_idx=46, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecc446d8>, idx=5, conv_idx=46, dense_idx=0
+Layer <keras.layers.normalization.batch_normalization.BatchNormalization object at 0x7f2cecc444a8> export is not supported
+
+!!! 2nd ResNetBottleneckBlock
+Appended 4 layers, idx=5, conv_idx=47, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd878d0>, idx=5, conv_idx=47, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd87390>, idx=5, conv_idx=48, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd824a8>, idx=5, conv_idx=49, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecbc4630> is empty
+
+!!! 3rd ResNetBottleneckBlock
+Appended 4 layers, idx=5, conv_idx=50, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd82198>, idx=5, conv_idx=50, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd97fd0>, idx=5, conv_idx=51, dense_idx=0
+Exporting layer <keras.layers.convolutional.Conv2D object at 0x7f2cecd97240>, idx=5, conv_idx=52, dense_idx=0
+Layer <keras.engine.sequential.Sequential object at 0x7f2cecbe8358> is empty
+
+!!! 
+Going into Layer <keras.layers.pooling.AveragePooling2D object at 0x7f2cecd728d0>, idx=6, conv_idx=53, dense_idx=0
+Layer <keras.layers.pooling.AveragePooling2D object at 0x7f2cecd728d0> export is not supported
+
+!!! Dense, last layer
+Going into Layer <keras.layers.core.Dense object at 0x7f2cecd72f28>, idx=7, conv_idx=53, dense_idx=0
+Exporting layer <keras.layers.core.Dense object at 0x7f2cecd72f28>, idx=7, conv_idx=53, dense_idx=0
+Exported model weights to /home/sszabo/github/CPRE587/project/sw/model_weights/resnet50
