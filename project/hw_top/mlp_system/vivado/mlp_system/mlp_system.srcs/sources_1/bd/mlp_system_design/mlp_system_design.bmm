@@ -1,0 +1,23 @@
+WORKFLOW_OPERATION simulation,dialog;
+
+DEFINE_MEMORY_TYPE output_blk_mem_MEM_DEVICE [0x00010000] 32;
+DEFINE_MEMORY_TYPE input_blk_mem_MEM_DEVICE [0x00010000] 32;
+DEFINE_MEMORY_TYPE weight_blk_mem_MEM_DEVICE [0x00010000] 32;
+
+ADDRESS_MAP processing_system ARM 100 processing_system
+   ADDRESS_SPACE output_blk_mem_ADDR_SPACE output_blk_mem_MEM_DEVICE  [0x40000000:0x4000FFFF] output_bram_ctrl
+     BUS_BLOCK
+      output_blk_mem_BUS_BLK [31:0] INPUT = "mlp_system_design_output_blk_mem_0.mem";
+     END_BUS_BLOCK;
+   END_ADDRESS_SPACE;
+   ADDRESS_SPACE input_blk_mem_ADDR_SPACE input_blk_mem_MEM_DEVICE  [0x42000000:0x4200FFFF] input_bram_ctrl
+     BUS_BLOCK
+      input_blk_mem_BUS_BLK [31:0] INPUT = "mlp_system_design_input_blk_mem_0.mem";
+     END_BUS_BLOCK;
+   END_ADDRESS_SPACE;
+   ADDRESS_SPACE weight_blk_mem_ADDR_SPACE weight_blk_mem_MEM_DEVICE  [0x44000000:0x4400FFFF] weight_bram_ctrl
+     BUS_BLOCK
+      weight_blk_mem_BUS_BLK [31:0] INPUT = "mlp_system_design_weight_blk_mem_0.mem";
+     END_BUS_BLOCK;
+   END_ADDRESS_SPACE;
+END_ADDRESS_MAP;

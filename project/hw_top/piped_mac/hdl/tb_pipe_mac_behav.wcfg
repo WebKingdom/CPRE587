@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_stage_mac_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_stage_mac" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="187220fs"></ZoomStartTime>
+      <ZoomEndTime time="208556fs"></ZoomEndTime>
+      <Cursor1Time time="205000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="191"></NameColumnWidth>
+      <ValueColumnWidth column_width="131"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="21" />
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/rstn">
+      <obj_property name="ElementShortName">rstn</obj_property>
+      <obj_property name="ObjectShortName">rstn</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/wi">
+      <obj_property name="ElementShortName">wi[31:0]</obj_property>
+      <obj_property name="ObjectShortName">wi[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/ai">
+      <obj_property name="ElementShortName">ai[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ai[31:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/acc_c">
+      <obj_property name="ElementShortName">acc_c[69:0]</obj_property>
+      <obj_property name="ObjectShortName">acc_c[69:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/acc_q">
+      <obj_property name="ElementShortName">acc_q[69:0]</obj_property>
+      <obj_property name="ObjectShortName">acc_q[69:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tuser">
+      <obj_property name="ElementShortName">sd_axis_tuser</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tuser</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/prod_c">
+      <obj_property name="ElementShortName">prod_c[63:0]</obj_property>
+      <obj_property name="ObjectShortName">prod_c[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/prod_q">
+      <obj_property name="ElementShortName">prod_q[63:0]</obj_property>
+      <obj_property name="ObjectShortName">prod_q[63:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/cntr">
+      <obj_property name="ElementShortName">cntr[7:0]</obj_property>
+      <obj_property name="ObjectShortName">cntr[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/in_handshake">
+      <obj_property name="ElementShortName">in_handshake</obj_property>
+      <obj_property name="ObjectShortName">in_handshake</obj_property>
+      <obj_property name="CustomSignalColor">#FFD700</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tvalid">
+      <obj_property name="ElementShortName">sd_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tready">
+      <obj_property name="ElementShortName">sd_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tready</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/handshake_q1">
+      <obj_property name="ElementShortName">handshake_q1</obj_property>
+      <obj_property name="ObjectShortName">handshake_q1</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/handshake_q2">
+      <obj_property name="ElementShortName">handshake_q2</obj_property>
+      <obj_property name="ObjectShortName">handshake_q2</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/out_handshake">
+      <obj_property name="ElementShortName">out_handshake</obj_property>
+      <obj_property name="ObjectShortName">out_handshake</obj_property>
+   </wvobject>
+   <wvobject type="vbus" fp_name="vbus350">
+      <obj_property name="label">rounded_acc</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[69]">
+         <obj_property name="ElementShortName">[69]</obj_property>
+         <obj_property name="ObjectShortName">[69]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[68]">
+         <obj_property name="ElementShortName">[68]</obj_property>
+         <obj_property name="ObjectShortName">[68]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[67]">
+         <obj_property name="ElementShortName">[67]</obj_property>
+         <obj_property name="ObjectShortName">[67]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[66]">
+         <obj_property name="ElementShortName">[66]</obj_property>
+         <obj_property name="ObjectShortName">[66]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[65]">
+         <obj_property name="ElementShortName">[65]</obj_property>
+         <obj_property name="ObjectShortName">[65]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[64]">
+         <obj_property name="ElementShortName">[64]</obj_property>
+         <obj_property name="ObjectShortName">[64]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[63]">
+         <obj_property name="ElementShortName">[63]</obj_property>
+         <obj_property name="ObjectShortName">[63]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[62]">
+         <obj_property name="ElementShortName">[62]</obj_property>
+         <obj_property name="ObjectShortName">[62]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[61]">
+         <obj_property name="ElementShortName">[61]</obj_property>
+         <obj_property name="ObjectShortName">[61]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[60]">
+         <obj_property name="ElementShortName">[60]</obj_property>
+         <obj_property name="ObjectShortName">[60]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[59]">
+         <obj_property name="ElementShortName">[59]</obj_property>
+         <obj_property name="ObjectShortName">[59]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[58]">
+         <obj_property name="ElementShortName">[58]</obj_property>
+         <obj_property name="ObjectShortName">[58]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[57]">
+         <obj_property name="ElementShortName">[57]</obj_property>
+         <obj_property name="ObjectShortName">[57]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[56]">
+         <obj_property name="ElementShortName">[56]</obj_property>
+         <obj_property name="ObjectShortName">[56]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[55]">
+         <obj_property name="ElementShortName">[55]</obj_property>
+         <obj_property name="ObjectShortName">[55]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[54]">
+         <obj_property name="ElementShortName">[54]</obj_property>
+         <obj_property name="ObjectShortName">[54]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[53]">
+         <obj_property name="ElementShortName">[53]</obj_property>
+         <obj_property name="ObjectShortName">[53]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[52]">
+         <obj_property name="ElementShortName">[52]</obj_property>
+         <obj_property name="ObjectShortName">[52]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[51]">
+         <obj_property name="ElementShortName">[51]</obj_property>
+         <obj_property name="ObjectShortName">[51]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[50]">
+         <obj_property name="ElementShortName">[50]</obj_property>
+         <obj_property name="ObjectShortName">[50]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[49]">
+         <obj_property name="ElementShortName">[49]</obj_property>
+         <obj_property name="ObjectShortName">[49]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[48]">
+         <obj_property name="ElementShortName">[48]</obj_property>
+         <obj_property name="ObjectShortName">[48]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[47]">
+         <obj_property name="ElementShortName">[47]</obj_property>
+         <obj_property name="ObjectShortName">[47]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[46]">
+         <obj_property name="ElementShortName">[46]</obj_property>
+         <obj_property name="ObjectShortName">[46]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[45]">
+         <obj_property name="ElementShortName">[45]</obj_property>
+         <obj_property name="ObjectShortName">[45]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[44]">
+         <obj_property name="ElementShortName">[44]</obj_property>
+         <obj_property name="ObjectShortName">[44]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[43]">
+         <obj_property name="ElementShortName">[43]</obj_property>
+         <obj_property name="ObjectShortName">[43]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[42]">
+         <obj_property name="ElementShortName">[42]</obj_property>
+         <obj_property name="ObjectShortName">[42]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[41]">
+         <obj_property name="ElementShortName">[41]</obj_property>
+         <obj_property name="ObjectShortName">[41]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[40]">
+         <obj_property name="ElementShortName">[40]</obj_property>
+         <obj_property name="ObjectShortName">[40]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[39]">
+         <obj_property name="ElementShortName">[39]</obj_property>
+         <obj_property name="ObjectShortName">[39]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/tb_stage_mac/DUT/acc_q[38]">
+         <obj_property name="ElementShortName">[38]</obj_property>
+         <obj_property name="ObjectShortName">[38]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/intm_mdata">
+      <obj_property name="ElementShortName">intm_mdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">intm_mdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DUT/maxis_tdata">
+      <obj_property name="ElementShortName">maxis_tdata[65:0]</obj_property>
+      <obj_property name="ObjectShortName">maxis_tdata[65:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/DUT/rstn">
+      <obj_property name="ElementShortName">rstn</obj_property>
+      <obj_property name="ObjectShortName">rstn</obj_property>
+   </wvobject>
+</wave_config>

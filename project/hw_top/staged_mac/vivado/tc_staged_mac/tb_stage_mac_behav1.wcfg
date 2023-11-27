@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="tb_stage_mac_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="tb_stage_mac" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="20807581922fs"></ZoomStartTime>
+      <ZoomEndTime time="20807762523fs"></ZoomEndTime>
+      <Cursor1Time time="20807605000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="265"></NameColumnWidth>
+      <ValueColumnWidth column_width="148"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="62" />
+   <wvobject type="array" fp_name="/tb_stage_mac/itr">
+      <obj_property name="ElementShortName">itr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">itr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/weight">
+      <obj_property name="ElementShortName">weight[7:0]</obj_property>
+      <obj_property name="ObjectShortName">weight[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/activation">
+      <obj_property name="ElementShortName">activation[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activation[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/scb_mult">
+      <obj_property name="ElementShortName">scb_mult[15:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_mult[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/scb_accum">
+      <obj_property name="ElementShortName">scb_accum[35:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_accum[35:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/scb_output">
+      <obj_property name="ElementShortName">scb_output[7:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_output[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/arstn">
+      <obj_property name="ElementShortName">arstn</obj_property>
+      <obj_property name="ObjectShortName">arstn</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/sd_axis_tdata">
+      <obj_property name="ElementShortName">sd_axis_tdata[15:0]</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tdata[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tlast">
+      <obj_property name="ElementShortName">sd_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tlast</obj_property>
+      <obj_property name="CustomSignalColor">#FF0000</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tuser">
+      <obj_property name="ElementShortName">sd_axis_tuser</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tuser</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tvalid">
+      <obj_property name="ElementShortName">sd_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/sd_axis_tid">
+      <obj_property name="ElementShortName">sd_axis_tid[7:0]</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tid[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/mo_axis_tready">
+      <obj_property name="ElementShortName">mo_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">mo_axis_tready</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/sd_axis_tready">
+      <obj_property name="ElementShortName">sd_axis_tready</obj_property>
+      <obj_property name="ObjectShortName">sd_axis_tready</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/mo_axis_tvalid">
+      <obj_property name="ElementShortName">mo_axis_tvalid</obj_property>
+      <obj_property name="ObjectShortName">mo_axis_tvalid</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/mo_axis_tdata">
+      <obj_property name="ElementShortName">mo_axis_tdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">mo_axis_tdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/mo_axis_tlast">
+      <obj_property name="ElementShortName">mo_axis_tlast</obj_property>
+      <obj_property name="ObjectShortName">mo_axis_tlast</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/mo_axis_tid">
+      <obj_property name="ElementShortName">mo_axis_tid[7:0]</obj_property>
+      <obj_property name="ObjectShortName">mo_axis_tid[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DATA_WIDTH">
+      <obj_property name="ElementShortName">DATA_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/ACCUM_BITS">
+      <obj_property name="ElementShortName">ACCUM_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ACCUM_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/AB_2">
+      <obj_property name="ElementShortName">AB_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">AB_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DW_2">
+      <obj_property name="ElementShortName">DW_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DW_HI">
+      <obj_property name="ElementShortName">DW_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/DW2_HI">
+      <obj_property name="ElementShortName">DW2_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW2_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/ACCUM_HI">
+      <obj_property name="ElementShortName">ACCUM_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ACCUM_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/ACLK">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/ARESETN">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/SD_AXIS_TREADY">
+      <obj_property name="ElementShortName">SD_AXIS_TREADY</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TREADY</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/SD_AXIS_TDATA">
+      <obj_property name="ElementShortName">SD_AXIS_TDATA[15:0]</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TDATA[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/SD_AXIS_TLAST">
+      <obj_property name="ElementShortName">SD_AXIS_TLAST</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TLAST</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/SD_AXIS_TUSER">
+      <obj_property name="ElementShortName">SD_AXIS_TUSER</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TUSER</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/SD_AXIS_TVALID">
+      <obj_property name="ElementShortName">SD_AXIS_TVALID</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TVALID</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/SD_AXIS_TID">
+      <obj_property name="ElementShortName">SD_AXIS_TID[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SD_AXIS_TID[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/MO_AXIS_TVALID">
+      <obj_property name="ElementShortName">MO_AXIS_TVALID</obj_property>
+      <obj_property name="ObjectShortName">MO_AXIS_TVALID</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/MO_AXIS_TDATA">
+      <obj_property name="ElementShortName">MO_AXIS_TDATA[7:0]</obj_property>
+      <obj_property name="ObjectShortName">MO_AXIS_TDATA[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#00FFFF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/MO_AXIS_TLAST">
+      <obj_property name="ElementShortName">MO_AXIS_TLAST</obj_property>
+      <obj_property name="ObjectShortName">MO_AXIS_TLAST</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/MO_AXIS_TREADY">
+      <obj_property name="ElementShortName">MO_AXIS_TREADY</obj_property>
+      <obj_property name="ObjectShortName">MO_AXIS_TREADY</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/MO_AXIS_TID">
+      <obj_property name="ElementShortName">MO_AXIS_TID[7:0]</obj_property>
+      <obj_property name="ObjectShortName">MO_AXIS_TID[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/debug">
+      <obj_property name="ElementShortName">debug[31:0]</obj_property>
+      <obj_property name="ObjectShortName">debug[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/state">
+      <obj_property name="ElementShortName">state[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/state_next">
+      <obj_property name="ElementShortName">state_next[2:0]</obj_property>
+      <obj_property name="ObjectShortName">state_next[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_stage_mac/uut/tlast_reg">
+      <obj_property name="ElementShortName">tlast_reg</obj_property>
+      <obj_property name="ObjectShortName">tlast_reg</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/tid_reg">
+      <obj_property name="ElementShortName">tid_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">tid_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/weight">
+      <obj_property name="ElementShortName">weight[7:0]</obj_property>
+      <obj_property name="ObjectShortName">weight[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/activation">
+      <obj_property name="ElementShortName">activation[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activation[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/weight_reg">
+      <obj_property name="ElementShortName">weight_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">weight_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/activation_reg">
+      <obj_property name="ElementShortName">activation_reg[7:0]</obj_property>
+      <obj_property name="ObjectShortName">activation_reg[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/mult_reg">
+      <obj_property name="ElementShortName">mult_reg[15:0]</obj_property>
+      <obj_property name="ObjectShortName">mult_reg[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/accum_reg">
+      <obj_property name="ElementShortName">accum_reg[35:0]</obj_property>
+      <obj_property name="ObjectShortName">accum_reg[35:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/DATA_WIDTH">
+      <obj_property name="ElementShortName">DATA_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DATA_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/ACCUM_BITS">
+      <obj_property name="ElementShortName">ACCUM_BITS[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ACCUM_BITS[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/AB_2">
+      <obj_property name="ElementShortName">AB_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">AB_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/DW_2">
+      <obj_property name="ElementShortName">DW_2[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW_2[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/DW_HI">
+      <obj_property name="ElementShortName">DW_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/DW2_HI">
+      <obj_property name="ElementShortName">DW2_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">DW2_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/ACCUM_HI">
+      <obj_property name="ElementShortName">ACCUM_HI[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ACCUM_HI[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/INIT_ACCUM">
+      <obj_property name="ElementShortName">INIT_ACCUM[2:0]</obj_property>
+      <obj_property name="ObjectShortName">INIT_ACCUM[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/GET_DATA">
+      <obj_property name="ElementShortName">GET_DATA[2:0]</obj_property>
+      <obj_property name="ObjectShortName">GET_DATA[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/MULT">
+      <obj_property name="ElementShortName">MULT[2:0]</obj_property>
+      <obj_property name="ObjectShortName">MULT[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/ACCUM">
+      <obj_property name="ElementShortName">ACCUM[2:0]</obj_property>
+      <obj_property name="ObjectShortName">ACCUM[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_stage_mac/uut/WR_OUT">
+      <obj_property name="ElementShortName">WR_OUT[2:0]</obj_property>
+      <obj_property name="ObjectShortName">WR_OUT[2:0]</obj_property>
+   </wvobject>
+</wave_config>
