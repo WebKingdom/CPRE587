@@ -57,7 +57,7 @@ module tb_temporal_vp_mac();
   logic [AXIS_DW-1:0]    mo_axis_tdata ;
   logic                  mo_axis_tlast ;
   logic [           7:0] mo_axis_tid   ;
-  
+
   // helper logic
   wire axis_handshake;
   assign axis_handshake = sd_axis_tvalid & sd_axis_tready;
@@ -65,23 +65,23 @@ module tb_temporal_vp_mac();
 
   // instantiate DUT
   vp_temporal_mac #(.AXIS_DW(AXIS_DW))
-  dut (
-    .CLK           (clk           ),
-    .RESETN        (rstn          ),
-    // inputs
-    .SD_AXIS_TDATA (sd_axis_tdata ),
-    .SD_AXIS_TLAST (sd_axis_tlast ),
-    .SD_AXIS_TUSER (sd_axis_tuser ),
-    .SD_AXIS_TVALID(sd_axis_tvalid),
-    .SD_AXIS_TID   (sd_axis_tid   ),
-    .MO_AXIS_TREADY(mo_axis_tready),
-    // outputs
-    .SD_AXIS_TREADY(sd_axis_tready),
-    .MO_AXIS_TVALID(mo_axis_tvalid),
-    .MO_AXIS_TDATA (mo_axis_tdata ),
-    .MO_AXIS_TLAST (mo_axis_tlast ),
-    .MO_AXIS_TID   (mo_axis_tid   )
-  );
+                  dut (
+                    .CLK           (clk           ),
+                    .RESETN        (rstn          ),
+                    // inputs
+                    .SD_AXIS_TDATA (sd_axis_tdata ),
+                    .SD_AXIS_TLAST (sd_axis_tlast ),
+                    .SD_AXIS_TUSER (sd_axis_tuser ),
+                    .SD_AXIS_TVALID(sd_axis_tvalid),
+                    .SD_AXIS_TID   (sd_axis_tid   ),
+                    .MO_AXIS_TREADY(mo_axis_tready),
+                    // outputs
+                    .SD_AXIS_TREADY(sd_axis_tready),
+                    .MO_AXIS_TVALID(mo_axis_tvalid),
+                    .MO_AXIS_TDATA (mo_axis_tdata ),
+                    .MO_AXIS_TLAST (mo_axis_tlast ),
+                    .MO_AXIS_TID   (mo_axis_tid   )
+                  );
 
   // clock generator
   always begin
@@ -303,13 +303,13 @@ module tb_temporal_vp_mac();
             scb_mult[3] = activation[7:6] * weight;
           end
         end
-        
+
         for (int i = 0; i < num_outputs; i++) begin
-//          const int w_lo = i * w_bits;
-//          const int w_hi = (i + 1) * w_bits - 1;
-//          const int a_lo = i * a_bits;
-//          const int a_hi = (i + 1) * a_bits - 1;
-//          scb_mult[i] = 8'(signed'(weight[w_hi:w_lo])) * 8'(signed'(activation[a_hi:a_lo]));
+          //          const int w_lo = i * w_bits;
+          //          const int w_hi = (i + 1) * w_bits - 1;
+          //          const int a_lo = i * a_bits;
+          //          const int a_hi = (i + 1) * a_bits - 1;
+          //          scb_mult[i] = 8'(signed'(weight[w_hi:w_lo])) * 8'(signed'(activation[a_hi:a_lo]));
           scb_accum[i] += 32'(signed'(scb_mult[i]));
           // dequantize accumulator to fp32
           scb_mult_dequant = {scb_accum[i][15:0], 16'h0000} * SCALE_1_SW_Q1616;
@@ -373,7 +373,7 @@ module tb_temporal_vp_mac();
       set_rand_precision();
       @(posedge clk);
     end
-    
+
     #1;
     sd_axis_tvalid = 0;
     set_scale_dequant();
@@ -410,12 +410,12 @@ module tb_temporal_vp_mac();
       @(posedge clk);
       check_output();
     end
-    
+
     // reset tvalid to low
     #1;
     sd_axis_tvalid = 0;
   endtask
-  
+
   // Fully random test with specified precision level
   task automatic run_precision_test(int precision);
     reset_all();
@@ -425,7 +425,7 @@ module tb_temporal_vp_mac();
       set_precision(precision);
       @(posedge clk);
     end
-    
+
     #1;
     sd_axis_tvalid = 0;
     set_scale_dequant();
@@ -462,7 +462,7 @@ module tb_temporal_vp_mac();
       @(posedge clk);
       check_output_precision(precision);
     end
-    
+
     // reset tvalid to low
     #1;
     sd_axis_tvalid = 0;

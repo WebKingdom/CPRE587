@@ -23,7 +23,7 @@ module vp_temporal_mac#(
   );
 
   wire [31:0] debug;
-  
+
   // AXIS registers and wires
   logic reg_tlast;
   logic [7:0] reg_tid;
@@ -65,14 +65,14 @@ module vp_temporal_mac#(
 
   // state machine with 7 states
   typedef enum logic [2:0] {
-    IDLE,
-    SET_PRECISION,
-    SET_DEQUANT,
-    GET_DATA,
-    COMPUTE,
-    DEQUANT,
-    WR_OUT
-  } state_type;
+            IDLE,
+            SET_PRECISION,
+            SET_DEQUANT,
+            GET_DATA,
+            COMPUTE,
+            DEQUANT,
+            WR_OUT
+          } state_type;
   state_type state, next_state;
   logic [1:0] reg_dequant_done;
   logic unsigned [2:0] reg_pipeline_stage;
@@ -122,21 +122,21 @@ module vp_temporal_mac#(
   // route the outputs wires from the multipliers to the shift and adders
   // 8b activation, 8b weight
   shift_add_4to1 shift_add_4to1_i0 (
-    .in_4x10b(wire_mul_8x2_out),
-    .result(wire_shift_add_16b)
-  );
+                   .in_4x10b(wire_mul_8x2_out),
+                   .result(wire_shift_add_16b)
+                 );
 
   // 8b activation, 4b weight OR 4b activation, 8b weight
   shift_add_4to2#(.IN_WIDTH(10), .OUT_WIDTH(12)) shift_add_4to2_i0 (
-    .in_4x(wire_mul_8x2_out),
-    .result_2x(wire_shift_add_2x12b)
-  );
+                  .in_4x(wire_mul_8x2_out),
+                  .result_2x(wire_shift_add_2x12b)
+                );
 
   // 4b activation, 4b weight
   shift_add_4to2#(.IN_WIDTH(6), .OUT_WIDTH(8)) shift_add_4to2_i1 (
-    .in_4x(wire_mul_4x2_out),
-    .result_2x(wire_shift_add_2x8b)
-  );
+                  .in_4x(wire_mul_4x2_out),
+                  .result_2x(wire_shift_add_2x8b)
+                );
   // rest of activation, weight combinations go directly to 4x16b register
 
   // state logic

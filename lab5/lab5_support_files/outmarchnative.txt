@@ -1,0 +1,3022 @@
+[[36mInfo[39m]: Running 1000 Inference Tests for fp32:
+[[36mInfo[39m]: --- Building Toy Model ---
+Opening binary file "data_val1000_fp32_relu/model/conv1_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv1_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv2_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv2_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv3_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv3_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv4_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv4_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv5_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv5_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv6_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/conv6_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/dense1_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/dense1_biases.bin"
+Opening binary file "data_val1000_fp32_relu/model/dense2_weights.bin"
+Opening binary file "data_val1000_fp32_relu/model/dense2_biases.bin"
+[[36mInfo[39m]: --- Running Full Inference on Multiple Images ---
+Opening binary file "data_val1000_fp32_relu/image_0.bin"
+Opening binary file "data_val1000_fp32_relu/image_0_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_1.bin"
+Opening binary file "data_val1000_fp32_relu/image_1_data/layer_11_output.bin"
+Comparing images (max error): True (0.000065)
+Opening binary file "data_val1000_fp32_relu/image_2.bin"
+Opening binary file "data_val1000_fp32_relu/image_2_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_3.bin"
+Opening binary file "data_val1000_fp32_relu/image_3_data/layer_11_output.bin"
+Comparing images (max error): True (0.000125)
+Opening binary file "data_val1000_fp32_relu/image_4.bin"
+Opening binary file "data_val1000_fp32_relu/image_4_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_5.bin"
+Opening binary file "data_val1000_fp32_relu/image_5_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_6.bin"
+Opening binary file "data_val1000_fp32_relu/image_6_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_7.bin"
+Opening binary file "data_val1000_fp32_relu/image_7_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_8.bin"
+Opening binary file "data_val1000_fp32_relu/image_8_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_9.bin"
+Opening binary file "data_val1000_fp32_relu/image_9_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_10.bin"
+Opening binary file "data_val1000_fp32_relu/image_10_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_11.bin"
+Opening binary file "data_val1000_fp32_relu/image_11_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_12.bin"
+Opening binary file "data_val1000_fp32_relu/image_12_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_13.bin"
+Opening binary file "data_val1000_fp32_relu/image_13_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_14.bin"
+Opening binary file "data_val1000_fp32_relu/image_14_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_15.bin"
+Opening binary file "data_val1000_fp32_relu/image_15_data/layer_11_output.bin"
+Comparing images (max error): False (0.001054)
+Opening binary file "data_val1000_fp32_relu/image_16.bin"
+Opening binary file "data_val1000_fp32_relu/image_16_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_17.bin"
+Opening binary file "data_val1000_fp32_relu/image_17_data/layer_11_output.bin"
+Comparing images (max error): False (0.015878)
+Opening binary file "data_val1000_fp32_relu/image_18.bin"
+Opening binary file "data_val1000_fp32_relu/image_18_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_19.bin"
+Opening binary file "data_val1000_fp32_relu/image_19_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_20.bin"
+Opening binary file "data_val1000_fp32_relu/image_20_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_21.bin"
+Opening binary file "data_val1000_fp32_relu/image_21_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_22.bin"
+Opening binary file "data_val1000_fp32_relu/image_22_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_23.bin"
+Opening binary file "data_val1000_fp32_relu/image_23_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_24.bin"
+Opening binary file "data_val1000_fp32_relu/image_24_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_25.bin"
+Opening binary file "data_val1000_fp32_relu/image_25_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_26.bin"
+Opening binary file "data_val1000_fp32_relu/image_26_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_27.bin"
+Opening binary file "data_val1000_fp32_relu/image_27_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_28.bin"
+Opening binary file "data_val1000_fp32_relu/image_28_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_29.bin"
+Opening binary file "data_val1000_fp32_relu/image_29_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_30.bin"
+Opening binary file "data_val1000_fp32_relu/image_30_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_31.bin"
+Opening binary file "data_val1000_fp32_relu/image_31_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_32.bin"
+Opening binary file "data_val1000_fp32_relu/image_32_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_33.bin"
+Opening binary file "data_val1000_fp32_relu/image_33_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_34.bin"
+Opening binary file "data_val1000_fp32_relu/image_34_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_35.bin"
+Opening binary file "data_val1000_fp32_relu/image_35_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_36.bin"
+Opening binary file "data_val1000_fp32_relu/image_36_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_37.bin"
+Opening binary file "data_val1000_fp32_relu/image_37_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_38.bin"
+Opening binary file "data_val1000_fp32_relu/image_38_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_39.bin"
+Opening binary file "data_val1000_fp32_relu/image_39_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_40.bin"
+Opening binary file "data_val1000_fp32_relu/image_40_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_41.bin"
+Opening binary file "data_val1000_fp32_relu/image_41_data/layer_11_output.bin"
+Comparing images (max error): True (0.000222)
+Opening binary file "data_val1000_fp32_relu/image_42.bin"
+Opening binary file "data_val1000_fp32_relu/image_42_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_43.bin"
+Opening binary file "data_val1000_fp32_relu/image_43_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_44.bin"
+Opening binary file "data_val1000_fp32_relu/image_44_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_45.bin"
+Opening binary file "data_val1000_fp32_relu/image_45_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_46.bin"
+Opening binary file "data_val1000_fp32_relu/image_46_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_47.bin"
+Opening binary file "data_val1000_fp32_relu/image_47_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_48.bin"
+Opening binary file "data_val1000_fp32_relu/image_48_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_49.bin"
+Opening binary file "data_val1000_fp32_relu/image_49_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_50.bin"
+Opening binary file "data_val1000_fp32_relu/image_50_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_51.bin"
+Opening binary file "data_val1000_fp32_relu/image_51_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_52.bin"
+Opening binary file "data_val1000_fp32_relu/image_52_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_53.bin"
+Opening binary file "data_val1000_fp32_relu/image_53_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_54.bin"
+Opening binary file "data_val1000_fp32_relu/image_54_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_55.bin"
+Opening binary file "data_val1000_fp32_relu/image_55_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_56.bin"
+Opening binary file "data_val1000_fp32_relu/image_56_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_57.bin"
+Opening binary file "data_val1000_fp32_relu/image_57_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_58.bin"
+Opening binary file "data_val1000_fp32_relu/image_58_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_59.bin"
+Opening binary file "data_val1000_fp32_relu/image_59_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_60.bin"
+Opening binary file "data_val1000_fp32_relu/image_60_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_61.bin"
+Opening binary file "data_val1000_fp32_relu/image_61_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_62.bin"
+Opening binary file "data_val1000_fp32_relu/image_62_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_63.bin"
+Opening binary file "data_val1000_fp32_relu/image_63_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_64.bin"
+Opening binary file "data_val1000_fp32_relu/image_64_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_65.bin"
+Opening binary file "data_val1000_fp32_relu/image_65_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_66.bin"
+Opening binary file "data_val1000_fp32_relu/image_66_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_67.bin"
+Opening binary file "data_val1000_fp32_relu/image_67_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_68.bin"
+Opening binary file "data_val1000_fp32_relu/image_68_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_69.bin"
+Opening binary file "data_val1000_fp32_relu/image_69_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_70.bin"
+Opening binary file "data_val1000_fp32_relu/image_70_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_71.bin"
+Opening binary file "data_val1000_fp32_relu/image_71_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_72.bin"
+Opening binary file "data_val1000_fp32_relu/image_72_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_73.bin"
+Opening binary file "data_val1000_fp32_relu/image_73_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_74.bin"
+Opening binary file "data_val1000_fp32_relu/image_74_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_75.bin"
+Opening binary file "data_val1000_fp32_relu/image_75_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_76.bin"
+Opening binary file "data_val1000_fp32_relu/image_76_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_77.bin"
+Opening binary file "data_val1000_fp32_relu/image_77_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_78.bin"
+Opening binary file "data_val1000_fp32_relu/image_78_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_79.bin"
+Opening binary file "data_val1000_fp32_relu/image_79_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_80.bin"
+Opening binary file "data_val1000_fp32_relu/image_80_data/layer_11_output.bin"
+Comparing images (max error): True (0.000852)
+Opening binary file "data_val1000_fp32_relu/image_81.bin"
+Opening binary file "data_val1000_fp32_relu/image_81_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_82.bin"
+Opening binary file "data_val1000_fp32_relu/image_82_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_83.bin"
+Opening binary file "data_val1000_fp32_relu/image_83_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_84.bin"
+Opening binary file "data_val1000_fp32_relu/image_84_data/layer_11_output.bin"
+Comparing images (max error): True (0.000002)
+Opening binary file "data_val1000_fp32_relu/image_85.bin"
+Opening binary file "data_val1000_fp32_relu/image_85_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_86.bin"
+Opening binary file "data_val1000_fp32_relu/image_86_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_87.bin"
+Opening binary file "data_val1000_fp32_relu/image_87_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_88.bin"
+Opening binary file "data_val1000_fp32_relu/image_88_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_89.bin"
+Opening binary file "data_val1000_fp32_relu/image_89_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_90.bin"
+Opening binary file "data_val1000_fp32_relu/image_90_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_91.bin"
+Opening binary file "data_val1000_fp32_relu/image_91_data/layer_11_output.bin"
+Comparing images (max error): False (0.001887)
+Opening binary file "data_val1000_fp32_relu/image_92.bin"
+Opening binary file "data_val1000_fp32_relu/image_92_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_93.bin"
+Opening binary file "data_val1000_fp32_relu/image_93_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_94.bin"
+Opening binary file "data_val1000_fp32_relu/image_94_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_95.bin"
+Opening binary file "data_val1000_fp32_relu/image_95_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_96.bin"
+Opening binary file "data_val1000_fp32_relu/image_96_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_97.bin"
+Opening binary file "data_val1000_fp32_relu/image_97_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_98.bin"
+Opening binary file "data_val1000_fp32_relu/image_98_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_99.bin"
+Opening binary file "data_val1000_fp32_relu/image_99_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_100.bin"
+Opening binary file "data_val1000_fp32_relu/image_100_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_101.bin"
+Opening binary file "data_val1000_fp32_relu/image_101_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_102.bin"
+Opening binary file "data_val1000_fp32_relu/image_102_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_103.bin"
+Opening binary file "data_val1000_fp32_relu/image_103_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_104.bin"
+Opening binary file "data_val1000_fp32_relu/image_104_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_105.bin"
+Opening binary file "data_val1000_fp32_relu/image_105_data/layer_11_output.bin"
+Comparing images (max error): True (0.000130)
+Opening binary file "data_val1000_fp32_relu/image_106.bin"
+Opening binary file "data_val1000_fp32_relu/image_106_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_107.bin"
+Opening binary file "data_val1000_fp32_relu/image_107_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_108.bin"
+Opening binary file "data_val1000_fp32_relu/image_108_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_109.bin"
+Opening binary file "data_val1000_fp32_relu/image_109_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_110.bin"
+Opening binary file "data_val1000_fp32_relu/image_110_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_111.bin"
+Opening binary file "data_val1000_fp32_relu/image_111_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_112.bin"
+Opening binary file "data_val1000_fp32_relu/image_112_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_113.bin"
+Opening binary file "data_val1000_fp32_relu/image_113_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_114.bin"
+Opening binary file "data_val1000_fp32_relu/image_114_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_115.bin"
+Opening binary file "data_val1000_fp32_relu/image_115_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_116.bin"
+Opening binary file "data_val1000_fp32_relu/image_116_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_117.bin"
+Opening binary file "data_val1000_fp32_relu/image_117_data/layer_11_output.bin"
+Comparing images (max error): False (0.027335)
+Opening binary file "data_val1000_fp32_relu/image_118.bin"
+Opening binary file "data_val1000_fp32_relu/image_118_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_119.bin"
+Opening binary file "data_val1000_fp32_relu/image_119_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_120.bin"
+Opening binary file "data_val1000_fp32_relu/image_120_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_121.bin"
+Opening binary file "data_val1000_fp32_relu/image_121_data/layer_11_output.bin"
+Comparing images (max error): False (0.007075)
+Opening binary file "data_val1000_fp32_relu/image_122.bin"
+Opening binary file "data_val1000_fp32_relu/image_122_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_123.bin"
+Opening binary file "data_val1000_fp32_relu/image_123_data/layer_11_output.bin"
+Comparing images (max error): True (0.000010)
+Opening binary file "data_val1000_fp32_relu/image_124.bin"
+Opening binary file "data_val1000_fp32_relu/image_124_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_125.bin"
+Opening binary file "data_val1000_fp32_relu/image_125_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_126.bin"
+Opening binary file "data_val1000_fp32_relu/image_126_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_127.bin"
+Opening binary file "data_val1000_fp32_relu/image_127_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_128.bin"
+Opening binary file "data_val1000_fp32_relu/image_128_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_129.bin"
+Opening binary file "data_val1000_fp32_relu/image_129_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_130.bin"
+Opening binary file "data_val1000_fp32_relu/image_130_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_131.bin"
+Opening binary file "data_val1000_fp32_relu/image_131_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_132.bin"
+Opening binary file "data_val1000_fp32_relu/image_132_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_133.bin"
+Opening binary file "data_val1000_fp32_relu/image_133_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_134.bin"
+Opening binary file "data_val1000_fp32_relu/image_134_data/layer_11_output.bin"
+Comparing images (max error): False (0.002637)
+Opening binary file "data_val1000_fp32_relu/image_135.bin"
+Opening binary file "data_val1000_fp32_relu/image_135_data/layer_11_output.bin"
+Comparing images (max error): True (0.000133)
+Opening binary file "data_val1000_fp32_relu/image_136.bin"
+Opening binary file "data_val1000_fp32_relu/image_136_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_137.bin"
+Opening binary file "data_val1000_fp32_relu/image_137_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_138.bin"
+Opening binary file "data_val1000_fp32_relu/image_138_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_139.bin"
+Opening binary file "data_val1000_fp32_relu/image_139_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_140.bin"
+Opening binary file "data_val1000_fp32_relu/image_140_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_141.bin"
+Opening binary file "data_val1000_fp32_relu/image_141_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_142.bin"
+Opening binary file "data_val1000_fp32_relu/image_142_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_143.bin"
+Opening binary file "data_val1000_fp32_relu/image_143_data/layer_11_output.bin"
+Comparing images (max error): True (0.000029)
+Opening binary file "data_val1000_fp32_relu/image_144.bin"
+Opening binary file "data_val1000_fp32_relu/image_144_data/layer_11_output.bin"
+Comparing images (max error): True (0.000007)
+Opening binary file "data_val1000_fp32_relu/image_145.bin"
+Opening binary file "data_val1000_fp32_relu/image_145_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_146.bin"
+Opening binary file "data_val1000_fp32_relu/image_146_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_147.bin"
+Opening binary file "data_val1000_fp32_relu/image_147_data/layer_11_output.bin"
+Comparing images (max error): False (0.008688)
+Opening binary file "data_val1000_fp32_relu/image_148.bin"
+Opening binary file "data_val1000_fp32_relu/image_148_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_149.bin"
+Opening binary file "data_val1000_fp32_relu/image_149_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_150.bin"
+Opening binary file "data_val1000_fp32_relu/image_150_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_151.bin"
+Opening binary file "data_val1000_fp32_relu/image_151_data/layer_11_output.bin"
+Comparing images (max error): False (0.045083)
+Opening binary file "data_val1000_fp32_relu/image_152.bin"
+Opening binary file "data_val1000_fp32_relu/image_152_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_153.bin"
+Opening binary file "data_val1000_fp32_relu/image_153_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_154.bin"
+Opening binary file "data_val1000_fp32_relu/image_154_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_155.bin"
+Opening binary file "data_val1000_fp32_relu/image_155_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_156.bin"
+Opening binary file "data_val1000_fp32_relu/image_156_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_157.bin"
+Opening binary file "data_val1000_fp32_relu/image_157_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_158.bin"
+Opening binary file "data_val1000_fp32_relu/image_158_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_159.bin"
+Opening binary file "data_val1000_fp32_relu/image_159_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_160.bin"
+Opening binary file "data_val1000_fp32_relu/image_160_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_161.bin"
+Opening binary file "data_val1000_fp32_relu/image_161_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_162.bin"
+Opening binary file "data_val1000_fp32_relu/image_162_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_163.bin"
+Opening binary file "data_val1000_fp32_relu/image_163_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_164.bin"
+Opening binary file "data_val1000_fp32_relu/image_164_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_165.bin"
+Opening binary file "data_val1000_fp32_relu/image_165_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_166.bin"
+Opening binary file "data_val1000_fp32_relu/image_166_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_167.bin"
+Opening binary file "data_val1000_fp32_relu/image_167_data/layer_11_output.bin"
+Comparing images (max error): True (0.000188)
+Opening binary file "data_val1000_fp32_relu/image_168.bin"
+Opening binary file "data_val1000_fp32_relu/image_168_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_169.bin"
+Opening binary file "data_val1000_fp32_relu/image_169_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_170.bin"
+Opening binary file "data_val1000_fp32_relu/image_170_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_171.bin"
+Opening binary file "data_val1000_fp32_relu/image_171_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_172.bin"
+Opening binary file "data_val1000_fp32_relu/image_172_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_173.bin"
+Opening binary file "data_val1000_fp32_relu/image_173_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_174.bin"
+Opening binary file "data_val1000_fp32_relu/image_174_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_175.bin"
+Opening binary file "data_val1000_fp32_relu/image_175_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_176.bin"
+Opening binary file "data_val1000_fp32_relu/image_176_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_177.bin"
+Opening binary file "data_val1000_fp32_relu/image_177_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_178.bin"
+Opening binary file "data_val1000_fp32_relu/image_178_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_179.bin"
+Opening binary file "data_val1000_fp32_relu/image_179_data/layer_11_output.bin"
+Comparing images (max error): False (0.010670)
+Opening binary file "data_val1000_fp32_relu/image_180.bin"
+Opening binary file "data_val1000_fp32_relu/image_180_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_181.bin"
+Opening binary file "data_val1000_fp32_relu/image_181_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_182.bin"
+Opening binary file "data_val1000_fp32_relu/image_182_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_183.bin"
+Opening binary file "data_val1000_fp32_relu/image_183_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_184.bin"
+Opening binary file "data_val1000_fp32_relu/image_184_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_185.bin"
+Opening binary file "data_val1000_fp32_relu/image_185_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_186.bin"
+Opening binary file "data_val1000_fp32_relu/image_186_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_187.bin"
+Opening binary file "data_val1000_fp32_relu/image_187_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_188.bin"
+Opening binary file "data_val1000_fp32_relu/image_188_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_189.bin"
+Opening binary file "data_val1000_fp32_relu/image_189_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_190.bin"
+Opening binary file "data_val1000_fp32_relu/image_190_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_191.bin"
+Opening binary file "data_val1000_fp32_relu/image_191_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_192.bin"
+Opening binary file "data_val1000_fp32_relu/image_192_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_193.bin"
+Opening binary file "data_val1000_fp32_relu/image_193_data/layer_11_output.bin"
+Comparing images (max error): False (0.036024)
+Opening binary file "data_val1000_fp32_relu/image_194.bin"
+Opening binary file "data_val1000_fp32_relu/image_194_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_195.bin"
+Opening binary file "data_val1000_fp32_relu/image_195_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_196.bin"
+Opening binary file "data_val1000_fp32_relu/image_196_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_197.bin"
+Opening binary file "data_val1000_fp32_relu/image_197_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_198.bin"
+Opening binary file "data_val1000_fp32_relu/image_198_data/layer_11_output.bin"
+Comparing images (max error): True (0.000006)
+Opening binary file "data_val1000_fp32_relu/image_199.bin"
+Opening binary file "data_val1000_fp32_relu/image_199_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_200.bin"
+Opening binary file "data_val1000_fp32_relu/image_200_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_201.bin"
+Opening binary file "data_val1000_fp32_relu/image_201_data/layer_11_output.bin"
+Comparing images (max error): True (0.000002)
+Opening binary file "data_val1000_fp32_relu/image_202.bin"
+Opening binary file "data_val1000_fp32_relu/image_202_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_203.bin"
+Opening binary file "data_val1000_fp32_relu/image_203_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_204.bin"
+Opening binary file "data_val1000_fp32_relu/image_204_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_205.bin"
+Opening binary file "data_val1000_fp32_relu/image_205_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_206.bin"
+Opening binary file "data_val1000_fp32_relu/image_206_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_207.bin"
+Opening binary file "data_val1000_fp32_relu/image_207_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_208.bin"
+Opening binary file "data_val1000_fp32_relu/image_208_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_209.bin"
+Opening binary file "data_val1000_fp32_relu/image_209_data/layer_11_output.bin"
+Comparing images (max error): False (0.003543)
+Opening binary file "data_val1000_fp32_relu/image_210.bin"
+Opening binary file "data_val1000_fp32_relu/image_210_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_211.bin"
+Opening binary file "data_val1000_fp32_relu/image_211_data/layer_11_output.bin"
+Comparing images (max error): True (0.000180)
+Opening binary file "data_val1000_fp32_relu/image_212.bin"
+Opening binary file "data_val1000_fp32_relu/image_212_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_213.bin"
+Opening binary file "data_val1000_fp32_relu/image_213_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_214.bin"
+Opening binary file "data_val1000_fp32_relu/image_214_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_215.bin"
+Opening binary file "data_val1000_fp32_relu/image_215_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_216.bin"
+Opening binary file "data_val1000_fp32_relu/image_216_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_217.bin"
+Opening binary file "data_val1000_fp32_relu/image_217_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_218.bin"
+Opening binary file "data_val1000_fp32_relu/image_218_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_219.bin"
+Opening binary file "data_val1000_fp32_relu/image_219_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_220.bin"
+Opening binary file "data_val1000_fp32_relu/image_220_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_221.bin"
+Opening binary file "data_val1000_fp32_relu/image_221_data/layer_11_output.bin"
+Comparing images (max error): True (0.000009)
+Opening binary file "data_val1000_fp32_relu/image_222.bin"
+Opening binary file "data_val1000_fp32_relu/image_222_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_223.bin"
+Opening binary file "data_val1000_fp32_relu/image_223_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_224.bin"
+Opening binary file "data_val1000_fp32_relu/image_224_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_225.bin"
+Opening binary file "data_val1000_fp32_relu/image_225_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_226.bin"
+Opening binary file "data_val1000_fp32_relu/image_226_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_227.bin"
+Opening binary file "data_val1000_fp32_relu/image_227_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_228.bin"
+Opening binary file "data_val1000_fp32_relu/image_228_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_229.bin"
+Opening binary file "data_val1000_fp32_relu/image_229_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_230.bin"
+Opening binary file "data_val1000_fp32_relu/image_230_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_231.bin"
+Opening binary file "data_val1000_fp32_relu/image_231_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_232.bin"
+Opening binary file "data_val1000_fp32_relu/image_232_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_233.bin"
+Opening binary file "data_val1000_fp32_relu/image_233_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_234.bin"
+Opening binary file "data_val1000_fp32_relu/image_234_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_235.bin"
+Opening binary file "data_val1000_fp32_relu/image_235_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_236.bin"
+Opening binary file "data_val1000_fp32_relu/image_236_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_237.bin"
+Opening binary file "data_val1000_fp32_relu/image_237_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_238.bin"
+Opening binary file "data_val1000_fp32_relu/image_238_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_239.bin"
+Opening binary file "data_val1000_fp32_relu/image_239_data/layer_11_output.bin"
+Comparing images (max error): True (0.000019)
+Opening binary file "data_val1000_fp32_relu/image_240.bin"
+Opening binary file "data_val1000_fp32_relu/image_240_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_241.bin"
+Opening binary file "data_val1000_fp32_relu/image_241_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_242.bin"
+Opening binary file "data_val1000_fp32_relu/image_242_data/layer_11_output.bin"
+Comparing images (max error): True (0.000014)
+Opening binary file "data_val1000_fp32_relu/image_243.bin"
+Opening binary file "data_val1000_fp32_relu/image_243_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_244.bin"
+Opening binary file "data_val1000_fp32_relu/image_244_data/layer_11_output.bin"
+Comparing images (max error): True (0.000959)
+Opening binary file "data_val1000_fp32_relu/image_245.bin"
+Opening binary file "data_val1000_fp32_relu/image_245_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_246.bin"
+Opening binary file "data_val1000_fp32_relu/image_246_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_247.bin"
+Opening binary file "data_val1000_fp32_relu/image_247_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_248.bin"
+Opening binary file "data_val1000_fp32_relu/image_248_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_249.bin"
+Opening binary file "data_val1000_fp32_relu/image_249_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_250.bin"
+Opening binary file "data_val1000_fp32_relu/image_250_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_251.bin"
+Opening binary file "data_val1000_fp32_relu/image_251_data/layer_11_output.bin"
+Comparing images (max error): True (0.000542)
+Opening binary file "data_val1000_fp32_relu/image_252.bin"
+Opening binary file "data_val1000_fp32_relu/image_252_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_253.bin"
+Opening binary file "data_val1000_fp32_relu/image_253_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_254.bin"
+Opening binary file "data_val1000_fp32_relu/image_254_data/layer_11_output.bin"
+Comparing images (max error): True (0.000009)
+Opening binary file "data_val1000_fp32_relu/image_255.bin"
+Opening binary file "data_val1000_fp32_relu/image_255_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_256.bin"
+Opening binary file "data_val1000_fp32_relu/image_256_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_257.bin"
+Opening binary file "data_val1000_fp32_relu/image_257_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_258.bin"
+Opening binary file "data_val1000_fp32_relu/image_258_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_259.bin"
+Opening binary file "data_val1000_fp32_relu/image_259_data/layer_11_output.bin"
+Comparing images (max error): False (0.018828)
+Opening binary file "data_val1000_fp32_relu/image_260.bin"
+Opening binary file "data_val1000_fp32_relu/image_260_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_261.bin"
+Opening binary file "data_val1000_fp32_relu/image_261_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_262.bin"
+Opening binary file "data_val1000_fp32_relu/image_262_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_263.bin"
+Opening binary file "data_val1000_fp32_relu/image_263_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_264.bin"
+Opening binary file "data_val1000_fp32_relu/image_264_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_265.bin"
+Opening binary file "data_val1000_fp32_relu/image_265_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_266.bin"
+Opening binary file "data_val1000_fp32_relu/image_266_data/layer_11_output.bin"
+Comparing images (max error): True (0.000018)
+Opening binary file "data_val1000_fp32_relu/image_267.bin"
+Opening binary file "data_val1000_fp32_relu/image_267_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_268.bin"
+Opening binary file "data_val1000_fp32_relu/image_268_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_269.bin"
+Opening binary file "data_val1000_fp32_relu/image_269_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_270.bin"
+Opening binary file "data_val1000_fp32_relu/image_270_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_271.bin"
+Opening binary file "data_val1000_fp32_relu/image_271_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_272.bin"
+Opening binary file "data_val1000_fp32_relu/image_272_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_273.bin"
+Opening binary file "data_val1000_fp32_relu/image_273_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_274.bin"
+Opening binary file "data_val1000_fp32_relu/image_274_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_275.bin"
+Opening binary file "data_val1000_fp32_relu/image_275_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_276.bin"
+Opening binary file "data_val1000_fp32_relu/image_276_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_277.bin"
+Opening binary file "data_val1000_fp32_relu/image_277_data/layer_11_output.bin"
+Comparing images (max error): False (0.001755)
+Opening binary file "data_val1000_fp32_relu/image_278.bin"
+Opening binary file "data_val1000_fp32_relu/image_278_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_279.bin"
+Opening binary file "data_val1000_fp32_relu/image_279_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_280.bin"
+Opening binary file "data_val1000_fp32_relu/image_280_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_281.bin"
+Opening binary file "data_val1000_fp32_relu/image_281_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_282.bin"
+Opening binary file "data_val1000_fp32_relu/image_282_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_283.bin"
+Opening binary file "data_val1000_fp32_relu/image_283_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_284.bin"
+Opening binary file "data_val1000_fp32_relu/image_284_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_285.bin"
+Opening binary file "data_val1000_fp32_relu/image_285_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_286.bin"
+Opening binary file "data_val1000_fp32_relu/image_286_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_287.bin"
+Opening binary file "data_val1000_fp32_relu/image_287_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_288.bin"
+Opening binary file "data_val1000_fp32_relu/image_288_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_289.bin"
+Opening binary file "data_val1000_fp32_relu/image_289_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_290.bin"
+Opening binary file "data_val1000_fp32_relu/image_290_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_291.bin"
+Opening binary file "data_val1000_fp32_relu/image_291_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_292.bin"
+Opening binary file "data_val1000_fp32_relu/image_292_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_293.bin"
+Opening binary file "data_val1000_fp32_relu/image_293_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_294.bin"
+Opening binary file "data_val1000_fp32_relu/image_294_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_295.bin"
+Opening binary file "data_val1000_fp32_relu/image_295_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_296.bin"
+Opening binary file "data_val1000_fp32_relu/image_296_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_297.bin"
+Opening binary file "data_val1000_fp32_relu/image_297_data/layer_11_output.bin"
+Comparing images (max error): True (0.000002)
+Opening binary file "data_val1000_fp32_relu/image_298.bin"
+Opening binary file "data_val1000_fp32_relu/image_298_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_299.bin"
+Opening binary file "data_val1000_fp32_relu/image_299_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_300.bin"
+Opening binary file "data_val1000_fp32_relu/image_300_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_301.bin"
+Opening binary file "data_val1000_fp32_relu/image_301_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_302.bin"
+Opening binary file "data_val1000_fp32_relu/image_302_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_303.bin"
+Opening binary file "data_val1000_fp32_relu/image_303_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_304.bin"
+Opening binary file "data_val1000_fp32_relu/image_304_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_305.bin"
+Opening binary file "data_val1000_fp32_relu/image_305_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_306.bin"
+Opening binary file "data_val1000_fp32_relu/image_306_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_307.bin"
+Opening binary file "data_val1000_fp32_relu/image_307_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_308.bin"
+Opening binary file "data_val1000_fp32_relu/image_308_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_309.bin"
+Opening binary file "data_val1000_fp32_relu/image_309_data/layer_11_output.bin"
+Comparing images (max error): False (0.002364)
+Opening binary file "data_val1000_fp32_relu/image_310.bin"
+Opening binary file "data_val1000_fp32_relu/image_310_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_311.bin"
+Opening binary file "data_val1000_fp32_relu/image_311_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_312.bin"
+Opening binary file "data_val1000_fp32_relu/image_312_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_313.bin"
+Opening binary file "data_val1000_fp32_relu/image_313_data/layer_11_output.bin"
+Comparing images (max error): True (0.000208)
+Opening binary file "data_val1000_fp32_relu/image_314.bin"
+Opening binary file "data_val1000_fp32_relu/image_314_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_315.bin"
+Opening binary file "data_val1000_fp32_relu/image_315_data/layer_11_output.bin"
+Comparing images (max error): False (0.001769)
+Opening binary file "data_val1000_fp32_relu/image_316.bin"
+Opening binary file "data_val1000_fp32_relu/image_316_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_317.bin"
+Opening binary file "data_val1000_fp32_relu/image_317_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_318.bin"
+Opening binary file "data_val1000_fp32_relu/image_318_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_319.bin"
+Opening binary file "data_val1000_fp32_relu/image_319_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_320.bin"
+Opening binary file "data_val1000_fp32_relu/image_320_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_321.bin"
+Opening binary file "data_val1000_fp32_relu/image_321_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_322.bin"
+Opening binary file "data_val1000_fp32_relu/image_322_data/layer_11_output.bin"
+Comparing images (max error): False (0.003161)
+Opening binary file "data_val1000_fp32_relu/image_323.bin"
+Opening binary file "data_val1000_fp32_relu/image_323_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_324.bin"
+Opening binary file "data_val1000_fp32_relu/image_324_data/layer_11_output.bin"
+Comparing images (max error): True (0.000003)
+Opening binary file "data_val1000_fp32_relu/image_325.bin"
+Opening binary file "data_val1000_fp32_relu/image_325_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_326.bin"
+Opening binary file "data_val1000_fp32_relu/image_326_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_327.bin"
+Opening binary file "data_val1000_fp32_relu/image_327_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_328.bin"
+Opening binary file "data_val1000_fp32_relu/image_328_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_329.bin"
+Opening binary file "data_val1000_fp32_relu/image_329_data/layer_11_output.bin"
+Comparing images (max error): True (0.000201)
+Opening binary file "data_val1000_fp32_relu/image_330.bin"
+Opening binary file "data_val1000_fp32_relu/image_330_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_331.bin"
+Opening binary file "data_val1000_fp32_relu/image_331_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_332.bin"
+Opening binary file "data_val1000_fp32_relu/image_332_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_333.bin"
+Opening binary file "data_val1000_fp32_relu/image_333_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_334.bin"
+Opening binary file "data_val1000_fp32_relu/image_334_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_335.bin"
+Opening binary file "data_val1000_fp32_relu/image_335_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_336.bin"
+Opening binary file "data_val1000_fp32_relu/image_336_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_337.bin"
+Opening binary file "data_val1000_fp32_relu/image_337_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_338.bin"
+Opening binary file "data_val1000_fp32_relu/image_338_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_339.bin"
+Opening binary file "data_val1000_fp32_relu/image_339_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_340.bin"
+Opening binary file "data_val1000_fp32_relu/image_340_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_341.bin"
+Opening binary file "data_val1000_fp32_relu/image_341_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_342.bin"
+Opening binary file "data_val1000_fp32_relu/image_342_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_343.bin"
+Opening binary file "data_val1000_fp32_relu/image_343_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_344.bin"
+Opening binary file "data_val1000_fp32_relu/image_344_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_345.bin"
+Opening binary file "data_val1000_fp32_relu/image_345_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_346.bin"
+Opening binary file "data_val1000_fp32_relu/image_346_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_347.bin"
+Opening binary file "data_val1000_fp32_relu/image_347_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_348.bin"
+Opening binary file "data_val1000_fp32_relu/image_348_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_349.bin"
+Opening binary file "data_val1000_fp32_relu/image_349_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_350.bin"
+Opening binary file "data_val1000_fp32_relu/image_350_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_351.bin"
+Opening binary file "data_val1000_fp32_relu/image_351_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_352.bin"
+Opening binary file "data_val1000_fp32_relu/image_352_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_353.bin"
+Opening binary file "data_val1000_fp32_relu/image_353_data/layer_11_output.bin"
+Comparing images (max error): True (0.000030)
+Opening binary file "data_val1000_fp32_relu/image_354.bin"
+Opening binary file "data_val1000_fp32_relu/image_354_data/layer_11_output.bin"
+Comparing images (max error): True (0.000240)
+Opening binary file "data_val1000_fp32_relu/image_355.bin"
+Opening binary file "data_val1000_fp32_relu/image_355_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_356.bin"
+Opening binary file "data_val1000_fp32_relu/image_356_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_357.bin"
+Opening binary file "data_val1000_fp32_relu/image_357_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_358.bin"
+Opening binary file "data_val1000_fp32_relu/image_358_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_359.bin"
+Opening binary file "data_val1000_fp32_relu/image_359_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_360.bin"
+Opening binary file "data_val1000_fp32_relu/image_360_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_361.bin"
+Opening binary file "data_val1000_fp32_relu/image_361_data/layer_11_output.bin"
+Comparing images (max error): False (0.008091)
+Opening binary file "data_val1000_fp32_relu/image_362.bin"
+Opening binary file "data_val1000_fp32_relu/image_362_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_363.bin"
+Opening binary file "data_val1000_fp32_relu/image_363_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_364.bin"
+Opening binary file "data_val1000_fp32_relu/image_364_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_365.bin"
+Opening binary file "data_val1000_fp32_relu/image_365_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_366.bin"
+Opening binary file "data_val1000_fp32_relu/image_366_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_367.bin"
+Opening binary file "data_val1000_fp32_relu/image_367_data/layer_11_output.bin"
+Comparing images (max error): False (0.019489)
+Opening binary file "data_val1000_fp32_relu/image_368.bin"
+Opening binary file "data_val1000_fp32_relu/image_368_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_369.bin"
+Opening binary file "data_val1000_fp32_relu/image_369_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_370.bin"
+Opening binary file "data_val1000_fp32_relu/image_370_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_371.bin"
+Opening binary file "data_val1000_fp32_relu/image_371_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_372.bin"
+Opening binary file "data_val1000_fp32_relu/image_372_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_373.bin"
+Opening binary file "data_val1000_fp32_relu/image_373_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_374.bin"
+Opening binary file "data_val1000_fp32_relu/image_374_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_375.bin"
+Opening binary file "data_val1000_fp32_relu/image_375_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_376.bin"
+Opening binary file "data_val1000_fp32_relu/image_376_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_377.bin"
+Opening binary file "data_val1000_fp32_relu/image_377_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_378.bin"
+Opening binary file "data_val1000_fp32_relu/image_378_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_379.bin"
+Opening binary file "data_val1000_fp32_relu/image_379_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_380.bin"
+Opening binary file "data_val1000_fp32_relu/image_380_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_381.bin"
+Opening binary file "data_val1000_fp32_relu/image_381_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_382.bin"
+Opening binary file "data_val1000_fp32_relu/image_382_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_383.bin"
+Opening binary file "data_val1000_fp32_relu/image_383_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_384.bin"
+Opening binary file "data_val1000_fp32_relu/image_384_data/layer_11_output.bin"
+Comparing images (max error): True (0.000005)
+Opening binary file "data_val1000_fp32_relu/image_385.bin"
+Opening binary file "data_val1000_fp32_relu/image_385_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_386.bin"
+Opening binary file "data_val1000_fp32_relu/image_386_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_387.bin"
+Opening binary file "data_val1000_fp32_relu/image_387_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_388.bin"
+Opening binary file "data_val1000_fp32_relu/image_388_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_389.bin"
+Opening binary file "data_val1000_fp32_relu/image_389_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_390.bin"
+Opening binary file "data_val1000_fp32_relu/image_390_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_391.bin"
+Opening binary file "data_val1000_fp32_relu/image_391_data/layer_11_output.bin"
+Comparing images (max error): True (0.000014)
+Opening binary file "data_val1000_fp32_relu/image_392.bin"
+Opening binary file "data_val1000_fp32_relu/image_392_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_393.bin"
+Opening binary file "data_val1000_fp32_relu/image_393_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_394.bin"
+Opening binary file "data_val1000_fp32_relu/image_394_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_395.bin"
+Opening binary file "data_val1000_fp32_relu/image_395_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_396.bin"
+Opening binary file "data_val1000_fp32_relu/image_396_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_397.bin"
+Opening binary file "data_val1000_fp32_relu/image_397_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_398.bin"
+Opening binary file "data_val1000_fp32_relu/image_398_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_399.bin"
+Opening binary file "data_val1000_fp32_relu/image_399_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_400.bin"
+Opening binary file "data_val1000_fp32_relu/image_400_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_401.bin"
+Opening binary file "data_val1000_fp32_relu/image_401_data/layer_11_output.bin"
+Comparing images (max error): False (0.001422)
+Opening binary file "data_val1000_fp32_relu/image_402.bin"
+Opening binary file "data_val1000_fp32_relu/image_402_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_403.bin"
+Opening binary file "data_val1000_fp32_relu/image_403_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_404.bin"
+Opening binary file "data_val1000_fp32_relu/image_404_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_405.bin"
+Opening binary file "data_val1000_fp32_relu/image_405_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_406.bin"
+Opening binary file "data_val1000_fp32_relu/image_406_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_407.bin"
+Opening binary file "data_val1000_fp32_relu/image_407_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_408.bin"
+Opening binary file "data_val1000_fp32_relu/image_408_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_409.bin"
+Opening binary file "data_val1000_fp32_relu/image_409_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_410.bin"
+Opening binary file "data_val1000_fp32_relu/image_410_data/layer_11_output.bin"
+Comparing images (max error): True (0.000028)
+Opening binary file "data_val1000_fp32_relu/image_411.bin"
+Opening binary file "data_val1000_fp32_relu/image_411_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_412.bin"
+Opening binary file "data_val1000_fp32_relu/image_412_data/layer_11_output.bin"
+Comparing images (max error): True (0.000003)
+Opening binary file "data_val1000_fp32_relu/image_413.bin"
+Opening binary file "data_val1000_fp32_relu/image_413_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_414.bin"
+Opening binary file "data_val1000_fp32_relu/image_414_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_415.bin"
+Opening binary file "data_val1000_fp32_relu/image_415_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_416.bin"
+Opening binary file "data_val1000_fp32_relu/image_416_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_417.bin"
+Opening binary file "data_val1000_fp32_relu/image_417_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_418.bin"
+Opening binary file "data_val1000_fp32_relu/image_418_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_419.bin"
+Opening binary file "data_val1000_fp32_relu/image_419_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_420.bin"
+Opening binary file "data_val1000_fp32_relu/image_420_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_421.bin"
+Opening binary file "data_val1000_fp32_relu/image_421_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_422.bin"
+Opening binary file "data_val1000_fp32_relu/image_422_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_423.bin"
+Opening binary file "data_val1000_fp32_relu/image_423_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_424.bin"
+Opening binary file "data_val1000_fp32_relu/image_424_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_425.bin"
+Opening binary file "data_val1000_fp32_relu/image_425_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_426.bin"
+Opening binary file "data_val1000_fp32_relu/image_426_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_427.bin"
+Opening binary file "data_val1000_fp32_relu/image_427_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_428.bin"
+Opening binary file "data_val1000_fp32_relu/image_428_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_429.bin"
+Opening binary file "data_val1000_fp32_relu/image_429_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_430.bin"
+Opening binary file "data_val1000_fp32_relu/image_430_data/layer_11_output.bin"
+Comparing images (max error): True (0.000022)
+Opening binary file "data_val1000_fp32_relu/image_431.bin"
+Opening binary file "data_val1000_fp32_relu/image_431_data/layer_11_output.bin"
+Comparing images (max error): False (0.001674)
+Opening binary file "data_val1000_fp32_relu/image_432.bin"
+Opening binary file "data_val1000_fp32_relu/image_432_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_433.bin"
+Opening binary file "data_val1000_fp32_relu/image_433_data/layer_11_output.bin"
+Comparing images (max error): False (0.001803)
+Opening binary file "data_val1000_fp32_relu/image_434.bin"
+Opening binary file "data_val1000_fp32_relu/image_434_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_435.bin"
+Opening binary file "data_val1000_fp32_relu/image_435_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_436.bin"
+Opening binary file "data_val1000_fp32_relu/image_436_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_437.bin"
+Opening binary file "data_val1000_fp32_relu/image_437_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_438.bin"
+Opening binary file "data_val1000_fp32_relu/image_438_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_439.bin"
+Opening binary file "data_val1000_fp32_relu/image_439_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_440.bin"
+Opening binary file "data_val1000_fp32_relu/image_440_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_441.bin"
+Opening binary file "data_val1000_fp32_relu/image_441_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_442.bin"
+Opening binary file "data_val1000_fp32_relu/image_442_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_443.bin"
+Opening binary file "data_val1000_fp32_relu/image_443_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_444.bin"
+Opening binary file "data_val1000_fp32_relu/image_444_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_445.bin"
+Opening binary file "data_val1000_fp32_relu/image_445_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_446.bin"
+Opening binary file "data_val1000_fp32_relu/image_446_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_447.bin"
+Opening binary file "data_val1000_fp32_relu/image_447_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_448.bin"
+Opening binary file "data_val1000_fp32_relu/image_448_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_449.bin"
+Opening binary file "data_val1000_fp32_relu/image_449_data/layer_11_output.bin"
+Comparing images (max error): False (0.009900)
+Opening binary file "data_val1000_fp32_relu/image_450.bin"
+Opening binary file "data_val1000_fp32_relu/image_450_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_451.bin"
+Opening binary file "data_val1000_fp32_relu/image_451_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_452.bin"
+Opening binary file "data_val1000_fp32_relu/image_452_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_453.bin"
+Opening binary file "data_val1000_fp32_relu/image_453_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_454.bin"
+Opening binary file "data_val1000_fp32_relu/image_454_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_455.bin"
+Opening binary file "data_val1000_fp32_relu/image_455_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_456.bin"
+Opening binary file "data_val1000_fp32_relu/image_456_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_457.bin"
+Opening binary file "data_val1000_fp32_relu/image_457_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_458.bin"
+Opening binary file "data_val1000_fp32_relu/image_458_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_459.bin"
+Opening binary file "data_val1000_fp32_relu/image_459_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_460.bin"
+Opening binary file "data_val1000_fp32_relu/image_460_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_461.bin"
+Opening binary file "data_val1000_fp32_relu/image_461_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_462.bin"
+Opening binary file "data_val1000_fp32_relu/image_462_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_463.bin"
+Opening binary file "data_val1000_fp32_relu/image_463_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_464.bin"
+Opening binary file "data_val1000_fp32_relu/image_464_data/layer_11_output.bin"
+Comparing images (max error): True (0.000045)
+Opening binary file "data_val1000_fp32_relu/image_465.bin"
+Opening binary file "data_val1000_fp32_relu/image_465_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_466.bin"
+Opening binary file "data_val1000_fp32_relu/image_466_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_467.bin"
+Opening binary file "data_val1000_fp32_relu/image_467_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_468.bin"
+Opening binary file "data_val1000_fp32_relu/image_468_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_469.bin"
+Opening binary file "data_val1000_fp32_relu/image_469_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_470.bin"
+Opening binary file "data_val1000_fp32_relu/image_470_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_471.bin"
+Opening binary file "data_val1000_fp32_relu/image_471_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_472.bin"
+Opening binary file "data_val1000_fp32_relu/image_472_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_473.bin"
+Opening binary file "data_val1000_fp32_relu/image_473_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_474.bin"
+Opening binary file "data_val1000_fp32_relu/image_474_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_475.bin"
+Opening binary file "data_val1000_fp32_relu/image_475_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_476.bin"
+Opening binary file "data_val1000_fp32_relu/image_476_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_477.bin"
+Opening binary file "data_val1000_fp32_relu/image_477_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_478.bin"
+Opening binary file "data_val1000_fp32_relu/image_478_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_479.bin"
+Opening binary file "data_val1000_fp32_relu/image_479_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_480.bin"
+Opening binary file "data_val1000_fp32_relu/image_480_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_481.bin"
+Opening binary file "data_val1000_fp32_relu/image_481_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_482.bin"
+Opening binary file "data_val1000_fp32_relu/image_482_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_483.bin"
+Opening binary file "data_val1000_fp32_relu/image_483_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_484.bin"
+Opening binary file "data_val1000_fp32_relu/image_484_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_485.bin"
+Opening binary file "data_val1000_fp32_relu/image_485_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_486.bin"
+Opening binary file "data_val1000_fp32_relu/image_486_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_487.bin"
+Opening binary file "data_val1000_fp32_relu/image_487_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_488.bin"
+Opening binary file "data_val1000_fp32_relu/image_488_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_489.bin"
+Opening binary file "data_val1000_fp32_relu/image_489_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_490.bin"
+Opening binary file "data_val1000_fp32_relu/image_490_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_491.bin"
+Opening binary file "data_val1000_fp32_relu/image_491_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_492.bin"
+Opening binary file "data_val1000_fp32_relu/image_492_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_493.bin"
+Opening binary file "data_val1000_fp32_relu/image_493_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_494.bin"
+Opening binary file "data_val1000_fp32_relu/image_494_data/layer_11_output.bin"
+Comparing images (max error): True (0.000002)
+Opening binary file "data_val1000_fp32_relu/image_495.bin"
+Opening binary file "data_val1000_fp32_relu/image_495_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_496.bin"
+Opening binary file "data_val1000_fp32_relu/image_496_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_497.bin"
+Opening binary file "data_val1000_fp32_relu/image_497_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_498.bin"
+Opening binary file "data_val1000_fp32_relu/image_498_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_499.bin"
+Opening binary file "data_val1000_fp32_relu/image_499_data/layer_11_output.bin"
+Comparing images (max error): True (0.000022)
+Opening binary file "data_val1000_fp32_relu/image_500.bin"
+Opening binary file "data_val1000_fp32_relu/image_500_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_501.bin"
+Opening binary file "data_val1000_fp32_relu/image_501_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_502.bin"
+Opening binary file "data_val1000_fp32_relu/image_502_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_503.bin"
+Opening binary file "data_val1000_fp32_relu/image_503_data/layer_11_output.bin"
+Comparing images (max error): True (0.000358)
+Opening binary file "data_val1000_fp32_relu/image_504.bin"
+Opening binary file "data_val1000_fp32_relu/image_504_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_505.bin"
+Opening binary file "data_val1000_fp32_relu/image_505_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_506.bin"
+Opening binary file "data_val1000_fp32_relu/image_506_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_507.bin"
+Opening binary file "data_val1000_fp32_relu/image_507_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_508.bin"
+Opening binary file "data_val1000_fp32_relu/image_508_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_509.bin"
+Opening binary file "data_val1000_fp32_relu/image_509_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_510.bin"
+Opening binary file "data_val1000_fp32_relu/image_510_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_511.bin"
+Opening binary file "data_val1000_fp32_relu/image_511_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_512.bin"
+Opening binary file "data_val1000_fp32_relu/image_512_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_513.bin"
+Opening binary file "data_val1000_fp32_relu/image_513_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_514.bin"
+Opening binary file "data_val1000_fp32_relu/image_514_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_515.bin"
+Opening binary file "data_val1000_fp32_relu/image_515_data/layer_11_output.bin"
+Comparing images (max error): True (0.000031)
+Opening binary file "data_val1000_fp32_relu/image_516.bin"
+Opening binary file "data_val1000_fp32_relu/image_516_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_517.bin"
+Opening binary file "data_val1000_fp32_relu/image_517_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_518.bin"
+Opening binary file "data_val1000_fp32_relu/image_518_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_519.bin"
+Opening binary file "data_val1000_fp32_relu/image_519_data/layer_11_output.bin"
+Comparing images (max error): False (0.009419)
+Opening binary file "data_val1000_fp32_relu/image_520.bin"
+Opening binary file "data_val1000_fp32_relu/image_520_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_521.bin"
+Opening binary file "data_val1000_fp32_relu/image_521_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_522.bin"
+Opening binary file "data_val1000_fp32_relu/image_522_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_523.bin"
+Opening binary file "data_val1000_fp32_relu/image_523_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_524.bin"
+Opening binary file "data_val1000_fp32_relu/image_524_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_525.bin"
+Opening binary file "data_val1000_fp32_relu/image_525_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_526.bin"
+Opening binary file "data_val1000_fp32_relu/image_526_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_527.bin"
+Opening binary file "data_val1000_fp32_relu/image_527_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_528.bin"
+Opening binary file "data_val1000_fp32_relu/image_528_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_529.bin"
+Opening binary file "data_val1000_fp32_relu/image_529_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_530.bin"
+Opening binary file "data_val1000_fp32_relu/image_530_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_531.bin"
+Opening binary file "data_val1000_fp32_relu/image_531_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_532.bin"
+Opening binary file "data_val1000_fp32_relu/image_532_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_533.bin"
+Opening binary file "data_val1000_fp32_relu/image_533_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_534.bin"
+Opening binary file "data_val1000_fp32_relu/image_534_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_535.bin"
+Opening binary file "data_val1000_fp32_relu/image_535_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_536.bin"
+Opening binary file "data_val1000_fp32_relu/image_536_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_537.bin"
+Opening binary file "data_val1000_fp32_relu/image_537_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_538.bin"
+Opening binary file "data_val1000_fp32_relu/image_538_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_539.bin"
+Opening binary file "data_val1000_fp32_relu/image_539_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_540.bin"
+Opening binary file "data_val1000_fp32_relu/image_540_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_541.bin"
+Opening binary file "data_val1000_fp32_relu/image_541_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_542.bin"
+Opening binary file "data_val1000_fp32_relu/image_542_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_543.bin"
+Opening binary file "data_val1000_fp32_relu/image_543_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_544.bin"
+Opening binary file "data_val1000_fp32_relu/image_544_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_545.bin"
+Opening binary file "data_val1000_fp32_relu/image_545_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_546.bin"
+Opening binary file "data_val1000_fp32_relu/image_546_data/layer_11_output.bin"
+Comparing images (max error): False (0.022713)
+Opening binary file "data_val1000_fp32_relu/image_547.bin"
+Opening binary file "data_val1000_fp32_relu/image_547_data/layer_11_output.bin"
+Comparing images (max error): True (0.000044)
+Opening binary file "data_val1000_fp32_relu/image_548.bin"
+Opening binary file "data_val1000_fp32_relu/image_548_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_549.bin"
+Opening binary file "data_val1000_fp32_relu/image_549_data/layer_11_output.bin"
+Comparing images (max error): False (0.001680)
+Opening binary file "data_val1000_fp32_relu/image_550.bin"
+Opening binary file "data_val1000_fp32_relu/image_550_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_551.bin"
+Opening binary file "data_val1000_fp32_relu/image_551_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_552.bin"
+Opening binary file "data_val1000_fp32_relu/image_552_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_553.bin"
+Opening binary file "data_val1000_fp32_relu/image_553_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_554.bin"
+Opening binary file "data_val1000_fp32_relu/image_554_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_555.bin"
+Opening binary file "data_val1000_fp32_relu/image_555_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_556.bin"
+Opening binary file "data_val1000_fp32_relu/image_556_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_557.bin"
+Opening binary file "data_val1000_fp32_relu/image_557_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_558.bin"
+Opening binary file "data_val1000_fp32_relu/image_558_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_559.bin"
+Opening binary file "data_val1000_fp32_relu/image_559_data/layer_11_output.bin"
+Comparing images (max error): True (0.000003)
+Opening binary file "data_val1000_fp32_relu/image_560.bin"
+Opening binary file "data_val1000_fp32_relu/image_560_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_561.bin"
+Opening binary file "data_val1000_fp32_relu/image_561_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_562.bin"
+Opening binary file "data_val1000_fp32_relu/image_562_data/layer_11_output.bin"
+Comparing images (max error): True (0.000003)
+Opening binary file "data_val1000_fp32_relu/image_563.bin"
+Opening binary file "data_val1000_fp32_relu/image_563_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_564.bin"
+Opening binary file "data_val1000_fp32_relu/image_564_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_565.bin"
+Opening binary file "data_val1000_fp32_relu/image_565_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_566.bin"
+Opening binary file "data_val1000_fp32_relu/image_566_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_567.bin"
+Opening binary file "data_val1000_fp32_relu/image_567_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_568.bin"
+Opening binary file "data_val1000_fp32_relu/image_568_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_569.bin"
+Opening binary file "data_val1000_fp32_relu/image_569_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_570.bin"
+Opening binary file "data_val1000_fp32_relu/image_570_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_571.bin"
+Opening binary file "data_val1000_fp32_relu/image_571_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_572.bin"
+Opening binary file "data_val1000_fp32_relu/image_572_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_573.bin"
+Opening binary file "data_val1000_fp32_relu/image_573_data/layer_11_output.bin"
+Comparing images (max error): True (0.000023)
+Opening binary file "data_val1000_fp32_relu/image_574.bin"
+Opening binary file "data_val1000_fp32_relu/image_574_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_575.bin"
+Opening binary file "data_val1000_fp32_relu/image_575_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_576.bin"
+Opening binary file "data_val1000_fp32_relu/image_576_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_577.bin"
+Opening binary file "data_val1000_fp32_relu/image_577_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_578.bin"
+Opening binary file "data_val1000_fp32_relu/image_578_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_579.bin"
+Opening binary file "data_val1000_fp32_relu/image_579_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_580.bin"
+Opening binary file "data_val1000_fp32_relu/image_580_data/layer_11_output.bin"
+Comparing images (max error): False (0.019667)
+Opening binary file "data_val1000_fp32_relu/image_581.bin"
+Opening binary file "data_val1000_fp32_relu/image_581_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_582.bin"
+Opening binary file "data_val1000_fp32_relu/image_582_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_583.bin"
+Opening binary file "data_val1000_fp32_relu/image_583_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_584.bin"
+Opening binary file "data_val1000_fp32_relu/image_584_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_585.bin"
+Opening binary file "data_val1000_fp32_relu/image_585_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_586.bin"
+Opening binary file "data_val1000_fp32_relu/image_586_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_587.bin"
+Opening binary file "data_val1000_fp32_relu/image_587_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_588.bin"
+Opening binary file "data_val1000_fp32_relu/image_588_data/layer_11_output.bin"
+Comparing images (max error): True (0.000222)
+Opening binary file "data_val1000_fp32_relu/image_589.bin"
+Opening binary file "data_val1000_fp32_relu/image_589_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_590.bin"
+Opening binary file "data_val1000_fp32_relu/image_590_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_591.bin"
+Opening binary file "data_val1000_fp32_relu/image_591_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_592.bin"
+Opening binary file "data_val1000_fp32_relu/image_592_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_593.bin"
+Opening binary file "data_val1000_fp32_relu/image_593_data/layer_11_output.bin"
+Comparing images (max error): True (0.000018)
+Opening binary file "data_val1000_fp32_relu/image_594.bin"
+Opening binary file "data_val1000_fp32_relu/image_594_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_595.bin"
+Opening binary file "data_val1000_fp32_relu/image_595_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_596.bin"
+Opening binary file "data_val1000_fp32_relu/image_596_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_597.bin"
+Opening binary file "data_val1000_fp32_relu/image_597_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_598.bin"
+Opening binary file "data_val1000_fp32_relu/image_598_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_599.bin"
+Opening binary file "data_val1000_fp32_relu/image_599_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_600.bin"
+Opening binary file "data_val1000_fp32_relu/image_600_data/layer_11_output.bin"
+Comparing images (max error): False (0.001831)
+Opening binary file "data_val1000_fp32_relu/image_601.bin"
+Opening binary file "data_val1000_fp32_relu/image_601_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_602.bin"
+Opening binary file "data_val1000_fp32_relu/image_602_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_603.bin"
+Opening binary file "data_val1000_fp32_relu/image_603_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_604.bin"
+Opening binary file "data_val1000_fp32_relu/image_604_data/layer_11_output.bin"
+Comparing images (max error): False (0.005854)
+Opening binary file "data_val1000_fp32_relu/image_605.bin"
+Opening binary file "data_val1000_fp32_relu/image_605_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_606.bin"
+Opening binary file "data_val1000_fp32_relu/image_606_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_607.bin"
+Opening binary file "data_val1000_fp32_relu/image_607_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_608.bin"
+Opening binary file "data_val1000_fp32_relu/image_608_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_609.bin"
+Opening binary file "data_val1000_fp32_relu/image_609_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_610.bin"
+Opening binary file "data_val1000_fp32_relu/image_610_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_611.bin"
+Opening binary file "data_val1000_fp32_relu/image_611_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_612.bin"
+Opening binary file "data_val1000_fp32_relu/image_612_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_613.bin"
+Opening binary file "data_val1000_fp32_relu/image_613_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_614.bin"
+Opening binary file "data_val1000_fp32_relu/image_614_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_615.bin"
+Opening binary file "data_val1000_fp32_relu/image_615_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_616.bin"
+Opening binary file "data_val1000_fp32_relu/image_616_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_617.bin"
+Opening binary file "data_val1000_fp32_relu/image_617_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_618.bin"
+Opening binary file "data_val1000_fp32_relu/image_618_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_619.bin"
+Opening binary file "data_val1000_fp32_relu/image_619_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_620.bin"
+Opening binary file "data_val1000_fp32_relu/image_620_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_621.bin"
+Opening binary file "data_val1000_fp32_relu/image_621_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_622.bin"
+Opening binary file "data_val1000_fp32_relu/image_622_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_623.bin"
+Opening binary file "data_val1000_fp32_relu/image_623_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_624.bin"
+Opening binary file "data_val1000_fp32_relu/image_624_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_625.bin"
+Opening binary file "data_val1000_fp32_relu/image_625_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_626.bin"
+Opening binary file "data_val1000_fp32_relu/image_626_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_627.bin"
+Opening binary file "data_val1000_fp32_relu/image_627_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_628.bin"
+Opening binary file "data_val1000_fp32_relu/image_628_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_629.bin"
+Opening binary file "data_val1000_fp32_relu/image_629_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_630.bin"
+Opening binary file "data_val1000_fp32_relu/image_630_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_631.bin"
+Opening binary file "data_val1000_fp32_relu/image_631_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_632.bin"
+Opening binary file "data_val1000_fp32_relu/image_632_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_633.bin"
+Opening binary file "data_val1000_fp32_relu/image_633_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_634.bin"
+Opening binary file "data_val1000_fp32_relu/image_634_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_635.bin"
+Opening binary file "data_val1000_fp32_relu/image_635_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_636.bin"
+Opening binary file "data_val1000_fp32_relu/image_636_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_637.bin"
+Opening binary file "data_val1000_fp32_relu/image_637_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_638.bin"
+Opening binary file "data_val1000_fp32_relu/image_638_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_639.bin"
+Opening binary file "data_val1000_fp32_relu/image_639_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_640.bin"
+Opening binary file "data_val1000_fp32_relu/image_640_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_641.bin"
+Opening binary file "data_val1000_fp32_relu/image_641_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_642.bin"
+Opening binary file "data_val1000_fp32_relu/image_642_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_643.bin"
+Opening binary file "data_val1000_fp32_relu/image_643_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_644.bin"
+Opening binary file "data_val1000_fp32_relu/image_644_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_645.bin"
+Opening binary file "data_val1000_fp32_relu/image_645_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_646.bin"
+Opening binary file "data_val1000_fp32_relu/image_646_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_647.bin"
+Opening binary file "data_val1000_fp32_relu/image_647_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_648.bin"
+Opening binary file "data_val1000_fp32_relu/image_648_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_649.bin"
+Opening binary file "data_val1000_fp32_relu/image_649_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_650.bin"
+Opening binary file "data_val1000_fp32_relu/image_650_data/layer_11_output.bin"
+Comparing images (max error): True (0.000008)
+Opening binary file "data_val1000_fp32_relu/image_651.bin"
+Opening binary file "data_val1000_fp32_relu/image_651_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_652.bin"
+Opening binary file "data_val1000_fp32_relu/image_652_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_653.bin"
+Opening binary file "data_val1000_fp32_relu/image_653_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_654.bin"
+Opening binary file "data_val1000_fp32_relu/image_654_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_655.bin"
+Opening binary file "data_val1000_fp32_relu/image_655_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_656.bin"
+Opening binary file "data_val1000_fp32_relu/image_656_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_657.bin"
+Opening binary file "data_val1000_fp32_relu/image_657_data/layer_11_output.bin"
+Comparing images (max error): True (0.000011)
+Opening binary file "data_val1000_fp32_relu/image_658.bin"
+Opening binary file "data_val1000_fp32_relu/image_658_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_659.bin"
+Opening binary file "data_val1000_fp32_relu/image_659_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_660.bin"
+Opening binary file "data_val1000_fp32_relu/image_660_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_661.bin"
+Opening binary file "data_val1000_fp32_relu/image_661_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_662.bin"
+Opening binary file "data_val1000_fp32_relu/image_662_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_663.bin"
+Opening binary file "data_val1000_fp32_relu/image_663_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_664.bin"
+Opening binary file "data_val1000_fp32_relu/image_664_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_665.bin"
+Opening binary file "data_val1000_fp32_relu/image_665_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_666.bin"
+Opening binary file "data_val1000_fp32_relu/image_666_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_667.bin"
+Opening binary file "data_val1000_fp32_relu/image_667_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_668.bin"
+Opening binary file "data_val1000_fp32_relu/image_668_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_669.bin"
+Opening binary file "data_val1000_fp32_relu/image_669_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_670.bin"
+Opening binary file "data_val1000_fp32_relu/image_670_data/layer_11_output.bin"
+Comparing images (max error): True (0.000427)
+Opening binary file "data_val1000_fp32_relu/image_671.bin"
+Opening binary file "data_val1000_fp32_relu/image_671_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_672.bin"
+Opening binary file "data_val1000_fp32_relu/image_672_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_673.bin"
+Opening binary file "data_val1000_fp32_relu/image_673_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_674.bin"
+Opening binary file "data_val1000_fp32_relu/image_674_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_675.bin"
+Opening binary file "data_val1000_fp32_relu/image_675_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_676.bin"
+Opening binary file "data_val1000_fp32_relu/image_676_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_677.bin"
+Opening binary file "data_val1000_fp32_relu/image_677_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_678.bin"
+Opening binary file "data_val1000_fp32_relu/image_678_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_679.bin"
+Opening binary file "data_val1000_fp32_relu/image_679_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_680.bin"
+Opening binary file "data_val1000_fp32_relu/image_680_data/layer_11_output.bin"
+Comparing images (max error): True (0.000006)
+Opening binary file "data_val1000_fp32_relu/image_681.bin"
+Opening binary file "data_val1000_fp32_relu/image_681_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_682.bin"
+Opening binary file "data_val1000_fp32_relu/image_682_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_683.bin"
+Opening binary file "data_val1000_fp32_relu/image_683_data/layer_11_output.bin"
+Comparing images (max error): True (0.000137)
+Opening binary file "data_val1000_fp32_relu/image_684.bin"
+Opening binary file "data_val1000_fp32_relu/image_684_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_685.bin"
+Opening binary file "data_val1000_fp32_relu/image_685_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_686.bin"
+Opening binary file "data_val1000_fp32_relu/image_686_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_687.bin"
+Opening binary file "data_val1000_fp32_relu/image_687_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_688.bin"
+Opening binary file "data_val1000_fp32_relu/image_688_data/layer_11_output.bin"
+Comparing images (max error): True (0.000050)
+Opening binary file "data_val1000_fp32_relu/image_689.bin"
+Opening binary file "data_val1000_fp32_relu/image_689_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_690.bin"
+Opening binary file "data_val1000_fp32_relu/image_690_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_691.bin"
+Opening binary file "data_val1000_fp32_relu/image_691_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_692.bin"
+Opening binary file "data_val1000_fp32_relu/image_692_data/layer_11_output.bin"
+Comparing images (max error): True (0.000075)
+Opening binary file "data_val1000_fp32_relu/image_693.bin"
+Opening binary file "data_val1000_fp32_relu/image_693_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_694.bin"
+Opening binary file "data_val1000_fp32_relu/image_694_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_695.bin"
+Opening binary file "data_val1000_fp32_relu/image_695_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_696.bin"
+Opening binary file "data_val1000_fp32_relu/image_696_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_697.bin"
+Opening binary file "data_val1000_fp32_relu/image_697_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_698.bin"
+Opening binary file "data_val1000_fp32_relu/image_698_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_699.bin"
+Opening binary file "data_val1000_fp32_relu/image_699_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_700.bin"
+Opening binary file "data_val1000_fp32_relu/image_700_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_701.bin"
+Opening binary file "data_val1000_fp32_relu/image_701_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_702.bin"
+Opening binary file "data_val1000_fp32_relu/image_702_data/layer_11_output.bin"
+Comparing images (max error): True (0.000178)
+Opening binary file "data_val1000_fp32_relu/image_703.bin"
+Opening binary file "data_val1000_fp32_relu/image_703_data/layer_11_output.bin"
+Comparing images (max error): True (0.000014)
+Opening binary file "data_val1000_fp32_relu/image_704.bin"
+Opening binary file "data_val1000_fp32_relu/image_704_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_705.bin"
+Opening binary file "data_val1000_fp32_relu/image_705_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_706.bin"
+Opening binary file "data_val1000_fp32_relu/image_706_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_707.bin"
+Opening binary file "data_val1000_fp32_relu/image_707_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_708.bin"
+Opening binary file "data_val1000_fp32_relu/image_708_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_709.bin"
+Opening binary file "data_val1000_fp32_relu/image_709_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_710.bin"
+Opening binary file "data_val1000_fp32_relu/image_710_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_711.bin"
+Opening binary file "data_val1000_fp32_relu/image_711_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_712.bin"
+Opening binary file "data_val1000_fp32_relu/image_712_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_713.bin"
+Opening binary file "data_val1000_fp32_relu/image_713_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_714.bin"
+Opening binary file "data_val1000_fp32_relu/image_714_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_715.bin"
+Opening binary file "data_val1000_fp32_relu/image_715_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_716.bin"
+Opening binary file "data_val1000_fp32_relu/image_716_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_717.bin"
+Opening binary file "data_val1000_fp32_relu/image_717_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_718.bin"
+Opening binary file "data_val1000_fp32_relu/image_718_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_719.bin"
+Opening binary file "data_val1000_fp32_relu/image_719_data/layer_11_output.bin"
+Comparing images (max error): False (0.001545)
+Opening binary file "data_val1000_fp32_relu/image_720.bin"
+Opening binary file "data_val1000_fp32_relu/image_720_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_721.bin"
+Opening binary file "data_val1000_fp32_relu/image_721_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_722.bin"
+Opening binary file "data_val1000_fp32_relu/image_722_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_723.bin"
+Opening binary file "data_val1000_fp32_relu/image_723_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_724.bin"
+Opening binary file "data_val1000_fp32_relu/image_724_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_725.bin"
+Opening binary file "data_val1000_fp32_relu/image_725_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_726.bin"
+Opening binary file "data_val1000_fp32_relu/image_726_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_727.bin"
+Opening binary file "data_val1000_fp32_relu/image_727_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_728.bin"
+Opening binary file "data_val1000_fp32_relu/image_728_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_729.bin"
+Opening binary file "data_val1000_fp32_relu/image_729_data/layer_11_output.bin"
+Comparing images (max error): False (0.001175)
+Opening binary file "data_val1000_fp32_relu/image_730.bin"
+Opening binary file "data_val1000_fp32_relu/image_730_data/layer_11_output.bin"
+Comparing images (max error): True (0.000085)
+Opening binary file "data_val1000_fp32_relu/image_731.bin"
+Opening binary file "data_val1000_fp32_relu/image_731_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_732.bin"
+Opening binary file "data_val1000_fp32_relu/image_732_data/layer_11_output.bin"
+Comparing images (max error): True (0.000258)
+Opening binary file "data_val1000_fp32_relu/image_733.bin"
+Opening binary file "data_val1000_fp32_relu/image_733_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_734.bin"
+Opening binary file "data_val1000_fp32_relu/image_734_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_735.bin"
+Opening binary file "data_val1000_fp32_relu/image_735_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_736.bin"
+Opening binary file "data_val1000_fp32_relu/image_736_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_737.bin"
+Opening binary file "data_val1000_fp32_relu/image_737_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_738.bin"
+Opening binary file "data_val1000_fp32_relu/image_738_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_739.bin"
+Opening binary file "data_val1000_fp32_relu/image_739_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_740.bin"
+Opening binary file "data_val1000_fp32_relu/image_740_data/layer_11_output.bin"
+Comparing images (max error): True (0.000096)
+Opening binary file "data_val1000_fp32_relu/image_741.bin"
+Opening binary file "data_val1000_fp32_relu/image_741_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_742.bin"
+Opening binary file "data_val1000_fp32_relu/image_742_data/layer_11_output.bin"
+Comparing images (max error): True (0.000088)
+Opening binary file "data_val1000_fp32_relu/image_743.bin"
+Opening binary file "data_val1000_fp32_relu/image_743_data/layer_11_output.bin"
+Comparing images (max error): True (0.000121)
+Opening binary file "data_val1000_fp32_relu/image_744.bin"
+Opening binary file "data_val1000_fp32_relu/image_744_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_745.bin"
+Opening binary file "data_val1000_fp32_relu/image_745_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_746.bin"
+Opening binary file "data_val1000_fp32_relu/image_746_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_747.bin"
+Opening binary file "data_val1000_fp32_relu/image_747_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_748.bin"
+Opening binary file "data_val1000_fp32_relu/image_748_data/layer_11_output.bin"
+Comparing images (max error): True (0.000061)
+Opening binary file "data_val1000_fp32_relu/image_749.bin"
+Opening binary file "data_val1000_fp32_relu/image_749_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_750.bin"
+Opening binary file "data_val1000_fp32_relu/image_750_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_751.bin"
+Opening binary file "data_val1000_fp32_relu/image_751_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_752.bin"
+Opening binary file "data_val1000_fp32_relu/image_752_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_753.bin"
+Opening binary file "data_val1000_fp32_relu/image_753_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_754.bin"
+Opening binary file "data_val1000_fp32_relu/image_754_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_755.bin"
+Opening binary file "data_val1000_fp32_relu/image_755_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_756.bin"
+Opening binary file "data_val1000_fp32_relu/image_756_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_757.bin"
+Opening binary file "data_val1000_fp32_relu/image_757_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_758.bin"
+Opening binary file "data_val1000_fp32_relu/image_758_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_759.bin"
+Opening binary file "data_val1000_fp32_relu/image_759_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_760.bin"
+Opening binary file "data_val1000_fp32_relu/image_760_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_761.bin"
+Opening binary file "data_val1000_fp32_relu/image_761_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_762.bin"
+Opening binary file "data_val1000_fp32_relu/image_762_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_763.bin"
+Opening binary file "data_val1000_fp32_relu/image_763_data/layer_11_output.bin"
+Comparing images (max error): False (0.001874)
+Opening binary file "data_val1000_fp32_relu/image_764.bin"
+Opening binary file "data_val1000_fp32_relu/image_764_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_765.bin"
+Opening binary file "data_val1000_fp32_relu/image_765_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_766.bin"
+Opening binary file "data_val1000_fp32_relu/image_766_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_767.bin"
+Opening binary file "data_val1000_fp32_relu/image_767_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_768.bin"
+Opening binary file "data_val1000_fp32_relu/image_768_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_769.bin"
+Opening binary file "data_val1000_fp32_relu/image_769_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_770.bin"
+Opening binary file "data_val1000_fp32_relu/image_770_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_771.bin"
+Opening binary file "data_val1000_fp32_relu/image_771_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_772.bin"
+Opening binary file "data_val1000_fp32_relu/image_772_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_773.bin"
+Opening binary file "data_val1000_fp32_relu/image_773_data/layer_11_output.bin"
+Comparing images (max error): True (0.000002)
+Opening binary file "data_val1000_fp32_relu/image_774.bin"
+Opening binary file "data_val1000_fp32_relu/image_774_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_775.bin"
+Opening binary file "data_val1000_fp32_relu/image_775_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_776.bin"
+Opening binary file "data_val1000_fp32_relu/image_776_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_777.bin"
+Opening binary file "data_val1000_fp32_relu/image_777_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_778.bin"
+Opening binary file "data_val1000_fp32_relu/image_778_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_779.bin"
+Opening binary file "data_val1000_fp32_relu/image_779_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_780.bin"
+Opening binary file "data_val1000_fp32_relu/image_780_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_781.bin"
+Opening binary file "data_val1000_fp32_relu/image_781_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_782.bin"
+Opening binary file "data_val1000_fp32_relu/image_782_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_783.bin"
+Opening binary file "data_val1000_fp32_relu/image_783_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_784.bin"
+Opening binary file "data_val1000_fp32_relu/image_784_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_785.bin"
+Opening binary file "data_val1000_fp32_relu/image_785_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_786.bin"
+Opening binary file "data_val1000_fp32_relu/image_786_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_787.bin"
+Opening binary file "data_val1000_fp32_relu/image_787_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_788.bin"
+Opening binary file "data_val1000_fp32_relu/image_788_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_789.bin"
+Opening binary file "data_val1000_fp32_relu/image_789_data/layer_11_output.bin"
+Comparing images (max error): True (0.000004)
+Opening binary file "data_val1000_fp32_relu/image_790.bin"
+Opening binary file "data_val1000_fp32_relu/image_790_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_791.bin"
+Opening binary file "data_val1000_fp32_relu/image_791_data/layer_11_output.bin"
+Comparing images (max error): True (0.000005)
+Opening binary file "data_val1000_fp32_relu/image_792.bin"
+Opening binary file "data_val1000_fp32_relu/image_792_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_793.bin"
+Opening binary file "data_val1000_fp32_relu/image_793_data/layer_11_output.bin"
+Comparing images (max error): True (0.000956)
+Opening binary file "data_val1000_fp32_relu/image_794.bin"
+Opening binary file "data_val1000_fp32_relu/image_794_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_795.bin"
+Opening binary file "data_val1000_fp32_relu/image_795_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_796.bin"
+Opening binary file "data_val1000_fp32_relu/image_796_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_797.bin"
+Opening binary file "data_val1000_fp32_relu/image_797_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_798.bin"
+Opening binary file "data_val1000_fp32_relu/image_798_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_799.bin"
+Opening binary file "data_val1000_fp32_relu/image_799_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_800.bin"
+Opening binary file "data_val1000_fp32_relu/image_800_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_801.bin"
+Opening binary file "data_val1000_fp32_relu/image_801_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_802.bin"
+Opening binary file "data_val1000_fp32_relu/image_802_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_803.bin"
+Opening binary file "data_val1000_fp32_relu/image_803_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_804.bin"
+Opening binary file "data_val1000_fp32_relu/image_804_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_805.bin"
+Opening binary file "data_val1000_fp32_relu/image_805_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_806.bin"
+Opening binary file "data_val1000_fp32_relu/image_806_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_807.bin"
+Opening binary file "data_val1000_fp32_relu/image_807_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_808.bin"
+Opening binary file "data_val1000_fp32_relu/image_808_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_809.bin"
+Opening binary file "data_val1000_fp32_relu/image_809_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_810.bin"
+Opening binary file "data_val1000_fp32_relu/image_810_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_811.bin"
+Opening binary file "data_val1000_fp32_relu/image_811_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_812.bin"
+Opening binary file "data_val1000_fp32_relu/image_812_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_813.bin"
+Opening binary file "data_val1000_fp32_relu/image_813_data/layer_11_output.bin"
+Comparing images (max error): True (0.000874)
+Opening binary file "data_val1000_fp32_relu/image_814.bin"
+Opening binary file "data_val1000_fp32_relu/image_814_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_815.bin"
+Opening binary file "data_val1000_fp32_relu/image_815_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_816.bin"
+Opening binary file "data_val1000_fp32_relu/image_816_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_817.bin"
+Opening binary file "data_val1000_fp32_relu/image_817_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_818.bin"
+Opening binary file "data_val1000_fp32_relu/image_818_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_819.bin"
+Opening binary file "data_val1000_fp32_relu/image_819_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_820.bin"
+Opening binary file "data_val1000_fp32_relu/image_820_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_821.bin"
+Opening binary file "data_val1000_fp32_relu/image_821_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_822.bin"
+Opening binary file "data_val1000_fp32_relu/image_822_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_823.bin"
+Opening binary file "data_val1000_fp32_relu/image_823_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_824.bin"
+Opening binary file "data_val1000_fp32_relu/image_824_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_825.bin"
+Opening binary file "data_val1000_fp32_relu/image_825_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_826.bin"
+Opening binary file "data_val1000_fp32_relu/image_826_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_827.bin"
+Opening binary file "data_val1000_fp32_relu/image_827_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_828.bin"
+Opening binary file "data_val1000_fp32_relu/image_828_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_829.bin"
+Opening binary file "data_val1000_fp32_relu/image_829_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_830.bin"
+Opening binary file "data_val1000_fp32_relu/image_830_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_831.bin"
+Opening binary file "data_val1000_fp32_relu/image_831_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_832.bin"
+Opening binary file "data_val1000_fp32_relu/image_832_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_833.bin"
+Opening binary file "data_val1000_fp32_relu/image_833_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_834.bin"
+Opening binary file "data_val1000_fp32_relu/image_834_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_835.bin"
+Opening binary file "data_val1000_fp32_relu/image_835_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_836.bin"
+Opening binary file "data_val1000_fp32_relu/image_836_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_837.bin"
+Opening binary file "data_val1000_fp32_relu/image_837_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_838.bin"
+Opening binary file "data_val1000_fp32_relu/image_838_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_839.bin"
+Opening binary file "data_val1000_fp32_relu/image_839_data/layer_11_output.bin"
+Comparing images (max error): True (0.000007)
+Opening binary file "data_val1000_fp32_relu/image_840.bin"
+Opening binary file "data_val1000_fp32_relu/image_840_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_841.bin"
+Opening binary file "data_val1000_fp32_relu/image_841_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_842.bin"
+Opening binary file "data_val1000_fp32_relu/image_842_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_843.bin"
+Opening binary file "data_val1000_fp32_relu/image_843_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_844.bin"
+Opening binary file "data_val1000_fp32_relu/image_844_data/layer_11_output.bin"
+Comparing images (max error): True (0.000117)
+Opening binary file "data_val1000_fp32_relu/image_845.bin"
+Opening binary file "data_val1000_fp32_relu/image_845_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_846.bin"
+Opening binary file "data_val1000_fp32_relu/image_846_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_847.bin"
+Opening binary file "data_val1000_fp32_relu/image_847_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_848.bin"
+Opening binary file "data_val1000_fp32_relu/image_848_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_849.bin"
+Opening binary file "data_val1000_fp32_relu/image_849_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_850.bin"
+Opening binary file "data_val1000_fp32_relu/image_850_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_851.bin"
+Opening binary file "data_val1000_fp32_relu/image_851_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_852.bin"
+Opening binary file "data_val1000_fp32_relu/image_852_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_853.bin"
+Opening binary file "data_val1000_fp32_relu/image_853_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_854.bin"
+Opening binary file "data_val1000_fp32_relu/image_854_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_855.bin"
+Opening binary file "data_val1000_fp32_relu/image_855_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_856.bin"
+Opening binary file "data_val1000_fp32_relu/image_856_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_857.bin"
+Opening binary file "data_val1000_fp32_relu/image_857_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_858.bin"
+Opening binary file "data_val1000_fp32_relu/image_858_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_859.bin"
+Opening binary file "data_val1000_fp32_relu/image_859_data/layer_11_output.bin"
+Comparing images (max error): True (0.000003)
+Opening binary file "data_val1000_fp32_relu/image_860.bin"
+Opening binary file "data_val1000_fp32_relu/image_860_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_861.bin"
+Opening binary file "data_val1000_fp32_relu/image_861_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_862.bin"
+Opening binary file "data_val1000_fp32_relu/image_862_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_863.bin"
+Opening binary file "data_val1000_fp32_relu/image_863_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_864.bin"
+Opening binary file "data_val1000_fp32_relu/image_864_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_865.bin"
+Opening binary file "data_val1000_fp32_relu/image_865_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_866.bin"
+Opening binary file "data_val1000_fp32_relu/image_866_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_867.bin"
+Opening binary file "data_val1000_fp32_relu/image_867_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_868.bin"
+Opening binary file "data_val1000_fp32_relu/image_868_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_869.bin"
+Opening binary file "data_val1000_fp32_relu/image_869_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_870.bin"
+Opening binary file "data_val1000_fp32_relu/image_870_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_871.bin"
+Opening binary file "data_val1000_fp32_relu/image_871_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_872.bin"
+Opening binary file "data_val1000_fp32_relu/image_872_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_873.bin"
+Opening binary file "data_val1000_fp32_relu/image_873_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_874.bin"
+Opening binary file "data_val1000_fp32_relu/image_874_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_875.bin"
+Opening binary file "data_val1000_fp32_relu/image_875_data/layer_11_output.bin"
+Comparing images (max error): True (0.000041)
+Opening binary file "data_val1000_fp32_relu/image_876.bin"
+Opening binary file "data_val1000_fp32_relu/image_876_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_877.bin"
+Opening binary file "data_val1000_fp32_relu/image_877_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_878.bin"
+Opening binary file "data_val1000_fp32_relu/image_878_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_879.bin"
+Opening binary file "data_val1000_fp32_relu/image_879_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_880.bin"
+Opening binary file "data_val1000_fp32_relu/image_880_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_881.bin"
+Opening binary file "data_val1000_fp32_relu/image_881_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_882.bin"
+Opening binary file "data_val1000_fp32_relu/image_882_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_883.bin"
+Opening binary file "data_val1000_fp32_relu/image_883_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_884.bin"
+Opening binary file "data_val1000_fp32_relu/image_884_data/layer_11_output.bin"
+Comparing images (max error): False (0.007124)
+Opening binary file "data_val1000_fp32_relu/image_885.bin"
+Opening binary file "data_val1000_fp32_relu/image_885_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_886.bin"
+Opening binary file "data_val1000_fp32_relu/image_886_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_887.bin"
+Opening binary file "data_val1000_fp32_relu/image_887_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_888.bin"
+Opening binary file "data_val1000_fp32_relu/image_888_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_889.bin"
+Opening binary file "data_val1000_fp32_relu/image_889_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_890.bin"
+Opening binary file "data_val1000_fp32_relu/image_890_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_891.bin"
+Opening binary file "data_val1000_fp32_relu/image_891_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_892.bin"
+Opening binary file "data_val1000_fp32_relu/image_892_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_893.bin"
+Opening binary file "data_val1000_fp32_relu/image_893_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_894.bin"
+Opening binary file "data_val1000_fp32_relu/image_894_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_895.bin"
+Opening binary file "data_val1000_fp32_relu/image_895_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_896.bin"
+Opening binary file "data_val1000_fp32_relu/image_896_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_897.bin"
+Opening binary file "data_val1000_fp32_relu/image_897_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_898.bin"
+Opening binary file "data_val1000_fp32_relu/image_898_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_899.bin"
+Opening binary file "data_val1000_fp32_relu/image_899_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_900.bin"
+Opening binary file "data_val1000_fp32_relu/image_900_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_901.bin"
+Opening binary file "data_val1000_fp32_relu/image_901_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_902.bin"
+Opening binary file "data_val1000_fp32_relu/image_902_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_903.bin"
+Opening binary file "data_val1000_fp32_relu/image_903_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_904.bin"
+Opening binary file "data_val1000_fp32_relu/image_904_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_905.bin"
+Opening binary file "data_val1000_fp32_relu/image_905_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_906.bin"
+Opening binary file "data_val1000_fp32_relu/image_906_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_907.bin"
+Opening binary file "data_val1000_fp32_relu/image_907_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_908.bin"
+Opening binary file "data_val1000_fp32_relu/image_908_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_909.bin"
+Opening binary file "data_val1000_fp32_relu/image_909_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_910.bin"
+Opening binary file "data_val1000_fp32_relu/image_910_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_911.bin"
+Opening binary file "data_val1000_fp32_relu/image_911_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_912.bin"
+Opening binary file "data_val1000_fp32_relu/image_912_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_913.bin"
+Opening binary file "data_val1000_fp32_relu/image_913_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_914.bin"
+Opening binary file "data_val1000_fp32_relu/image_914_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_915.bin"
+Opening binary file "data_val1000_fp32_relu/image_915_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_916.bin"
+Opening binary file "data_val1000_fp32_relu/image_916_data/layer_11_output.bin"
+Comparing images (max error): True (0.000260)
+Opening binary file "data_val1000_fp32_relu/image_917.bin"
+Opening binary file "data_val1000_fp32_relu/image_917_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_918.bin"
+Opening binary file "data_val1000_fp32_relu/image_918_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_919.bin"
+Opening binary file "data_val1000_fp32_relu/image_919_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_920.bin"
+Opening binary file "data_val1000_fp32_relu/image_920_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_921.bin"
+Opening binary file "data_val1000_fp32_relu/image_921_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_922.bin"
+Opening binary file "data_val1000_fp32_relu/image_922_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_923.bin"
+Opening binary file "data_val1000_fp32_relu/image_923_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_924.bin"
+Opening binary file "data_val1000_fp32_relu/image_924_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_925.bin"
+Opening binary file "data_val1000_fp32_relu/image_925_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_926.bin"
+Opening binary file "data_val1000_fp32_relu/image_926_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_927.bin"
+Opening binary file "data_val1000_fp32_relu/image_927_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_928.bin"
+Opening binary file "data_val1000_fp32_relu/image_928_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_929.bin"
+Opening binary file "data_val1000_fp32_relu/image_929_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_930.bin"
+Opening binary file "data_val1000_fp32_relu/image_930_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_931.bin"
+Opening binary file "data_val1000_fp32_relu/image_931_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_932.bin"
+Opening binary file "data_val1000_fp32_relu/image_932_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_933.bin"
+Opening binary file "data_val1000_fp32_relu/image_933_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_934.bin"
+Opening binary file "data_val1000_fp32_relu/image_934_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_935.bin"
+Opening binary file "data_val1000_fp32_relu/image_935_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_936.bin"
+Opening binary file "data_val1000_fp32_relu/image_936_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_937.bin"
+Opening binary file "data_val1000_fp32_relu/image_937_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_938.bin"
+Opening binary file "data_val1000_fp32_relu/image_938_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_939.bin"
+Opening binary file "data_val1000_fp32_relu/image_939_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_940.bin"
+Opening binary file "data_val1000_fp32_relu/image_940_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_941.bin"
+Opening binary file "data_val1000_fp32_relu/image_941_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_942.bin"
+Opening binary file "data_val1000_fp32_relu/image_942_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_943.bin"
+Opening binary file "data_val1000_fp32_relu/image_943_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_944.bin"
+Opening binary file "data_val1000_fp32_relu/image_944_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_945.bin"
+Opening binary file "data_val1000_fp32_relu/image_945_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_946.bin"
+Opening binary file "data_val1000_fp32_relu/image_946_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_947.bin"
+Opening binary file "data_val1000_fp32_relu/image_947_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_948.bin"
+Opening binary file "data_val1000_fp32_relu/image_948_data/layer_11_output.bin"
+Comparing images (max error): True (0.000581)
+Opening binary file "data_val1000_fp32_relu/image_949.bin"
+Opening binary file "data_val1000_fp32_relu/image_949_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_950.bin"
+Opening binary file "data_val1000_fp32_relu/image_950_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_951.bin"
+Opening binary file "data_val1000_fp32_relu/image_951_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_952.bin"
+Opening binary file "data_val1000_fp32_relu/image_952_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_953.bin"
+Opening binary file "data_val1000_fp32_relu/image_953_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_954.bin"
+Opening binary file "data_val1000_fp32_relu/image_954_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_955.bin"
+Opening binary file "data_val1000_fp32_relu/image_955_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_956.bin"
+Opening binary file "data_val1000_fp32_relu/image_956_data/layer_11_output.bin"
+Comparing images (max error): True (0.000750)
+Opening binary file "data_val1000_fp32_relu/image_957.bin"
+Opening binary file "data_val1000_fp32_relu/image_957_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_958.bin"
+Opening binary file "data_val1000_fp32_relu/image_958_data/layer_11_output.bin"
+Comparing images (max error): False (0.005184)
+Opening binary file "data_val1000_fp32_relu/image_959.bin"
+Opening binary file "data_val1000_fp32_relu/image_959_data/layer_11_output.bin"
+Comparing images (max error): False (0.009857)
+Opening binary file "data_val1000_fp32_relu/image_960.bin"
+Opening binary file "data_val1000_fp32_relu/image_960_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_961.bin"
+Opening binary file "data_val1000_fp32_relu/image_961_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_962.bin"
+Opening binary file "data_val1000_fp32_relu/image_962_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_963.bin"
+Opening binary file "data_val1000_fp32_relu/image_963_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_964.bin"
+Opening binary file "data_val1000_fp32_relu/image_964_data/layer_11_output.bin"
+Comparing images (max error): True (0.000009)
+Opening binary file "data_val1000_fp32_relu/image_965.bin"
+Opening binary file "data_val1000_fp32_relu/image_965_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_966.bin"
+Opening binary file "data_val1000_fp32_relu/image_966_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_967.bin"
+Opening binary file "data_val1000_fp32_relu/image_967_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_968.bin"
+Opening binary file "data_val1000_fp32_relu/image_968_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_969.bin"
+Opening binary file "data_val1000_fp32_relu/image_969_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_970.bin"
+Opening binary file "data_val1000_fp32_relu/image_970_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_971.bin"
+Opening binary file "data_val1000_fp32_relu/image_971_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_972.bin"
+Opening binary file "data_val1000_fp32_relu/image_972_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_973.bin"
+Opening binary file "data_val1000_fp32_relu/image_973_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_974.bin"
+Opening binary file "data_val1000_fp32_relu/image_974_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_975.bin"
+Opening binary file "data_val1000_fp32_relu/image_975_data/layer_11_output.bin"
+Comparing images (max error): True (0.000001)
+Opening binary file "data_val1000_fp32_relu/image_976.bin"
+Opening binary file "data_val1000_fp32_relu/image_976_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_977.bin"
+Opening binary file "data_val1000_fp32_relu/image_977_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_978.bin"
+Opening binary file "data_val1000_fp32_relu/image_978_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_979.bin"
+Opening binary file "data_val1000_fp32_relu/image_979_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_980.bin"
+Opening binary file "data_val1000_fp32_relu/image_980_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_981.bin"
+Opening binary file "data_val1000_fp32_relu/image_981_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_982.bin"
+Opening binary file "data_val1000_fp32_relu/image_982_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_983.bin"
+Opening binary file "data_val1000_fp32_relu/image_983_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_984.bin"
+Opening binary file "data_val1000_fp32_relu/image_984_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_985.bin"
+Opening binary file "data_val1000_fp32_relu/image_985_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_986.bin"
+Opening binary file "data_val1000_fp32_relu/image_986_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_987.bin"
+Opening binary file "data_val1000_fp32_relu/image_987_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_988.bin"
+Opening binary file "data_val1000_fp32_relu/image_988_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_989.bin"
+Opening binary file "data_val1000_fp32_relu/image_989_data/layer_11_output.bin"
+Comparing images (max error): True (0.000791)
+Opening binary file "data_val1000_fp32_relu/image_990.bin"
+Opening binary file "data_val1000_fp32_relu/image_990_data/layer_11_output.bin"
+Comparing images (max error): False (0.001522)
+Opening binary file "data_val1000_fp32_relu/image_991.bin"
+Opening binary file "data_val1000_fp32_relu/image_991_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_992.bin"
+Opening binary file "data_val1000_fp32_relu/image_992_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_993.bin"
+Opening binary file "data_val1000_fp32_relu/image_993_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_994.bin"
+Opening binary file "data_val1000_fp32_relu/image_994_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_995.bin"
+Opening binary file "data_val1000_fp32_relu/image_995_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_996.bin"
+Opening binary file "data_val1000_fp32_relu/image_996_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_997.bin"
+Opening binary file "data_val1000_fp32_relu/image_997_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_998.bin"
+Opening binary file "data_val1000_fp32_relu/image_998_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+Opening binary file "data_val1000_fp32_relu/image_999.bin"
+Opening binary file "data_val1000_fp32_relu/image_999_data/layer_11_output.bin"
+Comparing images (max error): True (0.000000)
+
+
+Time taken for 1 inference: 193676 microseconds
