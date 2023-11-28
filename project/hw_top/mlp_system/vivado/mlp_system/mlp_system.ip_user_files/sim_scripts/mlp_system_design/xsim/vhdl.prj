@@ -1,0 +1,16 @@
+vhdl xil_defaultlib  \
+"../../../bd/mlp_system_design/ip/mlp_system_design_input_bram_ctrl_0/sim/mlp_system_design_input_bram_ctrl_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_inter_cont_0/sim/mlp_system_design_inter_cont_0.vhd" \
+"../../../bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_M00_AXI.vhd" \
+"../../../bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd" \
+"../../../bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd" \
+"../../../bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd" \
+"../../../bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_mlp_conv_0_0/sim/mlp_system_design_mlp_conv_0_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_output_bram_ctrl_0/sim/mlp_system_design_output_bram_ctrl_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_rst_ps_100M_0/sim/mlp_system_design_rst_ps_100M_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_system_dma_0/sim/mlp_system_design_system_dma_0.vhd" \
+"../../../bd/mlp_system_design/ip/mlp_system_design_weight_bram_ctrl_0/sim/mlp_system_design_weight_bram_ctrl_0.vhd" \
+"../../../bd/mlp_system_design/sim/mlp_system_design.vhd" \
+
+nosort

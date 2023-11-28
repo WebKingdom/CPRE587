@@ -1,10 +1,10 @@
 // Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-// Date        : Sun Nov 26 23:26:31 2023
+// Date        : Sun Nov 26 23:26:29 2023
 // Host        : linuxvdi-28.ece.iastate.edu running 64-bit Red Hat Enterprise Linux release 8.8 (Ootpa)
-// Command     : write_verilog -force -mode synth_stub
-//               /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ip/mlp_system_design_auto_us_1/mlp_system_design_auto_us_1_stub.v
+// Command     : write_verilog -force -mode synth_stub -rename_top mlp_system_design_auto_us_1 -prefix
+//               mlp_system_design_auto_us_1_ mlp_system_design_auto_us_1_stub.v
 // Design      : mlp_system_design_auto_us_1
 // Purpose     : Stub declaration of top-level module interface
 // Device      : xc7z020clg484-1

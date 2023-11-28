@@ -2,10 +2,10 @@
 <Root MajorVersion="0" MinorVersion="39">
   <CompositeFile CompositeFileTopName="mlp_system_design" CanBeSetAsTop="false" CanDisplayChildGraph="true">
     <Description>Composite Fileset</Description>
-    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1701062130"/>
-    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1701062130"/>
-    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1701062130"/>
-    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1701062130"/>
+    <Generation Name="SYNTHESIS" State="GENERATED" Timestamp="1701215034"/>
+    <Generation Name="IMPLEMENTATION" State="GENERATED" Timestamp="1701215034"/>
+    <Generation Name="SIMULATION" State="GENERATED" Timestamp="1701215034"/>
+    <Generation Name="HW_HANDOFF" State="GENERATED" Timestamp="1701215034"/>
     <FileCollection Name="SOURCES" Type="SOURCES">
       <File Name="ip/mlp_system_design_input_blk_mem_0/mlp_system_design_input_blk_mem_0.xci" Type="IP">
         <Instance HierarchyPath="input_blk_mem"/>
@@ -57,6 +57,54 @@
       </File>
       <File Name="ip/mlp_system_design_xbar_0/mlp_system_design_xbar_0.xci" Type="IP">
         <Instance HierarchyPath="periph_intercon/xbar"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_periph_intercon_0/mlp_system_design_periph_intercon_0.xci" Type="IP">
+        <Instance HierarchyPath="periph_intercon"/>
+        <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_processing_system_0/mlp_system_design_processing_system_0.xci" Type="IP">
+        <Instance HierarchyPath="processing_system"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_rst_ps_100M_0/mlp_system_design_rst_ps_100M_0.xci" Type="IP">
+        <Instance HierarchyPath="rst_ps_100M"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_system_dma_0/mlp_system_design_system_dma_0.xci" Type="IP">
+        <Instance HierarchyPath="system_dma"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_weight_blk_mem_0/mlp_system_design_weight_blk_mem_0.xci" Type="IP">
+        <Instance HierarchyPath="weight_blk_mem"/>
+        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
+        <Library Name="xil_defaultlib"/>
+        <UsedIn Val="SYNTHESIS"/>
+        <UsedIn Val="IMPLEMENTATION"/>
+        <UsedIn Val="SIMULATION"/>
+      </File>
+      <File Name="ip/mlp_system_design_weight_bram_ctrl_0/mlp_system_design_weight_bram_ctrl_0.xci" Type="IP">
+        <Instance HierarchyPath="weight_bram_ctrl"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>
@@ -193,54 +241,6 @@
       </File>
       <File Name="ip/mlp_system_design_auto_pc_4/mlp_system_design_auto_pc_4.xci" Type="IP">
         <Instance HierarchyPath="periph_intercon/m08_couplers/auto_pc"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_periph_intercon_0/mlp_system_design_periph_intercon_0.xci" Type="IP">
-        <Instance HierarchyPath="periph_intercon"/>
-        <Properties IsEditable="false" IsVisible="false" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_processing_system_0/mlp_system_design_processing_system_0.xci" Type="IP">
-        <Instance HierarchyPath="processing_system"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_rst_ps_100M_0/mlp_system_design_rst_ps_100M_0.xci" Type="IP">
-        <Instance HierarchyPath="rst_ps_100M"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_system_dma_0/mlp_system_design_system_dma_0.xci" Type="IP">
-        <Instance HierarchyPath="system_dma"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_weight_blk_mem_0/mlp_system_design_weight_blk_mem_0.xci" Type="IP">
-        <Instance HierarchyPath="weight_blk_mem"/>
-        <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
-        <Library Name="xil_defaultlib"/>
-        <UsedIn Val="SYNTHESIS"/>
-        <UsedIn Val="IMPLEMENTATION"/>
-        <UsedIn Val="SIMULATION"/>
-      </File>
-      <File Name="ip/mlp_system_design_weight_bram_ctrl_0/mlp_system_design_weight_bram_ctrl_0.xci" Type="IP">
-        <Instance HierarchyPath="weight_bram_ctrl"/>
         <Properties IsEditable="false" IsVisible="true" Timestamp="0" IsTrackable="true" IsStatusTracked="true"/>
         <Library Name="xil_defaultlib"/>
         <UsedIn Val="SYNTHESIS"/>

@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Sun Nov 26 23:15:48 2023
-# Process ID: 46434
+# Start of session at: Tue Nov 28 17:44:10 2023
+# Process ID: 54294
 # Current directory: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.runs/mlp_system_design_mlp_conv_0_0_synth_1
 # Command line: vivado -log mlp_system_design_mlp_conv_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mlp_system_design_mlp_conv_0_0.tcl
 # Log file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.runs/mlp_system_design_mlp_conv_0_0_synth_1/mlp_system_design_mlp_conv_0_0.vds
@@ -20,9 +20,9 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 46540
+INFO: [Synth 8-7075] Helper process launched with PID 54539
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:15 . Memory (MB): peak = 2395.844 ; gain = 25.848 ; free physical = 388 ; free virtual = 11453
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2395.910 ; gain = 31.848 ; free physical = 2501 ; free virtual = 17004
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'mlp_system_design_mlp_conv_0_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ip/mlp_system_design_mlp_conv_0_0/synth/mlp_system_design_mlp_conv_0_0.vhd:188]
 	Parameter C_S_AXI_INTR_DATA_WIDTH bound to: 32 - type: integer 
@@ -52,8 +52,8 @@ INFO: [Synth 8-638] synthesizing module 'mlp_system_design_mlp_conv_0_0' [/home/
 	Parameter C_M00_AXI_BUSER_WIDTH bound to: 1 - type: integer 
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S00_AXI_ADDR_WIDTH bound to: 7 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:5' bound to instance 'U0' of component 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ip/mlp_system_design_mlp_conv_0_0/synth/mlp_system_design_mlp_conv_0_0.vhd:511]
-INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:201]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:5' bound to instance 'U0' of component 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ip/mlp_system_design_mlp_conv_0_0/synth/mlp_system_design_mlp_conv_0_0.vhd:511]
+INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:201]
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S00_AXI_ADDR_WIDTH bound to: 7 - type: integer 
 	Parameter C_M00_AXI_TARGET_SLAVE_BASE_ADDR bound to: 1073741824 - type: integer 
@@ -81,24 +81,24 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0' [/home/sszabo/github/CPR
 	Parameter C_INTR_ACTIVE_STATE bound to: -1 - type: integer 
 	Parameter C_IRQ_SENSITIVITY bound to: 1 - type: integer 
 	Parameter C_IRQ_ACTIVE_STATE bound to: 1 - type: integer 
-WARNING: [Synth 8-506] null port 's01_axi_awid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:130]
-WARNING: [Synth 8-506] null port 's01_axi_awuser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:140]
-WARNING: [Synth 8-506] null port 's01_axi_wuser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:146]
-WARNING: [Synth 8-506] null port 's01_axi_bid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:149]
-WARNING: [Synth 8-506] null port 's01_axi_buser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:151]
-WARNING: [Synth 8-506] null port 's01_axi_arid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:154]
-WARNING: [Synth 8-506] null port 's01_axi_aruser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:164]
-WARNING: [Synth 8-506] null port 's01_axi_rid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:167]
-WARNING: [Synth 8-506] null port 's01_axi_ruser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:171]
+WARNING: [Synth 8-506] null port 's01_axi_awid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:130]
+WARNING: [Synth 8-506] null port 's01_axi_awuser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:140]
+WARNING: [Synth 8-506] null port 's01_axi_wuser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:146]
+WARNING: [Synth 8-506] null port 's01_axi_bid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:149]
+WARNING: [Synth 8-506] null port 's01_axi_buser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:151]
+WARNING: [Synth 8-506] null port 's01_axi_arid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:154]
+WARNING: [Synth 8-506] null port 's01_axi_aruser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:164]
+WARNING: [Synth 8-506] null port 's01_axi_rid' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:167]
+WARNING: [Synth 8-506] null port 's01_axi_ruser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:171]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S00_AXI_inst' of component 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:398]
-INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S00_AXI.vhd:86]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S00_AXI_inst' of component 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:398]
+INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd:86]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
-INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S00_AXI.vhd:280]
-INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S00_AXI.vhd:662]
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S00_AXI' (1#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S00_AXI.vhd:86]
+INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd:280]
+INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd:662]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S00_AXI' (1#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S00_AXI.vhd:86]
 	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 1073741824 - type: integer 
 	Parameter C_M_AXI_BURST_LEN bound to: 16 - type: integer 
 	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
@@ -109,8 +109,8 @@ INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S00_AXI' (1#1) [/hom
 	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
 	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
 	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_M00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_M00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_M00_AXI_inst' of component 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:428]
-INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_M00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_M00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_M00_AXI_inst' of component 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:428]
+INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
 	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 1073741824 - type: integer 
 	Parameter C_M_AXI_BURST_LEN bound to: 16 - type: integer 
 	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
@@ -121,8 +121,8 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/gi
 	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
 	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
 	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
-INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_M00_AXI.vhd:740]
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_M00_AXI' (2#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
+INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_M00_AXI.vhd:740]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_M00_AXI' (2#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
 	Parameter C_S_AXI_ID_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 10 - type: integer 
@@ -131,17 +131,17 @@ INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_M00_AXI' (2#1) [/hom
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:312]
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:322]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:328]
-WARNING: [Synth 8-506] null port 'S_AXI_BID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:331]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:333]
-WARNING: [Synth 8-506] null port 'S_AXI_ARID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:336]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:346]
-WARNING: [Synth 8-506] null port 'S_AXI_RID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:349]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:353]
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S01_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S01_AXI_inst' of component 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:492]
-INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
+WARNING: [Synth 8-506] null port 'S_AXI_AWID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:312]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:322]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:328]
+WARNING: [Synth 8-506] null port 'S_AXI_BID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:331]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:333]
+WARNING: [Synth 8-506] null port 'S_AXI_ARID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:336]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:346]
+WARNING: [Synth 8-506] null port 'S_AXI_RID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:349]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:353]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S01_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S01_AXI_inst' of component 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:492]
+INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
 	Parameter C_S_AXI_ID_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 10 - type: integer 
@@ -150,27 +150,27 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/gi
 	Parameter C_S_AXI_WUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_RUSER_WIDTH bound to: 0 - type: integer 
 	Parameter C_S_AXI_BUSER_WIDTH bound to: 0 - type: integer 
-WARNING: [Synth 8-506] null port 'S_AXI_AWID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:40]
-WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:67]
-WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:86]
-WARNING: [Synth 8-506] null port 'S_AXI_BID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:95]
-WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:100]
-WARNING: [Synth 8-506] null port 'S_AXI_ARID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:109]
-WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:137]
-WARNING: [Synth 8-506] null port 'S_AXI_RID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:148]
-WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:158]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:175]
-WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:182]
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S01_AXI' (3#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:506]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:516]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:522]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:525]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:527]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:530]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:540]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:543]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:547]
+WARNING: [Synth 8-506] null port 'S_AXI_AWID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:40]
+WARNING: [Synth 8-506] null port 'S_AXI_AWUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:67]
+WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:86]
+WARNING: [Synth 8-506] null port 'S_AXI_BID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:95]
+WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:100]
+WARNING: [Synth 8-506] null port 'S_AXI_ARID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:109]
+WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:137]
+WARNING: [Synth 8-506] null port 'S_AXI_RID' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:148]
+WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:158]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:175]
+WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:182]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S01_AXI' (3#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:506]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:516]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:522]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:525]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:527]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:530]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:540]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:543]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:547]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
 	Parameter C_NUM_OF_INTR bound to: 1 - type: integer 
@@ -178,8 +178,8 @@ WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/
 	Parameter C_INTR_ACTIVE_STATE bound to: -1 - type: integer 
 	Parameter C_IRQ_SENSITIVITY bound to: 1 - type: integer 
 	Parameter C_IRQ_ACTIVE_STATE bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S_AXI_INTR' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:5' bound to instance 'mlp_conv_v1_0_S_AXI_INTR_inst' of component 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:553]
-INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S_AXI_INTR' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:5' bound to instance 'mlp_conv_v1_0_S_AXI_INTR_inst' of component 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:553]
+INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
 	Parameter C_NUM_OF_INTR bound to: 1 - type: integer 
@@ -187,48 +187,48 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo
 	Parameter C_INTR_ACTIVE_STATE bound to: -1 - type: integer 
 	Parameter C_IRQ_SENSITIVITY bound to: 1 - type: integer 
 	Parameter C_IRQ_ACTIVE_STATE bound to: 1 - type: integer 
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' (4#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0' (5#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/b0f6/hdl/mlp_conv_v1_0.vhd:201]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' (4#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0' (5#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ipshared/3b57/hdl/mlp_conv_v1_0.vhd:201]
 INFO: [Synth 8-256] done synthesizing module 'mlp_system_design_mlp_conv_0_0' (6#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.srcs/sources_1/bd/mlp_system_design/ip/mlp_system_design_mlp_conv_0_0/synth/mlp_system_design_mlp_conv_0_0.vhd:188]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:19 . Memory (MB): peak = 2485.750 ; gain = 115.754 ; free physical = 3209 ; free virtual = 14277
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2485.816 ; gain = 121.754 ; free physical = 2545 ; free virtual = 17050
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:21 . Memory (MB): peak = 2491.688 ; gain = 121.691 ; free physical = 3068 ; free virtual = 14150
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 2491.754 ; gain = 127.691 ; free physical = 2555 ; free virtual = 17059
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:21 . Memory (MB): peak = 2491.688 ; gain = 121.691 ; free physical = 3068 ; free virtual = 14150
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 2491.754 ; gain = 127.691 ; free physical = 2555 ; free virtual = 17059
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.10 . Memory (MB): peak = 2491.688 ; gain = 0.000 ; free physical = 3039 ; free virtual = 14120
+Netlist sorting complete. Time (s): cpu = 00:00:00.09 ; elapsed = 00:00:00.09 . Memory (MB): peak = 2491.754 ; gain = 0.000 ; free physical = 2545 ; free virtual = 17049
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2606.516 ; gain = 0.000 ; free physical = 2897 ; free virtual = 13980
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2611.520 ; gain = 0.000 ; free physical = 2442 ; free virtual = 16959
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.23 . Memory (MB): peak = 2606.516 ; gain = 0.000 ; free physical = 2891 ; free virtual = 13974
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.10 ; elapsed = 00:00:00.08 . Memory (MB): peak = 2611.520 ; gain = 0.000 ; free physical = 2438 ; free virtual = 16956
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:31 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3039 ; free virtual = 14125
+Finished Constraint Validation : Time (s): cpu = 00:00:13 ; elapsed = 00:00:18 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2526 ; free virtual = 17043
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:31 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3039 ; free virtual = 14125
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:13 ; elapsed = 00:00:18 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2526 ; free virtual = 17043
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:31 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3039 ; free virtual = 14125
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:13 ; elapsed = 00:00:18 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2526 ; free virtual = 17043
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'mlp_conv_v1_0_M00_AXI'
 ---------------------------------------------------------------------------------------------------
@@ -241,7 +241,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in modu
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'mlp_conv_v1_0_M00_AXI'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:33 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3093 ; free virtual = 14189
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:14 ; elapsed = 00:00:19 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2518 ; free virtual = 17036
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -293,7 +293,7 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:20 ; elapsed = 00:00:41 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 2870 ; free virtual = 13981
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:19 ; elapsed = 00:00:25 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2483 ; free virtual = 17007
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -317,13 +317,13 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:26 ; elapsed = 00:00:51 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 2517 ; free virtual = 13634
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2354 ; free virtual = 16885
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:26 ; elapsed = 00:00:51 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 2516 ; free virtual = 13633
+Finished Timing Optimization : Time (s): cpu = 00:00:25 ; elapsed = 00:00:32 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2353 ; free virtual = 16885
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -350,7 +350,7 @@ INFO: [Synth 8-7052] The timing for the instance U0/mlp_conv_v1_0_S01_AXI_inst/B
 INFO: [Synth 8-7052] The timing for the instance U0/mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance U0/mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:27 ; elapsed = 00:00:52 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 2556 ; free virtual = 13672
+Finished Technology Mapping : Time (s): cpu = 00:00:25 ; elapsed = 00:00:33 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2355 ; free virtual = 16886
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -368,37 +368,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3049 ; free virtual = 14178
+Finished IO Insertion : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2372 ; free virtual = 16903
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3055 ; free virtual = 14185
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2372 ; free virtual = 16903
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3074 ; free virtual = 14204
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2372 ; free virtual = 16903
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3074 ; free virtual = 14204
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2372 ; free virtual = 16902
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3073 ; free virtual = 14204
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2370 ; free virtual = 16902
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3073 ; free virtual = 14204
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2370 ; free virtual = 16902
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -427,29 +427,29 @@ Report Cell Usage:
 |11    |FDSE     |    18|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.516 ; gain = 236.520 ; free physical = 3073 ; free virtual = 14204
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:29 ; elapsed = 00:00:36 . Memory (MB): peak = 2611.520 ; gain = 247.457 ; free physical = 2370 ; free virtual = 16902
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:28 ; elapsed = 00:00:54 . Memory (MB): peak = 2606.516 ; gain = 121.691 ; free physical = 3129 ; free virtual = 14260
-Synthesis Optimization Complete : Time (s): cpu = 00:00:30 ; elapsed = 00:00:57 . Memory (MB): peak = 2606.523 ; gain = 236.520 ; free physical = 3132 ; free virtual = 14263
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:27 ; elapsed = 00:00:34 . Memory (MB): peak = 2611.520 ; gain = 127.691 ; free physical = 2423 ; free virtual = 16955
+Synthesis Optimization Complete : Time (s): cpu = 00:00:29 ; elapsed = 00:00:37 . Memory (MB): peak = 2611.527 ; gain = 247.457 ; free physical = 2423 ; free virtual = 16955
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2606.523 ; gain = 0.000 ; free physical = 3199 ; free virtual = 14331
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2611.527 ; gain = 0.000 ; free physical = 2494 ; free virtual = 17029
 INFO: [Netlist 29-17] Analyzing 173 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2606.523 ; gain = 0.000 ; free physical = 3144 ; free virtual = 14276
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2611.527 ; gain = 0.000 ; free physical = 2433 ; free virtual = 16969
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
 43 Infos, 38 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:41 ; elapsed = 00:01:10 . Memory (MB): peak = 2606.523 ; gain = 240.707 ; free physical = 3281 ; free virtual = 14413
+synth_design: Time (s): cpu = 00:00:40 ; elapsed = 00:00:47 . Memory (MB): peak = 2611.527 ; gain = 251.645 ; free physical = 2489 ; free virtual = 17025
 INFO: [Common 17-1381] The checkpoint '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.runs/mlp_system_design_mlp_conv_0_0_synth_1/mlp_system_design_mlp_conv_0_0.dcp' has been generated.
 WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
-INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mlp_system_design_mlp_conv_0_0, cache-ID = 2d205e628272efe2
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP mlp_system_design_mlp_conv_0_0, cache-ID = bd0d4e3964dad543
 INFO: [Coretcl 2-1174] Renamed 5 cell refs.
 INFO: [Common 17-1381] The checkpoint '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.runs/mlp_system_design_mlp_conv_0_0_synth_1/mlp_system_design_mlp_conv_0_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file mlp_system_design_mlp_conv_0_0_utilization_synth.rpt -pb mlp_system_design_mlp_conv_0_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Sun Nov 26 23:17:25 2023...
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 28 17:45:28 2023...

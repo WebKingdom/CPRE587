@@ -1,80 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="impl_1" LaunchPart="xc7z020clg484-1" LaunchTime="1701062143">
-  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
-  <File Type="BITSTR-SYSDEF" Name="mlp_system_design_wrapper.sysdef"/>
-  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
-  <File Type="BITSTR-LTX" Name="mlp_system_design_wrapper.ltx"/>
-  <File Type="BG-BGN" Name="mlp_system_design_wrapper.bgn"/>
-  <File Type="NPI_FILE" Name="mlp_system_design_wrapper.npi"/>
-  <File Type="BG-DRC" Name="mlp_system_design_wrapper.drc"/>
-  <File Type="RNPI_FILE" Name="mlp_system_design_wrapper.rnpi"/>
   <File Type="CFI_FILE" Name="mlp_system_design_wrapper.cfi"/>
   <File Type="RCFI_FILE" Name="mlp_system_design_wrapper.rcfi"/>
   <File Type="PDI-FILE" Name="mlp_system_design_wrapper.pdi"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="mlp_system_design_wrapper_methodology_drc_routed.rpx"/>
+  <File Type="ROUTE-DRC-RPX" Name="mlp_system_design_wrapper_drc_routed.rpx"/>
+  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="mlp_system_design_wrapper_methodology_drc_routed.pb"/>
+  <File Type="ROUTE-METHODOLOGY-DRC" Name="mlp_system_design_wrapper_methodology_drc_routed.rpt"/>
+  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="mlp_system_design_wrapper_postroute_physopt_bb.dcp"/>
+  <File Type="POSTROUTE-PHYSOPT-DCP" Name="mlp_system_design_wrapper_postroute_physopt.dcp"/>
+  <File Type="PHYSOPT-DCP" Name="mlp_system_design_wrapper_physopt.dcp"/>
+  <File Type="POSTPLACE-PWROPT-DCP" Name="mlp_system_design_wrapper_postplace_pwropt.dcp"/>
+  <File Type="PWROPT-DCP" Name="mlp_system_design_wrapper_pwropt.dcp"/>
+  <File Type="PLACE-DCP" Name="mlp_system_design_wrapper_placed.dcp"/>
+  <File Type="OPT-DCP" Name="mlp_system_design_wrapper_opt.dcp"/>
+  <File Type="ROUTE-BUS-SKEW" Name="mlp_system_design_wrapper_bus_skew_routed.rpt"/>
+  <File Type="ROUTE-CLK" Name="mlp_system_design_wrapper_clock_utilization_routed.rpt"/>
+  <File Type="ROUTE-TIMING-RPX" Name="mlp_system_design_wrapper_timing_summary_routed.rpx"/>
+  <File Type="BITSTR-LTX" Name="debug_nets.ltx"/>
+  <File Type="BITSTR-LTX" Name="mlp_system_design_wrapper.ltx"/>
+  <File Type="BITSTR-SYSDEF" Name="mlp_system_design_wrapper.sysdef"/>
   <File Type="BITSTR-MMI" Name="mlp_system_design_wrapper.mmi"/>
   <File Type="BITSTR-BMM" Name="mlp_system_design_wrapper_bd.bmm"/>
   <File Type="BITSTR-NKY" Name="mlp_system_design_wrapper.nky"/>
   <File Type="BITSTR-RBT" Name="mlp_system_design_wrapper.rbt"/>
-  <File Type="BITSTR-MSK" Name="mlp_system_design_wrapper.msk"/>
-  <File Type="RBD_FILE" Name="mlp_system_design_wrapper.rbd"/>
-  <File Type="BG-BIN" Name="mlp_system_design_wrapper.bin"/>
-  <File Type="BG-BIT" Name="mlp_system_design_wrapper.bit"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-RPX" Name="mlp_system_design_wrapper_bus_skew_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW-PB" Name="mlp_system_design_wrapper_bus_skew_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-BUS-SKEW" Name="mlp_system_design_wrapper_bus_skew_postroute_physopted.rpt"/>
-  <File Type="RDI-RDI" Name="mlp_system_design_wrapper.vdi"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-RPX" Name="mlp_system_design_wrapper_timing_summary_postroute_physopted.rpx"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING-PB" Name="mlp_system_design_wrapper_timing_summary_postroute_physopted.pb"/>
-  <File Type="POSTROUTE-PHYSOPT-TIMING" Name="mlp_system_design_wrapper_timing_summary_postroute_physopted.rpt"/>
-  <File Type="POSTROUTE-PHYSOPT-BLACKBOX-DCP" Name="mlp_system_design_wrapper_postroute_physopt_bb.dcp"/>
-  <File Type="POSTROUTE-PHYSOPT-DCP" Name="mlp_system_design_wrapper_postroute_physopt.dcp"/>
-  <File Type="ROUTE-BUS-SKEW" Name="mlp_system_design_wrapper_bus_skew_routed.rpt"/>
-  <File Type="ROUTE-CLK" Name="mlp_system_design_wrapper_clock_utilization_routed.rpt"/>
-  <File Type="ROUTE-SIMILARITY" Name="mlp_system_design_wrapper_incremental_reuse_routed.rpt"/>
-  <File Type="ROUTE-TIMING-RPX" Name="mlp_system_design_wrapper_timing_summary_routed.rpx"/>
-  <File Type="ROUTE-TIMING-PB" Name="mlp_system_design_wrapper_timing_summary_routed.pb"/>
-  <File Type="ROUTE-TIMINGSUMMARY" Name="mlp_system_design_wrapper_timing_summary_routed.rpt"/>
-  <File Type="ROUTE-STATUS-PB" Name="mlp_system_design_wrapper_route_status.pb"/>
-  <File Type="ROUTE-STATUS" Name="mlp_system_design_wrapper_route_status.rpt"/>
-  <File Type="ROUTE-PWR-RPX" Name="mlp_system_design_wrapper_power_routed.rpx"/>
-  <File Type="PLACE-UTIL-PB" Name="mlp_system_design_wrapper_utilization_placed.pb"/>
-  <File Type="PLACE-UTIL" Name="mlp_system_design_wrapper_utilization_placed.rpt"/>
-  <File Type="PLACE-CLK" Name="mlp_system_design_wrapper_clock_utilization_placed.rpt"/>
-  <File Type="PLACE-IO" Name="mlp_system_design_wrapper_io_placed.rpt"/>
-  <File Type="PLACE-DCP" Name="mlp_system_design_wrapper_placed.dcp"/>
-  <File Type="PWROPT-DCP" Name="mlp_system_design_wrapper_pwropt.dcp"/>
-  <File Type="OPT-TIMING" Name="mlp_system_design_wrapper_timing_summary_opted.rpt"/>
-  <File Type="PLACE-SIMILARITY" Name="mlp_system_design_wrapper_incremental_reuse_placed.rpt"/>
-  <File Type="OPT-HWDEF" Name="mlp_system_design_wrapper.hwdef"/>
   <File Type="ROUTE-BUS-SKEW-RPX" Name="mlp_system_design_wrapper_bus_skew_routed.rpx"/>
   <File Type="REPORTS-TCL" Name="mlp_system_design_wrapper_reports.tcl"/>
-  <File Type="PWROPT-DRC" Name="mlp_system_design_wrapper_drc_pwropted.rpt"/>
+  <File Type="BITSTR-MSK" Name="mlp_system_design_wrapper.msk"/>
   <File Type="ROUTE-BUS-SKEW-PB" Name="mlp_system_design_wrapper_bus_skew_routed.pb"/>
   <File Type="PA-TCL" Name="mlp_system_design_wrapper.tcl"/>
-  <File Type="INIT-TIMING" Name="mlp_system_design_wrapper_timing_summary_init.rpt"/>
-  <File Type="PLACE-CTRL" Name="mlp_system_design_wrapper_control_sets_placed.rpt"/>
-  <File Type="PWROPT-TIMING" Name="mlp_system_design_wrapper_timing_summary_pwropted.rpt"/>
-  <File Type="PLACE-PRE-SIMILARITY" Name="mlp_system_design_wrapper_incremental_reuse_pre_placed.rpt"/>
-  <File Type="OPT-DCP" Name="mlp_system_design_wrapper_opt.dcp"/>
+  <File Type="ROUTE-TIMING-PB" Name="mlp_system_design_wrapper_timing_summary_routed.pb"/>
   <File Type="OPT-DRC" Name="mlp_system_design_wrapper_drc_opted.rpt"/>
-  <File Type="OPT-METHODOLOGY-DRC" Name="mlp_system_design_wrapper_methodology_drc_opted.rpt"/>
-  <File Type="PLACE-TIMING" Name="mlp_system_design_wrapper_timing_summary_placed.rpt"/>
-  <File Type="ROUTE-DRC" Name="mlp_system_design_wrapper_drc_routed.rpt"/>
-  <File Type="POSTPLACE-PWROPT-DCP" Name="mlp_system_design_wrapper_postplace_pwropt.dcp"/>
-  <File Type="POSTPLACE-PWROPT-TIMING" Name="mlp_system_design_wrapper_timing_summary_postplace_pwropted.rpt"/>
-  <File Type="ROUTE-DRC-PB" Name="mlp_system_design_wrapper_drc_routed.pb"/>
-  <File Type="PHYSOPT-DCP" Name="mlp_system_design_wrapper_physopt.dcp"/>
-  <File Type="PHYSOPT-DRC" Name="mlp_system_design_wrapper_drc_physopted.rpt"/>
-  <File Type="PHYSOPT-TIMING" Name="mlp_system_design_wrapper_timing_summary_physopted.rpt"/>
-  <File Type="ROUTE-PWR" Name="mlp_system_design_wrapper_power_routed.rpt"/>
-  <File Type="ROUTE-ERROR-DCP" Name="mlp_system_design_wrapper_routed_error.dcp"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-RPX" Name="mlp_system_design_wrapper_methodology_drc_routed.rpx"/>
-  <File Type="ROUTE-DCP" Name="mlp_system_design_wrapper_routed.dcp"/>
-  <File Type="ROUTE-METHODOLOGY-DRC-PB" Name="mlp_system_design_wrapper_methodology_drc_routed.pb"/>
+  <File Type="RBD_FILE" Name="mlp_system_design_wrapper.rbd"/>
+  <File Type="BG-BIN" Name="mlp_system_design_wrapper.bin"/>
+  <File Type="ROUTE-TIMINGSUMMARY" Name="mlp_system_design_wrapper_timing_summary_routed.rpt"/>
+  <File Type="NPI_FILE" Name="mlp_system_design_wrapper.npi"/>
+  <File Type="BG-BGN" Name="mlp_system_design_wrapper.bgn"/>
   <File Type="ROUTE-BLACKBOX-DCP" Name="mlp_system_design_wrapper_routed_bb.dcp"/>
-  <File Type="ROUTE-DRC-RPX" Name="mlp_system_design_wrapper_drc_routed.rpx"/>
-  <File Type="ROUTE-METHODOLOGY-DRC" Name="mlp_system_design_wrapper_methodology_drc_routed.rpt"/>
+  <File Type="WBT-USG" Name="usage_statistics_webtalk.html"/>
+  <File Type="RDI-RDI" Name="mlp_system_design_wrapper.vdi"/>
+  <File Type="RNPI_FILE" Name="mlp_system_design_wrapper.rnpi"/>
+  <File Type="BG-DRC" Name="mlp_system_design_wrapper.drc"/>
+  <File Type="ROUTE-ERROR-DCP" Name="mlp_system_design_wrapper_routed_error.dcp"/>
+  <File Type="BG-BIT" Name="mlp_system_design_wrapper.bit"/>
+  <File Type="ROUTE-STATUS-PB" Name="mlp_system_design_wrapper_route_status.pb"/>
+  <File Type="OPT-HWDEF" Name="mlp_system_design_wrapper.hwdef"/>
+  <File Type="PLACE-IO" Name="mlp_system_design_wrapper_io_placed.rpt"/>
+  <File Type="PLACE-UTIL" Name="mlp_system_design_wrapper_utilization_placed.rpt"/>
+  <File Type="PLACE-UTIL-PB" Name="mlp_system_design_wrapper_utilization_placed.pb"/>
+  <File Type="PLACE-CTRL" Name="mlp_system_design_wrapper_control_sets_placed.rpt"/>
+  <File Type="PLACE-PRE-SIMILARITY" Name="mlp_system_design_wrapper_incremental_reuse_pre_placed.rpt"/>
+  <File Type="ROUTE-DRC" Name="mlp_system_design_wrapper_drc_routed.rpt"/>
+  <File Type="ROUTE-DRC-PB" Name="mlp_system_design_wrapper_drc_routed.pb"/>
+  <File Type="ROUTE-PWR" Name="mlp_system_design_wrapper_power_routed.rpt"/>
   <File Type="ROUTE-PWR-SUM" Name="mlp_system_design_wrapper_power_summary_routed.pb"/>
+  <File Type="ROUTE-PWR-RPX" Name="mlp_system_design_wrapper_power_routed.rpx"/>
+  <File Type="ROUTE-STATUS" Name="mlp_system_design_wrapper_route_status.rpt"/>
+  <File Type="ROUTE-DCP" Name="mlp_system_design_wrapper_routed.dcp"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/bd/mlp_system_design/mlp_system_design.bd">
@@ -114,9 +96,7 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020">
-      <Desc>Default settings for Implementation.</Desc>
-    </StratHandle>
+    <StratHandle Name="Vivado Implementation Defaults" Flow="Vivado Implementation 2020"/>
     <Step Id="init_design"/>
     <Step Id="opt_design"/>
     <Step Id="power_opt_design"/>
@@ -126,34 +106,35 @@
     <Step Id="route_design"/>
     <Step Id="post_route_phys_opt_design"/>
     <Step Id="write_bitstream"/>
+    <Step Id="write_device_image"/>
   </Strategy>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_input_blk_mem_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_5"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_us_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_input_bram_ctrl_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_4"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_6"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_system_dma_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_2"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_weight_blk_mem_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_us_2"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_4"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_xbar_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_inter_cont_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_mlp_conv_0_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_weight_bram_ctrl_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_us_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_input_bram_ctrl_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_1"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_input_blk_mem_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_us_0"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_5"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_2"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_processing_system_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_7"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_3"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_rst_ps_100M_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_output_blk_mem_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_5"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_processing_system_0"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_3"/>
   <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_output_bram_ctrl_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_rst_ps_100M_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_weight_bram_ctrl_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_mlp_conv_0_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_inter_cont_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_xbar_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_4"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_us_2"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_weight_blk_mem_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_2"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_system_dma_0"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_1"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_ds_6"/>
-  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_4"/>
+  <BlockFileSet Type="BlockSrcs" Name="mlp_system_design_auto_pc_3"/>
 </GenRun>
