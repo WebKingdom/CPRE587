@@ -16,7 +16,12 @@ entity mlp_conv_v1_0_S00_AXI is
 	);
 	port (
 		-- Users to add ports here
-
+        MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_ACC_STATUS       : in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_MEM_CTL          : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -147,6 +152,16 @@ architecture arch_imp of mlp_conv_v1_0_S00_AXI is
 	signal aw_en	: std_logic;
 
 begin
+    
+        MLP_AXI_FILTER_PARAMS <= slv_reg0;
+        MLP_AXI_WEIGHT_BASE_ADDR  <= slv_reg1;
+        MLP_AXI_INPUT_BASE_ADDR <= slv_reg2;
+        MLP_AXI_OUTPUT_BASE_ADDR  <= slv_reg3;
+        MLP_AXI_MEM_CTL <= slv_reg4;
+        
+        
+        slv_reg31 <= MLP_AXI_ACC_STATUS;
+
 	-- I/O Connections assignments
 
 	S_AXI_AWREADY	<= axi_awready;
@@ -273,7 +288,7 @@ begin
 	      slv_reg28 <= (others => '0');
 	      slv_reg29 <= (others => '0');
 	      slv_reg30 <= (others => '0');
-	      slv_reg31 <= (others => '0');
+--	      slv_reg31 <= (others => '0');
 	    else
 	      loc_addr := axi_awaddr(ADDR_LSB + OPT_MEM_ADDR_BITS downto ADDR_LSB);
 	      if (slv_reg_wren = '1') then
@@ -531,7 +546,7 @@ begin
 	              if ( S_AXI_WSTRB(byte_index) = '1' ) then
 	                -- Respective byte enables are asserted as per write strobes                   
 	                -- slave registor 31
-	                slv_reg31(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
+--	                slv_reg31(byte_index*8+7 downto byte_index*8) <= S_AXI_WDATA(byte_index*8+7 downto byte_index*8);
 	              end if;
 	            end loop;
 	          when others =>
@@ -566,7 +581,7 @@ begin
 	            slv_reg28 <= slv_reg28;
 	            slv_reg29 <= slv_reg29;
 	            slv_reg30 <= slv_reg30;
-	            slv_reg31 <= slv_reg31;
+--	            slv_reg31 <= slv_reg31;
 	        end case;
 	      end if;
 	    end if;

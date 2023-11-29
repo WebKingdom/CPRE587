@@ -207,6 +207,13 @@ architecture arch_imp of mlp_conv_v1_0 is
 		C_S_AXI_ADDR_WIDTH	: integer	:= 7
 		);
 		port (
+		MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_ACC_STATUS       : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        MLP_AXI_MEM_CTL          : out std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
+        
 		S_AXI_ACLK	: in std_logic;
 		S_AXI_ARESETN	: in std_logic;
 		S_AXI_AWADDR	: in std_logic_vector(C_S_AXI_ADDR_WIDTH-1 downto 0);
@@ -392,6 +399,13 @@ architecture arch_imp of mlp_conv_v1_0 is
 		);
 	end component mlp_conv_v1_0_S_AXI_INTR;
 
+    -- user signals
+    signal filter_params    : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+    signal acc_status       : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+    signal weight_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+    signal input_base_addr  : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+    signal output_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
+    signal mem_ctl          : std_logic_vector(C_S00_AXI_DATA_WIDTH-1 downto 0);
 begin
 
 -- Instantiation of Axi Bus Interface S00_AXI
@@ -401,6 +415,12 @@ mlp_conv_v1_0_S00_AXI_inst : mlp_conv_v1_0_S00_AXI
 		C_S_AXI_ADDR_WIDTH	=> C_S00_AXI_ADDR_WIDTH
 	)
 	port map (
+	    MLP_AXI_FILTER_PARAMS => filter_params,
+        MLP_AXI_ACC_STATUS => acc_status,
+        MLP_AXI_WEIGHT_BASE_ADDR => weight_base_addr,
+        MLP_AXI_INPUT_BASE_ADDR => input_base_addr,
+        MLP_AXI_OUTPUT_BASE_ADDR => output_base_addr,
+        MLP_AXI_MEM_CTL => mem_ctl,
 		S_AXI_ACLK	=> s00_axi_aclk,
 		S_AXI_ARESETN	=> s00_axi_aresetn,
 		S_AXI_AWADDR	=> s00_axi_awaddr,
@@ -586,6 +606,9 @@ mlp_conv_v1_0_S_AXI_INTR_inst : mlp_conv_v1_0_S_AXI_INTR
 	);
 
 	-- Add user logic here
+
+
+
 
 	-- User logic ends
 
