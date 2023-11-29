@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Wed Nov 29 01:52:59 2023
-# Process ID: 44945
+# Start of session at: Wed Nov 29 16:26:33 2023
+# Process ID: 39775
 # Current directory: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1
 # Command line: vivado -log mlp_conv_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mlp_conv_v1_0.tcl
 # Log file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/mlp_conv_v1_0.vds
@@ -19,9 +19,9 @@ Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 45025
+INFO: [Synth 8-7075] Helper process launched with PID 39858
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:07 . Memory (MB): peak = 2362.906 ; gain = 0.000 ; free physical = 3727 ; free virtual = 18001
+Starting Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5323 ; free virtual = 18461
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:197]
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
@@ -164,17 +164,17 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo
 INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' (4#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
 INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0' (5#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:197]
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:10 . Memory (MB): peak = 2362.906 ; gain = 0.000 ; free physical = 3711 ; free virtual = 17985
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5267 ; free virtual = 18408
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 2362.906 ; gain = 0.000 ; free physical = 3720 ; free virtual = 17994
+Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5266 ; free virtual = 18407
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:10 . Memory (MB): peak = 2370.852 ; gain = 7.945 ; free physical = 3720 ; free virtual = 17994
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2374.352 ; gain = 7.945 ; free physical = 5266 ; free virtual = 18407
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'mlp_conv_v1_0_M00_AXI'
@@ -188,7 +188,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in modu
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'mlp_conv_v1_0_M00_AXI'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:11 . Memory (MB): peak = 2370.852 ; gain = 7.945 ; free physical = 3644 ; free virtual = 17920
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2374.352 ; gain = 7.945 ; free physical = 5174 ; free virtual = 18338
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -242,7 +242,7 @@ No constraint files found.
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:33 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3392 ; free virtual = 17699
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:24 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4927 ; free virtual = 18108
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -267,7 +267,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:34 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3381 ; free virtual = 17690
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:24 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4926 ; free virtual = 18107
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -294,7 +294,7 @@ INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM
 INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:35 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3379 ; free virtual = 17689
+Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:25 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18125
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -312,37 +312,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3388 ; free virtual = 17699
+Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3388 ; free virtual = 17699
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3388 ; free virtual = 17698
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3388 ; free virtual = 17698
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3393 ; free virtual = 17704
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3393 ; free virtual = 17704
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -385,25 +385,25 @@ Report Instance Areas:
 |5     |  mlp_conv_v1_0_S_AXI_INTR_inst |mlp_conv_v1_0_S_AXI_INTR |    56|
 +------+--------------------------------+-------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3393 ; free virtual = 17704
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 42 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.750 ; gain = 97.844 ; free physical = 3395 ; free virtual = 17705
-Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:38 . Memory (MB): peak = 2460.758 ; gain = 97.844 ; free physical = 3395 ; free virtual = 17705
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
+Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.289 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.03 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2464.930 ; gain = 0.000 ; free physical = 3472 ; free virtual = 17783
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2464.461 ; gain = 0.000 ; free physical = 5014 ; free virtual = 18198
 INFO: [Netlist 29-17] Analyzing 173 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2509.695 ; gain = 0.000 ; free physical = 3381 ; free virtual = 17702
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2509.227 ; gain = 0.000 ; free physical = 4923 ; free virtual = 18120
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
 38 Infos, 42 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:29 ; elapsed = 00:00:41 . Memory (MB): peak = 2509.695 ; gain = 146.848 ; free physical = 3431 ; free virtual = 17751
+synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 2509.227 ; gain = 142.879 ; free physical = 4973 ; free virtual = 18169
 INFO: [Common 17-1381] The checkpoint '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/mlp_conv_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file mlp_conv_v1_0_utilization_synth.rpt -pb mlp_conv_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Nov 29 01:53:59 2023...
+INFO: [Common 17-206] Exiting Vivado at Wed Nov 29 16:27:21 2023...

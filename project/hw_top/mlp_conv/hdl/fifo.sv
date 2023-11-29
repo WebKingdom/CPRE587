@@ -12,11 +12,11 @@ module fifo #(
     input wire RESETN,
     // FIFO read interface
     input wire RD_CMD,
-    output logic RD_DATA,
+    output wire [FIFO_WIDTH-1:0] RD_DATA,
     output wire FIFO_EMPTY,
     // FIFO write interface
     input wire WR_CMD,
-    input wire WR_DATA,
+    input wire [FIFO_WIDTH-1:0] WR_DATA,
     output wire FIFO_FULL
   );
 
@@ -39,6 +39,7 @@ module fifo #(
 
   assign FIFO_FULL = fifo_full_reg;
   assign FIFO_EMPTY = fifo_empty_reg;
+  assign RD_DATA = fifo_reg[front_reg];
 
   // input/output data
   always_ff @(posedge CLK) begin
@@ -48,12 +49,9 @@ module fifo #(
       end
     end
     else begin
-      // only write if not full
-      if (wr_en) begin
+      // only write if not full OR when doing both read AND write
+      if (wr_en == 1'b1 || rd_wr_cmd == 2'b11) begin
         fifo_reg[back_reg] <= WR_DATA;
-      end
-      if (RD_CMD) begin
-        RD_DATA <= fifo_reg[front_reg];
       end
     end
   end

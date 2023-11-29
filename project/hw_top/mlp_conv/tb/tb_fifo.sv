@@ -18,11 +18,11 @@ module tb_fifo();
   logic resetn;
 
   logic rd_cmd;
-  logic rd_data;
+  logic [FIFO_WIDTH-1:0] rd_data;
   logic fifo_empty;
 
   logic wr_cmd;
-  logic wr_data;
+  logic [FIFO_WIDTH-1:0] wr_data;
   logic fifo_full;
 
   // DUT instance
@@ -87,23 +87,25 @@ module tb_fifo();
     end
 
     if (wr_cmd == 1) begin
-      wr_data = $urandom_range(0, 2**FIFO_WIDTH);
+      wr_data = $random();
     end
   endfunction
 
   task automatic fill_fifo();
+    validate_fifo_full();
     while (fifo_full == 0) begin
       // write data to the FIFO
       #1;
       rd_cmd = 0;
       wr_cmd = 1;
-      wr_data = $urandom_range(0, 2**FIFO_WIDTH);
+      wr_data = $random();
       @(posedge clk);
       update_scoreboard();
     end
   endtask
 
   task automatic empty_fifo();
+    validate_fifo_empty();
     while (fifo_empty == 0) begin
       // read data from the FIFO
       #1;
@@ -137,10 +139,27 @@ module tb_fifo();
   endfunction
 
   function automatic void update_scoreboard();
-    if (rd_cmd == 1) begin
-      // error check
-      validate_fifo_empty();
+    // error check
+    validate_fifo_empty();
+    validate_fifo_full();
 
+    if (rd_cmd == 1 && wr_cmd == 1) begin
+      $display("FIFO rd & wr together");
+      // read data if possible from the FIFO
+      if (fifo_empty == 0) begin
+        q_data = q.pop_front();
+        if (q_data != rd_data) begin
+          $display("ERROR: q_data = %d, rd_data = %d", q_data, rd_data);
+          $finish;
+        end
+        $display("FIFO rd: %d", rd_data);
+      end
+
+      // can always write data becuase we just read
+      q.push_back(wr_data);
+      $display("FIFO wr: %d", wr_data);
+    end
+    else if (rd_cmd == 1) begin
       // read data from the FIFO
       if (fifo_empty == 0) begin
         q_data = q.pop_front();
@@ -148,15 +167,14 @@ module tb_fifo();
           $display("ERROR: q_data = %d, rd_data = %d", q_data, rd_data);
           $finish;
         end
+        $display("FIFO rd: %d", rd_data);
       end
     end
-    if (wr_cmd == 1) begin
-      // error check
-      validate_fifo_full();
-
+    else if (wr_cmd == 1) begin
       // write data to the FIFO
       if (fifo_full == 0) begin
         q.push_back(wr_data);
+        $display("FIFO wr: %d", wr_data);
       end
     end
   endfunction
@@ -164,7 +182,6 @@ module tb_fifo();
   // test 1, fill fifo
   task automatic test_fill_fifo();
     $display("test_fill_fifo");
-    reset_all();
     fill_fifo();
     $display("test_fill_fifo PASSED");
   endtask
@@ -172,7 +189,6 @@ module tb_fifo();
   // test 2, empty fifo
   task automatic test_empty_fifo();
     $display("test_empty_fifo");
-    reset_all();
     empty_fifo();
     $display("test_empty_fifo PASSED");
   endtask
@@ -180,7 +196,7 @@ module tb_fifo();
   // test 3, fill fifo and issue random commands
   task automatic test_random();
     $display("test_random");
-    reset_all();
+    empty_fifo();
     fill_fifo();
     for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
       #1;
@@ -194,9 +210,16 @@ module tb_fifo();
   // main
   initial begin
     $display("tb_fifo");
+    reset_all();
+
     test_fill_fifo();
+    $display("\n");
+
     test_empty_fifo();
+    $display("\n");
+
     test_random();
+    $display("\n");
     $display("tb_fifo PASSED");
     $finish;
   end

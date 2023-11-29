@@ -1,0 +1,10 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../../../../../../mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd" \
+"../../../../../../../../../mlp_conv/hdl/mlp_conv_v1_0_S00_AXI.vhd" \
+"../../../../../../../../../mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd" \
+"../../../../../../../../../mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd" \
+"../../../../../../../../../mlp_conv/hdl/mlp_conv_v1_0.vhd" \
+
+# Do not sort compile order
+nosort
