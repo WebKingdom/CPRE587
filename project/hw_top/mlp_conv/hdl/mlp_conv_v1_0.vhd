@@ -203,12 +203,12 @@ architecture arch_imp of mlp_conv_v1_0 is
       C_S_AXI_ADDR_WIDTH : integer := 7
     );
     port (
-      MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-      MLP_AXI_ACC_STATUS       : in std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-      MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-      MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-      MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-      MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
+      MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_ACC_STATUS       : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
       S_AXI_ACLK    : in std_logic;
       S_AXI_ARESETN : in std_logic;

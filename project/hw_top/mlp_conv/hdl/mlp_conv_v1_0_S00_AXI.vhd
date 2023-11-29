@@ -16,13 +16,13 @@ entity mlp_conv_v1_0_S00_AXI is
   );
   port (
     -- Users to add ports here
-    MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-    MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-    MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-    MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
-    MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
+    MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
-    MLP_AXI_ACC_STATUS : in std_logic_vector(C_S_AXI_ADDR_WIDTH - 1 downto 0);
+    MLP_AXI_ACC_STATUS : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     -- User ports ends
     -- Do not modify the ports beyond this line
 

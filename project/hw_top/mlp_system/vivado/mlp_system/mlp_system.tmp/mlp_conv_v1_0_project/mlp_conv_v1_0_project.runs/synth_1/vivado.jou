@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2020.1 (64-bit)
+# SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
+# IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
+# Start of session at: Wed Nov 29 01:52:59 2023
+# Process ID: 44945
+# Current directory: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1
+# Command line: vivado -log mlp_conv_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mlp_conv_v1_0.tcl
+# Log file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/mlp_conv_v1_0.vds
+# Journal file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/vivado.jou
+#-----------------------------------------------------------
+source mlp_conv_v1_0.tcl -notrace

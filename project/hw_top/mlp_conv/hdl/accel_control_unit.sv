@@ -22,11 +22,11 @@ module accel_control_unit #(
 
     // outputs
     output [2:0] weight_row_wr_ctrl,                        // index of weight row to write to
-    output [0:PE_COLS-1] add_mux_ctrl [0:PE_ROWS-1],
+    output logic [0:PE_COLS-1] add_mux_ctrl [0:PE_ROWS-1],
     output [0:PE_COLS-1] stall_ctrl [0:PE_ROWS-1],
     output [0:PE_COLS-1] resetn_mac_ctrl [0:PE_ROWS-1],
-    output [3:0] row_out_mux_ctrl [0:PE_ROWS-1],            // 9:1 mux for each row of MACs
-    output [2:0] psum_out_mux_ctrl,                         // 5:1 mux controlling which row goes to output storage or feedback
+    output logic [3:0] row_out_mux_ctrl [0:PE_ROWS-1],            // 9:1 mux for each row of MACs
+    output logic [2:0] psum_out_mux_ctrl,                         // 5:1 mux controlling which row goes to output storage or feedback
     output out_storage_wr_en                                // output storage register write enable
 
     // AXI interfaces?
@@ -56,7 +56,9 @@ module accel_control_unit #(
   // add mux control logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      add_mux_ctrl <= 0;
+      for (int i = 0; i < PE_ROWS; i++) begin
+        add_mux_ctrl[i] <= 0;
+      end
     end
     else begin
       // first S columns will be set to 1, rest to 0
@@ -84,7 +86,9 @@ module accel_control_unit #(
   // row out mux control logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      row_out_mux_ctrl <= 0;
+      for (int i = 0; i < PE_ROWS; i++) begin
+        row_out_mux_ctrl[i] <= 0;
+      end
     end
     else begin
       // each row will get the same 4-bit value
