@@ -35,6 +35,13 @@ module accel_control_unit #(
 
   wire [C_M00_AXI_DATA_WIDTH-1:0] debug;
 
+  // weight base address offset, byte addressable, must be able to get 25 bytes (7 words)
+  logic [7:0] weight_base_addr_offset;
+  // input base address offset, byte addressable, must be able to get 81 bytes (21 words)
+  logic [7:0] input_base_addr_offset;
+  // output base address offset, byte addressable, must be able to get 25x32-bits (25 words)
+  logic [7:0] output_base_addr_offset;
+
 
   // parameter wires
   wire [3:0] param_R;   // filter height
