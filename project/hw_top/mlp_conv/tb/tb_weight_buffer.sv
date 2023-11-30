@@ -9,7 +9,7 @@ module tb_weight_buffer();
   localparam BUFFER_DEPTH = 5;
   localparam BUFF_IN_DIFF = BUFFER_WIDTH - INPUT_WIDTH;
 
-  const int MAX_NUM_CYCLES = 1000;
+  const int MAX_NUM_CYCLES = 100;
 
   // verification variables
   logic [BUFFER_WIDTH-1:0] scb_buffer [0:BUFFER_DEPTH-1];
@@ -109,36 +109,46 @@ module tb_weight_buffer();
         wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
       end
       else if (wr_count == 6) begin
-        logic [BUFF_IN_DIFF-1:0] rem = scb_buffer[scb_buffer_idx - 1][BUFF_IN_DIFF-1:0];
-        // TODO just fill with 0s
+        logic [BUFF_IN_DIFF-1:0] rem = scb_buffer[scb_buffer_idx][BUFF_IN_DIFF-1:0];
+        // second part of append is not used
         wr_data = {rem, scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:2*BUFF_IN_DIFF]};
       end
     end
     @(posedge clk);
+    #1;
+    check_output();
     if (wr_en_valid == 1'b1) begin
       wr_count++;
-      if (wr_count != 0 || wr_count != 5) begin
+      if (wr_count < 5) begin
         scb_buffer_idx++;
       end
       wr_valid = 1'b0;
     end
-    check_output();
     if (wr_count == 7) begin
-      wr_count = 0;
-      scb_buffer_idx = 0;
+      reset_tb();
     end
   endtask
 
-  function automatic void check_output();
-    // TODO ssz handle this
-    for (int i = 0; i < scb_buffer_idx - 1; i++) begin
+  task automatic check_output();
+    int limit = scb_buffer_idx;
+    if (wr_count < 5) begin
+      limit--;
+    end
+    else if (wr_count > 5 && wr_en_valid == 1'b1) begin
+      limit++;
+    end
+    for (int i = 0; i < limit; i++) begin
       if (scb_buffer[i] != rd_data[i]) begin
-        $display("ERROR: data mismatch at index %d", i);
-        $display("expected: %h, actual: %h", scb_buffer[i], rd_data[i]);
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
+        repeat (2) @(posedge clk);
+        #1;
         $finish;
       end
+      else begin
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
+      end
     end
-  endfunction
+  endtask
 
   // test case 1, send random data MAX_NUM_CYCLES times
   task automatic test_1();
@@ -147,9 +157,19 @@ module tb_weight_buffer();
     for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
       #1;
       send_rand_data();
-      check_output();
     end
     $display("test_1 PASSED");
   endtask
+
+  // simulation
+  initial begin
+    $display("tb_weight_buffer");
+    reset_all();
+
+    test_1();
+    $display("\n");
+    $display("tb_weight_buffer PASSED");
+    $finish;
+  end
 
 endmodule

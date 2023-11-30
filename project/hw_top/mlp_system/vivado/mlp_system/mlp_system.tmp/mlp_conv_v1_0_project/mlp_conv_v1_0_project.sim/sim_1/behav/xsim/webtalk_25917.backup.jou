@@ -2,11 +2,11 @@
 # Webtalk v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Wed Nov 29 23:08:23 2023
-# Process ID: 32334
+# Start of session at: Wed Nov 29 15:41:21 2023
+# Process ID: 25917
 # Current directory: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim
-# Command line: wbtcv -mode batch -source /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/xsim.dir/tb_weight_buffer_behav/webtalk/xsim_webtalk.tcl -notrace
+# Command line: wbtcv -mode batch -source /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/xsim.dir/mlp_conv_v1_0_behav/webtalk/xsim_webtalk.tcl -notrace
 # Log file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/webtalk.log
 # Journal file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/webtalk.jou
 #-----------------------------------------------------------
-source /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/xsim.dir/tb_weight_buffer_behav/webtalk/xsim_webtalk.tcl -notrace
+source /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.sim/sim_1/behav/xsim/xsim.dir/mlp_conv_v1_0_behav/webtalk/xsim_webtalk.tcl -notrace

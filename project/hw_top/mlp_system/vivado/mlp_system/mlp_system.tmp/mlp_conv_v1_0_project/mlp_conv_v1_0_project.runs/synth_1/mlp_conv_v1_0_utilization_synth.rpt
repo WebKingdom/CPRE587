@@ -1,8 +1,8 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (lin64) Build 2902540 Wed May 27 19:54:35 MDT 2020
-| Date         : Wed Nov 29 16:27:21 2023
-| Host         : linuxvdi-37.ece.iastate.edu running 64-bit Red Hat Enterprise Linux release 8.8 (Ootpa)
+| Date         : Thu Nov 30 00:58:19 2023
+| Host         : linuxvdi-10.ece.iastate.edu running 64-bit Red Hat Enterprise Linux release 8.8 (Ootpa)
 | Command      : report_utilization -file mlp_conv_v1_0_utilization_synth.rpt -pb mlp_conv_v1_0_utilization_synth.pb
 | Design       : mlp_conv_v1_0
 | Device       : 7z020clg484-1

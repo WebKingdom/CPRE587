@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:35 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Wed Nov 29 16:26:33 2023
-# Process ID: 39775
+# Start of session at: Thu Nov 30 00:57:26 2023
+# Process ID: 59113
 # Current directory: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1
 # Command line: vivado -log mlp_conv_v1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source mlp_conv_v1_0.tcl
 # Log file: /home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/mlp_conv_v1_0.vds
@@ -19,9 +19,9 @@ Attempting to get a license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z020'
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 39858
+INFO: [Synth 8-7075] Helper process launched with PID 59192
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5323 ; free virtual = 18461
+Starting Synthesize : Time (s): cpu = 00:00:04 ; elapsed = 00:00:06 . Memory (MB): peak = 2368.848 ; gain = 0.000 ; free physical = 3619 ; free virtual = 17638
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:197]
 	Parameter C_S00_AXI_DATA_WIDTH bound to: 32 - type: integer 
@@ -63,7 +63,7 @@ WARNING: [Synth 8-506] null port 's01_axi_aruser' ignored [/home/sszabo/github/C
 WARNING: [Synth 8-506] null port 's01_axi_ruser' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:167]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S00_AXI_inst' of component 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:410]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S00_AXI_inst' of component 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:459]
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S00_AXI.vhd:92]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
@@ -85,7 +85,7 @@ WARNING: [Synth 8-506] null port 'M_AXI_WUSER' ignored [/home/sszabo/github/CPRE
 WARNING: [Synth 8-506] null port 'M_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:276]
 WARNING: [Synth 8-506] null port 'M_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:288]
 WARNING: [Synth 8-506] null port 'M_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:295]
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_M00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_M00_AXI_inst' of component 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:446]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_M00_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_M00_AXI_inst' of component 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:495]
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_M00_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
 	Parameter C_M_TARGET_SLAVE_BASE_ADDR bound to: 1073741824 - type: integer 
 	Parameter C_M_AXI_BURST_LEN bound to: 16 - type: integer 
@@ -104,11 +104,11 @@ WARNING: [Synth 8-506] null port 'M_AXI_ARUSER' ignored [/home/sszabo/github/CPR
 WARNING: [Synth 8-506] null port 'M_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:150]
 INFO: [Synth 8-226] default block is never used [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:712]
 INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_M00_AXI' (2#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd:160]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:474]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:480]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:485]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:497]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:504]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:523]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:529]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:534]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:546]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:553]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 10 - type: integer 
@@ -122,7 +122,7 @@ WARNING: [Synth 8-506] null port 'S_AXI_WUSER' ignored [/home/sszabo/github/CPRE
 WARNING: [Synth 8-506] null port 'S_AXI_BUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:336]
 WARNING: [Synth 8-506] null port 'S_AXI_ARUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:349]
 WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:356]
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S01_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S01_AXI_inst' of component 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:510]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S01_AXI' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:5' bound to instance 'mlp_conv_v1_0_S01_AXI_inst' of component 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:559]
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S01_AXI' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
 	Parameter C_S_AXI_ID_WIDTH bound to: 1 - type: integer 
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
@@ -140,11 +140,11 @@ WARNING: [Synth 8-506] null port 'S_AXI_RUSER' ignored [/home/sszabo/github/CPRE
 WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:175]
 WARNING: [Synth 8-6774] Null subtype or type declaration found [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:182]
 INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S01_AXI' (3#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd:168]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:534]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:540]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:545]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:558]
-WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:565]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:583]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:589]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:594]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:607]
+WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:614]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
 	Parameter C_NUM_OF_INTR bound to: 1 - type: integer 
@@ -152,7 +152,7 @@ WARNING: [Synth 8-6778] Component port with null array found, Will be ignored [/
 	Parameter C_INTR_ACTIVE_STATE bound to: -1 - type: integer 
 	Parameter C_IRQ_SENSITIVITY bound to: 1 - type: integer 
 	Parameter C_IRQ_ACTIVE_STATE bound to: 1 - type: integer 
-INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S_AXI_INTR' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:5' bound to instance 'mlp_conv_v1_0_S_AXI_INTR_inst' of component 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:571]
+INFO: [Synth 8-3491] module 'mlp_conv_v1_0_S_AXI_INTR' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:5' bound to instance 'mlp_conv_v1_0_S_AXI_INTR_inst' of component 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:620]
 INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
 	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
 	Parameter C_S_AXI_ADDR_WIDTH bound to: 5 - type: integer 
@@ -162,19 +162,27 @@ INFO: [Synth 8-638] synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' [/home/sszabo
 	Parameter C_IRQ_SENSITIVITY bound to: 1 - type: integer 
 	Parameter C_IRQ_ACTIVE_STATE bound to: 1 - type: integer 
 INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0_S_AXI_INTR' (4#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd:98]
-INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0' (5#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:197]
+	Parameter FIFO_WIDTH bound to: 32 - type: integer 
+	Parameter FIFO_DEPTH bound to: 32 - type: integer 
+INFO: [Synth 8-3491] module 'fifo' declared at '/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/fifo.sv:7' bound to instance 'fifo_inst' of component 'fifo' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:658]
+INFO: [Synth 8-6157] synthesizing module 'fifo' [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/fifo.sv:7]
+	Parameter FIFO_WIDTH bound to: 32 - type: integer 
+	Parameter FIFO_DEPTH bound to: 32 - type: integer 
+	Parameter PTR_WIDTH bound to: 5 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'fifo' (5#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/fifo.sv:7]
+INFO: [Synth 8-256] done synthesizing module 'mlp_conv_v1_0' (6#1) [/home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd:197]
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:08 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5267 ; free virtual = 18408
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2368.848 ; gain = 0.000 ; free physical = 3508 ; free virtual = 17546
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2366.406 ; gain = 0.000 ; free physical = 5266 ; free virtual = 18407
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2368.848 ; gain = 0.000 ; free physical = 3514 ; free virtual = 17552
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z020clg484-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:06 ; elapsed = 00:00:09 . Memory (MB): peak = 2374.352 ; gain = 7.945 ; free physical = 5266 ; free virtual = 18407
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:09 . Memory (MB): peak = 2376.793 ; gain = 7.945 ; free physical = 3514 ; free virtual = 17552
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7z020clg484-1
 INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in module 'mlp_conv_v1_0_M00_AXI'
@@ -188,7 +196,7 @@ INFO: [Synth 8-802] inferred FSM for state register 'mst_exec_state_reg' in modu
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'mst_exec_state_reg' using encoding 'sequential' in module 'mlp_conv_v1_0_M00_AXI'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2374.352 ; gain = 7.945 ; free physical = 5174 ; free virtual = 18338
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:10 . Memory (MB): peak = 2376.793 ; gain = 7.945 ; free physical = 3412 ; free virtual = 17473
 ---------------------------------------------------------------------------------
 No constraint files found.
 ---------------------------------------------------------------------------------
@@ -200,19 +208,19 @@ Detailed RTL Component Info :
 	   3 Input   10 Bit       Adders := 2     
 	   2 Input    8 Bit       Adders := 4     
 	   2 Input    7 Bit       Adders := 2     
-	   2 Input    5 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 6     
 	   2 Input    4 Bit       Adders := 1     
 +---XORs : 
 	   2 Input     10 Bit         XORs := 2     
 +---Registers : 
-	               32 Bit    Registers := 32    
+	               32 Bit    Registers := 64    
 	               10 Bit    Registers := 2     
 	                8 Bit    Registers := 10    
 	                7 Bit    Registers := 4     
-	                5 Bit    Registers := 4     
+	                5 Bit    Registers := 6     
 	                4 Bit    Registers := 1     
 	                2 Bit    Registers := 8     
-	                1 Bit    Registers := 50    
+	                1 Bit    Registers := 52    
 +---RAMs : 
 	               2K Bit	(256 X 8 bit)          RAMs := 4     
 +---Muxes : 
@@ -223,8 +231,9 @@ Detailed RTL Component Info :
 	   2 Input    8 Bit        Muxes := 2     
 	   4 Input    2 Bit        Muxes := 1     
 	   2 Input    2 Bit        Muxes := 3     
-	   2 Input    1 Bit        Muxes := 36    
-	   4 Input    1 Bit        Muxes := 6     
+	   2 Input    1 Bit        Muxes := 71    
+	   4 Input    1 Bit        Muxes := 10    
+	   3 Input    1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -242,7 +251,7 @@ No constraint files found.
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:16 ; elapsed = 00:00:24 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4927 ; free virtual = 18108
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:27 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3195 ; free virtual = 17297
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -267,7 +276,7 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:24 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4926 ; free virtual = 18107
+Finished Timing Optimization : Time (s): cpu = 00:00:17 ; elapsed = 00:00:28 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3194 ; free virtual = 17296
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -294,7 +303,7 @@ INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM
 INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[2].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance mlp_conv_v1_0_S01_AXI_inst/BRAM_GEN[0].BYTE_BRAM_GEN[3].byte_ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:17 ; elapsed = 00:00:25 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18125
+Finished Technology Mapping : Time (s): cpu = 00:00:18 ; elapsed = 00:00:28 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3188 ; free virtual = 17290
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -312,37 +321,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
+Finished IO Insertion : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4942 ; free virtual = 18123
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -385,25 +394,25 @@ Report Instance Areas:
 |5     |  mlp_conv_v1_0_S_AXI_INTR_inst |mlp_conv_v1_0_S_AXI_INTR |    56|
 +------+--------------------------------+-------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:21 ; elapsed = 00:00:32 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 42 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.281 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
-Synthesis Optimization Complete : Time (s): cpu = 00:00:20 ; elapsed = 00:00:28 . Memory (MB): peak = 2460.289 ; gain = 93.875 ; free physical = 4943 ; free virtual = 18124
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:21 ; elapsed = 00:00:33 . Memory (MB): peak = 2461.723 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
+Synthesis Optimization Complete : Time (s): cpu = 00:00:21 ; elapsed = 00:00:33 . Memory (MB): peak = 2461.730 ; gain = 92.875 ; free physical = 3208 ; free virtual = 17307
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2464.461 ; gain = 0.000 ; free physical = 5014 ; free virtual = 18198
+Netlist sorting complete. Time (s): cpu = 00:00:00.02 ; elapsed = 00:00:00.02 . Memory (MB): peak = 2465.902 ; gain = 0.000 ; free physical = 3290 ; free virtual = 17380
 INFO: [Netlist 29-17] Analyzing 173 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2509.227 ; gain = 0.000 ; free physical = 4923 ; free virtual = 18120
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2510.668 ; gain = 0.000 ; free physical = 3221 ; free virtual = 17299
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-38 Infos, 42 Warnings, 0 Critical Warnings and 0 Errors encountered.
+41 Infos, 42 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 2509.227 ; gain = 142.879 ; free physical = 4973 ; free virtual = 18169
+synth_design: Time (s): cpu = 00:00:28 ; elapsed = 00:00:36 . Memory (MB): peak = 2510.668 ; gain = 141.879 ; free physical = 3267 ; free virtual = 17345
 INFO: [Common 17-1381] The checkpoint '/home/sszabo/github/CPRE587/project/hw_top/mlp_system/vivado/mlp_system/mlp_system.tmp/mlp_conv_v1_0_project/mlp_conv_v1_0_project.runs/synth_1/mlp_conv_v1_0.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file mlp_conv_v1_0_utilization_synth.rpt -pb mlp_conv_v1_0_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Wed Nov 29 16:27:21 2023...
+INFO: [Common 17-206] Exiting Vivado at Thu Nov 30 00:58:19 2023...

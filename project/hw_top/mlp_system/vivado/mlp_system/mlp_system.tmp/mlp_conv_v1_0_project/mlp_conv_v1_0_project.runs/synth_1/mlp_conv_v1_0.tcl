@@ -87,12 +87,18 @@ set_property ip_output_repo /home/sszabo/github/CPRE587/project/hw_top/mlp_syste
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
+read_verilog -library xil_defaultlib -sv {
+  /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/weight_buffer.sv
+  /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/fifo.sv
+  /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/accel_control_unit.sv
+}
 read_vhdl -library xil_defaultlib {
   /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_M00_AXI.vhd
   /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S00_AXI.vhd
   /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S01_AXI.vhd
   /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_S_AXI_INTR.vhd
   /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0.vhd
+  /home/sszabo/github/CPRE587/project/hw_top/mlp_conv/hdl/mlp_conv_v1_0_PE.vhd
 }
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

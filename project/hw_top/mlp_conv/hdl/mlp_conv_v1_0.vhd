@@ -208,7 +208,7 @@ architecture arch_imp of mlp_conv_v1_0 is
       MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
       MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
       MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-      MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_MEM_CTRL         : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
       S_AXI_ACLK    : in std_logic;
       S_AXI_ARESETN : in std_logic;
@@ -395,12 +395,61 @@ architecture arch_imp of mlp_conv_v1_0 is
     );
   end component mlp_conv_v1_0_S_AXI_INTR;
 
+  -- instantiate accelerator
+  -- component accel_control_unit is
+  --   generic (
+  --     C_S00_AXI_DATA_WIDTH : integer := 32;
+  --     C_M00_AXI_DATA_WIDTH : integer := 32;
+  --     PE_ROWS              : integer := 5;
+  --     PE_COLS              : integer := 5;
+  --     MAC_PIPE_DEPTH       : integer := 2
+  --   );
+  --   port (
+  --     CLK       : in std_logic;
+  --     RESETN    : in std_logic;
+
+  --     params_reg : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  --     weight_base_addr : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  --     input_base_addr  : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  --     output_base_addr : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  --     mem_ctrl          : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  --     MAC_DONE          : out 
+  --   );
+  -- end component accel_control_unit;
+  -- instantiate FIFO (test)
+  component fifo is
+    generic (
+      FIFO_WIDTH : integer := C_M00_AXI_DATA_WIDTH;
+      FIFO_DEPTH : integer := 32
+    );
+    port (
+      CLK    : in std_logic;
+      RESETN : in std_logic;
+      -- FIFO read interface
+      RD_CMD     : in std_logic;
+      RD_DATA    : out std_logic_vector(FIFO_WIDTH - 1 downto 0);
+      FIFO_EMPTY : out std_logic;
+      -- FIFO write interface
+      WR_CMD    : in std_logic;
+      WR_DATA   : in std_logic_vector(FIFO_WIDTH - 1 downto 0);
+      FIFO_FULL : out std_logic
+    );
+  end component fifo;
+
+  -- FIFO signals
+  signal fifo_rd_cmd  : std_logic;
+  signal fifo_rd_data : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal fifo_empty   : std_logic;
+  signal fifo_wr_cmd  : std_logic;
+  signal fifo_wr_data : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal fifo_full    : std_logic;
+
   -- user signals
   signal filter_params    : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal weight_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal input_base_addr  : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal output_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  signal mem_ctrl          : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  signal mem_ctrl         : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
   signal acc_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
@@ -417,7 +466,7 @@ begin
     MLP_AXI_WEIGHT_BASE_ADDR => weight_base_addr,
     MLP_AXI_INPUT_BASE_ADDR  => input_base_addr,
     MLP_AXI_OUTPUT_BASE_ADDR => output_base_addr,
-    MLP_AXI_MEM_CTRL          => mem_ctrl,
+    MLP_AXI_MEM_CTRL         => mem_ctrl,
     MLP_AXI_ACC_STATUS       => acc_status,
     S_AXI_ACLK               => s00_axi_aclk,
     S_AXI_ARESETN            => s00_axi_aresetn,
@@ -604,6 +653,23 @@ begin
   );
 
   -- Add user logic here
+
+  -- FIFO instantiation (test)
+  fifo_inst : fifo
+  generic map(
+    FIFO_WIDTH => C_M00_AXI_DATA_WIDTH,
+    FIFO_DEPTH => 32
+  )
+  port map(
+    CLK        => m00_axi_aclk,
+    RESETN     => m00_axi_aresetn,
+    RD_CMD     => fifo_rd_cmd,
+    RD_DATA    => fifo_rd_data,
+    FIFO_EMPTY => fifo_empty,
+    WR_CMD     => fifo_wr_cmd,
+    WR_DATA    => fifo_wr_data,
+    FIFO_FULL  => fifo_full
+  );
   -- User logic ends
 
 end arch_imp;

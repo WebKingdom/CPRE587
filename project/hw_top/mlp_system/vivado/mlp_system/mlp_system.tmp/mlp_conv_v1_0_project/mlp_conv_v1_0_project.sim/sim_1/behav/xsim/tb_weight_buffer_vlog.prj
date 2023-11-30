@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../../../../../mlp_conv/hdl/weight_buffer.sv" \
+"../../../../../../../../../mlp_conv/tb/tb_weight_buffer.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
