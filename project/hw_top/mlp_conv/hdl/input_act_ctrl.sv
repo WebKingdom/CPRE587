@@ -28,8 +28,9 @@ module input_act_ctrl #(
 
   // input mapper signals
   logic start_feed, start_feed_prev;
-  logic [OUTPUT_WIDTH-1:0] data_out;
-  logic unsigned [clog2(INPUT_WIDTH/OUTPUT_WIDTH)-1:0] count;
+  logic read_fifo_till_empty;
+  wire [OUTPUT_WIDTH-1:0] slices [0:INPUT_WIDTH/OUTPUT_WIDTH-1];
+  logic unsigned [$clog2(INPUT_WIDTH/OUTPUT_WIDTH)-1:0] count;
 
   // FIFO instance
   fifo #(
@@ -50,21 +51,61 @@ module input_act_ctrl #(
   // 4 byte data read from the FIFO. When MSB is reached, the next 4 bytes
   // are read from the FIFO. This is repeated until the FIFO is empty.
 
+  assign IN_ACT_DATA_OUT = slices[count];
+
+  // create slices
+  generate
+    genvar i;
+    for (i = 0; i < INPUT_WIDTH/OUTPUT_WIDTH; i++) begin: slice
+      assign slices[i] = fifo_rd_data[OUTPUT_WIDTH*(i+1)-1:OUTPUT_WIDTH*i];
+    end
+  endgenerate
+
   // create input mapper
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      data_out <= 0;
+      read_fifo_till_empty <= 0;
       count <= 0;
     end
     else begin
-      count <= count + 1;
-      data_out <= fifo_rd_data[OUTPUT_WIDTH*(count+1)-1:OUTPUT_WIDTH*count];
-      if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-1) begin
-        count <= 0;
-        fifo_rd_cmd <= 1'b1;
+      if (((start_feed == 1'b1 || (START_FEED == 1'b1 && start_feed_prev == 1'b0)) && fifo_empty == 1'b0) || read_fifo_till_empty == 1'b1) begin
+        count <= count + 1;
+        if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-1) begin
+          count <= 0;
+          fifo_rd_cmd <= 1'b1;
+        end
+        else begin
+          fifo_rd_cmd <= 1'b0;
+        end
+
+        // check if FIFO is empty
+        if (fifo_empty == 1'b1) begin
+          read_fifo_till_empty <= 1'b0;
+          fifo_rd_cmd <= 1'b0;
+        end
+        else begin
+          read_fifo_till_empty <= 1'b1;
+        end
       end
       else begin
         fifo_rd_cmd <= 1'b0;
+      end
+    end
+  end
+
+  // start feed logic
+  always_ff @(posedge CLK) begin
+    if (RESETN == 1'b0) begin
+      start_feed <= 0;
+      start_feed_prev <= 0;
+    end
+    else begin
+      start_feed_prev <= START_FEED;
+      if (START_FEED == 1'b1 && start_feed_prev == 1'b0) begin
+        start_feed <= 1'b1;
+      end
+      else begin
+        start_feed <= 1'b0;
       end
     end
   end
