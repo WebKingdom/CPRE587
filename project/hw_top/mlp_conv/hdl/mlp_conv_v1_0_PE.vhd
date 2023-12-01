@@ -59,6 +59,7 @@ architecture arch_imp of mlp_conv_v1_0_PE is
   signal product    : unsigned(INPUT_WIDTH * 2 - 1 downto 0);
   signal stalled    : std_logic;
   signal output_reg : std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+  signal add_mux_ctrl_1 : std_logic;
   -- Mac stages
   type PIPE_STAGES is (MULT_INPUT, ADD, SET_OUTPUT);
   -- Debug signals, make sure we aren't going crazy
@@ -76,16 +77,18 @@ begin
       if ARESETN = '0' then -- Reset
         product <= (others => '0');
         output  <= (others => '0');
+        add_mux_ctrl_1 <= '0';
       else
         for i in PIPE_STAGES'left to PIPE_STAGES'right loop
           case i is -- Stages
             when MULT_INPUT =>
               if stalled = '0' then
+                add_mux_ctrl_1 <= add_mux_ctrl;
                 product <= unsigned(input) * unsigned(weight);
               end if;
             when ADD =>
               if stalled = '0' then
-                if add_mux_ctrl = '1' then
+                if add_mux_ctrl_1 = '1' then
                   output_reg <= std_logic_vector(unsigned(add_val) + product);
                 else
                   output_reg <= add_val;

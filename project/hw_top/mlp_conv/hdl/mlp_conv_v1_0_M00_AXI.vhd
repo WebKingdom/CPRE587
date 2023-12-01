@@ -32,7 +32,23 @@ entity mlp_conv_v1_0_M00_AXI is
   );
   port (
     -- Users to add ports here
-
+    
+    -- READ SIGNALS
+    mem_rdaddr : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+    mem_rdready: in std_logic;
+    mem_rdlen  : in std_logic_vector(7 downto 0);
+    
+    mem_rddata : out std_logic;
+    mem_rdvalid: out std_logic;
+    mem_rdlast : out std_logic;
+    
+    -- WRITE SIGNALS
+    mem_waddr  : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+    mem_wdata  : in std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
+    mem_wvalid : in std_logic;
+    
+    mem_bresp  : in std_logic_vector(1 downto 0);
+    
     -- User ports ends
     -- Do not modify the ports beyond this line
 
@@ -246,6 +262,10 @@ architecture implementation of mlp_conv_v1_0_M00_AXI is
   signal init_txn_pulse   : std_logic;
 begin
   -- I/O Connections assignments
+  
+  -- my signals
+  mem_rdvalid <= axi_arvalid;
+
 
   --I/O Connections. Write Address (AW)
   M_AXI_AWID <= (others => '0');
@@ -277,7 +297,7 @@ begin
   M_AXI_ARID   <= (others => '0');
   M_AXI_ARADDR <= std_logic_vector(unsigned(C_M_TARGET_SLAVE_BASE_ADDR) + unsigned(axi_araddr));
   --Burst LENgth is number of transaction beats, minus 1
-  M_AXI_ARLEN <= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, 8));
+  M_AXI_ARLEN <= mem_rdlen;
   --Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used
   M_AXI_ARSIZE <= std_logic_vector(to_unsigned(clogb2((C_M_AXI_DATA_WIDTH/8) - 1), 3));
   --INCR burst type is usually used, except for keyhole bursts
