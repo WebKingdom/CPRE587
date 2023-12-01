@@ -15,6 +15,9 @@ module tb_input_act_ctrl();
   logic [INPUT_WIDTH-1:0] byte_data;
   int byte_count;
   logic scb_feeding;
+  
+  int feed_cycles;
+  int extra_cycles;
 
   // DUT IO
   // inputs
@@ -90,18 +93,19 @@ module tb_input_act_ctrl();
         fifo_wr_data = $urandom;
         wr_count++;
       end
-      @posedge clk;
+      @(posedge clk);
       update_scoreboard();
+      fifo_wr_cmd = 0;
     end
   endtask
 
-  task automatic start_feed();
+  task automatic init_feed();
     #1;
     start_feed = 1;
-    int feed_cycles = $urandom_range(1, 4);
+    feed_cycles = $urandom_range(1, 4);
     while (feed_cycles > 0) begin
       feed_cycles--;
-      @posedge clk;
+      @(posedge clk);
       update_scoreboard();
     end
     start_feed = 0;
@@ -110,15 +114,15 @@ module tb_input_act_ctrl();
   // runs the feed until FIFO is empty
   task automatic run_feed();
     while (fifo_empty == 0) begin
-      @posedge clk;
+      @(posedge clk);
       update_scoreboard();
     end
 
     // run extra cycles to make sure functionality is correct
-    int extra_cycles = $urandom_range(1, 4);
+    extra_cycles = $urandom_range(1, 4);
     while (extra_cycles > 0) begin
       extra_cycles--;
-      @posedge clk;
+      @(posedge clk);
       update_scoreboard();
     end
   endtask
@@ -126,14 +130,14 @@ module tb_input_act_ctrl();
   function automatic void validate_fifo_empty();
     if (q.size() == 0 && fifo_empty == 0) begin
       $display("ERROR: q.size() = %d (empty), fifo_empty = %d (not empty)", q.size(), fifo_empty);
-      repeat (2) @(posedge clk);
-      #1;
+    //   repeat (2) @(posedge clk);
+    //   #1;
       $finish;
     end
     if (q.size() > 0 && fifo_empty == 1) begin
       $display("ERROR: q.size() = %d (not empty), fifo_empty = %d (empty)", q.size(), fifo_empty);
-      repeat (2) @(posedge clk);
-      #1;
+    //   repeat (2) @(posedge clk);
+    //   #1;
       $finish;
     end
   endfunction
@@ -141,14 +145,14 @@ module tb_input_act_ctrl();
   function automatic void validate_fifo_full();
     if (q.size() == FIFO_DEPTH && fifo_full == 0) begin
       $display("ERROR: q.size() = %d (full), fifo_full = %d (not full)", q.size(), fifo_full);
-      repeat (2) @(posedge clk);
-      #1;
+    //   repeat (2) @(posedge clk);
+    //   #1;
       $finish;
     end
     if (q.size() < FIFO_DEPTH && fifo_full == 1) begin
       $display("ERROR: q.size() = %d (not full), fifo_full = %d (full)", q.size(), fifo_full);
-      repeat (2) @(posedge clk);
-      #1;
+    //   repeat (2) @(posedge clk);
+    //   #1;
       $finish;
     end
   endfunction
@@ -173,8 +177,8 @@ module tb_input_act_ctrl();
     if (scb_feeding == 1 && fifo_empty == 0) begin
       if (data_valid == 0) begin
         $display("ERROR: data_valid = %d, should be 1", data_valid);
-        repeat (2) @(posedge clk);
-        #1;
+        // repeat (2) @(posedge clk);
+        // #1;
         $finish;
       end
 
@@ -183,10 +187,10 @@ module tb_input_act_ctrl();
       if (byte_count == INPUT_WIDTH/OUTPUT_WIDTH) begin
         byte_count = 0;
         q_data = q.pop_front();
-        if (q_data != in_act_data_out) begin
-          $display("ERROR: q_data = %d, in_act_data_out = %d", q_data, in_act_data_out);
-          repeat (2) @(posedge clk);
-          #1;
+        if (q_data != byte_data) begin
+          $display("ERROR: q_data = %d, in_act_data_out = %d", q_data, byte_data);
+        //   repeat (2) @(posedge clk);
+        //   #1;
           $finish;
         end
       end
@@ -196,7 +200,7 @@ module tb_input_act_ctrl();
   task automatic test_1();
     $display("test_1: fill FIFO");
     fill_fifo(21);
-    start_feed();
+    init_feed();
     run_feed();
     $display("test_1: PASSED");
   endtask
@@ -208,5 +212,6 @@ module tb_input_act_ctrl();
     $display("INPUT ACT TEST BENCH PASSED");
     $finish;
   end
+
 
 endmodule

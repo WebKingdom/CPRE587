@@ -56,7 +56,7 @@ module input_act_ctrl #(
   assign can_start_feed = START_FEED == 1'b1 && start_feed_prev == 1'b0 && fifo_empty == 1'b0;
   assign FIFO_EMPTY = fifo_empty;
   assign IN_ACT_DATA_OUT = slices[count];
-  assign DATA_VALID = (can_start_feed == 1'b1 || start_feed == 1'b1 || read_fifo_till_empty == 1'b1) && fifo_empty == 1'b0;
+  assign DATA_VALID = (can_start_feed == 1'b1 || read_fifo_till_empty == 1'b1) && fifo_empty == 1'b0;
 
   // create slices
   generate
@@ -75,7 +75,7 @@ module input_act_ctrl #(
     end
     else begin
       // start feed count delayed by 1 cycle because 0th output is always visible on 1st start clock
-      if (start_feed == 1'b1 || read_fifo_till_empty == 1'b1) begin
+      if (can_start_feed == 1'b1 || read_fifo_till_empty == 1'b1) begin
         // check if FIFO is empty
         if (fifo_empty == 1'b1) begin
           fifo_rd_cmd <= 1'b0;
@@ -83,11 +83,15 @@ module input_act_ctrl #(
           count <= 0;
         end
         else begin
-          read_fifo_till_empty <= 1'b1
+          read_fifo_till_empty <= 1'b1;
           count <= count + 1;
-          if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-1) begin
-            count <= 0;
+          if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-2) begin
+            // issue read command early so next cycle FIFO will output correct data
             fifo_rd_cmd <= 1'b1;
+          end
+          else if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-1) begin
+            count <= 0;
+            fifo_rd_cmd <= 1'b0;
           end
           else begin
             fifo_rd_cmd <= 1'b0;
