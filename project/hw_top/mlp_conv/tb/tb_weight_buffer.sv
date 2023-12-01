@@ -69,6 +69,7 @@ module tb_weight_buffer();
     for (int i = 0; i < BUFFER_DEPTH; i++) begin
       scb_buffer[i] = $random;
     end
+    wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
   endfunction
 
   task automatic reset_all();
@@ -124,7 +125,7 @@ module tb_weight_buffer();
     end
     @(posedge clk);
     #1;
-    check_output(0);
+    check_output();
     if (wr_en_valid == 1'b1) begin
       wr_count++;
       if (wr_count < 5) begin
@@ -132,7 +133,7 @@ module tb_weight_buffer();
       end
       wr_valid = 1'b0;
     end
-    if (wr_count == 7) begin
+    if (full == 1) begin
       reset_tb();
     end
   endtask
@@ -147,23 +148,77 @@ module tb_weight_buffer();
     end
     @(posedge clk);
     #1;
-    check_4x4_output(BUFF_IN_DIFF);
     if (wr_en_valid == 1'b1) begin
-      wr_count++;
-      if (wr_count > param_R) begin
-        scb_buffer_idx = 0;
-      end
-      else begin
-        scb_buffer_idx++;
-      end
+      scb_buffer_idx++;
       wr_valid = 1'b0;
     end
-    if (wr_count == 7) begin
+    check_4x4_output();
+    if (full == 1) begin
       reset_tb();
     end
   endtask
 
-  task automatic check_output(int buff_min_lsb);
+  task automatic send_rand_3x3_data();
+    wr_en = $random;
+    param_R = 3;
+    param_S = 3;
+    if (wr_valid == 1'b0) begin
+      wr_valid = $random;
+      wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
+    end
+    @(posedge clk);
+    #1;
+    if (wr_en_valid == 1'b1) begin
+      scb_buffer_idx++;
+      wr_valid = 1'b0;
+    end
+    check_3x3_output();
+    if (full == 1) begin
+      reset_tb();
+    end
+  endtask
+
+  task automatic send_rand_2x2_data();
+    wr_en = $random;
+    param_R = 2;
+    param_S = 2;
+    if (wr_valid == 1'b0) begin
+      wr_valid = $random;
+      wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
+    end
+    @(posedge clk);
+    #1;
+    if (wr_en_valid == 1'b1) begin
+      scb_buffer_idx++;
+      wr_valid = 1'b0;
+    end
+    check_2x2_output();
+    if (full == 1) begin
+      reset_tb();
+    end
+  endtask
+
+  task automatic send_rand_1x1_data();
+    wr_en = $random;
+    param_R = 1;
+    param_S = 1;
+    if (wr_valid == 1'b0) begin
+      wr_valid = $random;
+      wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
+    end
+    @(posedge clk);
+    #1;
+    if (wr_en_valid == 1'b1) begin
+      scb_buffer_idx++;
+      wr_valid = 1'b0;
+    end
+    check_1x1_output();
+    if (full == 1) begin
+      reset_tb();
+    end
+  endtask
+
+  task automatic check_output();
     int limit = scb_buffer_idx;
     if (wr_count < 5) begin
       limit--;
@@ -172,41 +227,123 @@ module tb_weight_buffer();
       limit++;
     end
     for (int i = 0; i < limit; i++) begin
-      if (scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb] != rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]) begin
-        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+      if (scb_buffer[i] != rd_data[i]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
         repeat (2) @(posedge clk);
         #1;
         $finish;
       end
       else begin
-        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
       end
     end
   endtask
 
-  task automatic check_4x4_output(int buff_min_lsb);
-    for (int i = 0; i <= scb_buffer_idx; i++) begin
-      if (scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb] != rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]) begin
-        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+  task automatic check_4x4_output();
+    for (int i = 0; i < scb_buffer_idx; i++) begin
+      if (scb_buffer[i][BUFFER_WIDTH-1:BUFF_IN_DIFF] != rd_data[i][BUFFER_WIDTH-1:BUFF_IN_DIFF]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:BUFF_IN_DIFF]);
         repeat (2) @(posedge clk);
         #1;
         $finish;
       end
       else begin
-        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:BUFF_IN_DIFF]);
+      end
+    end
+  endtask
+
+  task automatic check_3x3_output();
+    for (int i = 0; i < scb_buffer_idx; i++) begin
+      if (scb_buffer[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF] != rd_data[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF]);
+        repeat (2) @(posedge clk);
+        #1;
+        $finish;
+      end
+      else begin
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:2*BUFF_IN_DIFF]);
+      end
+    end
+  endtask
+
+  task automatic check_2x2_output();
+    for (int i = 0; i < scb_buffer_idx; i++) begin
+      if (scb_buffer[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF] != rd_data[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF]);
+        repeat (2) @(posedge clk);
+        #1;
+        $finish;
+      end
+      else begin
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:3*BUFF_IN_DIFF]);
+      end
+    end
+  endtask
+
+  task automatic check_1x1_output();
+    for (int i = 0; i < scb_buffer_idx; i++) begin
+      if (scb_buffer[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF] != rd_data[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF]);
+        repeat (2) @(posedge clk);
+        #1;
+        $finish;
+      end
+      else begin
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF], rd_data[i][BUFFER_WIDTH-1:4*BUFF_IN_DIFF]);
       end
     end
   endtask
 
   // test case 1, send random data MAX_NUM_CYCLES times
-  task automatic test_1();
-    $display("test_1");
+  task automatic test_5x5();
+    $display("test_5x5");
     reset_tb();
     for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
       #1;
       send_rand_5x5_data();
     end
-    $display("test_1 PASSED");
+    $display("test_5x5 PASSED");
+  endtask
+  
+  task automatic test_4x4();
+    $display("test_4x4");
+    reset_tb();
+    for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
+      #1;
+      send_rand_4x4_data();
+    end
+    $display("test_4x4 PASSED");
+  endtask
+
+  task automatic test_3x3();
+    $display("test_3x3");
+    reset_tb();
+    for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
+      #1;
+      send_rand_3x3_data();
+    end
+    $display("test_3x3 PASSED");
+  endtask
+
+  task automatic test_2x2();
+    $display("test_2x2");
+    reset_tb();
+    for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
+      #1;
+      send_rand_2x2_data();
+    end
+    $display("test_2x2 PASSED");
+  endtask
+
+  task automatic test_1x1();
+    $display("test_1x1");
+    reset_tb();
+    for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
+      #1;
+      send_rand_1x1_data();
+    end
+    $display("test_1x1 PASSED");
   endtask
 
   // simulation
@@ -214,7 +351,20 @@ module tb_weight_buffer();
     $display("tb_weight_buffer");
     reset_all();
 
-    test_1();
+    test_5x5();
+    reset_all();
+
+    test_4x4();
+    reset_all();
+
+    test_3x3();
+    reset_all();
+
+    test_2x2();
+    reset_all();
+
+    test_1x1();
+
     $display("\n");
     $display("tb_weight_buffer PASSED");
     $finish;
