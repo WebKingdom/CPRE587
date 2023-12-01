@@ -17,6 +17,8 @@ module weight_buffer #(
     input wire WR_EN,
     input wire WR_VALID,
     input wire [INPUT_WIDTH-1:0] WR_DATA,
+    input wire unsigned [3:0] PARAM_R,     // filter height
+    input wire unsigned [3:0] PARAM_S,     // filter width
 
     output wire FULL,
     output wire [BUFFER_WIDTH-1:0] RD_DATA_0,
@@ -75,38 +77,58 @@ module weight_buffer #(
     case (state_reg)
       GET_DATA_B0_0: begin
         if (wr_en_valid == 1'b1) begin
-          state_next = GET_DATA_B0_1;
+          // TODO ssz if S >= 5 then must go through entire 5x5 cycle
+          if (PARAM_R > 1 || PARAM_S >= 5)
+            state_next = GET_DATA_B0_1;
+          else
+            // done
+            state_next = GET_DATA_B0_0;
         end
       end
       GET_DATA_B0_1: begin
         if (wr_en_valid == 1'b1) begin
-          state_next = GET_DATA_B1_0;
+          if (PARAM_R > 2 || PARAM_S >= 5)
+            state_next = GET_DATA_B1_0;
+          else
+            // done
+            state_next = GET_DATA_B0_0;
         end
       end
       GET_DATA_B1_0: begin
         if (wr_en_valid == 1'b1) begin
-          state_next = GET_DATA_B2_0;
+          if (PARAM_R > 3 || PARAM_S >= 5)
+            state_next = GET_DATA_B2_0;
+          else
+            // done
+            state_next = GET_DATA_B0_0;
         end
       end
       GET_DATA_B2_0: begin
         if (wr_en_valid == 1'b1) begin
-          state_next = GET_DATA_B3_0;
+          if (PARAM_R > 4 || PARAM_S >= 5)
+            state_next = GET_DATA_B3_0;
+          else
+            // done
+            state_next = GET_DATA_B0_0;
         end
       end
       GET_DATA_B3_0: begin
         if (wr_en_valid == 1'b1) begin
-          state_next = GET_DATA_B4_0;
+          if (PARAM_R >= 5 || PARAM_S >= 5)
+            state_next = GET_DATA_B4_0;
+          else
+            // done
+            state_next = GET_DATA_B0_0;
         end
       end
       GET_DATA_B4_0: begin
-        if (wr_en_valid == 1'b1) begin
+        if (wr_en_valid == 1'b1)
+          // only come here if PARAM_R >= 5
           state_next = GET_DATA_B4_1;
-        end
       end
       GET_DATA_B4_1: begin
-        if (wr_en_valid == 1'b1) begin
+        if (wr_en_valid == 1'b1)
           state_next = GET_DATA_B0_0;
-        end
       end
       default: begin
         state_next = GET_DATA_B0_0;
@@ -128,7 +150,15 @@ module weight_buffer #(
         GET_DATA_B0_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= {WR_DATA, 32'b0};
+            // TODO ssz if S >= 5 then must go through entire 5x5 cycle
             full_reg <= 1'b0;
+
+            // if width is less than 5, then input is mapped by row
+            if (PARAM_S < 5) begin
+              buffer_reg[0] <= {WR_DATA, 8'b0};
+              if (PARAM_R <= 1)
+                full_reg <= 1'b1;
+            end
           end
         end
         GET_DATA_B0_1: begin
@@ -136,32 +166,61 @@ module weight_buffer #(
             // buffer gets highest BUFFER_WIDTH-bits of temp_reg
             temp_reg <= (temp_reg << 32) | {WR_DATA[INPUT_WIDTH-1-BUFF_IN_DIFF:0], 40'b0};
             full_reg <= 1'b0;
-            // 32-bit, 8-bits
-            buffer_reg[0] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-BUFF_IN_DIFF]};
+
+            // if width is less than 5, then input is mapped by row
+            if (PARAM_S < 5) begin
+              buffer_reg[1] <= {WR_DATA, 8'b0};
+              if (PARAM_R <= 2)
+                full_reg <= 1'b1;
+            end
+            else
+              // 32-bit, 8-bits
+              buffer_reg[0] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-BUFF_IN_DIFF]};
           end
         end
         GET_DATA_B1_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= (temp_reg << 24) | {WR_DATA[INPUT_WIDTH-1-2*BUFF_IN_DIFF:0], 48'b0};
             full_reg <= 1'b0;
-            // 24-bits, 16-bits
-            buffer_reg[1] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-2*BUFF_IN_DIFF]};
+
+            if (PARAM_S < 5) begin
+              buffer_reg[2] <= {WR_DATA, 8'b0};
+              if (PARAM_R <= 3)
+                full_reg <= 1'b1;
+            end
+            else
+              // 24-bits, 16-bits
+              buffer_reg[1] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-2*BUFF_IN_DIFF]};
           end
         end
         GET_DATA_B2_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= (temp_reg << 16) | {WR_DATA[INPUT_WIDTH-1-3*BUFF_IN_DIFF:0], 56'b0};
             full_reg <= 1'b0;
-            // 16-bits, 24-bits
-            buffer_reg[2] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+2*BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-3*BUFF_IN_DIFF]};
+
+            if (PARAM_S < 5) begin
+              buffer_reg[3] <= {WR_DATA, 8'b0};
+              if (PARAM_R <= 4)
+                full_reg <= 1'b1;
+            end
+            else
+              // 16-bits, 24-bits
+              buffer_reg[2] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+2*BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-3*BUFF_IN_DIFF]};
           end
         end
         GET_DATA_B3_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= temp_reg << 8;
             full_reg <= 1'b0;
-            // 8-bits, 32-bits
-            buffer_reg[3] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+3*BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-4*BUFF_IN_DIFF]};
+
+            if (PARAM_S < 5) begin
+              buffer_reg[4] <= {WR_DATA, 8'b0};
+              if (PARAM_R <= 5)
+                full_reg <= 1'b1;
+            end
+            else
+              // 8-bits, 32-bits
+              buffer_reg[3] <= {temp_reg[INPUT_WIDTH*2-1:INPUT_WIDTH+3*BUFF_IN_DIFF], WR_DATA[INPUT_WIDTH-1:INPUT_WIDTH-4*BUFF_IN_DIFF]};
           end
         end
         GET_DATA_B4_0: begin

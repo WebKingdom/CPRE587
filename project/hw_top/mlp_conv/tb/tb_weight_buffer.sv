@@ -24,9 +24,11 @@ module tb_weight_buffer();
   logic wr_en;
   logic wr_valid;
   logic [INPUT_WIDTH-1:0] wr_data;
+  logic unsigned [3:0] param_R;     // filter height
+  logic unsigned [3:0] param_S;     // filter width
 
   // outputs
-  logic wr_ready;
+  logic full;
   logic [BUFFER_WIDTH-1:0] rd_data [0:BUFFER_DEPTH-1];
 
   // DUT instance
@@ -39,7 +41,9 @@ module tb_weight_buffer();
                   .WR_EN(wr_en),
                   .WR_VALID(wr_valid),
                   .WR_DATA(wr_data),
-                  .WR_READY(wr_ready),
+                  .PARAM_R(param_R),
+                  .PARAM_S(param_S),
+                  .FULL(full),
                   .RD_DATA_0(rd_data[0]),
                   .RD_DATA_1(rd_data[1]),
                   .RD_DATA_2(rd_data[2]),
@@ -74,6 +78,8 @@ module tb_weight_buffer();
     wr_en = 0;
     wr_valid = 0;
     wr_data = 0;
+    param_R = 0;
+    param_S = 0;
 
     repeat (2) @(posedge clk);
     #1;
@@ -81,8 +87,10 @@ module tb_weight_buffer();
   endtask
 
   // send 1 random data packet to DUT
-  task automatic send_rand_data();
+  task automatic send_rand_5x5_data();
     wr_en = $random;
+    param_R = 5;
+    param_S = 5;
     if (wr_valid == 1'b0) begin
       wr_valid = $random;
       if (wr_count == 0) begin
@@ -116,7 +124,7 @@ module tb_weight_buffer();
     end
     @(posedge clk);
     #1;
-    check_output();
+    check_output(0);
     if (wr_en_valid == 1'b1) begin
       wr_count++;
       if (wr_count < 5) begin
@@ -129,7 +137,33 @@ module tb_weight_buffer();
     end
   endtask
 
-  task automatic check_output();
+  task automatic send_rand_4x4_data();
+    wr_en = $random;
+    param_R = 4;
+    param_S = 4;
+    if (wr_valid == 1'b0) begin
+      wr_valid = $random;
+      wr_data = scb_buffer[scb_buffer_idx][BUFFER_WIDTH-1:BUFF_IN_DIFF];
+    end
+    @(posedge clk);
+    #1;
+    check_4x4_output(BUFF_IN_DIFF);
+    if (wr_en_valid == 1'b1) begin
+      wr_count++;
+      if (wr_count > param_R) begin
+        scb_buffer_idx = 0;
+      end
+      else begin
+        scb_buffer_idx++;
+      end
+      wr_valid = 1'b0;
+    end
+    if (wr_count == 7) begin
+      reset_tb();
+    end
+  endtask
+
+  task automatic check_output(int buff_min_lsb);
     int limit = scb_buffer_idx;
     if (wr_count < 5) begin
       limit--;
@@ -138,14 +172,28 @@ module tb_weight_buffer();
       limit++;
     end
     for (int i = 0; i < limit; i++) begin
-      if (scb_buffer[i] != rd_data[i]) begin
-        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
+      if (scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb] != rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
         repeat (2) @(posedge clk);
         #1;
         $finish;
       end
       else begin
-        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i], rd_data[i]);
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+      end
+    end
+  endtask
+
+  task automatic check_4x4_output(int buff_min_lsb);
+    for (int i = 0; i <= scb_buffer_idx; i++) begin
+      if (scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb] != rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]) begin
+        $display("ERROR: MISMATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
+        repeat (2) @(posedge clk);
+        #1;
+        $finish;
+      end
+      else begin
+        $display("MATCH at index %d, expected: %h, actual: %h", i, scb_buffer[i][BUFFER_WIDTH-1:buff_min_lsb], rd_data[i][BUFFER_WIDTH-1:buff_min_lsb]);
       end
     end
   endtask
@@ -156,7 +204,7 @@ module tb_weight_buffer();
     reset_tb();
     for (int i = 0; i < MAX_NUM_CYCLES; i++) begin
       #1;
-      send_rand_data();
+      send_rand_5x5_data();
     end
     $display("test_1 PASSED");
   endtask

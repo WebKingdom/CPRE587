@@ -13,11 +13,11 @@ module fifo #(
     // FIFO read interface
     input wire RD_CMD,
     output wire [FIFO_WIDTH-1:0] RD_DATA,
-    output wire FIFO_EMPTY,
+    output wire EMPTY,
     // FIFO write interface
     input wire WR_CMD,
     input wire [FIFO_WIDTH-1:0] WR_DATA,
-    output wire FIFO_FULL
+    output wire FULL
   );
 
   localparam PTR_WIDTH = $clog2(FIFO_DEPTH);
@@ -28,17 +28,17 @@ module fifo #(
   logic [PTR_WIDTH-1:0] front_reg, front_next;
   logic [PTR_WIDTH-1:0] back_reg, back_next;
   // FIFO full and empty flags
-  logic fifo_full_reg, fifo_full_next;
-  logic fifo_empty_reg, fifo_empty_next;
+  logic full_reg, full_next;
+  logic empty_reg, empty_next;
 
   wire [1:0] rd_wr_cmd;
   wire wr_en;
 
   assign rd_wr_cmd = {RD_CMD, WR_CMD};
-  assign wr_en = ~fifo_full_reg & WR_CMD;
+  assign wr_en = ~full_reg & WR_CMD;
 
-  assign FIFO_FULL = fifo_full_reg;
-  assign FIFO_EMPTY = fifo_empty_reg;
+  assign FULL = full_reg;
+  assign EMPTY = empty_reg;
   assign RD_DATA = fifo_reg[front_reg];
 
   // input/output data
@@ -61,14 +61,14 @@ module fifo #(
     if (RESETN == 1'b0) begin
       front_reg <= 0;
       back_reg <= 0;
-      fifo_full_reg <= 0;
-      fifo_empty_reg <= 1;
+      full_reg <= 0;
+      empty_reg <= 1;
     end
     else begin
       front_reg <= front_next;
       back_reg <= back_next;
-      fifo_full_reg <= fifo_full_next;
-      fifo_empty_reg <= fifo_empty_next;
+      full_reg <= full_next;
+      empty_reg <= empty_next;
     end
   end
 
@@ -76,42 +76,42 @@ module fifo #(
   always_comb begin
     front_next = front_reg;
     back_next = back_reg;
-    fifo_full_next = fifo_full_reg;
-    fifo_empty_next = fifo_empty_reg;
+    full_next = full_reg;
+    empty_next = empty_reg;
 
     if (rd_wr_cmd == 2'b10) begin
       // read only operation
-      if (fifo_empty_reg == 1'b0) begin
+      if (empty_reg == 1'b0) begin
         // not full due to read
-        fifo_full_next = 1'b0;
+        full_next = 1'b0;
         front_next = front_reg + 1;
         // empty check
         if (front_next == back_reg) begin
-          fifo_empty_next = 1;
+          empty_next = 1;
         end
       end
     end
     else if (rd_wr_cmd == 2'b01) begin
       // write only operation
-      if (fifo_full_reg == 1'b0) begin
+      if (full_reg == 1'b0) begin
         // not empty due to write
-        fifo_empty_next = 1'b0;
+        empty_next = 1'b0;
         back_next = back_reg + 1;
         // full check
         if (back_next == front_reg) begin
-          fifo_full_next = 1;
+          full_next = 1;
         end
       end
     end
     else if (rd_wr_cmd == 2'b11) begin
       // read and write operation
-      if (fifo_empty_reg == 1'b1) begin
+      if (empty_reg == 1'b1) begin
         // can not read but can write
-        fifo_empty_next = 1'b0;
+        empty_next = 1'b0;
         back_next = back_reg + 1;
         // full check
         if (back_next == front_reg) begin
-          fifo_full_next = 1;
+          full_next = 1;
         end
       end
       else begin

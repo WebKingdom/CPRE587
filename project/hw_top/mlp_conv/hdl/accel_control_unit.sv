@@ -13,17 +13,17 @@ module accel_control_unit #(
 
     // accelerator interface
     // inputs
-    input [C_S00_AXI_DATA_WIDTH-1:0] params_reg,
-    input [C_S00_AXI_DATA_WIDTH-1:0] weight_base_addr,
-    input [C_S00_AXI_DATA_WIDTH-1:0] input_base_addr,
-    input [C_S00_AXI_DATA_WIDTH-1:0] output_base_addr,
-    input [C_S00_AXI_DATA_WIDTH-1:0] mem_ctrl,
-    input [0:PE_COLS-1] MAC_DONE [0:PE_ROWS-1],             // true every time a MAC operation is done and ready to pass forward
+    input logic [C_S00_AXI_DATA_WIDTH-1:0] params_reg,
+    input logic [C_S00_AXI_DATA_WIDTH-1:0] weight_base_addr,
+    input logic [C_S00_AXI_DATA_WIDTH-1:0] input_base_addr,
+    input logic [C_S00_AXI_DATA_WIDTH-1:0] output_base_addr,
+    input logic [C_S00_AXI_DATA_WIDTH-1:0] mem_ctrl,
+    input wire [0:PE_COLS-1] MAC_DONE [0:PE_ROWS-1],             // true every time a MAC operation is done and ready to pass forward
 
     // outputs
     output [2:0] weight_row_wr_ctrl,                        // index of weight row to write to
     output logic [0:PE_COLS-1] add_mux_ctrl [0:PE_ROWS-1],
-    output [0:PE_COLS-1] stall_ctrl [0:PE_ROWS-1],
+    output logic [0:PE_COLS-1] stall_ctrl [0:PE_ROWS-1],
     output [0:PE_COLS-1] resetn_mac_ctrl [0:PE_ROWS-1],
     output logic [3:0] row_out_mux_ctrl [0:PE_ROWS-1],            // 9:1 mux for each row of MACs
     output logic [2:0] psum_out_mux_ctrl,                         // 5:1 mux controlling which row goes to output storage or feedback

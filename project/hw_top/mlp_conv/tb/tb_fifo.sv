@@ -34,10 +34,10 @@ module tb_fifo();
          .RESETN(resetn),
          .RD_CMD(rd_cmd),
          .RD_DATA(rd_data),
-         .FIFO_EMPTY(fifo_empty),
+         .EMPTY(fifo_empty),
          .WR_CMD(wr_cmd),
          .WR_DATA(wr_data),
-         .FIFO_FULL(fifo_full)
+         .FULL(fifo_full)
        );
 
   // clock generator
