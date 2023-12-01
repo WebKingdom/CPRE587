@@ -1,4 +1,6 @@
-// accelerator control unit
+// PE control unit for weight stationary architecture.
+// Contains a weight_in_ctrl, input_act_ctrl, an input & output Psum FIFO, 
+// a PE (array of MAC units), and a lot of control logic.
 
 `timescale 1ns/1ps
 module accel_control_unit #(
@@ -13,20 +15,20 @@ module accel_control_unit #(
 
     // accelerator interface
     // inputs
-    input logic [C_S00_AXI_DATA_WIDTH-1:0] params_reg,
-    input logic [C_S00_AXI_DATA_WIDTH-1:0] weight_base_addr,
-    input logic [C_S00_AXI_DATA_WIDTH-1:0] input_base_addr,
-    input logic [C_S00_AXI_DATA_WIDTH-1:0] output_base_addr,
-    input logic [C_S00_AXI_DATA_WIDTH-1:0] mem_ctrl,
+    input wire [C_S00_AXI_DATA_WIDTH-1:0] ACC_PARAMS,
+    input wire [C_S00_AXI_DATA_WIDTH-1:0] WEIGHT_BASE_ADDR,
+    input wire [C_S00_AXI_DATA_WIDTH-1:0] INPUT_BASE_ADDR,
+    input wire [C_S00_AXI_DATA_WIDTH-1:0] OUTPUT_BASE_ADDR,
+    input wire [C_S00_AXI_DATA_WIDTH-1:0] MEM_CTRL,
     input wire [0:PE_COLS-1] MAC_DONE [0:PE_ROWS-1],             // true every time a MAC operation is done and ready to pass forward
 
     // outputs
-    output [2:0] weight_row_wr_ctrl,                        // index of weight row to write to
-    output logic [0:PE_COLS-1] add_mux_ctrl [0:PE_ROWS-1],
-    output logic [0:PE_COLS-1] stall_ctrl [0:PE_ROWS-1],
-    output [0:PE_COLS-1] resetn_mac_ctrl [0:PE_ROWS-1],
-    output logic [3:0] row_out_mux_ctrl [0:PE_ROWS-1],            // 9:1 mux for each row of MACs
-    output logic [2:0] psum_out_mux_ctrl,                         // 5:1 mux controlling which row goes to output storage or feedback
+    output [2:0] WEIGHT_ROW_WR_CTRL,                        // index of weight row to write to
+    output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
+    output logic [0:PE_COLS-1] STALL_CTRL [0:PE_ROWS-1],
+    output [0:PE_COLS-1] RESETN_MAC_CTRL [0:PE_ROWS-1],
+    output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],            // 9:1 mux for each row of MACs
+    output logic [2:0] PSUM_OUT_MUX_CTRL,                         // 5:1 mux controlling which row goes to output storage or feedback
     output out_storage_wr_en                                // output storage register write enable
 
     // AXI interfaces?
@@ -52,19 +54,44 @@ module accel_control_unit #(
   wire param_valid;
   wire param_reset;
 
-  assign param_R = params_reg[3:0];
-  assign param_S = params_reg[7:4];
-  assign param_U = params_reg[11:8];
-  assign param_tile_size = params_reg[15:12];
-  assign param_C = params_reg[27:16];
-  assign param_valid = params_reg[30];
-  assign param_reset = params_reg[31];
+  // memory control wires
+  wire buffer_weights;
+  wire clear_weight_buffer;
+  wire load_weight_store;
+  wire buffer_inputs;
+  wire clear_input_buffer;
+  wire clear_output_buffer;
+  wire buffer_psums;
+  wire clear_psum_buffer;
+
+
+  // parameter register
+  assign param_R = ACC_PARAMS[3:0];
+  assign param_S = ACC_PARAMS[7:4];
+  assign param_U = ACC_PARAMS[11:8];
+  assign param_tile_size = ACC_PARAMS[15:12];
+  assign param_C = ACC_PARAMS[27:16];
+
+  assign param_reset = ACC_PARAMS[29];
+  assign param_start = ACC_PARAMS[30];
+  assign param_valid = ACC_PARAMS[31];
+
+  // memory control register
+  assign buffer_weights = MEM_CTRL[0];
+  assign clear_weight_buffer = MEM_CTRL[1];
+  assign load_weight_store = MEM_CTRL[2];
+  assign buffer_inputs = MEM_CTRL[3];
+  assign clear_input_buffer = MEM_CTRL[4];
+  assign clear_output_buffer = MEM_CTRL[5];
+  assign buffer_psums = MEM_CTRL[6];
+  assign clear_psum_buffer = MEM_CTRL[7];
+
 
   // add mux control logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
       for (int i = 0; i < PE_ROWS; i++) begin
-        add_mux_ctrl[i] <= 0;
+        ADD_MUX_CTRL[i] <= 0;
       end
     end
     else begin
@@ -75,14 +102,14 @@ module accel_control_unit #(
           for (int c = 0; c < PE_COLS; c++) begin
             if (c < unsigned'(param_S)) begin
               if (r < unsigned'(param_R)) begin
-                add_mux_ctrl[r][c] <= 1'b1;
+                ADD_MUX_CTRL[r][c] <= 1'b1;
               end
               else begin
-                add_mux_ctrl[r][c] <= 1'b0;
+                ADD_MUX_CTRL[r][c] <= 1'b0;
               end
             end
             else begin
-              add_mux_ctrl[r][c] <= 1'b0;
+              ADD_MUX_CTRL[r][c] <= 1'b0;
             end
           end
         end
@@ -94,7 +121,7 @@ module accel_control_unit #(
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
       for (int i = 0; i < PE_ROWS; i++) begin
-        row_out_mux_ctrl[i] <= 0;
+        ROW_OUT_MUX_CTRL[i] <= 0;
       end
     end
     else begin
@@ -102,7 +129,7 @@ module accel_control_unit #(
       // set to the value of tile size - 1
       if (param_valid == 1'b1) begin
         for (int r = 0; r < PE_ROWS; r++) begin
-          row_out_mux_ctrl[r] <= param_tile_size - 1;
+          ROW_OUT_MUX_CTRL[r] <= param_tile_size - 1;
         end
       end
     end
@@ -111,12 +138,12 @@ module accel_control_unit #(
   // psum out mux control logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      psum_out_mux_ctrl <= 0;
+      PSUM_OUT_MUX_CTRL <= 0;
     end
     else begin
       // set
       if (param_valid == 1'b1) begin
-        psum_out_mux_ctrl <= param_R - 1;
+        PSUM_OUT_MUX_CTRL <= param_R - 1;
       end
     end
   end

@@ -125,7 +125,7 @@ module tb_weight_store();
     end
     @(posedge clk);
     #1;
-    check_output();
+    check_5x5_output();
     if (wr_en_valid == 1'b1) begin
       wr_count++;
       if (wr_count < 5) begin
@@ -218,7 +218,7 @@ module tb_weight_store();
     end
   endtask
 
-  task automatic check_output();
+  task automatic check_5x5_output();
     int limit = scb_buffer_idx;
     if (wr_count < 5) begin
       limit--;
