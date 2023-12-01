@@ -2,7 +2,7 @@
 
 
 `timescale 1ns/1ps
-module tb_weight_buffer();
+module tb_weight_store();
 
   localparam INPUT_WIDTH = 32;
   localparam BUFFER_WIDTH = 40;
@@ -32,7 +32,7 @@ module tb_weight_buffer();
   logic [BUFFER_WIDTH-1:0] rd_data [0:BUFFER_DEPTH-1];
 
   // DUT instance
-  weight_buffer #(
+  weight_store #(
                   .INPUT_WIDTH(INPUT_WIDTH),
                   .BUFFER_WIDTH(BUFFER_WIDTH)
                 ) dut (
@@ -348,7 +348,7 @@ module tb_weight_buffer();
 
   // simulation
   initial begin
-    $display("tb_weight_buffer");
+    $display("tb_weight_store");
     reset_all();
 
     test_5x5();
@@ -366,7 +366,7 @@ module tb_weight_buffer();
     test_1x1();
 
     $display("\n");
-    $display("tb_weight_buffer PASSED");
+    $display("tb_weight_store PASSED");
     $finish;
   end
 
