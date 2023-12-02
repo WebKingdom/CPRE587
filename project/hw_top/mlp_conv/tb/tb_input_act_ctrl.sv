@@ -32,7 +32,7 @@ module tb_input_act_ctrl();
   // outputs
   logic fifo_empty;
   logic fifo_full;
-  logic [OUTPUT_WIDTH-1:0] in_act_data_out;
+  logic [OUTPUT_WIDTH-1:0] data_out;
   logic data_valid;
 
   // DUT instance
@@ -49,7 +49,7 @@ module tb_input_act_ctrl();
                    .FIFO_WR_DATA(fifo_wr_data),
                    .FIFO_EMPTY(fifo_empty),
                    .FIFO_FULL(fifo_full),
-                   .IN_ACT_DATA_OUT(in_act_data_out),
+                   .DATA_OUT(data_out),
                    .DATA_VALID(data_valid)
                  );
 
@@ -182,13 +182,13 @@ module tb_input_act_ctrl();
         $finish;
       end
 
-      byte_data[byte_count*8 +: 8] = in_act_data_out;
+      byte_data[byte_count*8 +: 8] = data_out;
       byte_count++;
       if (byte_count == INPUT_WIDTH/OUTPUT_WIDTH) begin
         byte_count = 0;
         q_data = q.pop_front();
         if (q_data != byte_data) begin
-          $display("ERROR: q_data = %d, in_act_data_out = %d", q_data, byte_data);
+          $display("ERROR: q_data = %d, data_out = %d", q_data, byte_data);
         //   repeat (2) @(posedge clk);
         //   #1;
           $finish;
