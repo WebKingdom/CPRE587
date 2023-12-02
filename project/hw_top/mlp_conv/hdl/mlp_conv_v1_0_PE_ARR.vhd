@@ -42,7 +42,7 @@ entity mlp_conv_v1_0_PE_ARR is
         
         stall_ctl    : in std_logic;
         row_out_mux_ctrl : in std_logic_vector(PE_WIDTH * ROW_OUT_WIDTH - 1 downto 0);
-        psum_out_ctrl: in std_logic_vector(PSUM_OUT_WIDTH downto 0);
+        psum_out_ctrl: in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
         add_mux_ctrl : in std_logic_vector(PE_WIDTH * PE_WIDTH - 1 downto 0);
         
         psum_in      : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
@@ -72,7 +72,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             stall_ctl    : in std_logic;
             add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
 
-            row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+            row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH  - 1 downto 0);
         
             output_in    : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
         
@@ -80,7 +80,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
         );
     end component mlp_conv_v1_0_PE_ARR_ROW;
     
-    type t_output_array is array (-1 to PE_WIDTH) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+    type t_output_array is array (-1 to PE_WIDTH - 1) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     signal output_array : t_output_array;
     
 
@@ -103,7 +103,7 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             stall_ctl => stall_ctl,
             add_mux_ctrl => add_mux_ctrl(i * PE_WIDTH + PE_WIDTH - 1 downto i * PE_WIDTH),
             
-            row_out_mux_ctrl => row_out_mux_ctrl(i * PE_WIDTH + ROW_OUT_WIDTH - 1 downto i * PE_WIDTH),
+            row_out_mux_ctrl => row_out_mux_ctrl(i * ROW_OUT_WIDTH + ROW_OUT_WIDTH - 1 downto i * ROW_OUT_WIDTH),
             
             output_in => output_array(i-1),
             

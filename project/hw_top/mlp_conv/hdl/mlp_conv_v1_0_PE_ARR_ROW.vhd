@@ -75,43 +75,46 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR_ROW is
     );
     end component mlp_conv_v1_0_PE;
     
-    type t_output_array is array (0 to PE_WIDTH + PS_WIDTH) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
-    
+    type t_output_array is array (0 to PE_WIDTH) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+    type t_ps_array is array (0 to PS_WIDTH - 1) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+
     signal output_arr : t_output_array;
+    signal ps_arr : t_ps_array;
     
 begin
 
 output_arr(0) <= output_in;
 
 -- row_out_mux_ctrl could be larger than output_arr size !-!
-output <= output_arr(to_integer(unsigned(row_out_mux_ctrl)) + 1);
+output <= output_arr(to_integer(unsigned(row_out_mux_ctrl)) + 1) when unsigned(row_out_mux_ctrl) < "0101" else 
+          ps_arr(to_integer(unsigned(row_out_mux_ctrl) - "0101"));
 
-PE_ROW : for i in 0 to PE_WIDTH + PS_WIDTH generate
-    PE_IF: if i < PE_WIDTH generate
-        PE: mlp_conv_v1_0_PE port map(
-            ACLK => ACLK,
-            ARESETN => ARESETN,
-            input => input,
-            weight => weight(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
-            add_mux_ctrl => add_mux_ctrl(i),
-            input_valid => input_valid,
-            stall_ctl => stall_ctl,
+PE_ROW : for i in 0 to PE_WIDTH - 1 generate
+    PE: mlp_conv_v1_0_PE port map(
+        ACLK => ACLK,
+        ARESETN => ARESETN,
+        input => input,
+        weight => weight(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
+        add_mux_ctrl => add_mux_ctrl(i),
+        input_valid => input_valid,
+        stall_ctl => stall_ctl,
             
-            add_val => output_arr(i),
-            output => output_arr(i+1)
-         );
-    end generate;
+        add_val => output_arr(i),
+        output => output_arr(i+1)
+    );
 end generate;
 
 process (ACLK) is
 begin
     if rising_edge(ACLK) then
-        for i in PE_WIDTH to PE_WIDTH + PS_WIDTH - 1 loop
+        for i in 0 to PS_WIDTH - 1 loop
             if stall_ctl = '0' then
-                -- This could cause issues, output_arr is assigned in blocking and non-blocking, 
-                -- but not on the same elements.
-                output_arr(i + 1) <= output_arr(i);
-            end if;
+                  if i = 0 then
+                    ps_arr(0) <= output_arr(PE_WIDTH);
+                  else
+                    ps_arr(i) <= ps_arr(i - 1);
+                  end if;
+             end if;
         end loop;
     end if;
 end process;
