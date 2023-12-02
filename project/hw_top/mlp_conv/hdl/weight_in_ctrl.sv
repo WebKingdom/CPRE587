@@ -76,7 +76,7 @@ module weight_in_ctrl #(
   assign FIFO_EMPTY = fifo_empty;
   assign WS_FULL = ws_full;
   assign fifo_rd_cmd = load_ws;
-  assign ws_wr_en = load_ws & ~ws_full;
+  assign ws_wr_en = load_ws == 1'b1 && ws_full == 1'b0;
 
   // clear FIFO 1x when CLEAR_FIFO goes high
   always_ff @(posedge CLK) begin
