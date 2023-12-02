@@ -27,7 +27,7 @@ module accel_control_unit #(
     output logic [0:PE_COLS-1] STALL_CTRL [0:PE_ROWS-1],
     output logic [0:PE_COLS-1] RESETN_MAC_CTRL [0:PE_ROWS-1],
     output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],          // 9:1 mux for each row of MACs
-    output logic [2:0] PSUM_OUT_MUX_CTRL,                       // 5:1 mux controlling which row goes to output storage or feedback
+    output logic [2:0] PSUM_OUT_MUX_CTRL                       // 5:1 mux controlling which row goes to output storage or feedback
 
 
     // AXI Master interface
@@ -270,7 +270,7 @@ module accel_control_unit #(
                    .FIFO_EMPTY(input_act_ctrl_fifo_empty),
                    .FIFO_FULL(input_act_ctrl_fifo_full),
                    .DATA_OUT(input_act_ctrl_data_out),
-                   .DATA_VALID(input_act_ctrl_data_valid),
+                   .DATA_VALID(input_act_ctrl_data_valid)
                  );
 
   // output buffer FIFO

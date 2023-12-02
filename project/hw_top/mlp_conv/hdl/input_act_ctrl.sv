@@ -89,7 +89,7 @@ module input_act_ctrl #(
         else begin
           read_fifo_till_empty <= 1'b1;
           count <= count + 1;
-          if (count >= (INPUT_WIDTH/OUTPUT_WIDTH)-2) begin
+          if (count == (INPUT_WIDTH/OUTPUT_WIDTH)-2) begin
             // issue read command early so next cycle FIFO will output correct data
             fifo_rd_cmd <= 1'b1;
           end
