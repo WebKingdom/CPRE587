@@ -420,7 +420,7 @@ architecture arch_imp of mlp_conv_v1_0 is
   component fifo is
     generic (
       FIFO_WIDTH : integer := C_M00_AXI_DATA_WIDTH;
-      FIFO_DEPTH : integer := 32
+      FIFO_DEPTH : integer := 128
     );
     port (
       CLK    : in std_logic;
@@ -428,11 +428,11 @@ architecture arch_imp of mlp_conv_v1_0 is
       -- FIFO read interface
       RD_CMD     : in std_logic;
       RD_DATA    : out std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      FIFO_EMPTY : out std_logic;
+      EMPTY : out std_logic;
       -- FIFO write interface
       WR_CMD    : in std_logic;
       WR_DATA   : in std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      FIFO_FULL : out std_logic
+      FULL : out std_logic
     );
   end component fifo;
 
@@ -658,17 +658,17 @@ begin
   fifo_inst : fifo
   generic map(
     FIFO_WIDTH => C_M00_AXI_DATA_WIDTH,
-    FIFO_DEPTH => 32
+    FIFO_DEPTH => 128
   )
   port map(
     CLK        => m00_axi_aclk,
     RESETN     => m00_axi_aresetn,
     RD_CMD     => fifo_rd_cmd,
     RD_DATA    => fifo_rd_data,
-    FIFO_EMPTY => fifo_empty,
+    EMPTY => fifo_empty,
     WR_CMD     => fifo_wr_cmd,
     WR_DATA    => fifo_wr_data,
-    FIFO_FULL  => fifo_full
+    FULL  => fifo_full
   );
   -- User logic ends
 

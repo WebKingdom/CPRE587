@@ -8,7 +8,7 @@
 
 
 `timescale 1ns/1ps
-module weight_buffer #(
+module weight_store #(
     parameter INPUT_WIDTH = 32,
     parameter BUFFER_WIDTH = 40
   ) (
@@ -146,13 +146,13 @@ module weight_buffer #(
       full_reg <= 0;
     end
     else begin
+      // always reset full_reg to 0 (will just pulse when full)
+      full_reg <= 1'b0;
       case (state_reg)
         GET_DATA_B0_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= {WR_DATA, 32'b0};
             // TODO ssz if S >= 5 then must go through entire 5x5 cycle
-            full_reg <= 1'b0;
-
             // if width is less than 5, then input is mapped by row
             if (PARAM_S < 5) begin
               buffer_reg[0] <= {WR_DATA, 8'b0};
@@ -165,7 +165,6 @@ module weight_buffer #(
           if (wr_en_valid == 1'b1) begin
             // buffer gets highest BUFFER_WIDTH-bits of temp_reg
             temp_reg <= (temp_reg << 32) | {WR_DATA[INPUT_WIDTH-1-BUFF_IN_DIFF:0], 40'b0};
-            full_reg <= 1'b0;
 
             // if width is less than 5, then input is mapped by row
             if (PARAM_S < 5) begin
@@ -181,7 +180,6 @@ module weight_buffer #(
         GET_DATA_B1_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= (temp_reg << 24) | {WR_DATA[INPUT_WIDTH-1-2*BUFF_IN_DIFF:0], 48'b0};
-            full_reg <= 1'b0;
 
             if (PARAM_S < 5) begin
               buffer_reg[2] <= {WR_DATA, 8'b0};
@@ -196,7 +194,6 @@ module weight_buffer #(
         GET_DATA_B2_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= (temp_reg << 16) | {WR_DATA[INPUT_WIDTH-1-3*BUFF_IN_DIFF:0], 56'b0};
-            full_reg <= 1'b0;
 
             if (PARAM_S < 5) begin
               buffer_reg[3] <= {WR_DATA, 8'b0};
@@ -211,7 +208,6 @@ module weight_buffer #(
         GET_DATA_B3_0: begin
           if (wr_en_valid == 1'b1) begin
             temp_reg <= temp_reg << 8;
-            full_reg <= 1'b0;
 
             if (PARAM_S < 5) begin
               buffer_reg[4] <= {WR_DATA, 8'b0};
@@ -227,7 +223,6 @@ module weight_buffer #(
           if (wr_en_valid == 1'b1) begin
             // back to inintial condition
             temp_reg <= {WR_DATA, 32'b0};
-            full_reg <= 1'b0;
           end
         end
         GET_DATA_B4_1: begin

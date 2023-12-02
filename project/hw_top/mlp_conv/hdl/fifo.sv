@@ -39,7 +39,7 @@ module fifo #(
 
   assign FULL = full_reg;
   assign EMPTY = empty_reg;
-  assign RD_DATA = fifo_reg[front_reg];
+  assign RD_DATA = empty_reg ? 0 : fifo_reg[front_reg];
 
   // input/output data
   always_ff @(posedge CLK) begin
