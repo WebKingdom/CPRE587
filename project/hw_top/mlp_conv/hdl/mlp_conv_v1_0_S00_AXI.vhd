@@ -20,9 +20,9 @@ entity mlp_conv_v1_0_S00_AXI is
     MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-    MLP_AXI_MEM_CTRL          : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_MEM_CTRL         : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
 
-    MLP_AXI_ACC_STATUS : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+    MLP_AXI_PE_STATUS : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
     -- User ports ends
     -- Do not modify the ports beyond this line
 
@@ -158,8 +158,8 @@ begin
   MLP_AXI_WEIGHT_BASE_ADDR <= slv_reg1;
   MLP_AXI_INPUT_BASE_ADDR  <= slv_reg2;
   MLP_AXI_OUTPUT_BASE_ADDR <= slv_reg3;
-  MLP_AXI_MEM_CTRL          <= slv_reg4;
-  slv_reg31                <= MLP_AXI_ACC_STATUS;
+  MLP_AXI_MEM_CTRL         <= slv_reg4;
+  slv_reg31                <= MLP_AXI_PE_STATUS;
 
   -- I/O Connections assignments
 

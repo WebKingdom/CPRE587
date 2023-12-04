@@ -204,7 +204,7 @@ architecture arch_imp of mlp_conv_v1_0 is
     );
     port (
       MLP_AXI_FILTER_PARAMS    : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
-      MLP_AXI_ACC_STATUS       : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
+      MLP_AXI_PE_STATUS        : in std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
       MLP_AXI_WEIGHT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
       MLP_AXI_INPUT_BASE_ADDR  : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
       MLP_AXI_OUTPUT_BASE_ADDR : out std_logic_vector(C_S_AXI_DATA_WIDTH - 1 downto 0);
@@ -236,21 +236,29 @@ architecture arch_imp of mlp_conv_v1_0 is
 
   component mlp_conv_v1_0_M00_AXI is
     generic (
-      C_M_TARGET_SLAVE_BASE_ADDR : std_logic_vector := x"40000000";
-      C_M_AXI_BURST_LEN          : integer          := 16;
-      C_M_AXI_ID_WIDTH           : integer          := 1;
-      C_M_AXI_ADDR_WIDTH         : integer          := 32;
-      C_M_AXI_DATA_WIDTH         : integer          := 32;
-      C_M_AXI_AWUSER_WIDTH       : integer          := 0;
-      C_M_AXI_ARUSER_WIDTH       : integer          := 0;
-      C_M_AXI_WUSER_WIDTH        : integer          := 0;
-      C_M_AXI_RUSER_WIDTH        : integer          := 0;
-      C_M_AXI_BUSER_WIDTH        : integer          := 0
+      C_M_AXI_BURST_LEN    : integer := 16;
+      C_M_AXI_ID_WIDTH     : integer := 1;
+      C_M_AXI_ADDR_WIDTH   : integer := 32;
+      C_M_AXI_DATA_WIDTH   : integer := 32;
+      C_M_AXI_AWUSER_WIDTH : integer := 0;
+      C_M_AXI_ARUSER_WIDTH : integer := 0;
+      C_M_AXI_WUSER_WIDTH  : integer := 0;
+      C_M_AXI_RUSER_WIDTH  : integer := 0;
+      C_M_AXI_BUSER_WIDTH  : integer := 0
     );
     port (
-      INIT_AXI_TXN  : in std_logic;
-      TXN_DONE      : out std_logic;
-      ERROR         : out std_logic;
+      -- * Custom ports
+      M_TARGET_SLAVE_BASE_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+      M_AXI_RDATA_OUT          : out std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_RVALID_RREADY      : out std_logic;
+      M_AXI_WDATA_IN           : in std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_WVALID_WREADY      : out std_logic;
+      M_AXI_AWVALID_AWREADY    : out std_logic;
+      -- * End custom ports
+      INIT_AXI_TXN : in std_logic;
+      TXN_DONE     : out std_logic;
+      ERROR        : out std_logic;
+      -- * End PE control unit ports
       M_AXI_ACLK    : in std_logic;
       M_AXI_ARESETN : in std_logic;
       M_AXI_AWID    : out std_logic_vector(C_M_AXI_ID_WIDTH - 1 downto 0);
@@ -395,8 +403,8 @@ architecture arch_imp of mlp_conv_v1_0 is
     );
   end component mlp_conv_v1_0_S_AXI_INTR;
 
-  -- instantiate accelerator
-  -- component accel_control_unit is
+  -- instantiate PE control unit
+  -- component pe_control_unit is
   --   generic (
   --     C_S00_AXI_DATA_WIDTH : integer := 32;
   --     C_M00_AXI_DATA_WIDTH : integer := 32;
@@ -415,7 +423,8 @@ architecture arch_imp of mlp_conv_v1_0 is
   --     mem_ctrl          : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   --     MAC_DONE          : out 
   --   );
-  -- end component accel_control_unit;
+  -- end component pe_control_unit;
+
   -- instantiate FIFO (test)
   component fifo is
     generic (
@@ -426,13 +435,13 @@ architecture arch_imp of mlp_conv_v1_0 is
       CLK    : in std_logic;
       RESETN : in std_logic;
       -- FIFO read interface
-      RD_CMD     : in std_logic;
-      RD_DATA    : out std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      EMPTY : out std_logic;
+      RD_CMD  : in std_logic;
+      RD_DATA : out std_logic_vector(FIFO_WIDTH - 1 downto 0);
+      EMPTY   : out std_logic;
       -- FIFO write interface
-      WR_CMD    : in std_logic;
-      WR_DATA   : in std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      FULL : out std_logic
+      WR_CMD  : in std_logic;
+      WR_DATA : in std_logic_vector(FIFO_WIDTH - 1 downto 0);
+      FULL    : out std_logic
     );
   end component fifo;
 
@@ -444,14 +453,22 @@ architecture arch_imp of mlp_conv_v1_0 is
   signal fifo_wr_data : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
   signal fifo_full    : std_logic;
 
-  -- user signals
+  -- S00 (register bank) signals
   signal filter_params    : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal weight_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal input_base_addr  : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal output_base_addr : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
   signal mem_ctrl         : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
-  signal acc_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+  signal pe_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+
+  -- M00 (Master AXI interface) signals
+  signal m00_target_slave_base_addr : std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+  signal m00_axi_rdata_out          : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal m00_axi_rvalid_rready      : std_logic;
+  signal m00_axi_wdata_in           : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal m00_axi_wvalid_wready      : std_logic;
+  signal m00_axi_awvalid_awready    : std_logic;
 
 begin
 
@@ -467,7 +484,7 @@ begin
     MLP_AXI_INPUT_BASE_ADDR  => input_base_addr,
     MLP_AXI_OUTPUT_BASE_ADDR => output_base_addr,
     MLP_AXI_MEM_CTRL         => mem_ctrl,
-    MLP_AXI_ACC_STATUS       => acc_status,
+    MLP_AXI_PE_STATUS        => pe_status,
     S_AXI_ACLK               => s00_axi_aclk,
     S_AXI_ARESETN            => s00_axi_aresetn,
     S_AXI_AWADDR             => s00_axi_awaddr,
@@ -494,21 +511,29 @@ begin
   -- Instantiation of Axi Bus Interface M00_AXI
   mlp_conv_v1_0_M00_AXI_inst : mlp_conv_v1_0_M00_AXI
   generic map(
-    C_M_TARGET_SLAVE_BASE_ADDR => C_M00_AXI_TARGET_SLAVE_BASE_ADDR,
-    C_M_AXI_BURST_LEN          => C_M00_AXI_BURST_LEN,
-    C_M_AXI_ID_WIDTH           => C_M00_AXI_ID_WIDTH,
-    C_M_AXI_ADDR_WIDTH         => C_M00_AXI_ADDR_WIDTH,
-    C_M_AXI_DATA_WIDTH         => C_M00_AXI_DATA_WIDTH,
-    C_M_AXI_AWUSER_WIDTH       => C_M00_AXI_AWUSER_WIDTH,
-    C_M_AXI_ARUSER_WIDTH       => C_M00_AXI_ARUSER_WIDTH,
-    C_M_AXI_WUSER_WIDTH        => C_M00_AXI_WUSER_WIDTH,
-    C_M_AXI_RUSER_WIDTH        => C_M00_AXI_RUSER_WIDTH,
-    C_M_AXI_BUSER_WIDTH        => C_M00_AXI_BUSER_WIDTH
+    C_M_AXI_BURST_LEN    => C_M00_AXI_BURST_LEN,
+    C_M_AXI_ID_WIDTH     => C_M00_AXI_ID_WIDTH,
+    C_M_AXI_ADDR_WIDTH   => C_M00_AXI_ADDR_WIDTH,
+    C_M_AXI_DATA_WIDTH   => C_M00_AXI_DATA_WIDTH,
+    C_M_AXI_AWUSER_WIDTH => C_M00_AXI_AWUSER_WIDTH,
+    C_M_AXI_ARUSER_WIDTH => C_M00_AXI_ARUSER_WIDTH,
+    C_M_AXI_WUSER_WIDTH  => C_M00_AXI_WUSER_WIDTH,
+    C_M_AXI_RUSER_WIDTH  => C_M00_AXI_RUSER_WIDTH,
+    C_M_AXI_BUSER_WIDTH  => C_M00_AXI_BUSER_WIDTH
   )
   port map(
-    INIT_AXI_TXN  => m00_axi_init_axi_txn,
-    TXN_DONE      => m00_axi_txn_done,
-    ERROR         => m00_axi_error,
+    -- * Custom ports
+    M_TARGET_SLAVE_BASE_ADDR => m00_target_slave_base_addr,
+    M_AXI_RDATA_OUT          => m00_axi_rdata_out,
+    M_AXI_RVALID_RREADY      => m00_axi_rvalid_rready,
+    M_AXI_WDATA_IN           => m00_axi_wdata_in,
+    M_AXI_WVALID_WREADY      => m00_axi_wvalid_wready,
+    M_AXI_AWVALID_AWREADY    => m00_axi_awvalid_awready,
+    -- * End custom ports
+    INIT_AXI_TXN => m00_axi_init_axi_txn,
+    TXN_DONE     => m00_axi_txn_done,
+    ERROR        => m00_axi_error,
+    -- * End PE control unit ports
     M_AXI_ACLK    => m00_axi_aclk,
     M_AXI_ARESETN => m00_axi_aresetn,
     M_AXI_AWID    => m00_axi_awid,
@@ -661,14 +686,14 @@ begin
     FIFO_DEPTH => 128
   )
   port map(
-    CLK        => m00_axi_aclk,
-    RESETN     => m00_axi_aresetn,
-    RD_CMD     => fifo_rd_cmd,
-    RD_DATA    => fifo_rd_data,
-    EMPTY => fifo_empty,
-    WR_CMD     => fifo_wr_cmd,
-    WR_DATA    => fifo_wr_data,
-    FULL  => fifo_full
+    CLK     => m00_axi_aclk,
+    RESETN  => m00_axi_aresetn,
+    RD_CMD  => fifo_rd_cmd,
+    RD_DATA => fifo_rd_data,
+    EMPTY   => fifo_empty,
+    WR_CMD  => fifo_wr_cmd,
+    WR_DATA => fifo_wr_data,
+    FULL    => fifo_full
   );
   -- User logic ends
 
