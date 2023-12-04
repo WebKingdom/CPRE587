@@ -39,6 +39,7 @@ module tb_weight_in_ctrl();
   logic fifo_empty;
   logic fifo_full;
   logic ws_full;
+  logic loading_ws;
   logic [WS_WIDTH-1:0] ws_rd_data [0:WS_DEPTH-1];
 
   // DUT instance
@@ -58,6 +59,7 @@ module tb_weight_in_ctrl();
                    .PARAM_R(param_r),
                    .PARAM_S(param_s),
                    .WS_FULL(ws_full),
+                   .LOADING_WS(loading_ws),
                    .WS_RD_DATA_0(ws_rd_data[0]),
                    .WS_RD_DATA_1(ws_rd_data[1]),
                    .WS_RD_DATA_2(ws_rd_data[2]),

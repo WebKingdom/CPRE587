@@ -22,6 +22,7 @@ module weight_in_ctrl #(
     input wire unsigned [3:0] PARAM_R,          // filter height
     input wire unsigned [3:0] PARAM_S,          // filter width
     output wire WS_FULL,
+    output wire LOADING_WS,                     // weight store is loading
     output wire [WS_WIDTH-1:0] WS_RD_DATA_0,
     output wire [WS_WIDTH-1:0] WS_RD_DATA_1,
     output wire [WS_WIDTH-1:0] WS_RD_DATA_2,
@@ -81,6 +82,7 @@ module weight_in_ctrl #(
 
   assign FIFO_EMPTY = fifo_empty;
   assign WS_FULL = ws_full;
+  assign LOADING_WS = can_load_ws == 1 || load_ws == 1;
 
   // start loading weight store when LOAD_WS goes high and FIFO is not empty
   // keep loading until weight store is full

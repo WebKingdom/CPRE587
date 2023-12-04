@@ -72,53 +72,50 @@ entity mlp_conv_v1_0 is
     s00_axi_rready  : in std_logic;
 
     -- Ports of Axi Master Bus Interface M00_AXI
-    m00_axi_init_axi_txn : in std_logic;
-    m00_axi_txn_done     : out std_logic;
-    m00_axi_error        : out std_logic;
-    m00_axi_aclk         : in std_logic;
-    m00_axi_aresetn      : in std_logic;
-    m00_axi_awid         : out std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
-    m00_axi_awaddr       : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
-    m00_axi_awlen        : out std_logic_vector(7 downto 0);
-    m00_axi_awsize       : out std_logic_vector(2 downto 0);
-    m00_axi_awburst      : out std_logic_vector(1 downto 0);
-    m00_axi_awlock       : out std_logic;
-    m00_axi_awcache      : out std_logic_vector(3 downto 0);
-    m00_axi_awprot       : out std_logic_vector(2 downto 0);
-    m00_axi_awqos        : out std_logic_vector(3 downto 0);
-    m00_axi_awuser       : out std_logic_vector(C_M00_AXI_AWUSER_WIDTH - 1 downto 0);
-    m00_axi_awvalid      : out std_logic;
-    m00_axi_awready      : in std_logic;
-    m00_axi_wdata        : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-    m00_axi_wstrb        : out std_logic_vector(C_M00_AXI_DATA_WIDTH/8 - 1 downto 0);
-    m00_axi_wlast        : out std_logic;
-    m00_axi_wuser        : out std_logic_vector(C_M00_AXI_WUSER_WIDTH - 1 downto 0);
-    m00_axi_wvalid       : out std_logic;
-    m00_axi_wready       : in std_logic;
-    m00_axi_bid          : in std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
-    m00_axi_bresp        : in std_logic_vector(1 downto 0);
-    m00_axi_buser        : in std_logic_vector(C_M00_AXI_BUSER_WIDTH - 1 downto 0);
-    m00_axi_bvalid       : in std_logic;
-    m00_axi_bready       : out std_logic;
-    m00_axi_arid         : out std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
-    m00_axi_araddr       : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
-    m00_axi_arlen        : out std_logic_vector(7 downto 0);
-    m00_axi_arsize       : out std_logic_vector(2 downto 0);
-    m00_axi_arburst      : out std_logic_vector(1 downto 0);
-    m00_axi_arlock       : out std_logic;
-    m00_axi_arcache      : out std_logic_vector(3 downto 0);
-    m00_axi_arprot       : out std_logic_vector(2 downto 0);
-    m00_axi_arqos        : out std_logic_vector(3 downto 0);
-    m00_axi_aruser       : out std_logic_vector(C_M00_AXI_ARUSER_WIDTH - 1 downto 0);
-    m00_axi_arvalid      : out std_logic;
-    m00_axi_arready      : in std_logic;
-    m00_axi_rid          : in std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
-    m00_axi_rdata        : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-    m00_axi_rresp        : in std_logic_vector(1 downto 0);
-    m00_axi_rlast        : in std_logic;
-    m00_axi_ruser        : in std_logic_vector(C_M00_AXI_RUSER_WIDTH - 1 downto 0);
-    m00_axi_rvalid       : in std_logic;
-    m00_axi_rready       : out std_logic;
+    m00_axi_aclk    : in std_logic;
+    m00_axi_aresetn : in std_logic;
+    m00_axi_awid    : out std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
+    m00_axi_awaddr  : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+    m00_axi_awlen   : out std_logic_vector(7 downto 0);
+    m00_axi_awsize  : out std_logic_vector(2 downto 0);
+    m00_axi_awburst : out std_logic_vector(1 downto 0);
+    m00_axi_awlock  : out std_logic;
+    m00_axi_awcache : out std_logic_vector(3 downto 0);
+    m00_axi_awprot  : out std_logic_vector(2 downto 0);
+    m00_axi_awqos   : out std_logic_vector(3 downto 0);
+    m00_axi_awuser  : out std_logic_vector(C_M00_AXI_AWUSER_WIDTH - 1 downto 0);
+    m00_axi_awvalid : out std_logic;
+    m00_axi_awready : in std_logic;
+    m00_axi_wdata   : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+    m00_axi_wstrb   : out std_logic_vector(C_M00_AXI_DATA_WIDTH/8 - 1 downto 0);
+    m00_axi_wlast   : out std_logic;
+    m00_axi_wuser   : out std_logic_vector(C_M00_AXI_WUSER_WIDTH - 1 downto 0);
+    m00_axi_wvalid  : out std_logic;
+    m00_axi_wready  : in std_logic;
+    m00_axi_bid     : in std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
+    m00_axi_bresp   : in std_logic_vector(1 downto 0);
+    m00_axi_buser   : in std_logic_vector(C_M00_AXI_BUSER_WIDTH - 1 downto 0);
+    m00_axi_bvalid  : in std_logic;
+    m00_axi_bready  : out std_logic;
+    m00_axi_arid    : out std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
+    m00_axi_araddr  : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+    m00_axi_arlen   : out std_logic_vector(7 downto 0);
+    m00_axi_arsize  : out std_logic_vector(2 downto 0);
+    m00_axi_arburst : out std_logic_vector(1 downto 0);
+    m00_axi_arlock  : out std_logic;
+    m00_axi_arcache : out std_logic_vector(3 downto 0);
+    m00_axi_arprot  : out std_logic_vector(2 downto 0);
+    m00_axi_arqos   : out std_logic_vector(3 downto 0);
+    m00_axi_aruser  : out std_logic_vector(C_M00_AXI_ARUSER_WIDTH - 1 downto 0);
+    m00_axi_arvalid : out std_logic;
+    m00_axi_arready : in std_logic;
+    m00_axi_rid     : in std_logic_vector(C_M00_AXI_ID_WIDTH - 1 downto 0);
+    m00_axi_rdata   : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+    m00_axi_rresp   : in std_logic_vector(1 downto 0);
+    m00_axi_rlast   : in std_logic;
+    m00_axi_ruser   : in std_logic_vector(C_M00_AXI_RUSER_WIDTH - 1 downto 0);
+    m00_axi_rvalid  : in std_logic;
+    m00_axi_rready  : out std_logic;
 
     -- Ports of Axi Slave Bus Interface S01_AXI
     s01_axi_aclk     : in std_logic;
@@ -463,6 +460,10 @@ architecture arch_imp of mlp_conv_v1_0 is
   signal pe_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
   -- M00 (Master AXI interface) signals
+  signal m00_axi_init_axi_wr_txn    : std_logic;
+  signal m00_axi_init_axi_rd_txn    : std_logic;
+  signal m00_axi_txn_done           : std_logic;
+  signal m00_axi_error              : std_logic;
   signal m00_target_slave_base_addr : std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
   signal m00_axi_rdata_out          : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
   signal m00_axi_rvalid_rready      : std_logic;
@@ -530,9 +531,10 @@ begin
     M_AXI_WVALID_WREADY      => m00_axi_wvalid_wready,
     M_AXI_AWVALID_AWREADY    => m00_axi_awvalid_awready,
     -- * End custom ports
-    INIT_AXI_TXN => m00_axi_init_axi_txn,
-    TXN_DONE     => m00_axi_txn_done,
-    ERROR        => m00_axi_error,
+    INIT_AXI_WR_TXN => m00_axi_init_axi_wr_txn,
+    INIT_AXI_RD_TXN => m00_axi_init_axi_rd_txn,
+    TXN_DONE        => m00_axi_txn_done,
+    ERROR           => m00_axi_error,
     -- * End PE control unit ports
     M_AXI_ACLK    => m00_axi_aclk,
     M_AXI_ARESETN => m00_axi_aresetn,
