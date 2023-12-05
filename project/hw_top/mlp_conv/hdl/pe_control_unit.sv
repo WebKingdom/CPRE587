@@ -34,7 +34,8 @@ module pe_control_unit #(
 
 
     // AXI Master FSM interface
-    output logic [C_M00_AXI_DATA_WIDTH-1:0] M_TARGET_SLAVE_BASE_ADDR,
+    output logic [C_M00_AXI_DATA_WIDTH-1:0] M_TARGET_SLAVE_BASE_AR_ADDR,
+    output logic [C_M00_AXI_DATA_WIDTH-1:0] M_TARGET_SLAVE_BASE_AW_ADDR,
     input wire [C_M00_AXI_DATA_WIDTH-1:0] M_AXI_RDATA,
     input wire M_AXI_RVALID_RREADY,
     output logic M_AXI_WDATA,
@@ -483,7 +484,7 @@ module pe_control_unit #(
 
 
   // states for buffering weights, inputs, and psums
-  typedef enum logic {
+  typedef enum logic [1:0] {
             IDLE_BUFFER,
             ISSUE_M_AXI_RD,
             WAIT_M_AXI_RD,
@@ -494,7 +495,7 @@ module pe_control_unit #(
   // buffer_weights logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      st_bw <= IDLE_BUFFERING;
+      st_bw <= IDLE_BUFFER;
     end
     else begin
       st_bw <= st_bw_next;
@@ -504,7 +505,7 @@ module pe_control_unit #(
   always_comb begin
     st_bw_next = st_bw;
     case (st_bw)
-      IDLE_BUFFERING: begin
+      IDLE_BUFFER: begin
         if (buffer_weights_pulse == 1 || buffer_inputs_pulse == 1 || buffer_psums_pulse == 1) begin
           st_bw_next = ISSUE_M_AXI_RD;
         end
@@ -527,7 +528,7 @@ module pe_control_unit #(
           st_bw_next = ISSUE_M_AXI_RD;
         end
         else begin
-          st_bw_next = IDLE_BUFFERING;
+          st_bw_next = IDLE_BUFFER;
         end
       end
     endcase
@@ -558,11 +559,11 @@ module pe_control_unit #(
       psum_fifo_wr_cmd <= 0;
       // AXI Master FSM
       INIT_AXI_RD_TXN <= 0;
-      M_TARGET_SLAVE_BASE_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
+      M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
     end
     else begin
       case (st_bw)
-        IDLE_BUFFERING: begin
+        IDLE_BUFFER: begin
           // weight registers
           buffer_weights_counter <= (buffer_weights_pulse == 1) ? 0 : 1;
           weight_base_addr_offset <= 0;
@@ -592,26 +593,26 @@ module pe_control_unit #(
           psum_fifo_wr_cmd <= 0;
           // AXI Master FSM
           INIT_AXI_RD_TXN <= 0;
-          M_TARGET_SLAVE_BASE_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
+          M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
         end
         ISSUE_M_AXI_RD: begin
           if (buffer_weights_counter < 1) begin
             INIT_AXI_RD_TXN <= 1'b1;
-            M_TARGET_SLAVE_BASE_ADDR <= WEIGHT_BASE_ADDR + weight_base_addr_offset;
+            M_TARGET_SLAVE_BASE_AR_ADDR <= WEIGHT_BASE_ADDR + weight_base_addr_offset;
             weight_base_addr_offset <= weight_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else if (buffer_inputs_counter < 2) begin
             INIT_AXI_RD_TXN <= 1'b1;
-            M_TARGET_SLAVE_BASE_ADDR <= INPUT_BASE_ADDR + input_base_addr_offset;
+            M_TARGET_SLAVE_BASE_AR_ADDR <= INPUT_BASE_ADDR + input_base_addr_offset;
             input_base_addr_offset <= input_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else if (buffer_psums_counter < 3) begin
             INIT_AXI_RD_TXN <= 1'b1;
-            M_TARGET_SLAVE_BASE_ADDR <= PSUM_BASE_ADDR + psum_base_addr_offset;
+            M_TARGET_SLAVE_BASE_AR_ADDR <= PSUM_BASE_ADDR + psum_base_addr_offset;
             psum_base_addr_offset <= psum_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else begin
-            M_TARGET_SLAVE_BASE_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
+            M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
             INIT_AXI_RD_TXN <= 0;
           end
         end
@@ -715,7 +716,7 @@ module pe_control_unit #(
 
 
   // states for writing outputs
-  typedef enum logic {
+  typedef enum logic [1:0] {
             WAIT_BUFFER_OUT,
             ISSUE_M_AXI_WR,
             WAIT_M_AXI_WR,
@@ -771,6 +772,7 @@ module pe_control_unit #(
         ISSUE_M_AXI_WR: begin
           if (output_buffering == 0) begin
             INIT_AXI_WR_TXN <= 1;
+            M_TARGET_SLAVE_BASE_AW_ADDR <= OUTPUT_BASE_ADDR + output_base_addr_offset;
             output_write_counter <= output_write_counter + 1;
             output_base_addr_offset <= output_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end

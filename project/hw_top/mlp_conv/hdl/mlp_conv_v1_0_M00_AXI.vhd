@@ -33,7 +33,8 @@ entity mlp_conv_v1_0_M00_AXI is
     -- * To start an AXI transaction we must pulse INIT_AXI_*_TXN and set+read all customizable signals
     -- * Then wait until TXN_DONE is asserted and check ERROR for errors
     -- Base address of targeted slave (specify which BRAM to access)
-    M_TARGET_SLAVE_BASE_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+    M_TARGET_SLAVE_BASE_AR_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+    M_TARGET_SLAVE_BASE_AW_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
 
     -- read data
     -- read data, ready AND valid signal (handshake)
@@ -44,7 +45,7 @@ entity mlp_conv_v1_0_M00_AXI is
     -- write data, ready AND valid signal (handshake)
     M_AXI_WDATA_IN      : in std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
     M_AXI_WVALID_WREADY : out std_logic;
-    -- not really useful since address handshake is automatic (based on M_TARGET_SLAVE_BASE_ADDR)
+    -- not really useful since address handshake is automatic (based on M_TARGET_SLAVE_BASE_AW_ADDR)
     M_AXI_AWVALID_AWREADY : out std_logic;
     -- * User ports ends
     -- Do not modify the ports beyond this line
@@ -269,7 +270,7 @@ begin
   --I/O Connections. Write Address (AW)
   M_AXI_AWID <= (others => '0');
   --The AXI address is a concatenation of the target base address + active offset range
-  M_AXI_AWADDR <= std_logic_vector(unsigned(M_TARGET_SLAVE_BASE_ADDR) + unsigned(axi_awaddr));
+  M_AXI_AWADDR <= std_logic_vector(unsigned(M_TARGET_SLAVE_BASE_AW_ADDR) + unsigned(axi_awaddr));
   --Burst LENgth is number of transaction beats, minus 1
   M_AXI_AWLEN <= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, 8));
   --Size should be C_M_AXI_DATA_WIDTH, in 2^SIZE bytes, otherwise narrow bursts are used
@@ -294,7 +295,7 @@ begin
   M_AXI_BREADY <= axi_bready;
   --Read Address (AR)
   M_AXI_ARID   <= (others => '0');
-  M_AXI_ARADDR <= std_logic_vector(unsigned(M_TARGET_SLAVE_BASE_ADDR) + unsigned(axi_araddr));
+  M_AXI_ARADDR <= std_logic_vector(unsigned(M_TARGET_SLAVE_BASE_AR_ADDR) + unsigned(axi_araddr));
   --Burst LENgth is number of transaction beats, minus 1
   M_AXI_ARLEN <= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, 8));
   --Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used

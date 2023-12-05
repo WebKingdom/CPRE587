@@ -245,12 +245,13 @@ architecture arch_imp of mlp_conv_v1_0 is
     );
     port (
       -- * Custom ports
-      M_TARGET_SLAVE_BASE_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
-      M_AXI_RDATA_OUT          : out std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
-      M_AXI_RVALID_RREADY      : out std_logic;
-      M_AXI_WDATA_IN           : in std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
-      M_AXI_WVALID_WREADY      : out std_logic;
-      M_AXI_AWVALID_AWREADY    : out std_logic;
+      M_TARGET_SLAVE_BASE_AR_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+      M_TARGET_SLAVE_BASE_AW_ADDR : in std_logic_vector(C_M_AXI_ADDR_WIDTH - 1 downto 0);
+      M_AXI_RDATA_OUT             : out std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_RVALID_RREADY         : out std_logic;
+      M_AXI_WDATA_IN              : in std_logic_vector(C_M_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_WVALID_WREADY         : out std_logic;
+      M_AXI_AWVALID_AWREADY       : out std_logic;
       -- * End custom ports
       INIT_AXI_TXN : in std_logic;
       TXN_DONE     : out std_logic;
@@ -460,16 +461,17 @@ architecture arch_imp of mlp_conv_v1_0 is
   signal pe_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
   -- M00 (Master AXI interface) signals
-  signal m00_axi_init_axi_wr_txn    : std_logic;
-  signal m00_axi_init_axi_rd_txn    : std_logic;
-  signal m00_axi_txn_done           : std_logic;
-  signal m00_axi_error              : std_logic;
-  signal m00_target_slave_base_addr : std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
-  signal m00_axi_rdata_out          : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-  signal m00_axi_rvalid_rready      : std_logic;
-  signal m00_axi_wdata_in           : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-  signal m00_axi_wvalid_wready      : std_logic;
-  signal m00_axi_awvalid_awready    : std_logic;
+  signal m00_axi_init_axi_wr_txn       : std_logic;
+  signal m00_axi_init_axi_rd_txn       : std_logic;
+  signal m00_axi_txn_done              : std_logic;
+  signal m00_axi_error                 : std_logic;
+  signal m00_target_slave_base_ar_addr : std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+  signal m00_target_slave_base_aw_addr : std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+  signal m00_axi_rdata_out             : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal m00_axi_rvalid_rready         : std_logic;
+  signal m00_axi_wdata_in              : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal m00_axi_wvalid_wready         : std_logic;
+  signal m00_axi_awvalid_awready       : std_logic;
 
 begin
 
@@ -524,12 +526,13 @@ begin
   )
   port map(
     -- * Custom ports
-    M_TARGET_SLAVE_BASE_ADDR => m00_target_slave_base_addr,
-    M_AXI_RDATA_OUT          => m00_axi_rdata_out,
-    M_AXI_RVALID_RREADY      => m00_axi_rvalid_rready,
-    M_AXI_WDATA_IN           => m00_axi_wdata_in,
-    M_AXI_WVALID_WREADY      => m00_axi_wvalid_wready,
-    M_AXI_AWVALID_AWREADY    => m00_axi_awvalid_awready,
+    M_TARGET_SLAVE_BASE_AR_ADDR => m00_target_slave_base_ar_addr,
+    M_TARGET_SLAVE_BASE_AW_ADDR => m00_target_slave_base_aw_addr,
+    M_AXI_RDATA_OUT             => m00_axi_rdata_out,
+    M_AXI_RVALID_RREADY         => m00_axi_rvalid_rready,
+    M_AXI_WDATA_IN              => m00_axi_wdata_in,
+    M_AXI_WVALID_WREADY         => m00_axi_wvalid_wready,
+    M_AXI_AWVALID_AWREADY       => m00_axi_awvalid_awready,
     -- * End custom ports
     INIT_AXI_WR_TXN => m00_axi_init_axi_wr_txn,
     INIT_AXI_RD_TXN => m00_axi_init_axi_rd_txn,

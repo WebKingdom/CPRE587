@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity mlp_conv_v1_0_M00_AXI is
+entity mlp_conv_v1_0_M00_AXI_temp is
   generic (
     -- Users to add parameters here
 
@@ -171,9 +171,9 @@ entity mlp_conv_v1_0_M00_AXI is
     -- accept the read data and response information.
     M_AXI_RREADY : out std_logic
   );
-end mlp_conv_v1_0_M00_AXI;
+end mlp_conv_v1_0_M00_AXI_temp;
 
-architecture implementation of mlp_conv_v1_0_M00_AXI is
+architecture implementation of mlp_conv_v1_0_M00_AXI_temp is
   -- function called clogb2 that returns an integer which has the
   --value of the ceiling of the log base 2
 
