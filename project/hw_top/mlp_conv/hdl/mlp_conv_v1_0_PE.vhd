@@ -56,12 +56,12 @@ end mlp_conv_v1_0_PE;
 
 architecture arch_imp of mlp_conv_v1_0_PE is
   -- Internal Signals
-  signal product    : unsigned(INPUT_WIDTH * 2 - 1 downto 0);
+  signal product    : unsigned(OUTPUT_WIDTH - 1 downto 0);
   signal stalled    : std_logic;
   signal output_reg : std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
   signal add_mux_ctrl_1 : std_logic;
   -- Mac stages
-  type PIPE_STAGES is (MULT_INPUT, ADD, SET_OUTPUT);
+  type PIPE_STAGES is (MULT_INPUT, ADD);
   -- Debug signals, make sure we aren't going crazy
   signal mac_debug : std_logic_vector(31 downto 0);
 
@@ -84,20 +84,17 @@ begin
             when MULT_INPUT =>
               if stalled = '0' then
                 add_mux_ctrl_1 <= add_mux_ctrl;
-                product <= unsigned(input) * unsigned(weight);
+                product <= X"0000" & unsigned(input) * unsigned(weight);
               end if;
             when ADD =>
               if stalled = '0' then
                 if add_mux_ctrl_1 = '1' then
-                  output_reg <= std_logic_vector(unsigned(add_val) + product);
+                  output <= std_logic_vector(unsigned(add_val) + product);
                 else
-                  output_reg <= add_val;
+                  output <= add_val;
                 end if;
               end if;
-            when SET_OUTPUT =>
-              if stalled = '0' then
-                output <= output_reg;
-              end if;
+
           end case; -- Stages
         end loop; -- Stages
       end if; -- Reset
