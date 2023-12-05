@@ -27,8 +27,8 @@ module pe_control_unit #(
     // outputs
     output logic [C_S00_AXI_DATA_WIDTH-1:0] PE_STATUS,
     output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
-    output logic [0:PE_COLS-1] STALL_CTRL [0:PE_ROWS-1],
-    output logic [0:PE_COLS-1] RESETN_MAC_CTRL [0:PE_ROWS-1],
+    output logic STALL_CTRL,
+    output logic RESETN_MAC_CTRL,
     output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],          // 9:1 mux for each row of MACs
     output logic [2:0] PSUM_OUT_MUX_CTRL,                       // 5:1 mux controlling which row goes to output storage or feedback
 
@@ -78,10 +78,10 @@ module pe_control_unit #(
   wire [3:0] param_tile_size;
   wire [11:0] param_C;          // input channels
   wire param_reset;
-  wire param_start;
+  wire param_start, param_start_pulse;
   wire param_valid;
 
-  // memory control wires
+  // memory control wires/registers
   // control unit handles starting of buffer weights (read from M00_AXI)
   wire buffer_weights;
   logic buffer_weights_pulse;
@@ -132,6 +132,12 @@ module pe_control_unit #(
   wire [C_M00_AXI_DATA_WIDTH-1:0] output_fifo_wr_data;
   wire output_fifo_full;
 
+  // output buffering and writing registers (max 9x5=45 (tile_size x param_R) outputs to buffer)
+  logic output_buffering;
+  logic unsigned [7:0] output_buffer_counter;
+  logic unsigned [7:0] output_buffer_counter_limit;
+  logic unsigned [2:0] output_write_counter;
+
   // psum buffer FIFO wires (wr_data comes from M00_AXI)
   logic psum_fifo_rd_cmd;
   wire [C_M00_AXI_DATA_WIDTH-1:0] psum_fifo_rd_data;
@@ -144,18 +150,24 @@ module pe_control_unit #(
   logic weights_buffered;
   logic ws_loaded;
   logic inputs_buffered;
-  logic outputs_buffered;
+  logic output_written;
   logic psums_buffered;
   // error flags
   logic weight_buffer_error;
   logic ws_load_error;
   logic input_buffer_error;
-  logic output_buffer_error;
+  logic output_write_error;
   logic psum_buffer_error;
 
+  // counters and logic for MAC array
+  logic unsigned [3:0] mac_row_counter;
+  logic unsigned [3:0] mac_col_counter;
+  logic unsigned [$clog2(MAC_PIPE_DEPTH):0] mac_pipe_counter;
+  logic mac_array_processing;
 
   // helper logic
   assign resetn_all = param_reset == 1'b0 && RESETN == 1'b1;
+  assign output_buffer_counter_limit = param_tile_size * param_R;
 
   // parameter register
   assign param_R = ACC_PARAMS[3:0];
@@ -179,7 +191,7 @@ module pe_control_unit #(
   assign clear_psum_buffer = MEM_CTRL[7];
 
   // AXI Master assignments
-  assign M_AXI_WDATA = psum_fifo_rd_data;
+  assign M_AXI_WDATA = output_fifo_rd_data;
 
 
   // add mux control logic
@@ -243,18 +255,88 @@ module pe_control_unit #(
     end
   end
 
+  // stall control logic (no stalls once outputs start buffering)
+  // * assuming we have enough inputs in input buffer FIFO
+  assign STALL_CTRL = input_act_ctrl_data_valid == 0 && output_buffering == 0;
+  // psum buffer FIFO reads based on input activation valid
+  assign psum_fifo_rd_cmd = input_act_ctrl_data_valid == 1;
+
   // resetn mac control logic
   always_ff @(posedge CLK) begin
     if (resetn_all == 1'b0) begin
-      for (int i = 0; i < PE_ROWS; i++) begin
-        RESETN_MAC_CTRL[i] <= 0;
-      end
+      RESETN_MAC_CTRL <= 0;
     end
     else begin
       // set
-      if (param_valid == 1'b1) begin
-        for (int r = 0; r < PE_ROWS; r++) begin
-          RESETN_MAC_CTRL[r] <= 1'b1;
+      if (param_valid == 1) begin
+        RESETN_MAC_CTRL <= 1;
+      end
+    end
+  end
+
+  // counters and start/stop logic for MAC array
+  always_ff @(posedge CLK) begin
+    if (resetn_all == 1'b0) begin
+      output_buffering <= 0;
+      output_fifo_wr_cmd <= 0;
+      mac_row_counter <= 0;
+      mac_col_counter <= 0;
+      mac_pipe_counter <= 0;
+      mac_array_processing <= 0;
+    end
+    else begin
+      if (mac_array_processing == 0 && output_buffering == 0) begin
+        if (param_start_pulse == 1) begin
+          output_buffering <= 0;
+          output_fifo_wr_cmd <= 0;
+          mac_row_counter <= 0;
+          mac_col_counter <= 0;
+          mac_pipe_counter <= 0;
+          mac_array_processing <= 1;
+        end
+      end
+      else if (mac_array_processing == 1) begin
+        // only increment counters when data is valid
+        if (input_act_ctrl_data_valid == 1) begin
+          // delay start depending on MAC pipe depth
+          if (mac_pipe_counter < MAC_PIPE_DEPTH) begin
+            mac_pipe_counter <= mac_pipe_counter + 1;
+          end
+          else begin
+            // column counter
+            if (mac_col_counter < param_tile_size - 1) begin
+              mac_col_counter <= mac_col_counter + 1;
+            end
+            else begin
+              mac_col_counter <= 0;
+              // row counter
+              if (mac_row_counter < param_R) begin
+                mac_row_counter <= mac_row_counter + 1;
+              end
+              else begin
+                mac_row_counter <= 0;
+                mac_array_processing <= 0;
+                output_buffering <= 1;
+                output_fifo_wr_cmd <= 1;
+              end
+            end
+          end
+        end
+        // when input data is invalid, stall and keep counters the same
+      end
+      else begin
+        // wait for outputs to buffer
+        if (output_buffering == 1) begin
+          if (output_buffer_counter < output_buffer_counter_limit) begin
+            output_buffer_counter <= output_buffer_counter + 1;
+            output_fifo_wr_cmd <= 1;
+          end
+          else begin
+            output_buffer_counter <= 0;
+            output_buffering <= 0;
+            output_fifo_wr_cmd <= 0;
+            mac_array_processing <= 0;
+          end
         end
       end
     end
@@ -347,6 +429,14 @@ module pe_control_unit #(
          // outputs
          .FULL(psum_fifo_full)
        );
+
+  // pulse creator for param_start
+  pulse_creator param_start_pulse_inst (
+                  .CLK(CLK),
+                  .RESETN(resetn_all),
+                  .IN_DATA(param_start),
+                  .OUT_DATA(param_start_pulse)
+                );
 
   // pulse creator for buffer_weights
   pulse_creator buffer_weights_pulse_inst (
@@ -534,6 +624,10 @@ module pe_control_unit #(
             if (M_AXI_RVALID_RREADY == 1'b1) begin
               weight_in_ctrl_fifo_wr_cmd <= 1;
             end
+            else begin
+              weight_in_ctrl_fifo_wr_cmd <= 0;
+            end
+            // TODO this may not be evaluated based on FSM
             if (TXN_DONE == 1'b1) begin
               buffer_weights_counter <= buffer_weights_counter + 1;
               weight_in_ctrl_fifo_wr_cmd <= 0;
@@ -546,7 +640,10 @@ module pe_control_unit #(
           else if (buffer_inputs_counter < 2) begin
             // control FIFO write
             if (M_AXI_RVALID_RREADY == 1'b1) begin
-              input_act_ctrl_fifo_wr_cmd <= 1'b1;
+              input_act_ctrl_fifo_wr_cmd <= 1;
+            end
+            else begin
+              input_act_ctrl_fifo_wr_cmd <= 0;
             end
             if (TXN_DONE == 1'b1) begin
               buffer_inputs_counter <= buffer_inputs_counter + 1;
@@ -560,7 +657,10 @@ module pe_control_unit #(
           else if (buffer_psums_counter < 3) begin
             // control FIFO write
             if (M_AXI_RVALID_RREADY == 1'b1) begin
-              psum_fifo_wr_cmd <= 1'b1;
+              psum_fifo_wr_cmd <= 1;
+            end
+            else begin
+              psum_fifo_wr_cmd <= 0;
             end
             if (TXN_DONE == 1'b1) begin
               buffer_psums_counter <= buffer_psums_counter + 1;
@@ -613,59 +713,109 @@ module pe_control_unit #(
     end
   end
 
-  // weight store loaded logic
-  always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
-      ws_loaded <= 0;
-    end
-    else begin
-      if (weight_in_ctrl_ws_full == 1) begin
-        ws_loaded <= 1;
-      end
-      if (weight_in_ctrl_loading_ws == 1) begin
-        ws_loaded <= 0;
-      end
-      else begin
-        ws_loaded <= 1;
-      end
-    end
-  end
-
 
   // states for writing outputs
   typedef enum logic {
-            IDLE_WR_OUT,
+            WAIT_BUFFER_OUT,
             ISSUE_M_AXI_WR,
             WAIT_M_AXI_WR,
             WR_OUT
           } state_type_bi;
-  state_type_bi st_bi, st_bi_next;
+  state_type_bi st_out, st_out_next;
 
+  always_comb begin
+    st_out_next = st_out;
+    case (st_out)
+      WAIT_BUFFER_OUT: begin
+        if (output_buffering == 1) begin
+          st_out_next = ISSUE_M_AXI_WR;
+        end
+      end
+      ISSUE_M_AXI_WR: begin
+        if (INIT_AXI_WR_TXN == 1) begin
+          st_out_next = WAIT_M_AXI_WR;
+        end
+      end
+      WAIT_M_AXI_WR: begin
+        if (TXN_DONE == 1) begin
+          st_out_next = WR_OUT;
+        end
+      end
+      WR_OUT: begin
+        if (output_write_counter < 3) begin
+          st_out_next = ISSUE_M_AXI_WR;
+        end
+        else begin
+          st_out_next = WAIT_BUFFER_OUT;
+        end
+      end
+    endcase
+  end
 
+  // TODO output buffer and write out logic WHAT TO DO WITH TARGET ADDR?
+  always_ff @(posedge CLK) begin
+    if (RESETN == 1'b0) begin
+      output_base_addr_offset <= 0;
+      output_write_counter <= 0;
+      output_written <= 0;
+    end
+    else begin
+      case (st_out)
+        WAIT_BUFFER_OUT: begin
+          if (param_start_pulse == 1) begin
+            output_written <= 0;
+          end
+          output_base_addr_offset <= 0;
+          output_write_counter <= 0;
+        end
+        ISSUE_M_AXI_WR: begin
+          if (output_buffering == 0) begin
+            INIT_AXI_WR_TXN <= 1;
+            output_write_counter <= output_write_counter + 1;
+            output_base_addr_offset <= output_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
+          end
+        end
+        WAIT_M_AXI_WR: begin
+          INIT_AXI_WR_TXN <= 0;
+          if (M_AXI_WVALID_WREADY == 1) begin
+            output_fifo_rd_cmd <= 1;
+          end
+          else begin
+            output_fifo_rd_cmd <= 0;
+          end
+          if (TXN_DONE == 1) begin
+            output_fifo_rd_cmd <= 0;
+          end
+        end
+        WR_OUT: begin
+          output_fifo_rd_cmd <= 0;
+          if (AXI_ERROR == 1) begin
+            // * throw error (maybe redo transaction?)
+            output_write_error <= 1;
+          end
+          if (output_write_counter == 3) begin
+            output_written <= 1;
+          end
+        end
+      endcase
+    end
+  end
 
   assign debug = 1;
+  assign ws_loaded = ~weight_in_ctrl_loading_ws;
 
   // PE status register
   // TODO does it need to be clocked?
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
       PE_STATUS <= 0;
+      ws_load_error <= 0;
     end
     else begin
       // MSBs
-      PE_STATUS[C_S00_AXI_DATA_WIDTH-1:C_S00_AXI_DATA_WIDTH/2] <= {psum_buffer_error, output_buffer_error, input_buffer_error, ws_load_error, weight_buffer_error};
+      PE_STATUS[C_S00_AXI_DATA_WIDTH-1:C_S00_AXI_DATA_WIDTH/2] <= {psum_buffer_error, output_write_error, input_buffer_error, ws_load_error, weight_buffer_error};
       // LSBs
-      PE_STATUS[C_S00_AXI_DATA_WIDTH/2-1:0] <= {psums_buffered, outputs_buffered, inputs_buffered, ws_loaded, weights_buffered};
-    end
-  end
-
-  // TODO ssz output buffer and write out logic
-  always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
-      outputs_buffered <= 0;
-    end
-    else begin
-
+      PE_STATUS[C_S00_AXI_DATA_WIDTH/2-1:0] <= {psums_buffered, output_written, inputs_buffered, ws_loaded, weights_buffered};
     end
   end
 
