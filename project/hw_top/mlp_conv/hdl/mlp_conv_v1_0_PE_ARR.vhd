@@ -23,6 +23,9 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
+library work;
+use work.types.all;
+
 entity mlp_conv_v1_0_PE_ARR is
     generic (
         INPUT_WIDTH    : integer := 8;
@@ -41,9 +44,9 @@ entity mlp_conv_v1_0_PE_ARR is
         input_valid  : in std_logic;
         
         stall_ctl    : in std_logic;
-        row_out_mux_ctrl : in std_logic_vector(PE_WIDTH * ROW_OUT_WIDTH - 1 downto 0);
+        row_out_mux_ctrl : in t_row_out_mux_ctrl;
         psum_out_ctrl: in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
-        add_mux_ctrl : in std_logic_vector(PE_WIDTH * PE_WIDTH - 1 downto 0);
+        add_mux_ctrl : in t_row_out_mux_ctrl;
         
         psum_in      : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
         
@@ -101,9 +104,9 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             input_valid => input_valid,
             
             stall_ctl => stall_ctl,
-            add_mux_ctrl => add_mux_ctrl(i * PE_WIDTH + PE_WIDTH - 1 downto i * PE_WIDTH),
+            add_mux_ctrl => add_mux_ctrl(i),
             
-            row_out_mux_ctrl => row_out_mux_ctrl(i * ROW_OUT_WIDTH + ROW_OUT_WIDTH - 1 downto i * ROW_OUT_WIDTH),
+            row_out_mux_ctrl => row_out_mux_ctrl(i),
             
             output_in => output_array(i-1),
             
