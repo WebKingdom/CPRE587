@@ -40,7 +40,7 @@ entity mlp_conv_v1_0_PE_ARR is
         ARESETN      : in std_logic;
         
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-        weights       : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+        weights      : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
         stall_ctl    : in std_logic;
         row_out_mux_ctrl : in t_row_out_mux_ctrl;
@@ -68,10 +68,10 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             ARESETN      : in std_logic;
         
             input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-            weights       : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+            weights      : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
             stall_ctl    : in std_logic;
-            add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
+            add_mux_ctrl : in std_logic_vector(PE_WIDTH - 1 downto 0);
 
             row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH  - 1 downto 0);
         
@@ -108,7 +108,6 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             output_in => output_array(i-1),
             
             output => output_array(i)
-            
     );
 end generate;
 

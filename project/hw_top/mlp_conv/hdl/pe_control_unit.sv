@@ -590,7 +590,7 @@ module pe_control_unit #(
           end
           else if (buffer_psums_counter < 3) begin
             INIT_AXI_RD_TXN <= 1;
-            M_TARGET_SLAVE_BASE_AR_ADDR <= PSUM_BASE_ADDR + psum_base_addr_offset;
+            M_TARGET_SLAVE_BASE_AR_ADDR <= OUTPUT_BASE_ADDR + psum_base_addr_offset;
             psum_base_addr_offset <= psum_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else begin

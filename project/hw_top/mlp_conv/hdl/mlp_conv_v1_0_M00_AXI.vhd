@@ -172,7 +172,7 @@ entity mlp_conv_v1_0_M00_AXI is
   );
 end mlp_conv_v1_0_M00_AXI;
 
-architecture archi_imp of mlp_conv_v1_0_M00_AXI is
+architecture arch_imp of mlp_conv_v1_0_M00_AXI is
   -- function called clogb2 that returns an integer which has the
   --value of the ceiling of the log base 2
 

@@ -2,6 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+library work;
+use work.types.all;
+
 entity mlp_conv_v1_0 is
   generic (
     -- Users to add parameters here
@@ -193,6 +196,11 @@ end mlp_conv_v1_0;
 
 architecture arch_imp of mlp_conv_v1_0 is
 
+  constant PE_ROWS        : integer := 5;
+  constant PE_COLS        : integer := 5;
+  constant MAC_PIPE_DEPTH : integer := 2;
+  constant BYTE_LEN       : integer := 8;
+
   -- component declaration
   component mlp_conv_v1_0_S00_AXI is
     generic (
@@ -253,9 +261,10 @@ architecture arch_imp of mlp_conv_v1_0 is
       M_AXI_WVALID_WREADY         : out std_logic;
       M_AXI_AWVALID_AWREADY       : out std_logic;
       -- * End custom ports
-      INIT_AXI_TXN : in std_logic;
-      TXN_DONE     : out std_logic;
-      ERROR        : out std_logic;
+      INIT_AXI_RD_TXN : in std_logic;
+      INIT_AXI_WR_TXN : in std_logic;
+      TXN_DONE        : out std_logic;
+      ERROR           : out std_logic;
       -- * End PE control unit ports
       M_AXI_ACLK    : in std_logic;
       M_AXI_ARESETN : in std_logic;
@@ -424,15 +433,15 @@ architecture arch_imp of mlp_conv_v1_0 is
       MEM_CTRL         : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
       PE_STATUS        : out std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
       -- PE array interface
-      RESETN_MAC_CTRL  : out std_logic;
-      IN_ACT_DATA_OUT  : out std_logic_vector(BYTE_LEN - 1 downto 0);
-      WEIGHTS_OUT      : out std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
-      STALL_CTRL       : out std_logic;
-      ADD_MUX_CTRL     : out t_add_mux_ctrl;
-      ROW_OUT_MUX_CTRL : out t_row_out_mux_ctrl;
-      PSUM_OUT_CTRL    : out std_logic_vector(2 downto 0);
-      IN_PSUM_OUT      : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-      OUT_PSUM_IN      : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      RESETN_MAC_CTRL   : out std_logic;
+      IN_ACT_DATA_OUT   : out std_logic_vector(BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT       : out std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
+      STALL_CTRL        : out std_logic;
+      ADD_MUX_CTRL      : out t_add_mux_ctrl;
+      ROW_OUT_MUX_CTRL  : out t_row_out_mux_ctrl;
+      PSUM_OUT_MUX_CTRL : out std_logic_vector(2 downto 0);
+      IN_PSUM_OUT       : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      OUT_PSUM_IN       : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
       -- AXI Master interface
       M_TARGET_SLAVE_BASE_AR_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
       M_TARGET_SLAVE_BASE_AW_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
@@ -444,7 +453,7 @@ architecture arch_imp of mlp_conv_v1_0 is
       INIT_AXI_WR_TXN             : out std_logic;
       INIT_AXI_RD_TXN             : out std_logic;
       TXN_DONE                    : in std_logic;
-      ERROR                       : in std_logic
+      AXI_ERROR                   : in std_logic
     );
   end component pe_control_unit;
 
@@ -462,13 +471,13 @@ architecture arch_imp of mlp_conv_v1_0 is
       ACLK    : in std_logic;
       ARESETN : in std_logic;
 
-      input  : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-      weight : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+      input   : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
+      weights : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
 
       stall_ctl        : in std_logic;
       row_out_mux_ctrl : in t_row_out_mux_ctrl;
       psum_out_ctrl    : in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
-      add_mux_ctrl     : in t_row_out_mux_ctrl;
+      add_mux_ctrl     : in t_add_mux_ctrl;
 
       psum_in : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
       output  : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
@@ -742,45 +751,45 @@ begin
     MEM_CTRL         => mem_ctrl,
     PE_STATUS        => pe_status,
     -- PE array interface
-    RESETN_MAC_CTRL  => resetn_mac_ctrl,
-    IN_ACT_DATA_OUT  => in_act_data_out,
-    WEIGHTS_OUT      => weights_out,
-    STALL_CTRL       => stall_ctrl,
-    ADD_MUX_CTRL     => add_mux_ctrl,
-    ROW_OUT_MUX_CTRL => row_out_mux_ctrl,
-    PSUM_OUT_CTRL    => psum_out_ctrl,
-    IN_PSUM_OUT      => in_psum_out,
-    OUT_PSUM_IN      => out_psum_in,
+    RESETN_MAC_CTRL   => resetn_mac_ctrl,
+    IN_ACT_DATA_OUT   => in_act_data_out,
+    WEIGHTS_OUT       => weights_out,
+    STALL_CTRL        => stall_ctrl,
+    ADD_MUX_CTRL      => add_mux_ctrl,
+    ROW_OUT_MUX_CTRL  => row_out_mux_ctrl,
+    PSUM_OUT_MUX_CTRL => psum_out_ctrl,
+    IN_PSUM_OUT       => in_psum_out,
+    OUT_PSUM_IN       => out_psum_in,
     -- AXI Master interface
     M_TARGET_SLAVE_BASE_AR_ADDR => m00_target_slave_base_ar_addr,
     M_TARGET_SLAVE_BASE_AW_ADDR => m00_target_slave_base_aw_addr,
-    M_AXI_RDATA_OUT             => m00_axi_rdata_out,
+    M_AXI_RDATA                 => m00_axi_rdata_out,
     M_AXI_RVALID_RREADY         => m00_axi_rvalid_rready,
-    M_AXI_WDATA_IN              => m00_axi_wdata_in,
+    M_AXI_WDATA                 => m00_axi_wdata_in,
     M_AXI_WVALID_WREADY         => m00_axi_wvalid_wready,
     M_AXI_AWVALID_AWREADY       => m00_axi_awvalid_awready,
     INIT_AXI_WR_TXN             => m00_axi_init_axi_wr_txn,
     INIT_AXI_RD_TXN             => m00_axi_init_axi_rd_txn,
     TXN_DONE                    => m00_axi_txn_done,
-    ERROR                       => m00_axi_error
+    AXI_ERROR                   => m00_axi_error
   );
 
   -- PE array
   pe_arr_inst : mlp_conv_v1_0_PE_ARR
   generic map(
-    INPUT_WIDTH    => INPUT_WIDTH,
-    OUTPUT_WIDTH   => OUTPUT_WIDTH,
+    INPUT_WIDTH    => BYTE_LEN,
+    OUTPUT_WIDTH   => C_M00_AXI_DATA_WIDTH,
     PE_WIDTH       => PE_WIDTH,
-    PS_WIDTH       => PS_WIDTH,
+    PS_WIDTH       => 4,
     ROW_OUT_WIDTH  => ROW_OUT_WIDTH,
-    PSUM_OUT_WIDTH => PSUM_OUT_WIDTH
+    PSUM_OUT_WIDTH => 3
   )
   port map(
     ACLK    => m00_axi_aclk,
     ARESETN => resetn_mac_ctrl,
 
-    input  => in_act_data_out,
-    weight => weights_out,
+    input   => in_act_data_out,
+    weights => weights_out,
 
     stall_ctl        => stall_ctrl,
     row_out_mux_ctrl => row_out_mux_ctrl,

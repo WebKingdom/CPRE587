@@ -36,7 +36,7 @@ entity mlp_conv_v1_0_PE_ARR_ROW is
         ARESETN      : in std_logic;
         
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-        weight       : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+        weights      : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
         stall_ctl    : in std_logic;
         add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
@@ -92,7 +92,7 @@ PE_ROW : for i in 0 to PE_WIDTH - 1 generate
         ACLK => ACLK,
         ARESETN => ARESETN,
         input => input,
-        weight => weight(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
+        weight => weights(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
         add_mux_ctrl => add_mux_ctrl(i),
         stall_ctl => stall_ctl,
             
