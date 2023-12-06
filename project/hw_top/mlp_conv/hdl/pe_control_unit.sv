@@ -10,43 +10,43 @@ module pe_control_unit #(
     parameter C_M00_AXI_TARGET_SLAVE_BASE_ADDR = 32'h40000000,
     parameter PE_ROWS = 5,
     parameter PE_COLS = 5,
-    parameter MAC_PIPE_DEPTH = 2
+    parameter MAC_PIPE_DEPTH = 2,
+    parameter BYTE_LEN = 8
   )(
     input CLK,
     input RESETN,
 
-    // accelerator interface
-    // inputs
+    // PE registers
     input wire [C_S00_AXI_DATA_WIDTH-1:0] ACC_PARAMS,
     input wire [C_S00_AXI_DATA_WIDTH-1:0] WEIGHT_BASE_ADDR,
     input wire [C_S00_AXI_DATA_WIDTH-1:0] INPUT_BASE_ADDR,
     input wire [C_S00_AXI_DATA_WIDTH-1:0] OUTPUT_BASE_ADDR,
     input wire [C_S00_AXI_DATA_WIDTH-1:0] MEM_CTRL,
-    input wire [0:PE_COLS-1] MAC_DONE [0:PE_ROWS-1],            // TODO ssz Depreciated? true every time a MAC operation is done and ready to pass forward
-
-    // outputs
     output logic [C_S00_AXI_DATA_WIDTH-1:0] PE_STATUS,
-    output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
-    output logic STALL_CTRL,
-    output logic RESETN_MAC_CTRL,
-    output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],          // 9:1 mux for each row of MACs
-    output logic [2:0] PSUM_OUT_MUX_CTRL,                       // 5:1 mux controlling which row goes to output storage or feedback
 
+    // PE array interface
+    output wire RESETN_MAC_CTRL,
+    output wire [BYTE_LEN-1:0] IN_ACT_DATA_OUT,
+    output wire [PE_ROWS * PE_COLS * BYTE_LEN-1:0] WEIGHTS_OUT,
+    output wire STALL_CTRL,
+    output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
+    output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],              // 9:1 mux for each row of MACs
+    output logic [2:0] PSUM_OUT_MUX_CTRL,                           // 5:1 mux controlling which row goes to output storage or feedback
+    output wire [C_M00_AXI_DATA_WIDTH-1:0] IN_PSUM_OUT,             // input psum going out to PE array
+    input wire [C_M00_AXI_DATA_WIDTH-1:0] OUT_PSUM_IN,              // output psum coming in from PE array
 
     // AXI Master FSM interface
     output logic [C_M00_AXI_DATA_WIDTH-1:0] M_TARGET_SLAVE_BASE_AR_ADDR,
     output logic [C_M00_AXI_DATA_WIDTH-1:0] M_TARGET_SLAVE_BASE_AW_ADDR,
     input wire [C_M00_AXI_DATA_WIDTH-1:0] M_AXI_RDATA,
     input wire M_AXI_RVALID_RREADY,
-    output logic M_AXI_WDATA,
+    output wire [C_M00_AXI_DATA_WIDTH-1:0] M_AXI_WDATA,
     input wire M_AXI_WVALID_WREADY,
     input wire M_AXI_AWVALID_AWREADY,
     output logic INIT_AXI_WR_TXN,
     output logic INIT_AXI_RD_TXN,
     input wire TXN_DONE,
     input wire AXI_ERROR
-
-
   );
 
   localparam WS_WIDTH = 40;
@@ -55,7 +55,6 @@ module pe_control_unit #(
   localparam INPUT_ACT_CTRL_FIFO_DEPTH = 64;
   localparam OUTPUT_FIFO_DEPTH = 64;
   localparam PSUM_FIFO_DEPTH = 64;
-  localparam BYTE_LEN = 8;
 
 
   wire [C_M00_AXI_DATA_WIDTH-1:0] debug;
@@ -98,14 +97,14 @@ module pe_control_unit #(
   wire clear_input_buffer;
   // send to output buffer FIFO
   wire clear_output_buffer;
-  logic clear_output_buffer_pulse, clear_output_buffer_reg;
+  logic clear_output_buffer_pulse;
   // control unit handles starting of buffer psums (read from M00_AXI)
   wire buffer_psums;
   logic buffer_psums_pulse;
   logic unsigned [2:0] buffer_psums_counter;    // 3-bit register for number of psum buffer requests through M00_AXI
   // send to output buffer FIFO
   wire clear_psum_buffer;
-  logic clear_psum_buffer_pulse, clear_psum_buffer_reg;
+  logic clear_psum_buffer_pulse;
 
   // weight_in_ctrl wires (wr_data comes from M00_AXI)
   logic weight_in_ctrl_fifo_wr_cmd;
@@ -121,16 +120,13 @@ module pe_control_unit #(
 
   wire input_act_ctrl_fifo_empty;
   wire input_act_ctrl_fifo_full;
-  wire [BYTE_LEN-1:0] input_act_ctrl_data_out;
   wire input_act_ctrl_data_valid;
 
   // output buffer FIFO wires (wr_data comes from PE)
   logic output_fifo_rd_cmd;
-  wire [C_M00_AXI_DATA_WIDTH-1:0] output_fifo_rd_data;
   wire output_fifo_empty;
 
   logic output_fifo_wr_cmd;
-  wire [C_M00_AXI_DATA_WIDTH-1:0] output_fifo_wr_data;
   wire output_fifo_full;
 
   // output buffering and writing registers (max 9x5=45 (tile_size x param_R) outputs to buffer)
@@ -141,7 +137,6 @@ module pe_control_unit #(
 
   // psum buffer FIFO wires (wr_data comes from M00_AXI)
   logic psum_fifo_rd_cmd;
-  wire [C_M00_AXI_DATA_WIDTH-1:0] psum_fifo_rd_data;
   wire psum_fifo_empty;
 
   logic psum_fifo_wr_cmd;
@@ -191,8 +186,8 @@ module pe_control_unit #(
   assign buffer_psums = MEM_CTRL[6];
   assign clear_psum_buffer = MEM_CTRL[7];
 
-  // AXI Master assignments
-  assign M_AXI_WDATA = output_fifo_rd_data;
+  // PE interface assignments
+  assign RESETN_MAC_CTRL = resetn_all;
 
 
   // add mux control logic
@@ -261,19 +256,6 @@ module pe_control_unit #(
   assign STALL_CTRL = input_act_ctrl_data_valid == 0 && output_buffering == 0;
   // psum buffer FIFO reads based on input activation valid
   assign psum_fifo_rd_cmd = input_act_ctrl_data_valid == 1;
-
-  // resetn mac control logic
-  always_ff @(posedge CLK) begin
-    if (resetn_all == 1'b0) begin
-      RESETN_MAC_CTRL <= 0;
-    end
-    else begin
-      // set
-      if (param_valid == 1) begin
-        RESETN_MAC_CTRL <= 1;
-      end
-    end
-  end
 
   // counters and start/stop logic for MAC array
   always_ff @(posedge CLK) begin
@@ -389,7 +371,7 @@ module pe_control_unit #(
                    // outputs
                    .FIFO_EMPTY(input_act_ctrl_fifo_empty),
                    .FIFO_FULL(input_act_ctrl_fifo_full),
-                   .DATA_OUT(input_act_ctrl_data_out),
+                   .DATA_OUT(IN_ACT_DATA_OUT),                // input activation data to PE array
                    .DATA_VALID(input_act_ctrl_data_valid)
                  );
 
@@ -403,11 +385,11 @@ module pe_control_unit #(
          .RESETN(resetn_all & ~clear_output_buffer_pulse),
          .RD_CMD(output_fifo_rd_cmd),
          // outputs
-         .RD_DATA(output_fifo_rd_data),
+         .RD_DATA(M_AXI_WDATA),           // buffered psums go out to Master AXI
          .EMPTY(output_fifo_empty),
          // inputs
          .WR_CMD(output_fifo_wr_cmd),
-         .WR_DATA(output_fifo_wr_data),
+         .WR_DATA(OUT_PSUM_IN),           // output psum coming in from PE array
          // outputs
          .FULL(output_fifo_full)
        );
@@ -422,7 +404,7 @@ module pe_control_unit #(
          .RESETN(resetn_all & ~clear_psum_buffer_pulse),
          .RD_CMD(psum_fifo_rd_cmd),
          // outputs
-         .RD_DATA(psum_fifo_rd_data),
+         .RD_DATA(IN_PSUM_OUT),       // input psum going out to PE array
          .EMPTY(psum_fifo_empty),
          // inputs
          .WR_CMD(psum_fifo_wr_cmd),
@@ -597,17 +579,17 @@ module pe_control_unit #(
         end
         ISSUE_M_AXI_RD: begin
           if (buffer_weights_counter < 1) begin
-            INIT_AXI_RD_TXN <= 1'b1;
+            INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= WEIGHT_BASE_ADDR + weight_base_addr_offset;
             weight_base_addr_offset <= weight_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else if (buffer_inputs_counter < 2) begin
-            INIT_AXI_RD_TXN <= 1'b1;
+            INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= INPUT_BASE_ADDR + input_base_addr_offset;
             input_base_addr_offset <= input_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
           else if (buffer_psums_counter < 3) begin
-            INIT_AXI_RD_TXN <= 1'b1;
+            INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= PSUM_BASE_ADDR + psum_base_addr_offset;
             psum_base_addr_offset <= psum_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
@@ -753,12 +735,14 @@ module pe_control_unit #(
     endcase
   end
 
-  // TODO output buffer and write out logic WHAT TO DO WITH TARGET ADDR?
+  // output buffer and write out logic
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
       output_base_addr_offset <= 0;
       output_write_counter <= 0;
       output_written <= 0;
+      INIT_AXI_WR_TXN <= 0;
+      M_TARGET_SLAVE_BASE_AW_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
     end
     else begin
       case (st_out)
@@ -768,6 +752,8 @@ module pe_control_unit #(
           end
           output_base_addr_offset <= 0;
           output_write_counter <= 0;
+          INIT_AXI_WR_TXN <= 0;
+          M_TARGET_SLAVE_BASE_AW_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
         end
         ISSUE_M_AXI_WR: begin
           if (output_buffering == 0) begin

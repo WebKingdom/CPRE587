@@ -37,7 +37,6 @@ entity mlp_conv_v1_0_PE_ARR_ROW is
         
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
         weight       : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
-        input_valid  : in std_logic;
         
         stall_ctl    : in std_logic;
         add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
@@ -63,7 +62,6 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR_ROW is
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
         weight       : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
         add_mux_ctrl : in std_logic;
-        input_valid  : in std_logic;
         -- Stalls pipeline (WE DO NOT EVER PROGRESS OUTPUT WHEN STALLED)
         stall_ctl : in std_logic;
 
@@ -96,7 +94,6 @@ PE_ROW : for i in 0 to PE_WIDTH - 1 generate
         input => input,
         weight => weight(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
         add_mux_ctrl => add_mux_ctrl(i),
-        input_valid => input_valid,
         stall_ctl => stall_ctl,
             
         add_val => output_arr(i),

@@ -40,8 +40,7 @@ entity mlp_conv_v1_0_PE_ARR is
         ARESETN      : in std_logic;
         
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-        weight       : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
-        input_valid  : in std_logic;
+        weights       : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
         stall_ctl    : in std_logic;
         row_out_mux_ctrl : in t_row_out_mux_ctrl;
@@ -69,8 +68,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             ARESETN      : in std_logic;
         
             input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-            weight       : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
-            input_valid  : in std_logic;
+            weights       : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
             stall_ctl    : in std_logic;
             add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
@@ -100,8 +98,7 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             ARESETN => ARESETN,
             
             input => input,
-            weight => weight(i * (INPUT_WIDTH * PE_WIDTH) + (INPUT_WIDTH * PE_WIDTH) - 1 downto i * INPUT_WIDTH * PE_WIDTH),
-            input_valid => input_valid,
+            weights => weights(i * (INPUT_WIDTH * PE_WIDTH) + (INPUT_WIDTH * PE_WIDTH) - 1 downto i * INPUT_WIDTH * PE_WIDTH),
             
             stall_ctl => stall_ctl,
             add_mux_ctrl => add_mux_ctrl(i),

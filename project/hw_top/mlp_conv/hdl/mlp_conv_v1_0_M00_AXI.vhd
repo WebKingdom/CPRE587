@@ -312,7 +312,7 @@ begin
   --Read and Read Response (R)
   M_AXI_RREADY <= axi_rready;
   --Example design I/O
-  TXN_DONE <= mst_exec_state = IDLE;
+  TXN_DONE <= '1' when mst_exec_state = IDLE else '0';
   --Burst size in bytes
   burst_size_bytes  <= std_logic_vector(to_unsigned((C_M_AXI_BURST_LEN * (C_M_AXI_DATA_WIDTH/8)), C_TRANSACTIONS_NUM + 3));
   init_txn_wr_pulse <= (not init_txn_wr_ff) and INIT_AXI_WR_TXN;

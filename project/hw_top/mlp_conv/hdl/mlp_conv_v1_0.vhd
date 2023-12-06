@@ -402,54 +402,78 @@ architecture arch_imp of mlp_conv_v1_0 is
   end component mlp_conv_v1_0_S_AXI_INTR;
 
   -- instantiate PE control unit
-  -- component pe_control_unit is
-  --   generic (
-  --     C_S00_AXI_DATA_WIDTH : integer := 32;
-  --     C_M00_AXI_DATA_WIDTH : integer := 32;
-  --     PE_ROWS              : integer := 5;
-  --     PE_COLS              : integer := 5;
-  --     MAC_PIPE_DEPTH       : integer := 2
-  --   );
-  --   port (
-  --     CLK       : in std_logic;
-  --     RESETN    : in std_logic;
-
-  --     params_reg : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  --     weight_base_addr : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  --     input_base_addr  : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  --     output_base_addr : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  --     mem_ctrl          : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
-  --     MAC_DONE          : out 
-  --   );
-  -- end component pe_control_unit;
-
-  -- instantiate FIFO (test)
-  component fifo is
+  component pe_control_unit is
     generic (
-      FIFO_WIDTH : integer := C_M00_AXI_DATA_WIDTH;
-      FIFO_DEPTH : integer := 128
+      C_S00_AXI_DATA_WIDTH             : integer          := 32;
+      C_M00_AXI_DATA_WIDTH             : integer          := 32;
+      C_M00_AXI_BURST_LEN              : integer          := 16;
+      C_M00_AXI_TARGET_SLAVE_BASE_ADDR : std_logic_vector := x"40000000";
+      PE_ROWS                          : integer          := 5;
+      PE_COLS                          : integer          := 5;
+      MAC_PIPE_DEPTH                   : integer          := 2;
+      BYTE_LEN                         : integer          := 8
     );
     port (
       CLK    : in std_logic;
       RESETN : in std_logic;
-      -- FIFO read interface
-      RD_CMD  : in std_logic;
-      RD_DATA : out std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      EMPTY   : out std_logic;
-      -- FIFO write interface
-      WR_CMD  : in std_logic;
-      WR_DATA : in std_logic_vector(FIFO_WIDTH - 1 downto 0);
-      FULL    : out std_logic
+      -- PE registers
+      ACC_PARAMS       : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      WEIGHT_BASE_ADDR : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      INPUT_BASE_ADDR  : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      OUTPUT_BASE_ADDR : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      MEM_CTRL         : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      PE_STATUS        : out std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+      -- PE array interface
+      RESETN_MAC_CTRL  : out std_logic;
+      IN_ACT_DATA_OUT  : out std_logic_vector(BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT      : out std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
+      STALL_CTRL       : out std_logic;
+      ADD_MUX_CTRL     : out t_add_mux_ctrl;
+      ROW_OUT_MUX_CTRL : out t_row_out_mux_ctrl;
+      PSUM_OUT_CTRL    : out std_logic_vector(2 downto 0);
+      IN_PSUM_OUT      : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      OUT_PSUM_IN      : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      -- AXI Master interface
+      M_TARGET_SLAVE_BASE_AR_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+      M_TARGET_SLAVE_BASE_AW_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
+      M_AXI_RDATA                 : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_RVALID_RREADY         : in std_logic;
+      M_AXI_WDATA                 : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      M_AXI_WVALID_WREADY         : in std_logic;
+      M_AXI_AWVALID_AWREADY       : in std_logic;
+      INIT_AXI_WR_TXN             : out std_logic;
+      INIT_AXI_RD_TXN             : out std_logic;
+      TXN_DONE                    : in std_logic;
+      ERROR                       : in std_logic
     );
-  end component fifo;
+  end component pe_control_unit;
 
-  -- FIFO signals
-  signal fifo_rd_cmd  : std_logic;
-  signal fifo_rd_data : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-  signal fifo_empty   : std_logic;
-  signal fifo_wr_cmd  : std_logic;
-  signal fifo_wr_data : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-  signal fifo_full    : std_logic;
+  -- instantiate PE array
+  component mlp_conv_v1_0_PE_ARR is
+    generic (
+      INPUT_WIDTH    : integer := 8;
+      OUTPUT_WIDTH   : integer := 32;
+      PE_WIDTH       : integer := 5;
+      PS_WIDTH       : integer := 4;
+      ROW_OUT_WIDTH  : integer := 4;
+      PSUM_OUT_WIDTH : integer := 3
+    );
+    port (
+      ACLK    : in std_logic;
+      ARESETN : in std_logic;
+
+      input  : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
+      weight : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+
+      stall_ctl        : in std_logic;
+      row_out_mux_ctrl : in t_row_out_mux_ctrl;
+      psum_out_ctrl    : in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
+      add_mux_ctrl     : in t_row_out_mux_ctrl;
+
+      psum_in : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+      output  : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
+    );
+  end component;
 
   -- S00 (register bank) signals
   signal filter_params    : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
@@ -459,6 +483,17 @@ architecture arch_imp of mlp_conv_v1_0 is
   signal mem_ctrl         : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
   signal pe_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
+
+  -- PE array signals
+  signal resetn_mac_ctrl  : std_logic;
+  signal in_act_data_out  : std_logic_vector(BYTE_LEN - 1 downto 0);
+  signal weights_out      : std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
+  signal stall_ctrl       : std_logic;
+  signal add_mux_ctrl     : t_add_mux_ctrl;
+  signal row_out_mux_ctrl : t_row_out_mux_ctrl;
+  signal psum_out_ctrl    : std_logic_vector(2 downto 0);
+  signal in_psum_out      : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal out_psum_in      : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
 
   -- M00 (Master AXI interface) signals
   signal m00_axi_init_axi_wr_txn       : std_logic;
@@ -684,22 +719,78 @@ begin
 
   -- Add user logic here
 
-  -- FIFO instantiation (test)
-  fifo_inst : fifo
+  -- PE control unit
+  pe_control_unit_inst : pe_control_unit
   generic map(
-    FIFO_WIDTH => C_M00_AXI_DATA_WIDTH,
-    FIFO_DEPTH => 128
+    C_S00_AXI_DATA_WIDTH             => C_S00_AXI_DATA_WIDTH,
+    C_M00_AXI_DATA_WIDTH             => C_M00_AXI_DATA_WIDTH,
+    C_M00_AXI_BURST_LEN              => C_M00_AXI_BURST_LEN,
+    C_M00_AXI_TARGET_SLAVE_BASE_ADDR => C_M00_AXI_TARGET_SLAVE_BASE_ADDR,
+    PE_ROWS                          => PE_ROWS,
+    PE_COLS                          => PE_COLS,
+    MAC_PIPE_DEPTH                   => MAC_PIPE_DEPTH,
+    BYTE_LEN                         => BYTE_LEN
   )
   port map(
-    CLK     => m00_axi_aclk,
-    RESETN  => m00_axi_aresetn,
-    RD_CMD  => fifo_rd_cmd,
-    RD_DATA => fifo_rd_data,
-    EMPTY   => fifo_empty,
-    WR_CMD  => fifo_wr_cmd,
-    WR_DATA => fifo_wr_data,
-    FULL    => fifo_full
+    CLK    => m00_axi_aclk,
+    RESETN => m00_axi_aresetn,
+    -- PE registers
+    ACC_PARAMS       => filter_params,
+    WEIGHT_BASE_ADDR => weight_base_addr,
+    INPUT_BASE_ADDR  => input_base_addr,
+    OUTPUT_BASE_ADDR => output_base_addr,
+    MEM_CTRL         => mem_ctrl,
+    PE_STATUS        => pe_status,
+    -- PE array interface
+    RESETN_MAC_CTRL  => resetn_mac_ctrl,
+    IN_ACT_DATA_OUT  => in_act_data_out,
+    WEIGHTS_OUT      => weights_out,
+    STALL_CTRL       => stall_ctrl,
+    ADD_MUX_CTRL     => add_mux_ctrl,
+    ROW_OUT_MUX_CTRL => row_out_mux_ctrl,
+    PSUM_OUT_CTRL    => psum_out_ctrl,
+    IN_PSUM_OUT      => in_psum_out,
+    OUT_PSUM_IN      => out_psum_in,
+    -- AXI Master interface
+    M_TARGET_SLAVE_BASE_AR_ADDR => m00_target_slave_base_ar_addr,
+    M_TARGET_SLAVE_BASE_AW_ADDR => m00_target_slave_base_aw_addr,
+    M_AXI_RDATA_OUT             => m00_axi_rdata_out,
+    M_AXI_RVALID_RREADY         => m00_axi_rvalid_rready,
+    M_AXI_WDATA_IN              => m00_axi_wdata_in,
+    M_AXI_WVALID_WREADY         => m00_axi_wvalid_wready,
+    M_AXI_AWVALID_AWREADY       => m00_axi_awvalid_awready,
+    INIT_AXI_WR_TXN             => m00_axi_init_axi_wr_txn,
+    INIT_AXI_RD_TXN             => m00_axi_init_axi_rd_txn,
+    TXN_DONE                    => m00_axi_txn_done,
+    ERROR                       => m00_axi_error
   );
+
+  -- PE array
+  pe_arr_inst : mlp_conv_v1_0_PE_ARR
+  generic map(
+    INPUT_WIDTH    => INPUT_WIDTH,
+    OUTPUT_WIDTH   => OUTPUT_WIDTH,
+    PE_WIDTH       => PE_WIDTH,
+    PS_WIDTH       => PS_WIDTH,
+    ROW_OUT_WIDTH  => ROW_OUT_WIDTH,
+    PSUM_OUT_WIDTH => PSUM_OUT_WIDTH
+  )
+  port map(
+    ACLK    => m00_axi_aclk,
+    ARESETN => resetn_mac_ctrl,
+
+    input  => in_act_data_out,
+    weight => weights_out,
+
+    stall_ctl        => stall_ctrl,
+    row_out_mux_ctrl => row_out_mux_ctrl,
+    psum_out_ctrl    => psum_out_ctrl,
+    add_mux_ctrl     => add_mux_ctrl,
+
+    psum_in => in_psum_out,
+    output  => out_psum_in
+  );
+
   -- User logic ends
 
 end arch_imp;

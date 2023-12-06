@@ -42,7 +42,6 @@ entity mlp_conv_v1_0_PE is
     input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
     weight       : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
     add_mux_ctrl : in std_logic;
-    input_valid  : in std_logic;
     -- Stalls pipeline (WE DO NOT EVER PROGRESS OUTPUT WHEN STALLED)
     stall_ctl : in std_logic;
 
@@ -66,7 +65,7 @@ architecture arch_imp of mlp_conv_v1_0_PE is
   signal mac_debug : std_logic_vector(31 downto 0);
 
 begin
-  stalled <= (not input_valid) or stall_ctl;
+  stalled <= stall_ctl;
   -- Debug Signals
   mac_debug <= x"00000001"; -- Double checking sanity
 
