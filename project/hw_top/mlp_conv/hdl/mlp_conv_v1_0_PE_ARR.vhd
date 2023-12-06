@@ -45,7 +45,7 @@ entity mlp_conv_v1_0_PE_ARR is
         stall_ctl    : in std_logic;
         row_out_mux_ctrl : in t_row_out_mux_ctrl;
         psum_out_ctrl: in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
-        add_mux_ctrl : in t_row_out_mux_ctrl;
+        add_mux_ctrl : in t_add_mux_ctrl;
         
         psum_in      : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
         
@@ -71,7 +71,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             weights      : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
             stall_ctl    : in std_logic;
-            add_mux_ctrl : in std_logic_vector(PE_WIDTH - 1 downto 0);
+            add_mux_ctrl : in std_logic_vector(0 to PE_WIDTH - 1);
 
             row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH  - 1 downto 0);
         

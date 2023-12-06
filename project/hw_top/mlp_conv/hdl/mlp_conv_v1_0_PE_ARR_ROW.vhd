@@ -39,7 +39,7 @@ entity mlp_conv_v1_0_PE_ARR_ROW is
         weights      : in std_logic_vector(PE_WIDTH * INPUT_WIDTH - 1 downto 0);
         
         stall_ctl    : in std_logic;
-        add_mux_ctrl  : in std_logic_vector(PE_WIDTH - 1 downto 0);
+        add_mux_ctrl : in std_logic_vector(0 to PE_WIDTH - 1);
 
         row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
         

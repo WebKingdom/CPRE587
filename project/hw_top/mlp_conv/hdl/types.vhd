@@ -27,5 +27,5 @@ package types is
     constant ROW_OUT_WIDTH : integer := 4;
 
     type t_row_out_mux_ctrl is array (0 to PE_WIDTH) of std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
-    type t_add_mux_ctrl is array (0 to PE_WIDTH) of std_logic_vector(PE_WIDTH - 1 downto 0);
+    type t_add_mux_ctrl is array (0 to PE_WIDTH) of std_logic_vector(0 to PE_WIDTH - 1);
 end package;
