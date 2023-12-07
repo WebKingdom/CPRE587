@@ -157,25 +157,37 @@ module tb_pe();
                           );
 
   // PE array instance
-  mlp_conv_v1_0_PE_ARR #(
-                         .INPUT_WIDTH(BYTE_LEN),
-                         .OUTPUT_WIDTH(C_M00_AXI_DATA_WIDTH),
-                         .PE_WIDTH(PE_WIDTH),
-                         .PS_WIDTH(PS_WIDTH),
-                         .ROW_OUT_WIDTH(ROW_OUT_WIDTH),
-                         .PSUM_OUT_WIDTH(PSUM_OUT_WIDTH)
-                       ) mlp_conv_v1_0_PE_ARR_inst (
-                         .ACLK(clk),
-                         .ARESETN(resetn_mac_ctrl),
-                         .input_act(in_act_data_out),
-                         .weights(weights_out),
-                         .stall_ctl(stall_ctrl),
-                         .row_out_mux_ctrl(row_out_mux_ctrl),
-                         .psum_out_ctrl(psum_out_mux_ctrl),
-                         .add_mux_ctrl(add_mux_ctrl),
-                         .psum_in(in_psum_out),
-                         .psum_out(out_psum_in)
-                       );
+  mlp_conv_v1_0_PE_ARR_wrapper #(
+                                 .INPUT_WIDTH(BYTE_LEN),
+                                 .OUTPUT_WIDTH(C_M00_AXI_DATA_WIDTH),
+                                 .PE_WIDTH(PE_WIDTH),
+                                 .PS_WIDTH(PS_WIDTH),
+                                 .ROW_OUT_WIDTH(ROW_OUT_WIDTH),
+                                 .PSUM_OUT_WIDTH(PSUM_OUT_WIDTH)
+                               ) mlp_conv_v1_0_PE_ARR_wrapper_inst (
+                                 .ACLK(clk),
+                                 .ARESETN(resetn_mac_ctrl),
+                                 .input_act(in_act_data_out),
+                                 .weights_0(weights_out[0]),
+                                 .weights_1(weights_out[1]),
+                                 .weights_2(weights_out[2]),
+                                 .weights_3(weights_out[3]),
+                                 .weights_4(weights_out[4]),
+                                 .stall_ctl(stall_ctrl),
+                                 .row_out_mux_ctrl_0(row_out_mux_ctrl[0]),
+                                 .row_out_mux_ctrl_1(row_out_mux_ctrl[1]),
+                                 .row_out_mux_ctrl_2(row_out_mux_ctrl[2]),
+                                 .row_out_mux_ctrl_3(row_out_mux_ctrl[3]),
+                                 .row_out_mux_ctrl_4(row_out_mux_ctrl[4]),
+                                 .add_mux_ctrl_0(add_mux_ctrl[0]),
+                                 .add_mux_ctrl_1(add_mux_ctrl[1]),
+                                 .add_mux_ctrl_2(add_mux_ctrl[2]),
+                                 .add_mux_ctrl_3(add_mux_ctrl[3]),
+                                 .add_mux_ctrl_4(add_mux_ctrl[4]),
+                                 .psum_out_ctrl(psum_out_mux_ctrl),
+                                 .psum_in(in_psum_out),
+                                 .psum_out(out_psum_in)
+                               );
 
   // helper assignments
   assign acc_params = {param_valid, param_start, param_reset, 1'b0, param_c, param_tile_size, param_u, param_s, param_r};

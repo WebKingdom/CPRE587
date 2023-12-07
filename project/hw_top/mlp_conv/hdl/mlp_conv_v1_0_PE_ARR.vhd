@@ -54,7 +54,7 @@ entity mlp_conv_v1_0_PE_ARR is
 end mlp_conv_v1_0_PE_ARR;
 
 architecture arch_imp of mlp_conv_v1_0_PE_ARR is
-    component mlp_conv_v1_0_PE_ARR_ROW is
+    component mlp_conv_v1_0_PE_ROW is
         generic (
             INPUT_WIDTH    : integer := 8;
             OUTPUT_WIDTH   : integer := 32;
@@ -77,7 +77,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             output_in    : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
             output       : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
         );
-    end component mlp_conv_v1_0_PE_ARR_ROW;
+    end component mlp_conv_v1_0_PE_ROW;
     
     type t_output_array is array (-1 to PE_WIDTH - 1) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     signal output_array : t_output_array;
@@ -90,7 +90,7 @@ psum_out <= output_array(to_integer(unsigned(psum_out_ctrl)));
 
 -- generate rows
 PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
-    A_ROW: mlp_conv_v1_0_PE_ARR_ROW port map(
+    A_ROW: mlp_conv_v1_0_PE_ROW port map(
             ACLK => ACLK,
             ARESETN => ARESETN,
             

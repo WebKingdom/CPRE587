@@ -4,7 +4,7 @@
 -- 
 -- Create Date: 11/30/2023 09:44:49 PM
 -- Design Name: 
--- Module Name: mlp_conv_v1_0_PE_ARR - Behavioral
+-- Module Name: mlp_conv_v1_0_PE_ROW - Behavioral
 -- Project Name: 
 -- Target Devices: 
 -- Tool Versions: 
@@ -23,7 +23,7 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
-entity mlp_conv_v1_0_PE_ARR_ROW is
+entity mlp_conv_v1_0_PE_ROW is
     generic (
         INPUT_WIDTH    : integer := 8;
         OUTPUT_WIDTH   : integer := 32;
@@ -47,9 +47,9 @@ entity mlp_conv_v1_0_PE_ARR_ROW is
         
         output       : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
     );
-end mlp_conv_v1_0_PE_ARR_ROW;
+end mlp_conv_v1_0_PE_ROW;
 
-architecture arch_imp of mlp_conv_v1_0_PE_ARR_ROW is
+architecture arch_imp of mlp_conv_v1_0_PE_ROW is
     component mlp_conv_v1_0_PE is
     generic (
         INPUT_WIDTH  : integer := 8;
