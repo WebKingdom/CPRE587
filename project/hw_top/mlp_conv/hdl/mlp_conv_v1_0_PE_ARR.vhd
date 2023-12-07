@@ -23,8 +23,8 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
-library work;
-use work.types.all;
+library xil_defaultlib;
+use xil_defaultlib.types.all;
 
 entity mlp_conv_v1_0_PE_ARR is
     generic (
@@ -40,7 +40,7 @@ entity mlp_conv_v1_0_PE_ARR is
         ARESETN      : in std_logic;
         
         input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-        weights      : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+        weights      : in t_weights;
         
         stall_ctl    : in std_logic;
         row_out_mux_ctrl : in t_row_out_mux_ctrl;
@@ -98,7 +98,7 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             ARESETN => ARESETN,
             
             input => input,
-            weights => weights(i * (INPUT_WIDTH * PE_WIDTH) + (INPUT_WIDTH * PE_WIDTH) - 1 downto i * INPUT_WIDTH * PE_WIDTH),
+            weights => weights(i),
             
             stall_ctl => stall_ctl,
             add_mux_ctrl => add_mux_ctrl(i),

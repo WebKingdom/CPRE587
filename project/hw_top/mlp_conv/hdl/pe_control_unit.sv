@@ -27,7 +27,7 @@ module pe_control_unit #(
     // PE array interface
     output wire RESETN_MAC_CTRL,
     output wire [BYTE_LEN-1:0] IN_ACT_DATA_OUT,
-    output wire [PE_ROWS * PE_COLS * BYTE_LEN-1:0] WEIGHTS_OUT,
+    output wire [PE_COLS * BYTE_LEN-1:0] WEIGHTS_OUT [0:PE_ROWS-1],
     output wire STALL_CTRL,
     output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
     output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],              // 9:1 mux for each row of MACs

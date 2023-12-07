@@ -2,8 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-library work;
-use work.types.all;
+library xil_defaultlib;
+use xil_defaultlib.types.all;
+
 
 entity mlp_conv_v1_0 is
   generic (
@@ -435,7 +436,7 @@ architecture arch_imp of mlp_conv_v1_0 is
       -- PE array interface
       RESETN_MAC_CTRL   : out std_logic;
       IN_ACT_DATA_OUT   : out std_logic_vector(BYTE_LEN - 1 downto 0);
-      WEIGHTS_OUT       : out std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT       : out t_weights;
       STALL_CTRL        : out std_logic;
       ADD_MUX_CTRL      : out t_add_mux_ctrl;
       ROW_OUT_MUX_CTRL  : out t_row_out_mux_ctrl;
@@ -472,7 +473,7 @@ architecture arch_imp of mlp_conv_v1_0 is
       ARESETN : in std_logic;
 
       input   : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-      weights : in std_logic_vector(PE_WIDTH * PE_WIDTH * INPUT_WIDTH - 1 downto 0);
+      weights : in t_weights;
 
       stall_ctl        : in std_logic;
       row_out_mux_ctrl : in t_row_out_mux_ctrl;
@@ -496,7 +497,7 @@ architecture arch_imp of mlp_conv_v1_0 is
   -- PE array signals
   signal resetn_mac_ctrl  : std_logic;
   signal in_act_data_out  : std_logic_vector(BYTE_LEN - 1 downto 0);
-  signal weights_out      : std_logic_vector(PE_ROWS * PE_COLS * BYTE_LEN - 1 downto 0);
+  signal weights_out      : t_weights;
   signal stall_ctrl       : std_logic;
   signal add_mux_ctrl     : t_add_mux_ctrl;
   signal row_out_mux_ctrl : t_row_out_mux_ctrl;
