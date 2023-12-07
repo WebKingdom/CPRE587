@@ -41,7 +41,7 @@ entity mlp_conv_v1_0_PE_ARR_wrapper is
     psum_in  : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     psum_out : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
   );
-end mlp_conv_v1_0_PE_ARR;
+end mlp_conv_v1_0_PE_ARR_wrapper;
 
 architecture arch_imp of mlp_conv_v1_0_PE_ARR_wrapper is
 
@@ -75,6 +75,8 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR_wrapper is
   signal add_mux_ctrl     : t_add_mux_ctrl;
   signal row_out_mux_ctrl : t_row_out_mux_ctrl;
 
+begin
+
   weights          <= (weights_0, weights_1, weights_2, weights_3, weights_4);
   add_mux_ctrl     <= (add_mux_ctrl_0, add_mux_ctrl_1, add_mux_ctrl_2, add_mux_ctrl_3, add_mux_ctrl_4);
   row_out_mux_ctrl <= (row_out_mux_ctrl_0, row_out_mux_ctrl_1, row_out_mux_ctrl_2, row_out_mux_ctrl_3, row_out_mux_ctrl_4);
@@ -100,4 +102,5 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR_wrapper is
     psum_in          => psum_in,
     psum_out         => psum_out
   );
+
 end arch_imp;

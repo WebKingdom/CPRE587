@@ -296,8 +296,12 @@ module tb_pe();
     scb_weights_row_idx = 0;
 
     // check PE status register to ensure weights are buffered
-    @(posedge clk);
-    if (pe_status[0] == 0) begin
+    max_retries = 5;
+    while (pe_status[0] == 0 && max_retries > 0) begin
+      @(posedge clk);
+      max_retries--;
+    end
+    if (pe_status[0] == 0 || max_retries == 0) begin
       $display("ERROR: pe_status[0] = %0d, should be 1. Weights should be buffered.", pe_status[0]);
       $finish;
     end
@@ -336,8 +340,12 @@ module tb_pe();
     scb_inputs_col_idx = 0;
 
     // check PE status register to ensure inputs are buffered
-    @(posedge clk);
-    if (pe_status[2] == 0) begin
+    max_retries = 5;
+    while (pe_status[2] == 0 && max_retries > 0) begin
+      @(posedge clk);
+      max_retries--;
+    end
+    if (pe_status[2] == 0 || max_retries == 0) begin
       $display("ERROR: pe_status[2] = %0d, should be 1. Inputs should be buffered.", pe_status[2]);
       $finish;
     end
@@ -359,8 +367,12 @@ module tb_pe();
     scb_psums_col_idx = 0;
 
     // check PE status register to ensure partial sums are buffered
-    @(posedge clk);
-    if (pe_status[4] == 0) begin
+    max_retries = 5;
+    while (pe_status[4] == 0 && max_retries > 0) begin
+      @(posedge clk);
+      max_retries--;
+    end
+    if (pe_status[4] == 0 || max_retries == 0) begin
       $display("ERROR: pe_status[4] = %0d, should be 1. Partial sums should be buffered.", pe_status[4]);
       $finish;
     end
@@ -370,7 +382,7 @@ module tb_pe();
   // send the scb_weights to the PE array using AXI Master interface
   task automatic handle_buffer_weights_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 20;
+    max_retries = 4;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -433,7 +445,7 @@ module tb_pe();
 
   task automatic handle_buffer_inputs_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 20;
+    max_retries = 4;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -495,7 +507,7 @@ module tb_pe();
 
   task handle_buffer_psums_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 20;
+    max_retries = 4;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -566,7 +578,7 @@ module tb_pe();
 
   task automatic handle_write_outputs_axi_transaction();
     // wait for init_axi_wr_txn to go high
-    max_retries = 20;
+    max_retries = 4;
     while (init_axi_wr_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;

@@ -70,7 +70,7 @@ module pe_control_unit #(
   logic unsigned [11:0] psum_base_addr_offset;
 
   // helper wires
-  wire reset_all;
+  wire resetn_all;
 
   // parameter wires
   wire [3:0] param_R;           // filter height
@@ -264,6 +264,7 @@ module pe_control_unit #(
     if (resetn_all == 1'b0) begin
       output_buffering <= 0;
       output_fifo_wr_cmd <= 0;
+      output_buffer_counter <= 0;
       mac_row_counter <= 0;
       mac_col_counter <= 0;
       mac_pipe_counter <= 0;
@@ -478,7 +479,7 @@ module pe_control_unit #(
 
   // buffer_weights logic
   always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
+    if (resetn_all == 1'b0) begin
       st_bw <= IDLE_BUFFER;
     end
     else begin
@@ -493,18 +494,48 @@ module pe_control_unit #(
         if (buffer_weights_pulse == 1 || buffer_inputs_pulse == 1 || buffer_psums_pulse == 1) begin
           st_bw_next = ISSUE_M_AXI_RD;
         end
+        // FIFO write commands
+        weight_in_ctrl_fifo_wr_cmd = 0;
+        input_act_ctrl_fifo_wr_cmd = 0;
+        psum_fifo_wr_cmd = 0;
       end
       ISSUE_M_AXI_RD: begin
         if (INIT_AXI_RD_TXN == 1) begin
           st_bw_next = WAIT_M_AXI_RD;
         end
-        else begin
-          st_bw_next = BUFFER_DATA;
-        end
       end
       WAIT_M_AXI_RD: begin
+        // FIFO write commands
+        if (buffer_weights_counter < 1) begin
+          if (M_AXI_RVALID_RREADY == 1) begin
+            weight_in_ctrl_fifo_wr_cmd = 1;
+          end
+          else begin
+            weight_in_ctrl_fifo_wr_cmd = 0;
+          end
+        end
+        else if (buffer_inputs_counter < 2) begin
+          if (M_AXI_RVALID_RREADY == 1) begin
+            input_act_ctrl_fifo_wr_cmd = 1;
+          end
+          else begin
+            input_act_ctrl_fifo_wr_cmd = 0;
+          end
+        end
+        else if (buffer_psums_counter < 3) begin
+          if (M_AXI_RVALID_RREADY == 1) begin
+            psum_fifo_wr_cmd = 1;
+          end
+          else begin
+            psum_fifo_wr_cmd = 0;
+          end
+        end
+
         if (TXN_DONE == 1) begin
           st_bw_next = BUFFER_DATA;
+          weight_in_ctrl_fifo_wr_cmd = 0;
+          input_act_ctrl_fifo_wr_cmd = 0;
+          psum_fifo_wr_cmd = 0;
         end
       end
       BUFFER_DATA: begin
@@ -514,12 +545,16 @@ module pe_control_unit #(
         else begin
           st_bw_next = IDLE_BUFFER;
         end
+        // FIFO write commands
+        weight_in_ctrl_fifo_wr_cmd = 0;
+        input_act_ctrl_fifo_wr_cmd = 0;
+        psum_fifo_wr_cmd = 0;
       end
     endcase
   end
 
   always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
+    if (resetn_all == 1'b0) begin
       // weight registers
       buffer_weights_counter <= 0;
       weight_base_addr_offset <= 0;
@@ -535,12 +570,6 @@ module pe_control_unit #(
       psum_base_addr_offset <= 0;
       psums_buffered <= 0;
       psum_buffer_error <= 0;
-      // weight_in_ctrl
-      weight_in_ctrl_fifo_wr_cmd <= 0;
-      // input_act_ctrl
-      input_act_ctrl_fifo_wr_cmd <= 0;
-      // psum buffer FIFO
-      psum_fifo_wr_cmd <= 0;
       // AXI Master FSM
       INIT_AXI_RD_TXN <= 0;
       M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
@@ -569,12 +598,6 @@ module pe_control_unit #(
             psums_buffered <= 0;
             psum_buffer_error <= 0;
           end
-          // weight_in_ctrl
-          weight_in_ctrl_fifo_wr_cmd <= 0;
-          // input_act_ctrl
-          input_act_ctrl_fifo_wr_cmd <= 0;
-          // psum buffer FIFO
-          psum_fifo_wr_cmd <= 0;
           // AXI Master FSM
           INIT_AXI_RD_TXN <= 0;
           M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
@@ -595,72 +618,38 @@ module pe_control_unit #(
             M_TARGET_SLAVE_BASE_AR_ADDR <= OUTPUT_BASE_ADDR + psum_base_addr_offset;
             psum_base_addr_offset <= psum_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
-          else begin
-            M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
-            INIT_AXI_RD_TXN <= 0;
-          end
         end
         WAIT_M_AXI_RD: begin
           INIT_AXI_RD_TXN <= 0;
           // issue 1, 2, and 3 AXI transactions for weights, inputs, and psums respectively (each C_M00_AXI_BURST_LEN)
           // TODO could optimize number of transactions depending on parameters
           if (buffer_weights_counter < 1) begin
-            // control FIFO write
-            if (M_AXI_RVALID_RREADY == 1'b1) begin
-              weight_in_ctrl_fifo_wr_cmd <= 1;
-            end
-            else begin
-              weight_in_ctrl_fifo_wr_cmd <= 0;
-            end
             // TODO this may not be evaluated based on FSM
-            if (TXN_DONE == 1'b1) begin
+            if (TXN_DONE == 1) begin
               buffer_weights_counter <= buffer_weights_counter + 1;
-              weight_in_ctrl_fifo_wr_cmd <= 0;
             end
-            if (weight_in_ctrl_fifo_full == 1'b1) begin
+            if (weight_in_ctrl_fifo_full == 1 && weight_in_ctrl_fifo_wr_cmd == 1) begin
               // * throw error, should not happen
               weight_buffer_error <= 1;
             end
           end
           else if (buffer_inputs_counter < 2) begin
-            // control FIFO write
-            if (M_AXI_RVALID_RREADY == 1'b1) begin
-              input_act_ctrl_fifo_wr_cmd <= 1;
-            end
-            else begin
-              input_act_ctrl_fifo_wr_cmd <= 0;
-            end
-            if (TXN_DONE == 1'b1) begin
+            if (TXN_DONE == 1) begin
               buffer_inputs_counter <= buffer_inputs_counter + 1;
-              input_act_ctrl_fifo_wr_cmd <= 0;
             end
-            if (input_act_ctrl_fifo_full == 1'b1) begin
+            if (input_act_ctrl_fifo_full == 1 && input_act_ctrl_fifo_wr_cmd == 1) begin
               // * throw error, should not happen
               input_buffer_error <= 1;
             end
           end
           else if (buffer_psums_counter < 3) begin
-            // control FIFO write
-            if (M_AXI_RVALID_RREADY == 1'b1) begin
-              psum_fifo_wr_cmd <= 1;
-            end
-            else begin
-              psum_fifo_wr_cmd <= 0;
-            end
-            if (TXN_DONE == 1'b1) begin
+            if (TXN_DONE == 1) begin
               buffer_psums_counter <= buffer_psums_counter + 1;
-              psum_fifo_wr_cmd <= 0;
             end
-            if (psum_fifo_full == 1'b1) begin
+            if (psum_fifo_full == 1 && psum_fifo_wr_cmd == 1) begin
               // * throw error, should not happen
               psum_buffer_error <= 1;
             end
-          end
-          else begin
-            // turn off all FIFO writes
-            weight_in_ctrl_fifo_wr_cmd <= 0;
-            input_act_ctrl_fifo_wr_cmd <= 0;
-            psum_fifo_wr_cmd <= 0;
           end
         end
         BUFFER_DATA: begin
@@ -689,10 +678,6 @@ module pe_control_unit #(
             end
             buffer_psums_counter <= buffer_psums_counter + 1;
           end
-          // turn off all FIFO writes
-          weight_in_ctrl_fifo_wr_cmd <= 0;
-          input_act_ctrl_fifo_wr_cmd <= 0;
-          psum_fifo_wr_cmd <= 0;
         end
       endcase
     end
@@ -707,6 +692,15 @@ module pe_control_unit #(
             WR_OUT
           } state_type_bi;
   state_type_bi st_out, st_out_next;
+
+  always_ff @(posedge CLK) begin
+    if (resetn_all == 1'b0) begin
+      st_out <= WAIT_BUFFER_OUT;
+    end
+    else begin
+      st_out <= st_out_next;
+    end
+  end
 
   always_comb begin
     st_out_next = st_out;
@@ -739,10 +733,12 @@ module pe_control_unit #(
 
   // output buffer and write out logic
   always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
+    if (resetn_all == 1'b0) begin
       output_base_addr_offset <= 0;
+      output_fifo_rd_cmd <= 0;
       output_write_counter <= 0;
       output_written <= 0;
+      output_write_error <= 0;
       INIT_AXI_WR_TXN <= 0;
       M_TARGET_SLAVE_BASE_AW_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
     end
@@ -797,7 +793,7 @@ module pe_control_unit #(
   // PE status register
   // TODO does it need to be clocked?
   always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
+    if (resetn_all == 1'b0) begin
       PE_STATUS <= 0;
       ws_load_error <= 0;
     end
