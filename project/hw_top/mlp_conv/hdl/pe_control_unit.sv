@@ -27,7 +27,7 @@ module pe_control_unit #(
     // PE array interface
     output wire RESETN_MAC_CTRL,
     output wire [BYTE_LEN-1:0] IN_ACT_DATA_OUT,
-    output wire [PE_COLS * BYTE_LEN-1:0] WEIGHTS_OUT [0:PE_ROWS-1],
+    output wire [PE_COLS * BYTE_LEN - 1:0] WEIGHTS_OUT [0:PE_ROWS-1],
     output wire STALL_CTRL,
     output logic [0:PE_COLS-1] ADD_MUX_CTRL [0:PE_ROWS-1],
     output logic [3:0] ROW_OUT_MUX_CTRL [0:PE_ROWS-1],              // 9:1 mux for each row of MACs
@@ -50,7 +50,6 @@ module pe_control_unit #(
   );
 
   localparam WS_WIDTH = 40;
-  localparam WS_DEPTH = 5;
   localparam WEIGHT_IN_CTRL_FIFO_DEPTH = 16;
   localparam INPUT_ACT_CTRL_FIFO_DEPTH = 64;
   localparam OUTPUT_FIFO_DEPTH = 64;
@@ -113,7 +112,7 @@ module pe_control_unit #(
   wire weight_in_ctrl_fifo_full;
   wire weight_in_ctrl_ws_full;
   wire weight_in_ctrl_loading_ws;
-  wire [WS_WIDTH-1:0] weight_in_ctrl_ws_rd_data [0:WS_DEPTH-1];
+  wire [PE_COLS * BYTE_LEN - 1:0] weight_in_ctrl_ws_rd_data [0:PE_ROWS-1];
 
   // input_act_ctrl wires (wr_data comes from M00_AXI)
   logic input_act_ctrl_fifo_wr_cmd;
@@ -188,6 +187,7 @@ module pe_control_unit #(
 
   // PE interface assignments
   assign RESETN_MAC_CTRL = resetn_all;
+  assign WEIGHTS_OUT = weight_in_ctrl_ws_rd_data;
 
 
   // add mux control logic
