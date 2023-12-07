@@ -39,7 +39,7 @@ entity mlp_conv_v1_0_PE_ARR is
         ACLK         : in std_logic;
         ARESETN      : in std_logic;
         
-        input        : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
+        input_act    : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
         weights      : in t_weights;
         
         stall_ctl    : in std_logic;
@@ -48,8 +48,7 @@ entity mlp_conv_v1_0_PE_ARR is
         add_mux_ctrl : in t_add_mux_ctrl;
         
         psum_in      : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
-        
-        output       : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
+        psum_out     : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
         
     );
 end mlp_conv_v1_0_PE_ARR;
@@ -76,7 +75,6 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
             row_out_mux_ctrl : in std_logic_vector(ROW_OUT_WIDTH  - 1 downto 0);
         
             output_in    : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
-        
             output       : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
         );
     end component mlp_conv_v1_0_PE_ARR_ROW;
@@ -85,11 +83,10 @@ architecture arch_imp of mlp_conv_v1_0_PE_ARR is
     signal output_array : t_output_array;
     
 
-
 begin
 output_array(-1) <= psum_in;
 
-output <= output_array(to_integer(unsigned(psum_out_ctrl)));
+psum_out <= output_array(to_integer(unsigned(psum_out_ctrl)));
 
 -- generate rows
 PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
@@ -97,7 +94,7 @@ PE_ROWS: for i in 0 to PE_WIDTH - 1 generate
             ACLK => ACLK,
             ARESETN => ARESETN,
             
-            input => input,
+            input => input_act,
             weights => weights(i),
             
             stall_ctl => stall_ctl,

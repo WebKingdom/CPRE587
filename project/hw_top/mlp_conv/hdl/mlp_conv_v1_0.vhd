@@ -472,16 +472,16 @@ architecture arch_imp of mlp_conv_v1_0 is
       ACLK    : in std_logic;
       ARESETN : in std_logic;
 
-      input   : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-      weights : in t_weights;
+      input_act : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
+      weights   : in t_weights;
 
       stall_ctl        : in std_logic;
       row_out_mux_ctrl : in t_row_out_mux_ctrl;
       psum_out_ctrl    : in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
       add_mux_ctrl     : in t_add_mux_ctrl;
 
-      psum_in : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
-      output  : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
+      psum_in  : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+      psum_out : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
     );
   end component;
 
@@ -789,16 +789,16 @@ begin
     ACLK    => m00_axi_aclk,
     ARESETN => resetn_mac_ctrl,
 
-    input   => in_act_data_out,
-    weights => weights_out,
+    input_act => in_act_data_out,
+    weights   => weights_out,
 
     stall_ctl        => stall_ctrl,
     row_out_mux_ctrl => row_out_mux_ctrl,
     psum_out_ctrl    => psum_out_ctrl,
     add_mux_ctrl     => add_mux_ctrl,
 
-    psum_in => in_psum_out,
-    output  => out_psum_in
+    psum_in  => in_psum_out,
+    psum_out => out_psum_in
   );
 
   -- User logic ends

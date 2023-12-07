@@ -1,5 +1,7 @@
 // test bench for PE control unit and PE array together
 
+import types_pkg::*;
+
 `timescale 1ns/1ps
 module tb_pe();
   localparam C_S00_AXI_DATA_WIDTH = 32;
@@ -15,9 +17,12 @@ module tb_pe();
   localparam PS_WIDTH = 4;
   localparam ROW_OUT_WIDTH = 4;
   localparam PSUM_OUT_WIDTH = 3;
+  
 
 
   // verification variables
+  int max_retries;
+  int burst_count;
   // weights are 1B each
   byte scb_weights [PE_ROWS][PE_COLS];
   int scb_weights_row_idx;
@@ -75,10 +80,10 @@ module tb_pe();
   // PE array interface
   logic resetn_mac_ctrl;
   logic [BYTE_LEN-1:0] in_act_data_out;
-  logic [PE_COLS * BYTE_LEN - 1:0] weights_out [0:PE_ROWS-1];
+  t_weights weights_out;
   logic stall_ctrl;
-  logic [0:PE_COLS-1:0] add_mux_ctrl [0:PE_ROWS-1:0];
-  logic [3:0] row_out_mux_ctrl [0:PE_ROWS-1];
+  t_add_mux_ctrl add_mux_ctrl;
+  t_row_out_mux_ctrl row_out_mux_ctrl;
   logic [2:0] psum_out_mux_ctrl;
   logic [C_M00_AXI_DATA_WIDTH-1:0] in_psum_out;
   logic [C_M00_AXI_DATA_WIDTH-1:0] out_psum_in;
@@ -151,18 +156,18 @@ module tb_pe();
                        ) mlp_conv_v1_0_PE_ARR_inst (
                          .ACLK(clk),
                          .ARESETN(resetn_mac_ctrl),
-                         .input(in_act_data_out),
+                         .input_act(in_act_data_out),
                          .weights(weights_out),
-                         .stall_ctrl(stall_ctrl),
+                         .stall_ctl(stall_ctrl),
                          .row_out_mux_ctrl(row_out_mux_ctrl),
                          .psum_out_ctrl(psum_out_mux_ctrl),
                          .add_mux_ctrl(add_mux_ctrl),
                          .psum_in(in_psum_out),
-                         .psum_out(out_psum_in),
+                         .psum_out(out_psum_in)
                        );
 
   // helper assignments
-  assign acc_params = {valid, start, reset, 1'b0, param_c, param_tile_size, param_u, param_s, param_r};
+  assign acc_params = {param_valid, param_start, param_reset, 1'b0, param_c, param_tile_size, param_u, param_s, param_r};
   assign weight_base_addr = 32'h41000000;
   assign input_base_addr = 32'h42000000;
   assign output_base_addr = 32'h43000000;
@@ -217,7 +222,7 @@ module tb_pe();
     param_valid = 1;
   endfunction
 
-  task automatic void reset_all();
+  task automatic reset_all();
     reset_tb();
     // reset DUT
     resetn = 0;
@@ -244,11 +249,11 @@ module tb_pe();
 
   function automatic void compute_expected_outputs();
     // multiply 1B of weight with 1B of input activation and accumulate
-    for (int out_r; out_r < scb_outputs.size(); out_r++) begin
-      for (int out_c; out_c < scb_outputs[out_r].size(); out_c++) begin
+    for (int out_r = 0; out_r < PE_ROWS; out_r++) begin
+      for (int out_c = 0; out_c < 9; out_c++) begin
         scb_outputs[out_r][out_c] += scb_psums[out_r][out_c];
-        for (int w_r; w_r < scb_weights.size(); w_r++) begin
-          for (int w_c; w_c < scb_weights[w_r].size(); w_c++) begin
+        for (int w_r = 0; w_r < PE_ROWS; w_r++) begin
+          for (int w_c = 0; w_c < PE_COLS; w_c++) begin
             scb_outputs[out_r][out_c] += scb_weights[w_r][w_c] * scb_inputs[out_r+w_r][out_c+w_c];
           end
         end
@@ -283,7 +288,7 @@ module tb_pe();
     @(posedge clk);
 
     // check PE status register to ensure weight store is loaded
-    int max_retries = 20;
+    max_retries = 20;
     while (pe_status[1] == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -342,7 +347,7 @@ module tb_pe();
   // send the scb_weights to the PE array using AXI Master interface
   task automatic handle_buffer_weights_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    int max_retries = 20;
+    max_retries = 20;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -353,7 +358,7 @@ module tb_pe();
     end
 
     // send AXI read transaction
-    int burst_count = 0;
+    burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
       m_axi_rvalid_rready = $urandom;
@@ -405,7 +410,7 @@ module tb_pe();
 
   task automatic handle_buffer_inputs_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    int max_retries = 20;
+    max_retries = 20;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -416,7 +421,7 @@ module tb_pe();
     end
 
     // send AXI read transaction
-    int burst_count = 0;
+    burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
       m_axi_rvalid_rready = $urandom;
@@ -467,7 +472,7 @@ module tb_pe();
 
   task handle_buffer_psums_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    int max_retries = 20;
+    max_retries = 20;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -478,7 +483,7 @@ module tb_pe();
     end
 
     // send AXI write transaction
-    int burst_count = 0;
+    burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
       m_axi_wvalid_wready = $urandom;
@@ -517,7 +522,7 @@ module tb_pe();
     @(posedge clk);
 
     // wait for PE array to finish
-    int max_retries = 100;
+    max_retries = 100;
     while (pe_status[3] == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -538,7 +543,7 @@ module tb_pe();
 
   task automatic handle_write_outputs_axi_transaction();
     // wait for init_axi_wr_txn to go high
-    int max_retries = 20;
+    max_retries = 20;
     while (init_axi_wr_txn == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
@@ -549,7 +554,7 @@ module tb_pe();
     end
 
     // send AXI write transaction
-    int burst_count = 0;
+    burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
       m_axi_wvalid_wready = $urandom;
