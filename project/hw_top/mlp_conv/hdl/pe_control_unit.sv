@@ -799,9 +799,9 @@ module pe_control_unit #(
     end
     else begin
       // MSBs
-      PE_STATUS[C_S00_AXI_DATA_WIDTH-1:C_S00_AXI_DATA_WIDTH/2] <= {psum_buffer_error, output_write_error, input_buffer_error, ws_load_error, weight_buffer_error};
+      PE_STATUS[C_S00_AXI_DATA_WIDTH-1:C_S00_AXI_DATA_WIDTH/2] <= {psum_buffer_error, output_write_error, 1'b0, input_buffer_error, ws_load_error, weight_buffer_error};
       // LSBs
-      PE_STATUS[C_S00_AXI_DATA_WIDTH/2-1:0] <= {psums_buffered, output_written, inputs_buffered, ws_loaded, weights_buffered};
+      PE_STATUS[C_S00_AXI_DATA_WIDTH/2-1:0] <= {psums_buffered, output_written, output_buffering, inputs_buffered, ws_loaded, weights_buffered};
     end
   end
 

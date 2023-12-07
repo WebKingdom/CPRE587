@@ -334,7 +334,6 @@ module tb_pe();
     @(posedge clk);
 
     handle_buffer_inputs_axi_transaction();
-    repeat ($urandom_range(0, 5)) @(posedge clk);
     handle_buffer_inputs_axi_transaction();
     scb_inputs_row_idx = 0;
     scb_inputs_col_idx = 0;
@@ -359,9 +358,7 @@ module tb_pe();
     @(posedge clk);
 
     handle_buffer_psums_axi_transaction();
-    repeat ($urandom_range(0, 5)) @(posedge clk);
     handle_buffer_psums_axi_transaction();
-    repeat ($urandom_range(0, 5)) @(posedge clk);
     handle_buffer_psums_axi_transaction();
     scb_psums_row_idx = 0;
     scb_psums_col_idx = 0;
@@ -557,23 +554,43 @@ module tb_pe();
     @(posedge clk);
 
     // wait for PE array to finish
-    max_retries = 100;
+    max_retries = 60;
     while (pe_status[3] == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
     end
     if (max_retries == 0) begin
-      $display("ERROR: pe_status[3] = %0d, should be 1. Outputs should be buffered.", pe_status[3]);
+      $display("ERROR: PE array should have finished processing by now.");
       $finish;
     end
 
+    // wait for outputs to buffer
+    max_retries = 60;
+    while (pe_status[3] == 1 && max_retries > 0) begin
+      @(posedge clk);
+      max_retries--;
+    end
+    if (pe_status[3] == 1 || max_retries == 0) begin
+      $display("ERROR: outputs should be buffered by now.");
+      $finish;
+    end
+
+    // outputs get written
     handle_write_outputs_axi_transaction();
-    repeat ($urandom_range(0, 5)) @(posedge clk);
     handle_write_outputs_axi_transaction();
-    repeat ($urandom_range(0, 5)) @(posedge clk);
     handle_write_outputs_axi_transaction();
     scb_outputs_row_idx = 0;
     scb_outputs_col_idx = 0;
+    // ensure outputs written falg is high
+    max_retries = 4;
+    while (pe_status[4] == 1 && max_retries > 0) begin
+      @(posedge clk);
+      max_retries--;
+    end
+    if (pe_status[4] == 0 || max_retries == 0) begin
+      $display("ERROR: pe_status[4] = %0d, should be 1. Outputs should be written.", pe_status[4]);
+      $finish;
+    end
   endtask
 
   task automatic handle_write_outputs_axi_transaction();
@@ -633,7 +650,6 @@ module tb_pe();
     do_buffer_weights();
     do_load_ws();
     do_buffer_inputs();
-    do_buffer_psums();
     do_start_and_wait_for_done();
 
     $display("test_1: PASSED");

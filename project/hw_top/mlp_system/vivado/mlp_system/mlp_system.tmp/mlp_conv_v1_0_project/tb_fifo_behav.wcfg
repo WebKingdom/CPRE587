@@ -13,18 +13,19 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="0fs"></ZoomStartTime>
-      <ZoomEndTime time="455001fs"></ZoomEndTime>
-      <Cursor1Time time="50000fs"></Cursor1Time>
+      <ZoomStartTime time="1690000fs"></ZoomStartTime>
+      <ZoomEndTime time="2224001fs"></ZoomEndTime>
+      <Cursor1Time time="2135000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="262"></NameColumnWidth>
-      <ValueColumnWidth column_width="88"></ValueColumnWidth>
+      <ValueColumnWidth column_width="80"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="278" />
+   <WVObjectSize size="295" />
    <wvobject type="array" fp_name="/tb_pe/max_retries">
       <obj_property name="ElementShortName">max_retries[31:0]</obj_property>
       <obj_property name="ObjectShortName">max_retries[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/burst_count">
       <obj_property name="ElementShortName">burst_count[31:0]</obj_property>
@@ -617,6 +618,7 @@
    <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_buffer_counter">
       <obj_property name="ElementShortName">output_buffer_counter[7:0]</obj_property>
       <obj_property name="ObjectShortName">output_buffer_counter[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_buffer_counter_limit">
       <obj_property name="ElementShortName">output_buffer_counter_limit[7:0]</obj_property>
@@ -1081,6 +1083,7 @@
    <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/weights">
       <obj_property name="ElementShortName">weights[0:4][39:0]</obj_property>
       <obj_property name="ObjectShortName">weights[0:4][39:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/stall_ctl">
       <obj_property name="ElementShortName">stall_ctl</obj_property>
@@ -1109,6 +1112,7 @@
    <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/output_array">
       <obj_property name="ElementShortName">output_array[-1:4][31:0]</obj_property>
       <obj_property name="ObjectShortName">output_array[-1:4][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/INPUT_WIDTH">
       <obj_property name="ElementShortName">INPUT_WIDTH</obj_property>
@@ -1133,5 +1137,75 @@
    <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/PSUM_OUT_WIDTH">
       <obj_property name="ElementShortName">PSUM_OUT_WIDTH</obj_property>
       <obj_property name="ObjectShortName">PSUM_OUT_WIDTH</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider588" type="divider">
+      <obj_property name="label">ROW0</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/ACLK">
+      <obj_property name="ElementShortName">ACLK</obj_property>
+      <obj_property name="ObjectShortName">ACLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/ARESETN">
+      <obj_property name="ElementShortName">ARESETN</obj_property>
+      <obj_property name="ObjectShortName">ARESETN</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/input">
+      <obj_property name="ElementShortName">input[7:0]</obj_property>
+      <obj_property name="ObjectShortName">input[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/weights">
+      <obj_property name="ElementShortName">weights[39:0]</obj_property>
+      <obj_property name="ObjectShortName">weights[39:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/stall_ctl">
+      <obj_property name="ElementShortName">stall_ctl</obj_property>
+      <obj_property name="ObjectShortName">stall_ctl</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/add_mux_ctrl">
+      <obj_property name="ElementShortName">add_mux_ctrl[0:4]</obj_property>
+      <obj_property name="ObjectShortName">add_mux_ctrl[0:4]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/row_out_mux_ctrl">
+      <obj_property name="ElementShortName">row_out_mux_ctrl[3:0]</obj_property>
+      <obj_property name="ObjectShortName">row_out_mux_ctrl[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/output_in">
+      <obj_property name="ElementShortName">output_in[31:0]</obj_property>
+      <obj_property name="ObjectShortName">output_in[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/output">
+      <obj_property name="ElementShortName">output[31:0]</obj_property>
+      <obj_property name="ObjectShortName">output[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/output_arr">
+      <obj_property name="ElementShortName">output_arr[0:5][31:0]</obj_property>
+      <obj_property name="ObjectShortName">output_arr[0:5][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/ps_arr">
+      <obj_property name="ElementShortName">ps_arr[0:3][31:0]</obj_property>
+      <obj_property name="ObjectShortName">ps_arr[0:3][31:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/INPUT_WIDTH">
+      <obj_property name="ElementShortName">INPUT_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">INPUT_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/OUTPUT_WIDTH">
+      <obj_property name="ElementShortName">OUTPUT_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">OUTPUT_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/PE_WIDTH">
+      <obj_property name="ElementShortName">PE_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">PE_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/PS_WIDTH">
+      <obj_property name="ElementShortName">PS_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">PS_WIDTH</obj_property>
+   </wvobject>
+   <wvobject type="other" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/ROW_OUT_WIDTH">
+      <obj_property name="ElementShortName">ROW_OUT_WIDTH</obj_property>
+      <obj_property name="ObjectShortName">ROW_OUT_WIDTH</obj_property>
    </wvobject>
 </wave_config>
