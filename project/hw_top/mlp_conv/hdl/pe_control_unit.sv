@@ -2,6 +2,8 @@
 // Contains a weight_in_ctrl, input_act_ctrl, an input & output Psum FIFO,
 // a PE (array of MAC units), and a lot of control logic.
 
+import types_pkg::*;
+
 `timescale 1ns/1ps
 module pe_control_unit #(
     parameter C_S00_AXI_DATA_WIDTH = 32,
@@ -112,7 +114,7 @@ module pe_control_unit #(
   wire weight_in_ctrl_fifo_full;
   wire weight_in_ctrl_ws_full;
   wire weight_in_ctrl_loading_ws;
-  wire [PE_COLS * BYTE_LEN - 1:0] weight_in_ctrl_ws_rd_data [0:PE_ROWS-1];
+  t_weights weight_in_ctrl_ws_rd_data;
 
   // input_act_ctrl wires (wr_data comes from M00_AXI)
   logic input_act_ctrl_fifo_wr_cmd;

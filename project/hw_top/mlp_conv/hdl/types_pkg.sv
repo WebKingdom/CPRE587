@@ -1,4 +1,4 @@
-
+// custom types package
 package types_pkg;
   localparam PE_WIDTH = 5;
 

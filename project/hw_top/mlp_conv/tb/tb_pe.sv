@@ -17,7 +17,6 @@ module tb_pe();
   localparam PS_WIDTH = 4;
   localparam ROW_OUT_WIDTH = 4;
   localparam PSUM_OUT_WIDTH = 3;
-  
 
 
   // verification variables
@@ -102,48 +101,60 @@ module tb_pe();
   logic axi_error;
 
   // PE control unit instance
-  pe_control_unit #(
-                    .C_S00_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
-                    .C_M00_AXI_DATA_WIDTH(C_M00_AXI_DATA_WIDTH),
-                    .C_M00_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
-                    .C_M00_AXI_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),
-                    .PE_ROWS(PE_ROWS),
-                    .PE_COLS(PE_COLS),
-                    .MAC_PIPE_DEPTH(MAC_PIPE_DEPTH),
-                    .BYTE_LEN(BYTE_LEN)
-                  ) pe_control_unit_inst (
-                    .CLK(clk),
-                    .RESETN(resetn),
-                    // PE registers
-                    .ACC_PARAMS(acc_params),
-                    .WEIGHT_BASE_ADDR(weight_base_addr),
-                    .INPUT_BASE_ADDR(input_base_addr),
-                    .OUTPUT_BASE_ADDR(output_base_addr),
-                    .MEM_CTRL(mem_ctrl),
-                    .PE_STATUS(pe_status),
-                    // PE array interface
-                    .RESETN_MAC_CTRL(resetn_mac_ctrl),
-                    .IN_ACT_DATA_OUT(in_act_data_out),
-                    .WEIGHTS_OUT(weights_out),
-                    .STALL_CTRL(stall_ctrl),
-                    .ADD_MUX_CTRL(add_mux_ctrl),
-                    .ROW_OUT_MUX_CTRL(row_out_mux_ctrl),
-                    .PSUM_OUT_MUX_CTRL(psum_out_mux_ctrl),
-                    .IN_PSUM_OUT(in_psum_out),
-                    .OUT_PSUM_IN(out_psum_in),
-                    // AXI Master FSM interface
-                    .M_TARGET_SLAVE_BASE_AR_ADDR(m_target_slave_base_ar_addr),
-                    .M_TARGET_SLAVE_BASE_AW_ADDR(m_target_slave_base_aw_addr),
-                    .M_AXI_RDATA(m_axi_rdata),
-                    .M_AXI_RVALID_RREADY(m_axi_rvalid_rready),
-                    .M_AXI_WDATA(m_axi_wdata),
-                    .M_AXI_WVALID_WREADY(m_axi_wvalid_wready),
-                    .M_AXI_AWVALID_AWREADY(m_axi_awvalid_awready),
-                    .INIT_AXI_WR_TXN(init_axi_wr_txn),
-                    .INIT_AXI_RD_TXN(init_axi_rd_txn),
-                    .TXN_DONE(txn_done),
-                    .AXI_ERROR(axi_error)
-                  );
+  pe_control_unit_wrapper #(
+                            .C_S00_AXI_DATA_WIDTH(C_S00_AXI_DATA_WIDTH),
+                            .C_M00_AXI_DATA_WIDTH(C_M00_AXI_DATA_WIDTH),
+                            .C_M00_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
+                            .C_M00_AXI_TARGET_SLAVE_BASE_ADDR(C_M00_AXI_TARGET_SLAVE_BASE_ADDR),
+                            .PE_ROWS(PE_ROWS),
+                            .PE_COLS(PE_COLS),
+                            .MAC_PIPE_DEPTH(MAC_PIPE_DEPTH),
+                            .BYTE_LEN(BYTE_LEN)
+                          ) pe_control_unit_wrapper_inst (
+                            .CLK(clk),
+                            .RESETN(resetn),
+                            // PE registers
+                            .ACC_PARAMS(acc_params),
+                            .WEIGHT_BASE_ADDR(weight_base_addr),
+                            .INPUT_BASE_ADDR(input_base_addr),
+                            .OUTPUT_BASE_ADDR(output_base_addr),
+                            .MEM_CTRL(mem_ctrl),
+                            .PE_STATUS(pe_status),
+                            // PE array interface
+                            .RESETN_MAC_CTRL(resetn_mac_ctrl),
+                            .IN_ACT_DATA_OUT(in_act_data_out),
+                            .WEIGHTS_OUT_0(weights_out[0]),
+                            .WEIGHTS_OUT_1(weights_out[1]),
+                            .WEIGHTS_OUT_2(weights_out[2]),
+                            .WEIGHTS_OUT_3(weights_out[3]),
+                            .WEIGHTS_OUT_4(weights_out[4]),
+                            .STALL_CTRL(stall_ctrl),
+                            .ADD_MUX_CTRL_0(add_mux_ctrl[0]),
+                            .ADD_MUX_CTRL_1(add_mux_ctrl[1]),
+                            .ADD_MUX_CTRL_2(add_mux_ctrl[2]),
+                            .ADD_MUX_CTRL_3(add_mux_ctrl[3]),
+                            .ADD_MUX_CTRL_4(add_mux_ctrl[4]),
+                            .ROW_OUT_MUX_CTRL_0(row_out_mux_ctrl[0]),
+                            .ROW_OUT_MUX_CTRL_1(row_out_mux_ctrl[1]),
+                            .ROW_OUT_MUX_CTRL_2(row_out_mux_ctrl[2]),
+                            .ROW_OUT_MUX_CTRL_3(row_out_mux_ctrl[3]),
+                            .ROW_OUT_MUX_CTRL_4(row_out_mux_ctrl[4]),
+                            .PSUM_OUT_MUX_CTRL(psum_out_mux_ctrl),
+                            .IN_PSUM_OUT(in_psum_out),
+                            .OUT_PSUM_IN(out_psum_in),
+                            // AXI Master FSM interface
+                            .M_TARGET_SLAVE_BASE_AR_ADDR(m_target_slave_base_ar_addr),
+                            .M_TARGET_SLAVE_BASE_AW_ADDR(m_target_slave_base_aw_addr),
+                            .M_AXI_RDATA(m_axi_rdata),
+                            .M_AXI_RVALID_RREADY(m_axi_rvalid_rready),
+                            .M_AXI_WDATA(m_axi_wdata),
+                            .M_AXI_WVALID_WREADY(m_axi_wvalid_wready),
+                            .M_AXI_AWVALID_AWREADY(m_axi_awvalid_awready),
+                            .INIT_AXI_WR_TXN(init_axi_wr_txn),
+                            .INIT_AXI_RD_TXN(init_axi_rd_txn),
+                            .TXN_DONE(txn_done),
+                            .AXI_ERROR(axi_error)
+                          );
 
   // PE array instance
   mlp_conv_v1_0_PE_ARR #(
