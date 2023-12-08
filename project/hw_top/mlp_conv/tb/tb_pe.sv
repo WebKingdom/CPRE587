@@ -23,12 +23,12 @@ module tb_pe();
   int max_retries;
   int burst_count;
   // weights are 1B each
-  byte scb_weights [PE_ROWS][PE_COLS];
+  int scb_weights [PE_ROWS][PE_COLS];
   int scb_weights_row_idx;
   int scb_weights_col_idx;
 
   // input activations are 1B each
-  byte scb_inputs [9][9];
+  int scb_inputs [9][9];
   int scb_inputs_row_idx;
   int scb_inputs_col_idx;
 
@@ -208,7 +208,7 @@ module tb_pe();
   function automatic void reset_tb(bit rand_psums = 0);
     for (int i = 0; i < 5; i++) begin
       for (int j = 0; j < 5; j++) begin
-        scb_weights[i][j] = $urandom;
+        scb_weights[i][j] = $urandom_range(0,255);
       end
     end
     scb_weights_row_idx = 0;
@@ -216,7 +216,7 @@ module tb_pe();
 
     for (int i = 0; i < 9; i++) begin
       for (int j = 0; j < 9; j++) begin
-        scb_inputs[i][j] = $urandom;
+        scb_inputs[i][j] = $urandom_range(0,255);
       end
     end
     scb_inputs_row_idx = 0;

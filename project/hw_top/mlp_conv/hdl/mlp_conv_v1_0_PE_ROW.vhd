@@ -78,6 +78,7 @@ architecture arch_imp of mlp_conv_v1_0_PE_ROW is
 
     signal output_arr : t_output_array;
     signal ps_arr : t_ps_array;
+--    signal output_reg: std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     
 begin
 
@@ -107,6 +108,11 @@ begin
        if ARESETN = '0' then -- Reset
            ps_arr  <= (others => (others => '0'));
        else
+--            if unsigned(row_out_mux_ctrl) < "0101" then
+--                output_reg <= output_arr(to_integer(unsigned(row_out_mux_ctrl)));
+--            else
+--                output_reg <= ps_arr(to_integer(unsigned(row_out_mux_ctrl) - "0101"));
+--            end if;
             for i in 0 to PS_WIDTH - 1 loop
                 if stall_ctl = '0' then
                     if i = 0 then

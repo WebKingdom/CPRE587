@@ -83,6 +83,7 @@ begin
             when MULT_INPUT =>
               if stalled = '0' then
                 add_mux_ctrl_1 <= add_mux_ctrl;
+                --                product <= "000" & X"000" & signed("0" & input) * signed(weight);
                 product <= X"0000" & unsigned(input) * unsigned(weight);
               end if;
             when ADD =>
