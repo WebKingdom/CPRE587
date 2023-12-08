@@ -200,9 +200,9 @@ architecture arch_imp of mlp_conv_v1_0_M00_AXI is
   constant C_TRANSACTIONS_NUM : integer := clogb2(C_M_AXI_BURST_LEN - 1);
   -- Burst length for transactions, in C_M_AXI_DATA_WIDTHs.
   -- Non-2^n lengths will eventually cause bursts across 4K address boundaries.
-  constant C_MASTER_LENGTH : integer := 12;
+  -- constant C_MASTER_LENGTH : integer := 12;
   -- total number of burst transfers is master length divided by burst length and burst size (6)
-  constant C_NO_BURSTS_REQ : integer := (C_MASTER_LENGTH - clogb2((C_M_AXI_BURST_LEN * C_M_AXI_DATA_WIDTH/8) - 1));
+  -- constant C_NO_BURSTS_REQ : integer := (C_MASTER_LENGTH - clogb2((C_M_AXI_BURST_LEN * C_M_AXI_DATA_WIDTH/8) - 1));
   -- Example State machine to initialize counter, initialize write transactions, 
   -- and initialize read transactions
   type state is (IDLE, -- This state initiates AXI4Lite transaction  
@@ -234,8 +234,8 @@ architecture arch_imp of mlp_conv_v1_0_M00_AXI is
   --size of C_M_AXI_BURST_LEN length burst in bytes
   signal burst_size_bytes : std_logic_vector(C_TRANSACTIONS_NUM + 2 downto 0);
   --The burst counters are used to track the number of burst transfers of C_M_AXI_BURST_LEN burst length needed to transfer 2^C_MASTER_LENGTH bytes of data.
-  signal write_burst_counter      : std_logic_vector(C_NO_BURSTS_REQ downto 0);
-  signal read_burst_counter       : std_logic_vector(C_NO_BURSTS_REQ downto 0);
+  -- signal write_burst_counter      : std_logic_vector(C_NO_BURSTS_REQ downto 0);
+  -- signal read_burst_counter       : std_logic_vector(C_NO_BURSTS_REQ downto 0);
   signal start_single_burst_write : std_logic;
   signal start_single_burst_read  : std_logic;
   signal writes_done              : std_logic;
@@ -420,7 +420,7 @@ begin
 
   wnext <= M_AXI_WREADY and axi_wvalid;
 
-  -- WVALID logic, similar to the axi_awvalid always block above                      
+  -- WVALID logic, similar to the axi_awvalid always block above (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -442,7 +442,7 @@ begin
     end if;
   end process;
 
-  -- WLAST generation on the MSB of a counter underflow                                
+  -- WLAST generation on the MSB of a counter underflow (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -467,14 +467,14 @@ begin
   end process;
 
   -- Burst length counter. Uses extra counter register bit to indicate terminal       
-  -- count to reduce decode logic
+  -- count to reduce decode logic (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
       if (M_AXI_ARESETN = '0' or start_single_burst_write = '1' or init_txn_wr_pulse = '1') then
         write_index <= (others => '0');
       else
-        if (wnext = '1' and (write_index /= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1)))) then
+        if (wnext = '1' and (write_index <= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1)))) then
           write_index <= std_logic_vector(unsigned(write_index) + 1);
         end if;
       end if;
@@ -498,6 +498,7 @@ begin
   --slave for the entire write burst. This example will capture the error 
   --into the ERROR output. 
 
+  -- (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -526,7 +527,7 @@ begin
   --Write Address channel- to provide the tranfer qualifiers for the burst.
 
   --In this example, the read address increments in the same
-  --manner as the write address channel.
+  --manner as the write address channel. (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -543,7 +544,7 @@ begin
     end if;
   end process;
 
-  -- Next address after ARREADY indicates previous address acceptance  
+  -- Next address after ARREADY indicates previous address acceptance (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -564,7 +565,7 @@ begin
   rnext <= M_AXI_RVALID and axi_rready;
 
   -- Burst length counter. Uses extra counter register bit to indicate    
-  -- terminal count to reduce decode logic                                
+  -- terminal count to reduce decode logic (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -580,7 +581,7 @@ begin
 
   -- The Read Data channel returns the results of the read request        
   -- In this example the data checker is always able to accept            
-  -- more data, so no need to throttle the RREADY signal
+  -- more data, so no need to throttle the RREADY signal (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -606,7 +607,7 @@ begin
   --Example design error register
   ------------------------------------
 
-  --Register and hold any data mismatches, or read/write interface errors 
+  --Register and hold any data mismatches, or read/write interface errors (GOOD)
   process (M_AXI_ACLK)
   begin
     if (rising_edge (M_AXI_ACLK)) then
@@ -644,38 +645,38 @@ begin
   -- a parameterized threshold
 
   -- write_burst_counter counter keeps track with the number of burst transaction initiated             
-  -- against the number of burst transactions the master needs to initiate                                    
-  process (M_AXI_ACLK)
-  begin
-    if (rising_edge (M_AXI_ACLK)) then
-      if (M_AXI_ARESETN = '0' or init_txn_wr_pulse = '1') then
-        write_burst_counter <= (others => '0');
-      else
-        if (M_AXI_AWREADY = '1' and axi_awvalid = '1') then
-          if (write_burst_counter(C_NO_BURSTS_REQ) = '0') then
-            write_burst_counter <= std_logic_vector(unsigned(write_burst_counter) + 1);
-          end if;
-        end if;
-      end if;
-    end if;
-  end process;
+  -- against the number of burst transactions the master needs to initiate (BAD - not needed)
+  -- process (M_AXI_ACLK)
+  -- begin
+  --   if (rising_edge (M_AXI_ACLK)) then
+  --     if (M_AXI_ARESETN = '0' or init_txn_wr_pulse = '1') then
+  --       write_burst_counter <= (others => '0');
+  --     else
+  --       if (M_AXI_AWREADY = '1' and axi_awvalid = '1') then
+  --         if (write_burst_counter(C_NO_BURSTS_REQ) = '0') then
+  --           write_burst_counter <= std_logic_vector(unsigned(write_burst_counter) + 1);
+  --         end if;
+  --       end if;
+  --     end if;
+  --   end if;
+  -- end process;
 
   -- read_burst_counter counter keeps track with the number of burst transaction initiated                    
-  -- against the number of burst transactions the master needs to initiate                                    
-  process (M_AXI_ACLK)
-  begin
-    if (rising_edge (M_AXI_ACLK)) then
-      if (M_AXI_ARESETN = '0' or init_txn_rd_pulse = '1') then
-        read_burst_counter <= (others => '0');
-      else
-        if (M_AXI_ARREADY = '1' and axi_arvalid = '1') then
-          if (read_burst_counter(C_NO_BURSTS_REQ) = '0') then
-            read_burst_counter <= std_logic_vector(unsigned(read_burst_counter) + 1);
-          end if;
-        end if;
-      end if;
-    end if;
-  end process;
+  -- against the number of burst transactions the master needs to initiate (BAD - not needed)
+  -- process (M_AXI_ACLK)
+  -- begin
+  --   if (rising_edge (M_AXI_ACLK)) then
+  --     if (M_AXI_ARESETN = '0' or init_txn_rd_pulse = '1') then
+  --       read_burst_counter <= (others => '0');
+  --     else
+  --       if (M_AXI_ARREADY = '1' and axi_arvalid = '1') then
+  --         if (read_burst_counter(C_NO_BURSTS_REQ) = '0') then
+  --           read_burst_counter <= std_logic_vector(unsigned(read_burst_counter) + 1);
+  --         end if;
+  --       end if;
+  --     end if;
+  --   end if;
+  -- end process;
 
   -- FSM for AXI transactions
   MASTER_EXECUTION_PROC : process (M_AXI_ACLK)
@@ -791,11 +792,10 @@ begin
       if (M_AXI_ARESETN = '0' or init_txn_wr_pulse = '1') then
         writes_done <= '0';
       else
-        -- ((write_index = std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1)))
-        -- TODO ssz this seems wrong... Should be done once (M_AXI_BVALID = '1' and axi_bready = '1' and wlast = '1') and write_index matches the number of bursts
-        -- * Why is write_burst_counter needed? Seems to have the wrong information tied to it about the number of bursts (based on constants)
+        -- TODO Should be done once (M_AXI_BVALID = '1' and axi_bready = '1' and wlast = '1') and write_index matches the number of bursts
+        -- TODO may not even need to check write index just BVALID and BREADY (happen after 1 burst is completed)
         -- write_index|read_index|write_burst_counter|read_burst_counter|rlast|wlast
-        if ((M_AXI_BVALID = '1' and axi_bready = '1') and (write_burst_counter(C_NO_BURSTS_REQ) = '1')) then
+        if ((M_AXI_BVALID = '1' and axi_bready = '1') and (write_index >= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1)))) then
           writes_done <= '1';
         end if;
       end if;
@@ -810,7 +810,6 @@ begin
     if (rising_edge (M_AXI_ACLK)) then
       if (M_AXI_ARESETN = '0' or init_txn_rd_pulse = '1') then
         burst_read_active <= '0';
-
         --The burst_write_active is asserted when a write burst transaction is initiated                      
       else
         if (start_single_burst_read = '1') then
@@ -832,12 +831,8 @@ begin
     if (rising_edge (M_AXI_ACLK)) then
       if (M_AXI_ARESETN = '0' or init_txn_rd_pulse = '1') then
         reads_done <= '0';
-        --The reads_done should be associated with a rready response                                         
-        --elsif (M_AXI_RVALID && axi_rready && (read_burst_counter == {(C_NO_BURSTS_REQ-1){1}}) && axi_rlast)
       else
-        -- TODO ssz this seems wrong... Should be done once (M_AXI_RVALID = '1' and axi_rready = '1' and rlast = '1') and read_index matches the number of bursts
-        -- * Why is read_burst_counter needed? Seems to have the wong information tied to it about the number of bursts (based on constants)
-        if ((M_AXI_RVALID = '1' and axi_rready = '1') and ((read_index = std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1))) and (read_burst_counter(C_NO_BURSTS_REQ) = '1'))) then
+        if ((M_AXI_RVALID = '1' and axi_rready = '1') and ((read_index >= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN - 1, C_TRANSACTIONS_NUM + 1))))) then
           reads_done <= '1';
         end if;
       end if;
