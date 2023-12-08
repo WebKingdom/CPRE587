@@ -15,7 +15,7 @@
 -- Revision:
 -- Revision 0.01 - File Created
 -- Additional Comments:
--- 
+-- fdjtgyfjytgj
 ----------------------------------------------------------------------------------
 library IEEE;
 use IEEE.std_logic_1164.all;
@@ -67,16 +67,16 @@ architecture arch_imp of mlp_conv_v1_0_PE is
 begin
   stalled <= stall_ctl;
   -- Debug Signals
-  mac_debug <= x"00000001"; -- Double checking sanity
-
+  mac_debug <= x"00000002"; -- Double checking sanity
+  output <= output_reg;
   process (ACLK) is
   begin
     if rising_edge(ACLK) then -- Rising Edge
       -- Reset values if reset is low
       if ARESETN = '0' then -- Reset
         product <= (others => '0');
-        output  <= (others => '0');
         add_mux_ctrl_1 <= '0';
+        output_reg <= (others => '0');
       else
         for i in PIPE_STAGES'left to PIPE_STAGES'right loop
           case i is -- Stages
@@ -88,12 +88,11 @@ begin
             when ADD =>
               if stalled = '0' then
                 if add_mux_ctrl_1 = '1' then
-                  output <= std_logic_vector(unsigned(add_val) + product);
+                  output_reg <= std_logic_vector(unsigned(add_val) + product);
                 else
-                  output <= add_val;
+                  output_reg <= add_val;
                 end if;
               end if;
-
           end case; -- Stages
         end loop; -- Stages
       end if; -- Reset
