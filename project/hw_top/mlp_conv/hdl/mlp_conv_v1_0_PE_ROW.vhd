@@ -73,18 +73,19 @@ architecture arch_imp of mlp_conv_v1_0_PE_ROW is
     );
     end component mlp_conv_v1_0_PE;
     
-    type t_output_array is array (0 to PE_WIDTH) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
+    type t_output_array is array (-1 to PE_WIDTH - 1) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     type t_ps_array is array (0 to PS_WIDTH - 1) of std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
 
     signal output_arr : t_output_array;
     signal ps_arr : t_ps_array;
+--    signal output_reg: std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
     
 begin
 
-output_arr(0) <= output_in;
+output_arr(-1) <= output_in;
 
 -- row_out_mux_ctrl could be larger than output_arr size !-!
-output <= output_arr(to_integer(unsigned(row_out_mux_ctrl)) + 1) when unsigned(row_out_mux_ctrl) < "0101" else 
+output <= output_arr(to_integer(unsigned(row_out_mux_ctrl))) when unsigned(row_out_mux_ctrl) < "0101" else 
           ps_arr(to_integer(unsigned(row_out_mux_ctrl) - "0101"));
 
 PE_ROW : for i in 0 to PE_WIDTH - 1 generate
@@ -92,27 +93,36 @@ PE_ROW : for i in 0 to PE_WIDTH - 1 generate
         ACLK => ACLK,
         ARESETN => ARESETN,
         input => input,
-        weight => weights(i * INPUT_WIDTH + INPUT_WIDTH - 1 downto i * INPUT_WIDTH),
+        weight => weights((PE_WIDTH * INPUT_WIDTH) - (i * INPUT_WIDTH) - 1  downto (PE_WIDTH * INPUT_WIDTH) - (i * INPUT_WIDTH) - INPUT_WIDTH),
         add_mux_ctrl => add_mux_ctrl(i),
         stall_ctl => stall_ctl,
             
-        add_val => output_arr(i),
-        output => output_arr(i+1)
+        add_val => output_arr(i - 1),
+        output => output_arr(i)
     );
 end generate;
 
 process (ACLK) is
 begin
     if rising_edge(ACLK) then
-        for i in 0 to PS_WIDTH - 1 loop
-            if stall_ctl = '0' then
-                  if i = 0 then
-                    ps_arr(0) <= output_arr(PE_WIDTH);
-                  else
-                    ps_arr(i) <= ps_arr(i - 1);
-                  end if;
-             end if;
-        end loop;
+       if ARESETN = '0' then -- Reset
+           ps_arr  <= (others => (others => '0'));
+       else
+--            if unsigned(row_out_mux_ctrl) < "0101" then
+--                output_reg <= output_arr(to_integer(unsigned(row_out_mux_ctrl)));
+--            else
+--                output_reg <= ps_arr(to_integer(unsigned(row_out_mux_ctrl) - "0101"));
+--            end if;
+            for i in 0 to PS_WIDTH - 1 loop
+                if stall_ctl = '0' then
+                    if i = 0 then
+                        ps_arr(0) <= output_arr(PE_WIDTH - 1);
+                    else
+                        ps_arr(i) <= ps_arr(i - 1);
+                    end if;
+                end if;
+            end loop;
+       end if;
     end if;
 end process;
 
