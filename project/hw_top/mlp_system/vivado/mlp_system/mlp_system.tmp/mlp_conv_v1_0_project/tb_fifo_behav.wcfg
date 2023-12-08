@@ -13,15 +13,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="1690000fs"></ZoomStartTime>
-      <ZoomEndTime time="2224001fs"></ZoomEndTime>
-      <Cursor1Time time="2135000fs"></Cursor1Time>
+      <ZoomStartTime time="1924365fs"></ZoomStartTime>
+      <ZoomEndTime time="2047466fs"></ZoomEndTime>
+      <Cursor1Time time="2025000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="262"></NameColumnWidth>
-      <ValueColumnWidth column_width="80"></ValueColumnWidth>
+      <ValueColumnWidth column_width="76"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="295" />
+   <WVObjectSize size="318" />
    <wvobject type="array" fp_name="/tb_pe/max_retries">
       <obj_property name="ElementShortName">max_retries[31:0]</obj_property>
       <obj_property name="ObjectShortName">max_retries[31:0]</obj_property>
@@ -32,8 +32,8 @@
       <obj_property name="ObjectShortName">burst_count[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/scb_weights">
-      <obj_property name="ElementShortName">scb_weights[0:4][0:4][7:0]</obj_property>
-      <obj_property name="ObjectShortName">scb_weights[0:4][0:4][7:0]</obj_property>
+      <obj_property name="ElementShortName">scb_weights[0:4][0:4][31:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_weights[0:4][0:4][31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/scb_weights_row_idx">
       <obj_property name="ElementShortName">scb_weights_row_idx[31:0]</obj_property>
@@ -44,8 +44,8 @@
       <obj_property name="ObjectShortName">scb_weights_col_idx[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/scb_inputs">
-      <obj_property name="ElementShortName">scb_inputs[0:8][0:8][7:0]</obj_property>
-      <obj_property name="ObjectShortName">scb_inputs[0:8][0:8][7:0]</obj_property>
+      <obj_property name="ElementShortName">scb_inputs[0:8][0:8][31:0]</obj_property>
+      <obj_property name="ObjectShortName">scb_inputs[0:8][0:8][31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/scb_inputs_row_idx">
       <obj_property name="ElementShortName">scb_inputs_row_idx[31:0]</obj_property>
@@ -374,6 +374,7 @@
    <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/OUT_PSUM_IN">
       <obj_property name="ElementShortName">OUT_PSUM_IN[31:0]</obj_property>
       <obj_property name="ObjectShortName">OUT_PSUM_IN[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/M_TARGET_SLAVE_BASE_AR_ADDR">
       <obj_property name="ElementShortName">M_TARGET_SLAVE_BASE_AR_ADDR[31:0]</obj_property>
@@ -1064,6 +1065,99 @@
       <obj_property name="ElementShortName">OUTPUT_WIDTH[31:0]</obj_property>
       <obj_property name="ObjectShortName">OUTPUT_WIDTH[31:0]</obj_property>
    </wvobject>
+   <wvobject fp_name="divider949" type="divider">
+      <obj_property name="label">OUT_FIFO</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/CLK">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/RESETN">
+      <obj_property name="ElementShortName">RESETN</obj_property>
+      <obj_property name="ObjectShortName">RESETN</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/RD_CMD">
+      <obj_property name="ElementShortName">RD_CMD</obj_property>
+      <obj_property name="ObjectShortName">RD_CMD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/RD_DATA">
+      <obj_property name="ElementShortName">RD_DATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">RD_DATA[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/EMPTY">
+      <obj_property name="ElementShortName">EMPTY</obj_property>
+      <obj_property name="ObjectShortName">EMPTY</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/WR_CMD">
+      <obj_property name="ElementShortName">WR_CMD</obj_property>
+      <obj_property name="ObjectShortName">WR_CMD</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/WR_DATA">
+      <obj_property name="ElementShortName">WR_DATA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">WR_DATA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/FULL">
+      <obj_property name="ElementShortName">FULL</obj_property>
+      <obj_property name="ObjectShortName">FULL</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/fifo_reg">
+      <obj_property name="ElementShortName">fifo_reg[0:63][31:0]</obj_property>
+      <obj_property name="ObjectShortName">fifo_reg[0:63][31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/front_reg">
+      <obj_property name="ElementShortName">front_reg[5:0]</obj_property>
+      <obj_property name="ObjectShortName">front_reg[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/front_next">
+      <obj_property name="ElementShortName">front_next[5:0]</obj_property>
+      <obj_property name="ObjectShortName">front_next[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/back_reg">
+      <obj_property name="ElementShortName">back_reg[5:0]</obj_property>
+      <obj_property name="ObjectShortName">back_reg[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/back_next">
+      <obj_property name="ElementShortName">back_next[5:0]</obj_property>
+      <obj_property name="ObjectShortName">back_next[5:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/full_reg">
+      <obj_property name="ElementShortName">full_reg</obj_property>
+      <obj_property name="ObjectShortName">full_reg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/full_next">
+      <obj_property name="ElementShortName">full_next</obj_property>
+      <obj_property name="ObjectShortName">full_next</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/empty_reg">
+      <obj_property name="ElementShortName">empty_reg</obj_property>
+      <obj_property name="ObjectShortName">empty_reg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/empty_next">
+      <obj_property name="ElementShortName">empty_next</obj_property>
+      <obj_property name="ObjectShortName">empty_next</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/rd_wr_cmd">
+      <obj_property name="ElementShortName">rd_wr_cmd[1:0]</obj_property>
+      <obj_property name="ObjectShortName">rd_wr_cmd[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/wr_en">
+      <obj_property name="ElementShortName">wr_en</obj_property>
+      <obj_property name="ObjectShortName">wr_en</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/FIFO_WIDTH">
+      <obj_property name="ElementShortName">FIFO_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FIFO_WIDTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/FIFO_DEPTH">
+      <obj_property name="ElementShortName">FIFO_DEPTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">FIFO_DEPTH[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/tb_pe/pe_control_unit_wrapper_inst/pe_ctrl_inst/output_fifo_inst/PTR_WIDTH">
+      <obj_property name="ElementShortName">PTR_WIDTH[31:0]</obj_property>
+      <obj_property name="ObjectShortName">PTR_WIDTH[31:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="divider287" type="divider">
       <obj_property name="label">PE_ARR</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -1179,8 +1273,8 @@
       <obj_property name="ObjectShortName">output[31:0]</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/output_arr">
-      <obj_property name="ElementShortName">output_arr[0:5][31:0]</obj_property>
-      <obj_property name="ObjectShortName">output_arr[0:5][31:0]</obj_property>
+      <obj_property name="ElementShortName">output_arr[-1:4][31:0]</obj_property>
+      <obj_property name="ObjectShortName">output_arr[-1:4][31:0]</obj_property>
       <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/tb_pe/mlp_conv_v1_0_PE_ARR_wrapper_inst/mlp_conv_v1_0_PE_ARR_inst/\PE_ROWS(0)\/A_ROW/ps_arr">

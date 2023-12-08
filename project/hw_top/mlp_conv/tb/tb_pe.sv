@@ -583,7 +583,7 @@ module tb_pe();
     scb_outputs_col_idx = 0;
     // ensure outputs written falg is high
     max_retries = 4;
-    while (pe_status[4] == 1 && max_retries > 0) begin
+    while (pe_status[4] == 0 && max_retries > 0) begin
       @(posedge clk);
       max_retries--;
     end
@@ -612,14 +612,21 @@ module tb_pe();
       m_axi_wvalid_wready = $urandom;
       if (m_axi_wvalid_wready == 1) begin
         if (scb_outputs_row_idx == PE_ROWS) begin
-          // reset indices
-          scb_outputs_row_idx = 0;
-          scb_outputs_col_idx = 0;
+          $display("WAITING: For AXI burst to finish. Burst count = %0d", burst_count);
+          burst_count++;
         end
-        else begin
-          if (scb_outputs[scb_outputs_row_idx][scb_outputs_col_idx] != m_axi_wdata) begin
-            $display("ERROR: scb_outputs[%0d][%0d] = %0d, m_axi_wdata = %0d", scb_outputs_row_idx, scb_outputs_col_idx, scb_outputs[scb_outputs_row_idx][scb_outputs_col_idx], m_axi_wdata);
-            $finish;
+        else if (scb_outputs_row_idx < param_r) begin
+          if (scb_outputs_col_idx < param_s) begin
+            if (scb_outputs[scb_outputs_row_idx][scb_outputs_col_idx] != m_axi_wdata) begin
+              $display("ERROR: scb_outputs[%0d][%0d] = %0d, m_axi_wdata = %0d", scb_outputs_row_idx, scb_outputs_col_idx, scb_outputs[scb_outputs_row_idx][scb_outputs_col_idx], m_axi_wdata);
+              $finish;
+            end
+            else begin
+              $display("SUCCESS: Matching output at [%0d][%0d] m_axi_wdata = %0d", scb_outputs_row_idx, scb_outputs_col_idx, m_axi_wdata);
+            end
+          end
+          else begin
+            $display("DISCARDING: Extra output at [%0d][%0d] m_axi_wdata = %0d", scb_outputs_row_idx, scb_outputs_col_idx, m_axi_wdata);
           end
           scb_outputs_col_idx++;
           if (scb_outputs_col_idx == 9) begin

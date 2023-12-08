@@ -277,7 +277,7 @@ module pe_control_unit #(
           output_fifo_wr_cmd <= 0;
           mac_row_counter <= 0;
           mac_col_counter <= 0;
-          mac_pipe_counter <= 0;
+          mac_pipe_counter <= 1;
           mac_array_processing <= 1;
         end
       end
@@ -285,7 +285,7 @@ module pe_control_unit #(
         // only increment counters when data is valid
         if (input_act_ctrl_data_valid == 1) begin
           // delay start depending on MAC pipe depth
-          if (mac_pipe_counter < MAC_PIPE_DEPTH) begin
+          if (mac_pipe_counter < MAC_PIPE_DEPTH - 1) begin
             mac_pipe_counter <= mac_pipe_counter + 1;
           end
           else begin
@@ -296,7 +296,7 @@ module pe_control_unit #(
             else begin
               mac_col_counter <= 0;
               // row counter
-              if (mac_row_counter < param_R) begin
+              if (mac_row_counter < param_R - 1) begin
                 mac_row_counter <= mac_row_counter + 1;
               end
               else begin
@@ -709,15 +709,24 @@ module pe_control_unit #(
         if (output_buffering == 1) begin
           st_out_next = ISSUE_M_AXI_WR;
         end
+        output_fifo_rd_cmd = 0;
       end
       ISSUE_M_AXI_WR: begin
-        if (INIT_AXI_WR_TXN == 1) begin
+        if (output_buffering == 0) begin
           st_out_next = WAIT_M_AXI_WR;
         end
       end
       WAIT_M_AXI_WR: begin
+        if (M_AXI_WVALID_WREADY == 1) begin
+          output_fifo_rd_cmd = 1;
+        end
+        else begin
+          output_fifo_rd_cmd = 0;
+        end
+
         if (TXN_DONE == 1) begin
           st_out_next = WR_OUT;
+          output_fifo_rd_cmd = 0;
         end
       end
       WR_OUT: begin
@@ -727,6 +736,7 @@ module pe_control_unit #(
         else begin
           st_out_next = WAIT_BUFFER_OUT;
         end
+        output_fifo_rd_cmd = 0;
       end
     endcase
   end
@@ -735,7 +745,6 @@ module pe_control_unit #(
   always_ff @(posedge CLK) begin
     if (resetn_all == 1'b0) begin
       output_base_addr_offset <= 0;
-      output_fifo_rd_cmd <= 0;
       output_write_counter <= 0;
       output_written <= 0;
       output_write_error <= 0;
@@ -763,18 +772,8 @@ module pe_control_unit #(
         end
         WAIT_M_AXI_WR: begin
           INIT_AXI_WR_TXN <= 0;
-          if (M_AXI_WVALID_WREADY == 1) begin
-            output_fifo_rd_cmd <= 1;
-          end
-          else begin
-            output_fifo_rd_cmd <= 0;
-          end
-          if (TXN_DONE == 1) begin
-            output_fifo_rd_cmd <= 0;
-          end
         end
         WR_OUT: begin
-          output_fifo_rd_cmd <= 0;
           if (AXI_ERROR == 1) begin
             // * throw error (maybe redo transaction?)
             output_write_error <= 1;
