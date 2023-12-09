@@ -4,8 +4,6 @@ use ieee.numeric_std.all;
 
 library xil_defaultlib;
 use xil_defaultlib.types.all;
-
-
 entity mlp_conv_v1_0 is
   generic (
     -- Users to add parameters here
@@ -412,7 +410,7 @@ architecture arch_imp of mlp_conv_v1_0 is
   end component mlp_conv_v1_0_S_AXI_INTR;
 
   -- instantiate PE control unit
-  component pe_control_unit is
+  component pe_control_unit_wrapper is
     generic (
       C_S00_AXI_DATA_WIDTH             : integer          := 32;
       C_M00_AXI_DATA_WIDTH             : integer          := 32;
@@ -434,15 +432,27 @@ architecture arch_imp of mlp_conv_v1_0 is
       MEM_CTRL         : in std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
       PE_STATUS        : out std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
       -- PE array interface
-      RESETN_MAC_CTRL   : out std_logic;
-      IN_ACT_DATA_OUT   : out std_logic_vector(BYTE_LEN - 1 downto 0);
-      WEIGHTS_OUT       : out t_weights;
-      STALL_CTRL        : out std_logic;
-      ADD_MUX_CTRL      : out t_add_mux_ctrl;
-      ROW_OUT_MUX_CTRL  : out t_row_out_mux_ctrl;
-      PSUM_OUT_MUX_CTRL : out std_logic_vector(2 downto 0);
-      IN_PSUM_OUT       : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-      OUT_PSUM_IN       : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      RESETN_MAC_CTRL    : out std_logic;
+      IN_ACT_DATA_OUT    : out std_logic_vector(BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT_0      : out std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT_1      : out std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT_2      : out std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT_3      : out std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+      WEIGHTS_OUT_4      : out std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+      STALL_CTRL         : out std_logic;
+      ADD_MUX_CTRL_0     : out std_logic_vector(0 to PE_COLS - 1);
+      ADD_MUX_CTRL_1     : out std_logic_vector(0 to PE_COLS - 1);
+      ADD_MUX_CTRL_2     : out std_logic_vector(0 to PE_COLS - 1);
+      ADD_MUX_CTRL_3     : out std_logic_vector(0 to PE_COLS - 1);
+      ADD_MUX_CTRL_4     : out std_logic_vector(0 to PE_COLS - 1);
+      ROW_OUT_MUX_CTRL_0 : out std_logic_vector(3 downto 0);
+      ROW_OUT_MUX_CTRL_1 : out std_logic_vector(3 downto 0);
+      ROW_OUT_MUX_CTRL_2 : out std_logic_vector(3 downto 0);
+      ROW_OUT_MUX_CTRL_3 : out std_logic_vector(3 downto 0);
+      ROW_OUT_MUX_CTRL_4 : out std_logic_vector(3 downto 0);
+      PSUM_OUT_MUX_CTRL  : out std_logic_vector(2 downto 0);
+      IN_PSUM_OUT        : out std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+      OUT_PSUM_IN        : in std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
       -- AXI Master interface
       M_TARGET_SLAVE_BASE_AR_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
       M_TARGET_SLAVE_BASE_AW_ADDR : out std_logic_vector(C_M00_AXI_ADDR_WIDTH - 1 downto 0);
@@ -456,10 +466,10 @@ architecture arch_imp of mlp_conv_v1_0 is
       TXN_DONE                    : in std_logic;
       AXI_ERROR                   : in std_logic
     );
-  end component pe_control_unit;
+  end component pe_control_unit_wrapper;
 
   -- instantiate PE array
-  component mlp_conv_v1_0_PE_ARR is
+  component mlp_conv_v1_0_PE_ARR_wrapper is
     generic (
       INPUT_WIDTH    : integer := 8;
       OUTPUT_WIDTH   : integer := 32;
@@ -473,12 +483,24 @@ architecture arch_imp of mlp_conv_v1_0 is
       ARESETN : in std_logic;
 
       input_act : in std_logic_vector(INPUT_WIDTH - 1 downto 0);
-      weights   : in t_weights;
+      weights_0 : in std_logic_vector((PE_WIDTH * BYTE_LEN) - 1 downto 0);
+      weights_1 : in std_logic_vector((PE_WIDTH * BYTE_LEN) - 1 downto 0);
+      weights_2 : in std_logic_vector((PE_WIDTH * BYTE_LEN) - 1 downto 0);
+      weights_3 : in std_logic_vector((PE_WIDTH * BYTE_LEN) - 1 downto 0);
+      weights_4 : in std_logic_vector((PE_WIDTH * BYTE_LEN) - 1 downto 0);
 
-      stall_ctl        : in std_logic;
-      row_out_mux_ctrl : in t_row_out_mux_ctrl;
-      psum_out_ctrl    : in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
-      add_mux_ctrl     : in t_add_mux_ctrl;
+      stall_ctl          : in std_logic;
+      row_out_mux_ctrl_0 : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+      row_out_mux_ctrl_1 : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+      row_out_mux_ctrl_2 : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+      row_out_mux_ctrl_3 : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+      row_out_mux_ctrl_4 : in std_logic_vector(ROW_OUT_WIDTH - 1 downto 0);
+      add_mux_ctrl_0     : in std_logic_vector(0 to PE_WIDTH - 1);
+      add_mux_ctrl_1     : in std_logic_vector(0 to PE_WIDTH - 1);
+      add_mux_ctrl_2     : in std_logic_vector(0 to PE_WIDTH - 1);
+      add_mux_ctrl_3     : in std_logic_vector(0 to PE_WIDTH - 1);
+      add_mux_ctrl_4     : in std_logic_vector(0 to PE_WIDTH - 1);
+      psum_out_ctrl      : in std_logic_vector(PSUM_OUT_WIDTH - 1 downto 0);
 
       psum_in  : in std_logic_vector(OUTPUT_WIDTH - 1 downto 0);
       psum_out : out std_logic_vector(OUTPUT_WIDTH - 1 downto 0)
@@ -495,15 +517,27 @@ architecture arch_imp of mlp_conv_v1_0 is
   signal pe_status : std_logic_vector(C_S00_AXI_DATA_WIDTH - 1 downto 0);
 
   -- PE array signals
-  signal resetn_mac_ctrl  : std_logic;
-  signal in_act_data_out  : std_logic_vector(BYTE_LEN - 1 downto 0);
-  signal weights_out      : t_weights;
-  signal stall_ctrl       : std_logic;
-  signal add_mux_ctrl     : t_add_mux_ctrl;
-  signal row_out_mux_ctrl : t_row_out_mux_ctrl;
-  signal psum_out_ctrl    : std_logic_vector(2 downto 0);
-  signal in_psum_out      : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
-  signal out_psum_in      : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal resetn_mac_ctrl    : std_logic;
+  signal in_act_data_out    : std_logic_vector(BYTE_LEN - 1 downto 0);
+  signal weights_out_0      : std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+  signal weights_out_1      : std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+  signal weights_out_2      : std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+  signal weights_out_3      : std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+  signal weights_out_4      : std_logic_vector(PE_COLS * BYTE_LEN - 1 downto 0);
+  signal stall_ctrl         : std_logic;
+  signal add_mux_ctrl_0     : std_logic_vector(0 to PE_COLS - 1);
+  signal add_mux_ctrl_1     : std_logic_vector(0 to PE_COLS - 1);
+  signal add_mux_ctrl_2     : std_logic_vector(0 to PE_COLS - 1);
+  signal add_mux_ctrl_3     : std_logic_vector(0 to PE_COLS - 1);
+  signal add_mux_ctrl_4     : std_logic_vector(0 to PE_COLS - 1);
+  signal row_out_mux_ctrl_0 : std_logic_vector(3 downto 0);
+  signal row_out_mux_ctrl_1 : std_logic_vector(3 downto 0);
+  signal row_out_mux_ctrl_2 : std_logic_vector(3 downto 0);
+  signal row_out_mux_ctrl_3 : std_logic_vector(3 downto 0);
+  signal row_out_mux_ctrl_4 : std_logic_vector(3 downto 0);
+  signal psum_out_ctrl      : std_logic_vector(2 downto 0);
+  signal in_psum_out        : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
+  signal out_psum_in        : std_logic_vector(C_M00_AXI_DATA_WIDTH - 1 downto 0);
 
   -- M00 (Master AXI interface) signals
   signal m00_axi_init_axi_wr_txn       : std_logic;
@@ -730,7 +764,7 @@ begin
   -- Add user logic here
 
   -- PE control unit
-  pe_control_unit_inst : pe_control_unit
+  pe_control_unit_inst : pe_control_unit_wrapper
   generic map(
     C_S00_AXI_DATA_WIDTH             => C_S00_AXI_DATA_WIDTH,
     C_M00_AXI_DATA_WIDTH             => C_M00_AXI_DATA_WIDTH,
@@ -752,15 +786,27 @@ begin
     MEM_CTRL         => mem_ctrl,
     PE_STATUS        => pe_status,
     -- PE array interface
-    RESETN_MAC_CTRL   => resetn_mac_ctrl,
-    IN_ACT_DATA_OUT   => in_act_data_out,
-    WEIGHTS_OUT       => weights_out,
-    STALL_CTRL        => stall_ctrl,
-    ADD_MUX_CTRL      => add_mux_ctrl,
-    ROW_OUT_MUX_CTRL  => row_out_mux_ctrl,
-    PSUM_OUT_MUX_CTRL => psum_out_ctrl,
-    IN_PSUM_OUT       => in_psum_out,
-    OUT_PSUM_IN       => out_psum_in,
+    RESETN_MAC_CTRL    => resetn_mac_ctrl,
+    IN_ACT_DATA_OUT    => in_act_data_out,
+    WEIGHTS_OUT_0      => weights_out_0,
+    WEIGHTS_OUT_1      => weights_out_1,
+    WEIGHTS_OUT_2      => weights_out_2,
+    WEIGHTS_OUT_3      => weights_out_3,
+    WEIGHTS_OUT_4      => weights_out_4,
+    STALL_CTRL         => stall_ctrl,
+    ADD_MUX_CTRL_0     => add_mux_ctrl_0,
+    ADD_MUX_CTRL_1     => add_mux_ctrl_1,
+    ADD_MUX_CTRL_2     => add_mux_ctrl_2,
+    ADD_MUX_CTRL_3     => add_mux_ctrl_3,
+    ADD_MUX_CTRL_4     => add_mux_ctrl_4,
+    ROW_OUT_MUX_CTRL_0 => row_out_mux_ctrl_0,
+    ROW_OUT_MUX_CTRL_1 => row_out_mux_ctrl_1,
+    ROW_OUT_MUX_CTRL_2 => row_out_mux_ctrl_2,
+    ROW_OUT_MUX_CTRL_3 => row_out_mux_ctrl_3,
+    ROW_OUT_MUX_CTRL_4 => row_out_mux_ctrl_4,
+    PSUM_OUT_MUX_CTRL  => psum_out_ctrl,
+    IN_PSUM_OUT        => in_psum_out,
+    OUT_PSUM_IN        => out_psum_in,
     -- AXI Master interface
     M_TARGET_SLAVE_BASE_AR_ADDR => m00_target_slave_base_ar_addr,
     M_TARGET_SLAVE_BASE_AW_ADDR => m00_target_slave_base_aw_addr,
@@ -776,7 +822,7 @@ begin
   );
 
   -- PE array
-  pe_arr_inst : mlp_conv_v1_0_PE_ARR
+  pe_arr_inst : mlp_conv_v1_0_PE_ARR_wrapper
   generic map(
     INPUT_WIDTH    => BYTE_LEN,
     OUTPUT_WIDTH   => C_M00_AXI_DATA_WIDTH,
@@ -790,12 +836,24 @@ begin
     ARESETN => resetn_mac_ctrl,
 
     input_act => in_act_data_out,
-    weights   => weights_out,
+    weights_0 => weights_out_0,
+    weights_1 => weights_out_1,
+    weights_2 => weights_out_2,
+    weights_3 => weights_out_3,
+    weights_4 => weights_out_4,
 
-    stall_ctl        => stall_ctrl,
-    row_out_mux_ctrl => row_out_mux_ctrl,
-    psum_out_ctrl    => psum_out_ctrl,
-    add_mux_ctrl     => add_mux_ctrl,
+    stall_ctl          => stall_ctrl,
+    row_out_mux_ctrl_0 => row_out_mux_ctrl_0,
+    row_out_mux_ctrl_1 => row_out_mux_ctrl_1,
+    row_out_mux_ctrl_2 => row_out_mux_ctrl_2,
+    row_out_mux_ctrl_3 => row_out_mux_ctrl_3,
+    row_out_mux_ctrl_4 => row_out_mux_ctrl_4,
+    add_mux_ctrl_0     => add_mux_ctrl_0,
+    add_mux_ctrl_1     => add_mux_ctrl_1,
+    add_mux_ctrl_2     => add_mux_ctrl_2,
+    add_mux_ctrl_3     => add_mux_ctrl_3,
+    add_mux_ctrl_4     => add_mux_ctrl_4,
+    psum_out_ctrl      => psum_out_ctrl,
 
     psum_in  => in_psum_out,
     psum_out => out_psum_in
