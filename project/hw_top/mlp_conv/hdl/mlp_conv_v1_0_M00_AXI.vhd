@@ -315,8 +315,8 @@ begin
   TXN_DONE <= '1' when (mst_exec_state = IDLE and init_txn_wr_pulse = '0' and init_txn_rd_pulse = '0') else '0';
   --Burst size in bytes
   burst_size_bytes  <= std_logic_vector(to_unsigned((C_M_AXI_BURST_LEN * (C_M_AXI_DATA_WIDTH/8)), C_TRANSACTIONS_NUM + 3));
-  init_txn_wr_pulse <= '1' when ((init_txn_wr_ff2 = '0' and init_txn_wr_ff = '1') or (init_txn_wr_ff = '0' and INIT_AXI_WR_TXN = '1')) else '0';
-  init_txn_rd_pulse <= '1' when ((init_txn_rd_ff2 = '0' and init_txn_rd_ff = '1') or (init_txn_rd_ff = '0' and INIT_AXI_RD_TXN = '1')) else '0';
+  init_txn_wr_pulse <= '1' when ((init_txn_wr_ff2 = '0' and init_txn_wr_ff = '1')) else '0';    -- or (init_txn_wr_ff = '0' and INIT_AXI_WR_TXN = '1')
+  init_txn_rd_pulse <= '1' when ((init_txn_rd_ff2 = '0' and init_txn_rd_ff = '1')) else '0';    -- or (init_txn_rd_ff = '0' and INIT_AXI_RD_TXN = '1')
 
   -- Generate a pulse to initiate AXI WR transaction.
   process (M_AXI_ACLK)

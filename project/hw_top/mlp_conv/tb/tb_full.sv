@@ -99,7 +99,6 @@ module tb_full();
   // AXI Master FSM interface
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_target_slave_base_ar_addr;
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_target_slave_base_aw_addr;
-  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_rdata;
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_rdata_out;
   logic m_axi_rvalid_rready;
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_wdata_in;
@@ -128,8 +127,8 @@ module tb_full();
   logic m_axi_awready;
 
   // outputs
-  logic [C_M_AXI_DATA_WIDTH-1:0] m_axi_wdata;
-  logic [C_M_AXI_DATA_WIDTH/8-1:0] m_axi_wstrb;
+  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_wdata;
+  logic [C_M00_AXI_DATA_WIDTH/8-1:0] m_axi_wstrb;
 
   // outputs
   logic m_axi_wlast;
@@ -157,7 +156,7 @@ module tb_full();
   // TODO ssz inputs
   logic m_axi_arready;
   logic [C_M_AXI_ID_WIDTH-1:0] m_axi_rid;
-  logic [C_M_AXI_DATA_WIDTH-1:0] m_axi_rdata;
+  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_rdata;
   logic [1:0] m_axi_rresp;
   logic m_axi_rlast;
   logic m_axi_rvalid;
@@ -412,6 +411,8 @@ module tb_full();
     repeat (2) @(posedge clk);
     #1;
     resetn = 1;
+    repeat ($urandom_range(1, 4)) @(posedge clk);
+    #1;
   endtask
 
   function automatic void compute_expected_outputs();
@@ -432,20 +433,23 @@ module tb_full();
     // buffer weights into PE array using PE control unit
     buffer_weights = 0;
     @(posedge clk);
+    #1;
     buffer_weights = 1;
     @(posedge clk);
+    #1;
 
     handle_buffer_weights_axi_transaction();
     scb_weights_col_idx = 0;
     scb_weights_row_idx = 0;
 
     // check PE status register to ensure weights are buffered
-    max_retries = 5;
+    max_retries = 4;
     while (pe_status[0] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (pe_status[0] == 0 || max_retries == 0) begin
+    if (max_retries == 0) begin
       $display("ERROR: pe_status[0] = %0d, should be 1. Weights should be buffered.", pe_status[0]);
       $finish;
     end
@@ -456,13 +460,16 @@ module tb_full();
     // load weight store using PE control unit
     load_weight_store = 0;
     @(posedge clk);
+    #1;
     load_weight_store = 1;
     @(posedge clk);
+    #1;
 
     // check PE status register to ensure weight store is loaded
-    max_retries = 20;
+    max_retries = 8;
     while (pe_status[1] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
     if (max_retries == 0) begin
@@ -476,8 +483,10 @@ module tb_full();
     // buffer inputs into PE array using PE control unit
     buffer_inputs = 0;
     @(posedge clk);
+    #1;
     buffer_inputs = 1;
     @(posedge clk);
+    #1;
 
     handle_buffer_inputs_axi_transaction();
     handle_buffer_inputs_axi_transaction();
@@ -485,9 +494,10 @@ module tb_full();
     scb_inputs_col_idx = 0;
 
     // check PE status register to ensure inputs are buffered
-    max_retries = 5;
+    max_retries = 4;
     while (pe_status[2] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
     if (pe_status[2] == 0 || max_retries == 0) begin
@@ -501,8 +511,10 @@ module tb_full();
     // buffer partial sums from PE array using PE control unit
     buffer_psums = 0;
     @(posedge clk);
+    #1;
     buffer_psums = 1;
     @(posedge clk);
+    #1;
 
     handle_buffer_psums_axi_transaction();
     handle_buffer_psums_axi_transaction();
@@ -511,9 +523,10 @@ module tb_full();
     scb_psums_col_idx = 0;
 
     // check PE status register to ensure partial sums are buffered
-    max_retries = 5;
+    max_retries = 4;
     while (pe_status[4] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
     if (pe_status[4] == 0 || max_retries == 0) begin
@@ -527,15 +540,19 @@ module tb_full();
   // send the scb_weights to the PE array using AXI Master interface
   task automatic handle_buffer_weights_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 4;
+    max_retries = 3;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (max_retries == 0) begin
+    if (max_retries == 0 && init_axi_rd_txn == 0) begin
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    // wait for RD burst to start
+    repeat ($urandom_range(2, 5)) @(posedge clk);
+    #1;
     m_axi_arready = 1;
     m_axi_rlast = 0;
     // TODO ssz could do separate rresp for each read in the burst
@@ -583,32 +600,38 @@ module tb_full();
         end
         burst_count++;
       end
+      @(posedge clk);
+      #1;
       if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
         m_axi_rlast = 1;
       end
       else begin
         m_axi_rlast = 0;
       end
-      @(posedge clk);
     end
-    @(posedge clk);
     m_axi_arready = 0;
     m_axi_rlast = 0;
     m_axi_rresp = 0;
     m_axi_rvalid = 0;
+    @(posedge clk);
+    #1;
   endtask
 
   task automatic handle_buffer_inputs_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 4;
+    max_retries = 3;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (max_retries == 0) begin
+    if (max_retries == 0 && init_axi_rd_txn == 0) begin
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    // wait for RD burst to start
+    repeat ($urandom_range(2, 5)) @(posedge clk);
+    #1;
     m_axi_arready = 1;
     m_axi_rlast = 0;
     // TODO ssz could do separate rresp for each read in the burst
@@ -655,32 +678,38 @@ module tb_full();
         end
         burst_count++;
       end
+      @(posedge clk);
+      #1;
       if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
         m_axi_rlast = 1;
       end
       else begin
         m_axi_rlast = 0;
       end
-      @(posedge clk);
     end
-    @(posedge clk);
     m_axi_arready = 0;
     m_axi_rlast = 0;
     m_axi_rresp = 0;
     m_axi_rvalid = 0;
+    @(posedge clk);
+    #1;
   endtask
 
   task handle_buffer_psums_axi_transaction();
     // wait for init_axi_rd_txn to go high
-    max_retries = 4;
+    max_retries = 3;
     while (init_axi_rd_txn == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (max_retries == 0) begin
+    if (max_retries == 0 && init_axi_rd_txn == 0) begin
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    // wait for RD burst to start
+    repeat ($urandom_range(2, 5)) @(posedge clk);
+    #1;
     m_axi_arready = 1;
     m_axi_rlast = 0;
     // TODO ssz could do separate rresp for each read in the burst
@@ -709,32 +738,37 @@ module tb_full();
         end
         burst_count++;
       end
+      @(posedge clk);
+      #1;
       if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
         m_axi_rlast = 1;
       end
       else begin
         m_axi_rlast = 0;
       end
-      @(posedge clk);
     end
-    @(posedge clk);
     m_axi_arready = 0;
     m_axi_rlast = 0;
     m_axi_rresp = 0;
     m_axi_rvalid = 0;
+    @(posedge clk);
+    #1;
   endtask
 
   task automatic do_start_and_wait_for_done();
     // start PE array
     param_start = 0;
     @(posedge clk);
+    #1;
     param_start = 1;
     @(posedge clk);
+    #1;
 
     // wait for PE array to finish
-    max_retries = 60;
+    max_retries = 48;
     while (pe_status[3] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
     if (max_retries == 0) begin
@@ -743,12 +777,13 @@ module tb_full();
     end
 
     // wait for outputs to buffer
-    max_retries = 60;
+    max_retries = 48;
     while (pe_status[3] == 1 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (pe_status[3] == 1 || max_retries == 0) begin
+    if (max_retries == 0) begin
       $display("ERROR: outputs should be buffered by now.");
       $finish;
     end
@@ -760,9 +795,10 @@ module tb_full();
     scb_outputs_row_idx = 0;
     scb_outputs_col_idx = 0;
     // ensure outputs written falg is high
-    max_retries = 4;
+    max_retries = 5;
     while (pe_status[4] == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
     if (pe_status[4] == 0 || max_retries == 0) begin
@@ -770,6 +806,8 @@ module tb_full();
       $finish;
     end
     param_start = 0;
+    @(posedge clk);
+    #1;
   endtask
 
   task automatic do_clear_all_buffers();
@@ -777,13 +815,15 @@ module tb_full();
     clear_input_buffer = 1;
     clear_psum_buffer = 1;
     clear_output_buffer = 1;
-    repeat (2) @(posedge clk);
+    @(posedge clk);
+    #1;
 
     clear_weight_buffer = 0;
     clear_input_buffer = 0;
     clear_psum_buffer = 0;
     clear_output_buffer = 0;
-    repeat (2) @(posedge clk);
+    @(posedge clk);
+    #1;
   endtask
 
   task automatic handle_write_outputs_axi_transaction();
@@ -791,13 +831,17 @@ module tb_full();
     max_retries = 4;
     while (init_axi_wr_txn == 0 && max_retries > 0) begin
       @(posedge clk);
+      #1;
       max_retries--;
     end
-    if (max_retries == 0) begin
+    if (max_retries == 0 && init_axi_wr_txn == 0) begin
       $display("ERROR: init_axi_wr_txn = %0d, should be 1", init_axi_wr_txn);
       $finish;
     end
     m_axi_awready = 1;
+    // wait for WR burst to start
+    repeat ($urandom_range(2, 5)) @(posedge clk);
+    #1;
 
     // send AXI write transaction
     burst_count = 0;
@@ -831,21 +875,26 @@ module tb_full();
         end
       end
       @(posedge clk);
+      // #1;
     end
-    @(posedge clk);
     m_axi_awready = 0;
+    m_axi_wready = 0;
+    @(posedge clk);
+    #1;
     handle_bresp();
   endtask
 
   task automatic handle_bresp();
-    m_axi_bresp = $urandom_range(0, 1);
+    m_axi_bresp = $urandom_range(0, 3);
     m_axi_bvalid = $urandom_range(0, 1);
     while (m_axi_bvalid == 0 || m_axi_bready == 0) begin
       @(posedge clk);
+      #1;
       m_axi_bvalid = 1;
     end
     // 1 cycle register bvalid and bready
     @(posedge clk);
+    #1;
     m_axi_bvalid = 0;
     m_axi_bresp = 0;
   endtask
