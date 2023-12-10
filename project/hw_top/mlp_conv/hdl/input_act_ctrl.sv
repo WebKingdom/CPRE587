@@ -1,8 +1,8 @@
 // Input activation controller.
 // Contains a FIFO (external write, internal read), an input mapper, and some control logic.
 
-// CLEAR_FIFO gets hooked up directly to mem_ctrl register
-// START_FEED gets hooked up directly to mem_ctrl register
+// CLEAR_FIFO gets hooked up directly to mem_ctrl register (no pulse)
+// START_FEED gets hooked up to mem_ctrl param_start PULSE
 `timescale 1ns/1ps
 module input_act_ctrl #(
     parameter INPUT_WIDTH = 32,
@@ -24,13 +24,13 @@ module input_act_ctrl #(
   );
 
   // FIFO signals
-  logic clear_fifo, clear_fifo_prev;
+  wire clear_fifo_pulse;
   logic fifo_rd_cmd;
   wire [INPUT_WIDTH-1:0] fifo_rd_data;
   wire fifo_empty;
 
   // input mapper signals
-  logic start_feed, start_feed_prev;
+  logic start_feed;
   logic read_fifo_till_empty;
   wire [OUTPUT_WIDTH-1:0] slices [0:INPUT_WIDTH/OUTPUT_WIDTH-1];
   logic unsigned [$clog2(INPUT_WIDTH/OUTPUT_WIDTH)-1:0] count;
@@ -41,7 +41,7 @@ module input_act_ctrl #(
          .FIFO_DEPTH(FIFO_DEPTH)
        ) fifo_inst (
          .CLK(CLK),
-         .RESETN(RESETN & ~clear_fifo),
+         .RESETN(RESETN & ~clear_fifo_pulse),
          .RD_CMD(fifo_rd_cmd),
          .RD_DATA(fifo_rd_data),
          .EMPTY(fifo_empty),
@@ -50,14 +50,11 @@ module input_act_ctrl #(
          .FULL(FIFO_FULL)
        );
 
-  // clear FIFO 1x when CLEAR_FIFO goes high
-  assign clear_fifo = CLEAR_FIFO == 1'b1 && clear_fifo_prev == 1'b0;
-
   // Every clock cycle, the input mapper outputs 1 byte (LSB to MSB) of the
   // 4 byte data read from the FIFO. When MSB is reached, the next 4 bytes
   // are read from the FIFO. This is repeated until the FIFO is empty.
 
-  assign start_feed = START_FEED == 1'b1 && start_feed_prev == 1'b0 && fifo_empty == 1'b0;
+  assign start_feed = START_FEED == 1'b1 && fifo_empty == 1'b0;
   assign FIFO_EMPTY = fifo_empty;
   assign DATA_OUT = slices[count];
   assign DATA_VALID = (start_feed == 1'b1 || read_fifo_till_empty == 1'b1) && fifo_empty == 1'b0;
@@ -108,24 +105,12 @@ module input_act_ctrl #(
     end
   end
 
-  // start_feed pulses for 1 cycle when START_FEED goes high
-  always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
-      start_feed_prev <= 0;
-    end
-    else begin
-      start_feed_prev <= START_FEED;
-    end
-  end
-
   // clear FIFO 1x when CLEAR_FIFO goes high
-  always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
-      clear_fifo_prev <= 1'b0;
-    end
-    else begin
-      clear_fifo_prev <= CLEAR_FIFO;
-    end
-  end
+  pulse_creator clear_input_fifo_pulse_inst (
+    .CLK(CLK),
+    .RESETN(RESETN),
+    .IN_DATA(CLEAR_FIFO),
+    .OUT_DATA(clear_fifo_pulse)
+  );
 
 endmodule

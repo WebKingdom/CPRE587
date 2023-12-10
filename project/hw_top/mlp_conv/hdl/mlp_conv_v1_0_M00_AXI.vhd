@@ -250,9 +250,9 @@ architecture arch_imp of mlp_conv_v1_0_M00_AXI is
   signal wnext             : std_logic;
   signal rnext             : std_logic;
   signal init_txn_wr_ff    : std_logic;
-  -- signal init_txn_wr_ff2   : std_logic;
+  signal init_txn_wr_ff2   : std_logic;
   signal init_txn_rd_ff    : std_logic;
-  -- signal init_txn_rd_ff2   : std_logic;
+  signal init_txn_rd_ff2   : std_logic;
   signal init_txn_wr_pulse : std_logic;
   signal init_txn_rd_pulse : std_logic;
   signal init_txn_rd_reg   : std_logic; -- register to hold init_txn_rd_pulse (write 1st then read)
@@ -312,11 +312,11 @@ begin
   --Read and Read Response (R)
   M_AXI_RREADY <= axi_rready;
   --Example design I/O
-  TXN_DONE <= '1' when mst_exec_state = IDLE else '0';
+  TXN_DONE <= '1' when (mst_exec_state = IDLE and init_txn_wr_pulse = '0' and init_txn_rd_pulse = '0') else '0';
   --Burst size in bytes
   burst_size_bytes  <= std_logic_vector(to_unsigned((C_M_AXI_BURST_LEN * (C_M_AXI_DATA_WIDTH/8)), C_TRANSACTIONS_NUM + 3));
-  init_txn_wr_pulse <= (not init_txn_wr_ff) and INIT_AXI_WR_TXN;
-  init_txn_rd_pulse <= (not init_txn_rd_ff) and INIT_AXI_RD_TXN;
+  init_txn_wr_pulse <= '1' when ((init_txn_wr_ff2 = '0' and init_txn_wr_ff = '1') or (init_txn_wr_ff = '0' and INIT_AXI_WR_TXN = '1')) else '0';
+  init_txn_rd_pulse <= '1' when ((init_txn_rd_ff2 = '0' and init_txn_rd_ff = '1') or (init_txn_rd_ff = '0' and INIT_AXI_RD_TXN = '1')) else '0';
 
   -- Generate a pulse to initiate AXI WR transaction.
   process (M_AXI_ACLK)
@@ -325,10 +325,10 @@ begin
       -- Initiates AXI transaction delay        
       if (M_AXI_ARESETN = '0') then
         init_txn_wr_ff  <= '0';
-        -- init_txn_wr_ff2 <= '0';
+        init_txn_wr_ff2 <= '0';
       else
         init_txn_wr_ff  <= INIT_AXI_WR_TXN;
-        -- init_txn_wr_ff2 <= init_txn_wr_ff;
+        init_txn_wr_ff2 <= init_txn_wr_ff;
       end if;
     end if;
   end process;
@@ -340,10 +340,10 @@ begin
       -- Initiates AXI transaction delay        
       if (M_AXI_ARESETN = '0') then
         init_txn_rd_ff  <= '0';
-        -- init_txn_rd_ff2 <= '0';
+        init_txn_rd_ff2 <= '0';
       else
         init_txn_rd_ff  <= INIT_AXI_RD_TXN;
-        -- init_txn_rd_ff2 <= init_txn_rd_ff;
+        init_txn_rd_ff2 <= init_txn_rd_ff;
       end if;
     end if;
   end process;

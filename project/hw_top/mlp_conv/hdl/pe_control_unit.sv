@@ -368,7 +368,7 @@ module pe_control_unit #(
                    .CLK(CLK),
                    .RESETN(resetn_all),
                    .CLEAR_FIFO(clear_input_buffer),
-                   .START_FEED(param_start),
+                   .START_FEED(param_start_pulse),
                    .FIFO_WR_CMD(input_act_ctrl_fifo_wr_cmd),
                    .FIFO_WR_DATA(M_AXI_RDATA),
                    // outputs
@@ -464,10 +464,6 @@ module pe_control_unit #(
                   .OUT_DATA(clear_psum_buffer_pulse)
                 );
 
-
-  // TODO ssz PE instance
-
-
   // states for buffering weights, inputs, and psums
   typedef enum logic [1:0] {
             IDLE_BUFFER,
@@ -531,7 +527,7 @@ module pe_control_unit #(
           end
         end
 
-        if (TXN_DONE == 1) begin
+        if (TXN_DONE == 1 && INIT_AXI_RD_TXN == 0) begin
           st_bw_next = BUFFER_DATA;
           weight_in_ctrl_fifo_wr_cmd = 0;
           input_act_ctrl_fifo_wr_cmd = 0;
@@ -578,23 +574,23 @@ module pe_control_unit #(
       case (st_bw)
         IDLE_BUFFER: begin
           // weight registers
-          buffer_weights_counter <= (buffer_weights_pulse == 1) ? 0 : 1;
+          buffer_weights_counter <= (buffer_weights_pulse == 1) ? 0 : 7;
           weight_base_addr_offset <= 0;
-          if (buffer_weights_pulse == 1) begin
+          if (buffer_weights_pulse == 1 || param_start_pulse == 1) begin
             weights_buffered <= 0;
             weight_buffer_error <= 0;
           end
           // input registers
-          buffer_inputs_counter <= (buffer_inputs_pulse == 1) ? 0 : 2;
+          buffer_inputs_counter <= (buffer_inputs_pulse == 1) ? 0 : 7;
           input_base_addr_offset <= 0;
-          if (buffer_inputs_pulse == 1) begin
+          if (buffer_inputs_pulse == 1 || param_start_pulse == 1) begin
             inputs_buffered <= 0;
             input_buffer_error <= 0;
           end
           // psum registers
-          buffer_psums_counter <= (buffer_psums_pulse == 1) ? 0 : 3;
+          buffer_psums_counter <= (buffer_psums_pulse == 1) ? 0 : 7;
           psum_base_addr_offset <= 0;
-          if (buffer_psums_pulse == 1) begin
+          if (buffer_psums_pulse == 1 || param_start_pulse == 1) begin
             psums_buffered <= 0;
             psum_buffer_error <= 0;
           end
@@ -603,17 +599,17 @@ module pe_control_unit #(
           M_TARGET_SLAVE_BASE_AR_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
         end
         ISSUE_M_AXI_RD: begin
-          if (buffer_weights_counter < 1) begin
+          if (buffer_weights_counter < 1 && INIT_AXI_RD_TXN == 0) begin
             INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= WEIGHT_BASE_ADDR + weight_base_addr_offset;
             weight_base_addr_offset <= weight_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
-          else if (buffer_inputs_counter < 2) begin
+          else if (buffer_inputs_counter < 2 && INIT_AXI_RD_TXN == 0) begin
             INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= INPUT_BASE_ADDR + input_base_addr_offset;
             input_base_addr_offset <= input_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
           end
-          else if (buffer_psums_counter < 3) begin
+          else if (buffer_psums_counter < 3 && INIT_AXI_RD_TXN == 0) begin
             INIT_AXI_RD_TXN <= 1;
             M_TARGET_SLAVE_BASE_AR_ADDR <= OUTPUT_BASE_ADDR + psum_base_addr_offset;
             psum_base_addr_offset <= psum_base_addr_offset + C_M00_AXI_BURST_LEN * (C_M00_AXI_DATA_WIDTH / BYTE_LEN);
@@ -712,7 +708,7 @@ module pe_control_unit #(
         output_fifo_rd_cmd = 0;
       end
       ISSUE_M_AXI_WR: begin
-        if (output_buffering == 0) begin
+        if (INIT_AXI_WR_TXN == 1) begin
           st_out_next = WAIT_M_AXI_WR;
         end
       end
@@ -724,7 +720,7 @@ module pe_control_unit #(
           output_fifo_rd_cmd = 0;
         end
 
-        if (TXN_DONE == 1) begin
+        if (TXN_DONE == 1 && INIT_AXI_WR_TXN == 0) begin
           st_out_next = WR_OUT;
           output_fifo_rd_cmd = 0;
         end
@@ -749,21 +745,22 @@ module pe_control_unit #(
       output_written <= 0;
       output_write_error <= 0;
       INIT_AXI_WR_TXN <= 0;
-      M_TARGET_SLAVE_BASE_AW_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
+      M_TARGET_SLAVE_BASE_AW_ADDR <= OUTPUT_BASE_ADDR;
     end
     else begin
       case (st_out)
         WAIT_BUFFER_OUT: begin
           if (param_start_pulse == 1) begin
             output_written <= 0;
+            output_write_error <= 0;
           end
           output_base_addr_offset <= 0;
           output_write_counter <= 0;
           INIT_AXI_WR_TXN <= 0;
-          M_TARGET_SLAVE_BASE_AW_ADDR <= C_M00_AXI_TARGET_SLAVE_BASE_ADDR;
+          M_TARGET_SLAVE_BASE_AW_ADDR <= OUTPUT_BASE_ADDR;
         end
         ISSUE_M_AXI_WR: begin
-          if (output_buffering == 0) begin
+          if (output_buffering == 0 && INIT_AXI_WR_TXN == 0) begin
             INIT_AXI_WR_TXN <= 1;
             M_TARGET_SLAVE_BASE_AW_ADDR <= OUTPUT_BASE_ADDR + output_base_addr_offset;
             output_write_counter <= output_write_counter + 1;

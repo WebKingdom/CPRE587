@@ -222,6 +222,9 @@ module tb_m00_axi();
         $display("ERROR: rdata mismatch: scb_rdata[%0d] = %0h, m_axi_rdata_out = %0h", scb_rdata_idx, scb_rdata[scb_rdata_idx], m_axi_rdata_out);
         $finish;
       end
+      else begin
+        $display("READ MATCH: scb_rdata[%0d] = %0h, m_axi_rdata_out = %0h", scb_rdata_idx, scb_rdata[scb_rdata_idx], m_axi_rdata_out);
+      end
       scb_rdata_idx++;
     end
 
@@ -231,6 +234,9 @@ module tb_m00_axi();
       if (scb_wdata[scb_wdata_idx] != m_axi_wdata) begin
         $display("ERROR: wdata mismatch: scb_wdata[%0d] = %0h, m_axi_wdata = %0h", scb_wdata_idx, scb_wdata[scb_wdata_idx], m_axi_wdata);
         $finish;
+      end
+      else begin
+        $display("WRITE MATCH: scb_wdata[%0d] = %0h, m_axi_wdata = %0h", scb_wdata_idx, scb_wdata[scb_wdata_idx], m_axi_wdata);
       end
       scb_wdata_idx++;
     end
@@ -257,18 +263,36 @@ module tb_m00_axi();
 
   task automatic gen_rand_wr_txn();
     gen_rand_wdata();
-    m_axi_awready = $random;
     m_target_slave_base_aw_addr = $random;
     m_axi_wready = $random;
     scb_wdata_idx = 0;
     m_axi_wdata_in = scb_wdata[scb_wdata_idx];
+    m_axi_bvalid = 0;
+    m_axi_awready = $random;
+    while (m_axi_awready == 0) begin
+      @(posedge clk);
+      m_axi_awready = 1;
+    end
     init_axi_wr_txn = $urandom;
     while (init_axi_wr_txn == 0) begin
       @(posedge clk);
       init_axi_wr_txn = 1;
     end
+
+    // if (m_axi_awready == 1 && m_axi_awvalid == 1) begin
+    //   m_axi_awready = 0;
+    //   // wait 1 cycle after init txn
+    //   @(posedge clk);
+    // end
+    // else begin
+    //   // wait for AWVALID
+    //   while (!(m_axi_awready == 1 && m_axi_awvalid == 1)) begin
+    //     @(posedge clk);
+    //   end
+    // end
+    // m_axi_awready = 0;
+
     if (init_axi_wr_txn == 1) begin
-      m_axi_bvalid = 0;
       // start write transaction
       while (scb_wdata_idx < C_M_AXI_BURST_LEN) begin
         @(posedge clk);
@@ -288,23 +312,44 @@ module tb_m00_axi();
         end
       end
     end
+    init_axi_wr_txn = 0;
     m_axi_awready = 0;
     m_axi_wready = 0;
     m_axi_bvalid = 0;
+    repeat ($urandom_range(1, 4)) @(posedge clk);
   endtask
 
   task automatic gen_rand_rd_txn();
     gen_rand_rdata();
-    m_axi_arready = $random;
+    m_axi_rvalid = 0;
     m_target_slave_base_ar_addr = $random;
     scb_rdata_idx = 0;
     m_axi_rdata = scb_rdata[scb_rdata_idx];
-    init_axi_rd_txn = $urandom;
     m_axi_rlast = 0;
+    m_axi_arready = $random;
+    while (m_axi_arready == 0) begin
+      @(posedge clk);
+      m_axi_arready = 1;
+    end
+    init_axi_rd_txn = $urandom;
     while (init_axi_rd_txn == 0) begin
       @(posedge clk);
       init_axi_rd_txn = 1;
     end
+    // if (m_axi_arready == 1 && m_axi_arvalid == 1) begin
+    //   m_axi_arready = 0;
+    //   // wait 1 cycle after init txn
+    //   @(posedge clk);
+    // end
+    // else begin
+    //   // wait for ARVALID
+    //   while (!(m_axi_arready == 1 && m_axi_arvalid == 1)) begin
+    //     @(posedge clk);
+    //   end
+    // end
+
+    // wait 1 cycle after init txn
+    repeat (2) @(posedge clk);
     if (init_axi_rd_txn == 1) begin
       // start read transaction
       while (scb_rdata_idx < C_M_AXI_BURST_LEN) begin
@@ -313,6 +358,7 @@ module tb_m00_axi();
         end
         @(posedge clk);
         if (scb_rdata_idx == C_M_AXI_BURST_LEN - 1) begin
+          #1;
           m_axi_rlast = 1;
         end
         else begin
@@ -321,6 +367,10 @@ module tb_m00_axi();
         update_scoreboard();
         m_axi_rdata = scb_rdata[scb_rdata_idx];
       end
+      // register rlast
+      @(posedge clk);
+      #1;
+      m_axi_rlast = 0;
       // wait for read response
       m_axi_rresp = $urandom_range(0, 3);
       if (m_axi_rvalid == 1) begin
@@ -340,6 +390,12 @@ module tb_m00_axi();
         $finish;
       end
     end
+    init_axi_rd_txn = 0;
+    m_axi_arready = 0;
+    m_axi_rvalid = 0;
+    m_axi_rlast = 0;
+    m_axi_rresp = 0;
+    repeat ($urandom_range(1, 4)) @(posedge clk);
   endtask
 
   task automatic test_wr1();

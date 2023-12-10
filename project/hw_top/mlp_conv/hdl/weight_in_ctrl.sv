@@ -1,8 +1,8 @@
 // Weight input controller.
 // Contains a FIFO (external write, internal read), a weight store (internat write, external read), and some control logic.
 
-// CLEAR_FIFO gets hooked up directly to mem_ctrl register
-// LOAD_WS gets hooked up directly to mem_ctrl register
+// CLEAR_FIFO gets hooked up directly to mem_ctrl register (no pulse)
+// LOAD_WS gets hooked up directly to mem_ctrl register (no pulse)
 `timescale 1ns/1ps
 module weight_in_ctrl #(
     parameter INPUT_WIDTH = 32,
@@ -31,14 +31,15 @@ module weight_in_ctrl #(
   );
 
   // FIFO signals
-  logic clear_fifo, clear_fifo_prev;
+  wire clear_fifo_pulse;
   wire fifo_rd_cmd;
   wire [INPUT_WIDTH-1:0] fifo_rd_data;
   wire fifo_empty;
 
   // weight store signals
-  logic load_ws, load_ws_prev;
+  wire load_ws_pulse;
   wire can_load_ws;
+  logic load_ws;
   wire ws_wr_en;
   wire ws_full;
 
@@ -48,7 +49,7 @@ module weight_in_ctrl #(
          .FIFO_DEPTH(FIFO_DEPTH)
        ) fifo_inst (
          .CLK(CLK),
-         .RESETN(RESETN & ~clear_fifo),
+         .RESETN(RESETN & ~clear_fifo_pulse),
          .RD_CMD(fifo_rd_cmd),
          .RD_DATA(fifo_rd_data),
          .EMPTY(fifo_empty),
@@ -77,38 +78,31 @@ module weight_in_ctrl #(
                  .RD_DATA_4(WS_RD_DATA_4)
                );
 
-  // clear FIFO 1x when CLEAR_FIFO goes high
-  assign clear_fifo = CLEAR_FIFO == 1'b1 && clear_fifo_prev == 1'b0;
-
   assign FIFO_EMPTY = fifo_empty;
   assign WS_FULL = ws_full;
   assign LOADING_WS = can_load_ws == 1 || load_ws == 1;
 
   // start loading weight store when LOAD_WS goes high and FIFO is not empty
   // keep loading until weight store is full
-  assign can_load_ws = LOAD_WS == 1'b1 && load_ws_prev == 1'b0 && fifo_empty == 1'b0;
-  assign fifo_rd_cmd = (can_load_ws == 1'b1 || load_ws == 1'b1) && fifo_empty == 1'b0;
-  assign ws_wr_en = fifo_rd_cmd == 1'b1 && ws_full == 1'b0;
+  assign can_load_ws = load_ws_pulse == 1 && fifo_empty == 0;
+  assign fifo_rd_cmd = (can_load_ws == 1 || load_ws == 1) && fifo_empty == 0;
+  assign ws_wr_en = fifo_rd_cmd == 1 && ws_full == 0;
 
   // clear FIFO 1x when CLEAR_FIFO goes high
-  always_ff @(posedge CLK) begin
-    if (RESETN == 1'b0) begin
-      clear_fifo_prev <= 1'b0;
-    end
-    else begin
-      clear_fifo_prev <= CLEAR_FIFO;
-    end
-  end
+  pulse_creator clear_weight_fifo_pulse_inst (
+    .CLK(CLK),
+    .RESETN(RESETN),
+    .IN_DATA(CLEAR_FIFO),
+    .OUT_DATA(clear_fifo_pulse)
+  );
 
   // load weight store 1x when LOAD_WS goes high and 
   // stop loading when ws_full goes high
   always_ff @(posedge CLK) begin
     if (RESETN == 1'b0) begin
-      load_ws_prev <= 1'b0;
       load_ws <= 1'b0;
     end
     else begin
-      load_ws_prev <= LOAD_WS;
       if (can_load_ws) begin
         load_ws <= 1'b1;
       end
@@ -119,5 +113,13 @@ module weight_in_ctrl #(
       end
     end
   end
+
+  // load weight store 1x when LOAD_WS goes high
+  pulse_creator clear_ws_pulse_inst (
+    .CLK(CLK),
+    .RESETN(RESETN),
+    .IN_DATA(LOAD_WS),
+    .OUT_DATA(load_ws_pulse)
+  );
 
 endmodule

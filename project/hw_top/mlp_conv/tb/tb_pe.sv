@@ -305,6 +305,7 @@ module tb_pe();
       $display("ERROR: pe_status[0] = %0d, should be 1. Weights should be buffered.", pe_status[0]);
       $finish;
     end
+    buffer_weights = 0;
   endtask
 
   task automatic do_load_ws();
@@ -324,6 +325,7 @@ module tb_pe();
       $display("ERROR: pe_status[1] = %0d, should be 1. Weight store should be loaded.", pe_status[1]);
       $finish;
     end
+    load_weight_store = 0;
   endtask
 
   task automatic do_buffer_inputs();
@@ -348,6 +350,7 @@ module tb_pe();
       $display("ERROR: pe_status[2] = %0d, should be 1. Inputs should be buffered.", pe_status[2]);
       $finish;
     end
+    buffer_inputs = 0;
   endtask
 
   task automatic do_buffer_psums();
@@ -373,6 +376,7 @@ module tb_pe();
       $display("ERROR: pe_status[4] = %0d, should be 1. Partial sums should be buffered.", pe_status[4]);
       $finish;
     end
+    buffer_psums = 0;
   endtask
 
   // handles the buffering of weight AXI transaction
@@ -591,6 +595,21 @@ module tb_pe();
       $display("ERROR: pe_status[4] = %0d, should be 1. Outputs should be written.", pe_status[4]);
       $finish;
     end
+    param_start = 0;
+  endtask
+
+  task automatic do_clear_all_buffers();
+    clear_weight_buffer = 1;
+    clear_input_buffer = 1;
+    clear_psum_buffer = 1;
+    clear_output_buffer = 1;
+    repeat (2) @(posedge clk);
+
+    clear_weight_buffer = 0;
+    clear_input_buffer = 0;
+    clear_psum_buffer = 0;
+    clear_output_buffer = 0;
+    repeat (2) @(posedge clk);
   endtask
 
   task automatic handle_write_outputs_axi_transaction();
@@ -649,9 +668,7 @@ module tb_pe();
 
   // load all buffers, keeps psums 0, starts PE array, waits for PE array to finish, and checks outputs
   task automatic test_1();
-    $display("test_1: load all buffers, start PE array, wait for PE array to finish, and check outputs");
-
-    reset_all();
+    $display("test_1: load all buffers except psums, start PE array, wait for PE array to finish, and check outputs");
     compute_expected_outputs();
 
     do_buffer_weights();
@@ -662,11 +679,28 @@ module tb_pe();
     $display("test_1: PASSED");
   endtask
 
+  task automatic test_2();
+    $display("test_2: load all buffers, start PE array, wait for PE array to finish, and check outputs");
+    reset_tb();
+    compute_expected_outputs();
+    do_clear_all_buffers();
+
+    do_buffer_weights();
+    do_load_ws();
+    do_buffer_inputs();
+    do_buffer_psums();
+    do_start_and_wait_for_done();
+
+    $display("test_2: PASSED");
+  endtask
+
   // simulation
   initial begin
     $display("STARTING PE TEST BENCH");
+    reset_all();
 
     test_1();
+    test_2();
 
     $display("PE TEST BENCH PASSED");
     $finish;
