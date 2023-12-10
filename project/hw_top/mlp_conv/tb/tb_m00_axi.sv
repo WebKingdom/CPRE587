@@ -326,6 +326,8 @@ module tb_m00_axi();
     scb_rdata_idx = 0;
     m_axi_rdata = scb_rdata[scb_rdata_idx];
     m_axi_rlast = 0;
+    // TODO ssz could do separate rresp for each read in the busrt
+    m_axi_rresp = 0;
     m_axi_arready = $random;
     while (m_axi_arready == 0) begin
       @(posedge clk);
@@ -357,7 +359,7 @@ module tb_m00_axi();
           m_axi_rvalid = $random;
         end
         @(posedge clk);
-        if (scb_rdata_idx == C_M_AXI_BURST_LEN - 1) begin
+        if (scb_rdata_idx >= C_M_AXI_BURST_LEN - 1) begin
           #1;
           m_axi_rlast = 1;
         end
@@ -371,14 +373,6 @@ module tb_m00_axi();
       @(posedge clk);
       #1;
       m_axi_rlast = 0;
-      // wait for read response
-      m_axi_rresp = $urandom_range(0, 3);
-      if (m_axi_rvalid == 1) begin
-        while (m_axi_rready == 0) begin
-          @(posedge clk);
-          update_scoreboard();
-        end
-      end
       // check for txn done
       max_retries = 3;
       while (txn_done == 0 && max_retries > 0) begin

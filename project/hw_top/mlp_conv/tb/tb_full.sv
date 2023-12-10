@@ -3,7 +3,7 @@
 import types_pkg::*;
 
 `timescale 1ns/1ps
-module tb_pe();
+module tb_full();
   localparam C_S00_AXI_DATA_WIDTH = 32;
   localparam C_M00_AXI_DATA_WIDTH = 32;
   localparam C_M00_AXI_BURST_LEN = 16;
@@ -17,6 +17,15 @@ module tb_pe();
   localparam PS_WIDTH = 4;
   localparam ROW_OUT_WIDTH = 4;
   localparam PSUM_OUT_WIDTH = 3;
+
+  // AXI parameters
+  localparam C_M_AXI_ID_WIDTH = 1;
+  localparam C_M_AXI_ADDR_WIDTH = 32;
+  localparam C_M_AXI_AWUSER_WIDTH = 1;
+  localparam C_M_AXI_ARUSER_WIDTH = 1;
+  localparam C_M_AXI_WUSER_WIDTH = 1;
+  localparam C_M_AXI_RUSER_WIDTH = 1;
+  localparam C_M_AXI_BUSER_WIDTH = 1;
 
 
   // verification variables
@@ -91,14 +100,71 @@ module tb_pe();
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_target_slave_base_ar_addr;
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_target_slave_base_aw_addr;
   logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_rdata;
+  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_rdata_out;
   logic m_axi_rvalid_rready;
-  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_wdata;
+  logic [C_M00_AXI_DATA_WIDTH-1:0] m_axi_wdata_in;
   logic m_axi_wvalid_wready;
   logic m_axi_awvalid_awready;
   logic init_axi_wr_txn;
   logic init_axi_rd_txn;
   logic txn_done;
   logic axi_error;
+
+  // AXI Master FSM interface
+  logic [C_M_AXI_ID_WIDTH-1:0] m_axi_awid;
+  logic [C_M_AXI_ADDR_WIDTH-1:0] m_axi_awaddr;
+  logic [7:0] m_axi_awlen;
+  logic [2:0] m_axi_awsize;
+  logic [1:0] m_axi_awburst;
+  logic m_axi_awlock;
+  logic [3:0] m_axi_awcache;
+  logic [2:0] m_axi_awprot;
+  logic [3:0] m_axi_awqos;
+
+  // output
+  logic m_axi_awvalid;
+
+  // TODO ssz input
+  logic m_axi_awready;
+
+  // outputs
+  logic [C_M_AXI_DATA_WIDTH-1:0] m_axi_wdata;
+  logic [C_M_AXI_DATA_WIDTH/8-1:0] m_axi_wstrb;
+
+  // outputs
+  logic m_axi_wlast;
+  logic m_axi_wvalid;
+
+  // TODO ssz inputs
+  logic m_axi_wready;
+  logic [C_M_AXI_ID_WIDTH-1:0] m_axi_bid;
+  logic [1:0] m_axi_bresp;
+  logic m_axi_bvalid;
+
+  // outputs
+  logic m_axi_bready;
+  logic [C_M_AXI_ID_WIDTH-1:0] m_axi_arid;
+  logic [C_M_AXI_ADDR_WIDTH-1:0] m_axi_araddr;
+  logic [7:0] m_axi_arlen;
+  logic [2:0] m_axi_arsize;
+  logic [1:0] m_axi_arburst;
+  logic m_axi_arlock;
+  logic [3:0] m_axi_arcache;
+  logic [2:0] m_axi_arprot;
+  logic [3:0] m_axi_arqos;
+  logic m_axi_arvalid;
+
+  // TODO ssz inputs
+  logic m_axi_arready;
+  logic [C_M_AXI_ID_WIDTH-1:0] m_axi_rid;
+  logic [C_M_AXI_DATA_WIDTH-1:0] m_axi_rdata;
+  logic [1:0] m_axi_rresp;
+  logic m_axi_rlast;
+  logic m_axi_rvalid;
+
+  // output
+  logic m_axi_rready;
+
 
   // PE control unit instance
   pe_control_unit_wrapper #(
@@ -145,9 +211,9 @@ module tb_pe();
                             // AXI Master FSM interface
                             .M_TARGET_SLAVE_BASE_AR_ADDR(m_target_slave_base_ar_addr),
                             .M_TARGET_SLAVE_BASE_AW_ADDR(m_target_slave_base_aw_addr),
-                            .M_AXI_RDATA(m_axi_rdata),
+                            .M_AXI_RDATA(m_axi_rdata_out),
                             .M_AXI_RVALID_RREADY(m_axi_rvalid_rready),
-                            .M_AXI_WDATA(m_axi_wdata),
+                            .M_AXI_WDATA(m_axi_wdata_in),
                             .M_AXI_WVALID_WREADY(m_axi_wvalid_wready),
                             .M_AXI_AWVALID_AWREADY(m_axi_awvalid_awready),
                             .INIT_AXI_WR_TXN(init_axi_wr_txn),
@@ -188,6 +254,76 @@ module tb_pe();
                                  .psum_in(in_psum_out),
                                  .psum_out(out_psum_in)
                                );
+
+
+  // AXI Master FSM instance
+  mlp_conv_v1_0_M00_AXI #(
+                          .C_M_AXI_BURST_LEN(C_M00_AXI_BURST_LEN),
+                          .C_M_AXI_ID_WIDTH(C_M_AXI_ID_WIDTH),
+                          .C_M_AXI_ADDR_WIDTH(C_M_AXI_ADDR_WIDTH),
+                          .C_M_AXI_DATA_WIDTH(C_M00_AXI_DATA_WIDTH),
+                          .C_M_AXI_AWUSER_WIDTH(C_M_AXI_AWUSER_WIDTH),
+                          .C_M_AXI_ARUSER_WIDTH(C_M_AXI_ARUSER_WIDTH),
+                          .C_M_AXI_WUSER_WIDTH(C_M_AXI_WUSER_WIDTH),
+                          .C_M_AXI_RUSER_WIDTH(C_M_AXI_RUSER_WIDTH),
+                          .C_M_AXI_BUSER_WIDTH(C_M_AXI_BUSER_WIDTH)
+                        ) mlp_conv_v1_0_M00_AXI_inst (
+                          .M_TARGET_SLAVE_BASE_AR_ADDR(m_target_slave_base_ar_addr),
+                          .M_TARGET_SLAVE_BASE_AW_ADDR(m_target_slave_base_aw_addr),
+                          .M_AXI_RDATA_OUT(m_axi_rdata_out),
+                          .M_AXI_RVALID_RREADY(m_axi_rvalid_rready),
+                          .M_AXI_WDATA_IN(m_axi_wdata_in),
+                          .M_AXI_WVALID_WREADY(m_axi_wvalid_wready),
+                          .M_AXI_AWVALID_AWREADY(m_axi_awvalid_awready),
+                          .INIT_AXI_WR_TXN(init_axi_wr_txn),
+                          .INIT_AXI_RD_TXN(init_axi_rd_txn),
+                          .TXN_DONE(txn_done),
+                          .ERROR(axi_error),
+                          .M_AXI_ACLK(clk),
+                          .M_AXI_ARESETN(resetn),
+                          .M_AXI_AWID(m_axi_awid),
+                          .M_AXI_AWADDR(m_axi_awaddr),
+                          .M_AXI_AWLEN(m_axi_awlen),
+                          .M_AXI_AWSIZE(m_axi_awsize),
+                          .M_AXI_AWBURST(m_axi_awburst),
+                          .M_AXI_AWLOCK(m_axi_awlock),
+                          .M_AXI_AWCACHE(m_axi_awcache),
+                          .M_AXI_AWPROT(m_axi_awprot),
+                          .M_AXI_AWQOS(m_axi_awqos),
+                          .M_AXI_AWUSER(0),
+                          .M_AXI_AWVALID(m_axi_awvalid),
+                          .M_AXI_AWREADY(m_axi_awready),
+                          .M_AXI_WDATA(m_axi_wdata),
+                          .M_AXI_WSTRB(m_axi_wstrb),
+                          .M_AXI_WLAST(m_axi_wlast),
+                          .M_AXI_WUSER(0),
+                          .M_AXI_WVALID(m_axi_wvalid),
+                          .M_AXI_WREADY(m_axi_wready),
+                          .M_AXI_BID(m_axi_bid),
+                          .M_AXI_BRESP(m_axi_bresp),
+                          .M_AXI_BUSER(0),
+                          .M_AXI_BVALID(m_axi_bvalid),
+                          .M_AXI_BREADY(m_axi_bready),
+                          .M_AXI_ARID(m_axi_arid),
+                          .M_AXI_ARADDR(m_axi_araddr),
+                          .M_AXI_ARLEN(m_axi_arlen),
+                          .M_AXI_ARSIZE(m_axi_arsize),
+                          .M_AXI_ARBURST(m_axi_arburst),
+                          .M_AXI_ARLOCK(m_axi_arlock),
+                          .M_AXI_ARCACHE(m_axi_arcache),
+                          .M_AXI_ARPROT(m_axi_arprot),
+                          .M_AXI_ARQOS(m_axi_arqos),
+                          .M_AXI_ARUSER(0),
+                          .M_AXI_ARVALID(m_axi_arvalid),
+                          .M_AXI_ARREADY(m_axi_arready),
+                          .M_AXI_RID(m_axi_rid),
+                          .M_AXI_RDATA(m_axi_rdata),
+                          .M_AXI_RRESP(m_axi_rresp),
+                          .M_AXI_RLAST(m_axi_rlast),
+                          .M_AXI_RUSER(0),
+                          .M_AXI_RVALID(m_axi_rvalid),
+                          .M_AXI_RREADY(m_axi_rready)
+                        );
 
   // helper assignments
   assign acc_params = {param_valid, param_start, param_reset, 1'b0, param_c, param_tile_size, param_u, param_s, param_r};
@@ -258,12 +394,20 @@ module tb_pe();
     buffer_psums = 0;
     clear_psum_buffer = 0;
     // AXI Master interface
+    m_axi_rdata = 0;    // input to AXI Master FSM
+
+    m_axi_awready = 0;
+    m_axi_wready = 0;
+    m_axi_bid = 0;
+    m_axi_bresp = 0;
+    m_axi_bvalid = 0;
+
+    m_axi_arready = 0;
+    m_axi_rid = 0;
     m_axi_rdata = 0;
-    m_axi_rvalid_rready = 0;
-    m_axi_wvalid_wready = 0;
-    m_axi_awvalid_awready = 0;
-    txn_done = 0;
-    axi_error = 0;
+    m_axi_rresp = 0;
+    m_axi_rlast = 0;
+    m_axi_rvalid = 0;
 
     repeat (2) @(posedge clk);
     #1;
@@ -392,12 +536,18 @@ module tb_pe();
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    m_axi_arready = 1;
+    m_axi_rlast = 0;
+    // TODO ssz could do separate rresp for each read in the burst
+    m_axi_rresp = 0;
 
     // send AXI read transaction
     burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
-      m_axi_rvalid_rready = $urandom;
+      if (m_axi_rvalid == 0) begin
+        m_axi_rvalid = $urandom_range(0, 1);
+      end
       if (m_axi_rvalid_rready == 1) begin
         if (scb_weights_row_idx == PE_ROWS) begin
           // reset indices
@@ -433,15 +583,19 @@ module tb_pe();
         end
         burst_count++;
       end
+      if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
+        m_axi_rlast = 1;
+      end
+      else begin
+        m_axi_rlast = 0;
+      end
       @(posedge clk);
-      #1;
     end
-    m_axi_rvalid_rready = 0;
-    axi_error = $urandom;
-    txn_done = 1;
     @(posedge clk);
-    #1;
-    txn_done = 0;
+    m_axi_arready = 0;
+    m_axi_rlast = 0;
+    m_axi_rresp = 0;
+    m_axi_rvalid = 0;
   endtask
 
   task automatic handle_buffer_inputs_axi_transaction();
@@ -455,12 +609,18 @@ module tb_pe();
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    m_axi_arready = 1;
+    m_axi_rlast = 0;
+    // TODO ssz could do separate rresp for each read in the burst
+    m_axi_rresp = 0;
 
     // send AXI read transaction
     burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
-      m_axi_rvalid_rready = $urandom;
+      if (m_axi_rvalid == 0) begin
+        m_axi_rvalid = $urandom_range(0, 1);
+      end
       if (m_axi_rvalid_rready == 1) begin
         if (scb_inputs_row_idx == 9) begin
           // reset indices
@@ -495,15 +655,19 @@ module tb_pe();
         end
         burst_count++;
       end
+      if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
+        m_axi_rlast = 1;
+      end
+      else begin
+        m_axi_rlast = 0;
+      end
       @(posedge clk);
-      #1;
     end
-    m_axi_rvalid_rready = 0;
-    axi_error = $urandom;
-    txn_done = 1;
     @(posedge clk);
-    #1;
-    txn_done = 0;
+    m_axi_arready = 0;
+    m_axi_rlast = 0;
+    m_axi_rresp = 0;
+    m_axi_rvalid = 0;
   endtask
 
   task handle_buffer_psums_axi_transaction();
@@ -517,12 +681,18 @@ module tb_pe();
       $display("ERROR: init_axi_rd_txn = %0d, should be 1", init_axi_rd_txn);
       $finish;
     end
+    m_axi_arready = 1;
+    m_axi_rlast = 0;
+    // TODO ssz could do separate rresp for each read in the burst
+    m_axi_rresp = 0;
 
     // send AXI write transaction
     burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
-      m_axi_rvalid_rready = $urandom;
+      if (m_axi_rvalid == 0) begin
+        m_axi_rvalid = $urandom_range(0, 1);
+      end
       if (m_axi_rvalid_rready == 1) begin
         if (scb_psums_row_idx == PE_ROWS) begin
           // reset indices
@@ -539,15 +709,19 @@ module tb_pe();
         end
         burst_count++;
       end
+      if (burst_count >= C_M00_AXI_BURST_LEN-1) begin
+        m_axi_rlast = 1;
+      end
+      else begin
+        m_axi_rlast = 0;
+      end
       @(posedge clk);
-      #1;
     end
-    m_axi_rvalid_rready = 0;
-    axi_error = $urandom;
-    txn_done = 1;
     @(posedge clk);
-    #1;
-    txn_done = 0;
+    m_axi_arready = 0;
+    m_axi_rlast = 0;
+    m_axi_rresp = 0;
+    m_axi_rvalid = 0;
   endtask
 
   task automatic do_start_and_wait_for_done();
@@ -623,12 +797,13 @@ module tb_pe();
       $display("ERROR: init_axi_wr_txn = %0d, should be 1", init_axi_wr_txn);
       $finish;
     end
+    m_axi_awready = 1;
 
     // send AXI write transaction
     burst_count = 0;
     while (burst_count < C_M00_AXI_BURST_LEN) begin
       // set the valid and ready signals randomly
-      m_axi_wvalid_wready = $urandom;
+      m_axi_wready = $urandom_range(0, 1);
       if (m_axi_wvalid_wready == 1) begin
         if (scb_outputs_row_idx == PE_ROWS) begin
           $display("WAITING: For AXI burst to finish. Burst count = %0d", burst_count);
@@ -656,14 +831,23 @@ module tb_pe();
         end
       end
       @(posedge clk);
-      #1;
     end
-    m_axi_wvalid_wready = 0;
-    axi_error = $urandom;
-    txn_done = 1;
     @(posedge clk);
-    #1;
-    txn_done = 0;
+    m_axi_awready = 0;
+    handle_bresp();
+  endtask
+
+  task automatic handle_bresp();
+    m_axi_bresp = $urandom_range(0, 1);
+    m_axi_bvalid = $urandom_range(0, 1);
+    while (m_axi_bvalid == 0 || m_axi_bready == 0) begin
+      @(posedge clk);
+      m_axi_bvalid = 1;
+    end
+    // 1 cycle register bvalid and bready
+    @(posedge clk);
+    m_axi_bvalid = 0;
+    m_axi_bresp = 0;
   endtask
 
   // load all buffers, keeps psums 0, starts PE array, waits for PE array to finish, and checks outputs
