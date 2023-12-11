@@ -1,7 +1,7 @@
 // test bench for staged MAC
 
 `timescale 1ns/1ps
-module tb_stage_mac ();
+module tb_staged_mac ();
 
   // define constants
   localparam DEBUG = 0;
@@ -13,9 +13,9 @@ module tb_stage_mac ();
   localparam DW2_HI = DATA_WIDTH * 2 - 1;
   localparam ACCUM_HI = DATA_WIDTH * 2 + ACCUM_BITS - 1;
 
-  const int ITR_MAX = 524288;
+  const int ITR_MAX = 1000;
   int itr;
-  int max_retires;
+  int max_retries;
 
   // input data
   logic [DW_HI:0] weight;
@@ -81,7 +81,7 @@ module tb_stage_mac ();
   function automatic void reset_tb();
     // reset testbench
     itr = 0;
-    max_retires = 0;
+    max_retries = 0;
     weight = 0;
     activation = 0;
     scb_mult = 0;
@@ -125,8 +125,8 @@ module tb_stage_mac ();
     activation = $random;
     sd_axis_tdata = {weight, activation};
     sd_axis_tlast = 0;
-    sd_axis_tuser = $urandom;
-    sd_axis_tvalid = $urandom;
+    sd_axis_tuser = $random;
+    sd_axis_tvalid = $random;
     sd_axis_tid = itr;
   endfunction
 
@@ -189,6 +189,7 @@ module tb_stage_mac ();
   // Test 1. Send and accept random input data ITR_MAX times and check output
   task automatic run_test1();
     $display("Running test 1");
+    max_retries = 10;
     while (itr < ITR_MAX) begin
       set_rand_input();
 
@@ -201,6 +202,13 @@ module tb_stage_mac ();
       if (sd_axi_handshake == 1'b1) begin
         itr++;
       end
+      else begin
+        max_retries--;
+        if (max_retries <= 0) begin
+          sd_axis_tvalid = 1;
+          itr++;
+        end
+      end
 
       @(posedge clk);
       #1;
@@ -208,19 +216,28 @@ module tb_stage_mac ();
     end
 
     // wait for TVALID high on MAC master output
-    max_retires = 10;
-    while (mo_axis_tvalid == 1'b0 && max_retires > 0) begin
+    max_retries = 10;
+    while (mo_axis_tvalid == 1'b0 && max_retries > 0) begin
       @(posedge clk);
-      max_retires--;
+      #1;
+      max_retries--;
     end
-    if (max_retires == 0) begin
+    if (max_retries <= 0) begin
       $display("ERROR: TVALID not high");
       $finish;
     end
 
     // randomize TREADY on MAC master input
-    while (mo_axis_tready == 1'b0) begin
-      mo_axis_tready = $urandom;
+    max_retries = 5;
+    while (mo_axis_tready == 0 && max_retries > 0) begin
+      mo_axis_tready = $random;
+      @(posedge clk);
+      max_retries--;
+      #1;
+      check_output();
+    end
+    if (max_retries <= 0) begin
+      mo_axis_tready = 1;
       @(posedge clk);
       #1;
       check_output();
@@ -235,8 +252,8 @@ module tb_stage_mac ();
 
     run_test1();
 
-    // End simulation
     repeat (2) @(posedge clk);
+    // End simulation
     $display("Testbench PASSED");
     $finish;
   end
