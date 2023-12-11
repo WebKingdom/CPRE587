@@ -15,6 +15,7 @@ module tb_stage_mac ();
 
   const int ITR_MAX = 524288;
   int itr;
+  int max_retires;
 
   // input data
   logic [DW_HI:0] weight;
@@ -24,6 +25,8 @@ module tb_stage_mac ();
   logic [DW2_HI:0] scb_mult;
   logic [ACCUM_HI:0] scb_accum;
   logic [DATA_WIDTH-1:0] scb_output;
+  logic sd_axi_handshake;
+  logic mo_axi_handshake;
 
   // Inputs
   logic                    clk           ;
@@ -42,11 +45,11 @@ module tb_stage_mac ();
   logic                  mo_axis_tlast ;
   logic [           7:0] mo_axis_tid   ;
 
-  // Instantiate the Unit Under Test (UUT)
+  // Instantiate the Design Under Test (DUT)
   staged_mac #(
                .DATA_WIDTH(DATA_WIDTH),
                .ACCUM_BITS(ACCUM_BITS)
-             ) uut (
+             ) dut (
                .ACLK          (clk           ),
                .ARESETN       (arstn         ),
                // inputs
@@ -64,26 +67,45 @@ module tb_stage_mac ();
                .MO_AXIS_TID   (mo_axis_tid   )
              );
 
-  // Clock generation
-  always #5 clk = ~clk;
+  assign sd_axi_handshake = sd_axis_tready & sd_axis_tvalid;
+  assign mo_axi_handshake = mo_axis_tready & mo_axis_tvalid;
 
-  task automatic reset();
-    // input data reset
+  // Clock generation
+  always begin
+    clk = 0;
+    forever begin
+      #5 clk = ~clk;
+    end
+  end
+
+  function automatic void reset_tb();
+    // reset testbench
     itr = 0;
+    max_retires = 0;
     weight = 0;
     activation = 0;
     scb_mult = 0;
     scb_accum = 0;
     scb_output = 0;
+  endfunction
 
-    // clear MAC AXIS master input ready
+  task automatic reset();
+    reset_tb();
+
+    // reset all inputs
+    sd_axis_tdata = 0;
+    sd_axis_tlast = 0;
+    sd_axis_tuser = 0;
+    sd_axis_tvalid = 0;
+    sd_axis_tid = 0;
     mo_axis_tready = 0;
 
-    // UUT reset
-    clk = 0;
+    // DUT reset
     arstn = 0;
     repeat (2) @(posedge clk);
+    #1;
     arstn = 1;
+    repeat ($urandom_range(1, 4)) @(posedge clk);
   endtask
 
   function automatic void set_input();
@@ -125,7 +147,7 @@ module tb_stage_mac ();
   endfunction
 
   function automatic void update_scoreboard();
-    if (sd_axis_tvalid == 1'b1 && sd_axis_tready == 1'b1) begin
+    if (sd_axi_handshake == 1'b1) begin
       disp_input_data();
       if (itr == 1'b0 && sd_axis_tuser == 1'b1) begin
         // start accumulator as initialized by activation
@@ -140,13 +162,12 @@ module tb_stage_mac ();
         scb_accum += {{AB_2{scb_mult[DW2_HI]}}, scb_mult, {AB_2{1'b0}}};
       end
       scb_output = {scb_accum[ACCUM_HI:ACCUM_HI-DW_2+1], scb_accum[DW_HI+AB_2:DW_HI+AB_2-DW_2+1]}; // 71:56, 35:20
-      itr++;
     end
   endfunction
 
   function automatic void check_output();
     // checks the final MAC output
-    if (mo_axis_tvalid == 1'b1 && mo_axis_tready == 1'b1) begin
+    if (mo_axi_handshake == 1'b1) begin
       disp_output_data();
       $display("Expected: %h", scb_output);
       $display("Actual: %h", mo_axis_tdata);
@@ -167,10 +188,8 @@ module tb_stage_mac ();
 
   // Test 1. Send and accept random input data ITR_MAX times and check output
   task automatic run_test1();
-    reset();
-
+    $display("Running test 1");
     while (itr < ITR_MAX) begin
-      @(posedge clk);
       set_rand_input();
 
       // signal last data
@@ -178,35 +197,47 @@ module tb_stage_mac ();
         sd_axis_tlast = 1;
       end
 
-      // itr updated in update_scoreboard()
-      // wait a little
+      // update valid iterations
+      if (sd_axi_handshake == 1'b1) begin
+        itr++;
+      end
+
+      @(posedge clk);
       #1;
       update_scoreboard();
     end
 
     // wait for TVALID high on MAC master output
-    while (mo_axis_tvalid == 1'b0) begin
+    max_retires = 10;
+    while (mo_axis_tvalid == 1'b0 && max_retires > 0) begin
       @(posedge clk);
+      max_retires--;
+    end
+    if (max_retires == 0) begin
+      $display("ERROR: TVALID not high");
+      $finish;
     end
 
     // randomize TREADY on MAC master input
     while (mo_axis_tready == 1'b0) begin
-      @(posedge clk);
       mo_axis_tready = $urandom;
-      // wait a little
+      @(posedge clk);
       #1;
       check_output();
     end
+    $display("Test 1 PASSED");
   endtask
 
   // Stimulus
   initial begin
-    run_test1();
-    repeat (1) @(posedge clk);
+    $display("Starting testbench");
     reset();
+
+    run_test1();
 
     // End simulation
     repeat (2) @(posedge clk);
+    $display("Testbench PASSED");
     $finish;
   end
 
