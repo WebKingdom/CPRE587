@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;mpl/src/accel.c&apos; to &apos;accel.cpp&apos;" description="Rename resource &apos;accel.c&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/accel.c" name="accel.cpp" stamp="1702147122289" updateReferences="true"/>
+</session>

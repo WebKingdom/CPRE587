@@ -1,0 +1,25 @@
+#pragma once
+
+
+#define ACCEL_PARAMS ((ui8*)0x43C00000)
+#define WEIGHT_BRAM_BA ((ui32*)0x44000000)
+#define INPUT_BRAM_BA ((ui32*)0x42000000)
+
+
+
+#define OUTPUT_BRAM_BA ((ui32*)0x40000000)
+
+#define WEIGHT_BRAM ((ui8*)0x44000000)
+#define INPUT_BRAM ((ui8*)0x42000000)
+#define OUTPUT_BRAM ((ui32*)0x40000000)
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte)  \
+  ((byte) & 0x80 ? '1' : '0'), \
+  ((byte) & 0x40 ? '1' : '0'), \
+  ((byte) & 0x20 ? '1' : '0'), \
+  ((byte) & 0x10 ? '1' : '0'), \
+  ((byte) & 0x08 ? '1' : '0'), \
+  ((byte) & 0x04 ? '1' : '0'), \
+  ((byte) & 0x02 ? '1' : '0'), \
+  ((byte) & 0x01 ? '1' : '0')
+

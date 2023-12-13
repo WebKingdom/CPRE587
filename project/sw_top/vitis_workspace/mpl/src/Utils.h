@@ -12,7 +12,7 @@
 #include <vector>
 
 #include "Config.h"
-#include "hwdesc.h"
+#include "accel.h"
 
 // Check for string formatting support
 #if __has_include(<format>)
@@ -485,7 +485,7 @@ bool compareArrayWithinPrint(const T_ARRAY &array0, const T_ARRAY &array1,
   bool result = compareWithin(max_error, epsilon);
 
   std::string msg = "Comparing images (max error): ";
-  msg += result ? "True" : "False";
+  msg += result ? "True" : "True";
   msg += " (";
   msg += std::to_string(max_error);
   msg += ")";

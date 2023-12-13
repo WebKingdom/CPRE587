@@ -38,6 +38,11 @@ void ConvolutionalLayer::computeNaive(const LayerData &dataIn) const {
   fp32 scale_input = ((1 << qbits) - 1) / maxI;
   fp32 scale_biases = scale_input * scale_weights;
 
+
+  volatile i8 * weight_b =  WEIGHT_BRAM;
+  volatile ui8 * input_b = INPUT_BRAM;
+  volatile i32 * output_b = OUTPUT_BRAM;
+
   Array4D_i8 FQ = allocArray<Array4D_i8>(
       {static_cast<unsigned long>(r), static_cast<unsigned long>(s),
        static_cast<unsigned long>(c), static_cast<unsigned long>(m)});
@@ -49,39 +54,236 @@ void ConvolutionalLayer::computeNaive(const LayerData &dataIn) const {
     for (int s0 = 0; s0 < s; s0++) {
       for (int c0 = 0; c0 < c; c0++) {
         for (int m0 = 0; m0 < m; m0++) {
-            FQ[r0][s0][c0][m0] = (i8) (scale_weights * F[r0][s0][c0][m0]);
+            FQ[r0][s0][c0][m0] = (i8) (lround(scale_weights * F[r0][s0][c0][m0]));
         }
       }
     }
   }
 
   Array3D_ui8 IQ = allocArray<Array3D_ui8>({static_cast<unsigned long>(h), static_cast<unsigned long>(w), static_cast<unsigned long>(c)});
+  Array3D_ui32 OQ = allocArray<Array3D_ui32>({static_cast<unsigned long>(p), static_cast<unsigned long>(q), static_cast<unsigned long>(m)});
+  //Array3D_ui32 OQ2 = allocArray<Array3D_ui32>({static_cast<unsigned long>(p), static_cast<unsigned long>(q), static_cast<unsigned long>(m)});
 
   for(int h0 = 0; h0 < h; h0++){
     for(int w0 = 0; w0 < w; w0++){
       for(int c0 = 0; c0 < c; c0++){
-        IQ[h0][w0][c0] = (ui8)(scale_input * I[h0][w0][c0]);
+        IQ[h0][w0][c0] = (ui8)(lround(scale_input * I[h0][w0][c0]));
       }
     }
   }
 
   Array1D_i32 BQ = allocArray<Array1D_i32>({static_cast<unsigned long>(m)});
 
+
+  for(int m0 = 0; m0 < m; m0++){
+	  BQ[m0] = (i32)(lround(B[m0]*scale_biases));
+  }
+
   for(int p0 = 0; p0 < p; p0++){
 	  for(int q0 = 0; q0 < q; q0++){
 		  for(int m0 = 0; m0 < m; m0++){
-			  O[p0][q0][m0] = BQ[m0];
+			  OQ[p0][q0][m0] = BQ[m0];
+			  //OQ2[p0][q0][m0] = BQ[m0];
 		  }
 	  }
   }
 
-  Array2D_i32 OB = allocArray<Array2D_i32>({static_cast<unsigned long>(p), static_cast<unsigned long>(q)});
 
   for(int m0 = 0; m0 < m; m0++){
     BQ[m0] = (i32)(B[m0] * scale_biases);
   }
   const fp32 invscale = 1.0/scale_biases;
 
+// d
+
+
+  for(int m0 = 0; m0 < m; m0++){
+	  //printf("Ochan accel %d\r\n", m0);
+	  for(int c0 = 0; c0 < c; c0++){
+
+
+		  for(int p0 = 0; p0 < p; p0+=r){
+			  for(int q0 = 0; q0 < q; q0+=s){
+				  //printf("Otile %d, %d\r\n", p0);
+				  //i32 psum = OQ[p0][q0][m0];
+				  int tileh = (2*r-1);
+				  int tilew = (2*s-1);
+
+
+
+				  for(int h0 = p0; h0 < p0+tileh; h0++){
+					  for(int w0 = q0; w0 < q0+tilew; w0++){
+						  if(h0 >= h || w0 >= w){
+							  *(input_b + ((h0-p0)*tilew) + (w0-q0)) = 0;
+						  } else {
+
+							  *(input_b + ((h0-p0)*tilew) + (w0-q0)) = IQ[h0][w0][c0];
+
+						  }
+
+					  }
+				  }
+
+				  setReset(1);
+				  setFilterSize(r);
+				  setTileSize(2*r-1);
+				  setStart(0);
+				  setReset(0);
+				  setValid(1);
+				  setBAs();
+
+				  if(r == 3){
+					  *(weight_b + 3) = FQ[0][0][c0][m0];
+					  *(weight_b + 2) = FQ[0][1][c0][m0];
+					  *(weight_b + 1) = FQ[0][2][c0][m0];
+					  *(weight_b + 7) = FQ[1][0][c0][m0];
+					  *(weight_b + 6) = FQ[1][1][c0][m0];
+					  *(weight_b + 5) = FQ[1][2][c0][m0];
+					  *(weight_b + 11) = FQ[2][0][c0][m0];
+					  *(weight_b + 10) = FQ[2][1][c0][m0];
+					  *(weight_b + 9) = FQ[2][2][c0][m0];
+
+				  } else {
+					  *(weight_b + 3) = FQ[0][0][c0][m0];
+					  *(weight_b + 2) = FQ[0][1][c0][m0];
+					  *(weight_b + 1) = FQ[0][2][c0][m0];
+					  *(weight_b + 0) = FQ[0][3][c0][m0];
+					  *(weight_b + 7) = FQ[0][4][c0][m0];
+
+					  *(weight_b + 6) = FQ[1][0][c0][m0];
+					  *(weight_b + 5) = FQ[1][1][c0][m0];
+					  *(weight_b + 4) = FQ[1][2][c0][m0];
+					  *(weight_b + 11) = FQ[1][3][c0][m0];
+					  *(weight_b + 10) = FQ[1][4][c0][m0];
+
+					  *(weight_b + 9) = FQ[2][0][c0][m0];
+					  *(weight_b + 8) = FQ[2][1][c0][m0];
+					  *(weight_b + 15) = FQ[2][2][c0][m0];
+					  *(weight_b + 14) = FQ[2][3][c0][m0];
+					  *(weight_b + 13) = FQ[2][4][c0][m0];
+
+					  *(weight_b + 12) = FQ[3][0][c0][m0];
+					  *(weight_b + 19) = FQ[3][1][c0][m0];
+					  *(weight_b + 18) = FQ[3][2][c0][m0];
+					  *(weight_b + 17) = FQ[3][3][c0][m0];
+					  *(weight_b + 16) = FQ[3][4][c0][m0];
+
+					  *(weight_b + 23) = FQ[4][0][c0][m0];
+					  *(weight_b + 22) = FQ[4][1][c0][m0];
+					  *(weight_b + 21) = FQ[4][2][c0][m0];
+					  *(weight_b + 20) = FQ[4][3][c0][m0];
+					  *(weight_b + 27) = FQ[4][4][c0][m0];
+
+				  }
+				  setBufferWeights(1);
+				  setBufferInputs(1);
+
+				  while(!checkWeightBuffered() && !checkInputBuffered()){
+					  printf("Waiting weight & input buffer\n");
+				  }
+
+				  setLoadWeights(1);
+				  while(!checkWeightLoaded()){
+					  printf("Waiting weight load\n");
+				  }
+
+				  setLoadWeights(0);
+
+				  setBufferWeights(0);
+				  setBufferInputs(0);
+
+
+				  setStart(1);
+
+				  while(!checkOutputWritten()){
+
+
+				  }
+
+				  setStart(0);
+				  setValid(0);
+				  if(r==3){
+					  int ctr = 0;
+					  for(int op = p0; op < p0 + r; op++){
+						  for(int oq = q0; oq < q0 + s; oq++){
+							  if(op < p && oq < q){
+								  OQ[op][oq][m0] += *(output_b + ctr);
+							  }
+
+
+							  	  if((ctr % 5 == 2)){
+							  		  ctr+=3;
+							  	  } else {
+							  		  ctr++;
+							  	  }
+						  }
+					  }
+				  } else{
+					  int ctr = 0;
+					  int numpsums=0;
+					  for(int op = p0; op < p0+r; op++){
+						  for(int oq = q0; oq < q0+s; oq++){
+
+
+
+							  	  if(op < p && oq < q){
+									  OQ[op][oq][m0] += *(output_b + ctr);
+							  	  }
+
+
+
+								  if((ctr % 9 == 4)){
+									  ctr+=5;
+								  } else {
+									  ctr++;
+								  }
+						  }
+					  }
+				  }
+
+				  clearBuffers();
+
+			  }
+		  }
+	  }
+  }
+
+  printErrors();
+
+
+ //correct dataflow for the accelerator. but not setup to tile
+ /*for(int m0 = 0; m0 < m; m0++){
+	  printf("Ochan %d\r\n", m0);
+	  for(int c0 = 0; c0 < c; c0++){
+
+
+		  for(int p0 = 0; p0 < p; p0++){
+			  for(int q0 = 0; q0 < q; q0++){
+				  //printf("Otile %d, %d\r\n", p0);
+				  //i32 psum = 0;
+				  i32 psum = OQ[p0][q0][m0];
+				  //int hmax = min(h, p0+(2*r)-1);
+				  //int wmax = min(w, q0+(2*s)-1);
+
+						  for(int r0 = 0; r0 < r; r0++){
+							  for(int s0 = 0; s0 < s; s0++){
+								  i8 weight = FQ[r0][s0][c0][m0];
+								  ui8 input = IQ[p0+r0][q0+s0][c0];
+								  psum += weight * input;
+							  }
+						  }
+//
+//						  if(p-p0 < 5 && q-q0 < 5 && m0 == 0 && c0 == 0){
+//							  printf("psum at %d, %d is %d\n", p0, q0, psum);
+//						  }
+						 OQ[p0][q0][m0] = psum;
+
+			  }
+		  }
+	  }
+  }*/
+
+/*
   for (int m0 = 0; m0 < m; m0++) {
     // printf("m: %d %f\n",m0 , B[m0]);
     for (int p0 = 0; p0 < p; p0++) {
@@ -105,7 +307,7 @@ void ConvolutionalLayer::computeNaive(const LayerData &dataIn) const {
         O[p0][q0][m0] = outp;
       }
     }
-  }
+  }*/
 
   /*for(int p0 = 0; p0 < p; p0++){
   	  for(int q0 = 0; q0 < q; q0++){
@@ -117,7 +319,31 @@ void ConvolutionalLayer::computeNaive(const LayerData &dataIn) const {
   		  }
   	  }
    }*/
+  /*printf("Printing an output fmap from accel:\n");
+   for(int p0 = 0; p0 < p; p0++){
+ 	  for(int q0 = 0; q0 < q; q0++){
+ 		  printf("%d ", OQ[p0][q0][0]);
+ 	  }
+ 	  printf("\n\n");
+   }
+   printf("Printing an output fmap from normal:\n");
+   for(int p0 = 0; p0 < p; p0++){
+ 	  for(int q0 = 0; q0 < q; q0++){
+ 		  printf("%d ", OQ2[p0][q0][0]);
+ 	  }
+ 	  printf("\n\n");
+   }*/
 
+  for(int p0 = 0; p0 < p; p0++){
+    	  for(int q0 = 0; q0 < q; q0++){
+    		  for(int m0 = 0; m0 < m; m0++){
+    			  i32 sum = OQ[p0][q0][m0];
+    			  i32 relu = sum > 0 ? sum : 0;
+    			  fp32 outp = relu * invscale;
+    			  O[p0][q0][m0] = outp;
+    		  }
+    	  }
+     }
 
 
 
@@ -129,7 +355,8 @@ void ConvolutionalLayer::computeNaive(const LayerData &dataIn) const {
   freeArray(IQ, {static_cast<unsigned long>(h), static_cast<unsigned long>(w), static_cast<unsigned long>(c)});
 
   freeArray(BQ, {static_cast<unsigned long>(m)});
-  freeArray(OB, {static_cast<unsigned long>(p), static_cast<unsigned long>(q)});
+  freeArray(OQ, {static_cast<unsigned long>(p), static_cast<unsigned long>(q), static_cast<unsigned long>(m)});
+  //freeArray(OQ2, {static_cast<unsigned long>(p), static_cast<unsigned long>(q), static_cast<unsigned long>(m)});
 }
 
 
